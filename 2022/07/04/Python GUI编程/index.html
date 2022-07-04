@@ -1,0 +1,763 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Olivia的小跟班">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="什么是GUI（Graphical User Interface）：GUI(图形用户界面)允许用户使用图形控件（如图标、按钮和对话框）与操作系统和其他程序进行交互。  tkinter模块15个tkinter控件（摘自菜鸟教程）    控件 描述    Button 按钮控件；在程序中显示按钮。   Canvas 画布控件；显示图形元素如线条或文本   Checkbutton 多选框控件；用于在程序中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pythonGUI编程">
+<meta property="og:url" content="http://example.com/2022/07/04/Python%20GUI%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Olivia的小跟班">
+<meta property="og:description" content="什么是GUI（Graphical User Interface）：GUI(图形用户界面)允许用户使用图形控件（如图标、按钮和对话框）与操作系统和其他程序进行交互。  tkinter模块15个tkinter控件（摘自菜鸟教程）    控件 描述    Button 按钮控件；在程序中显示按钮。   Canvas 画布控件；显示图形元素如线条或文本   Checkbutton 多选框控件；用于在程序中">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="article:published_time" content="2022-07-04T07:34:39.000Z">
+<meta property="article:modified_time" content="2022-07-04T07:36:38.497Z">
+<meta property="article:author" content="Olivia的小跟班">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="GUI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+  
+  
+  
+  <title>pythonGUI编程 - Olivia的小跟班</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Olivia的小跟班</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="pythonGUI编程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-04 15:34" pubdate>
+          2022年7月4日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          18k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          154 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">pythonGUI编程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="什么是GUI（Graphical-User-Interface）："><a href="#什么是GUI（Graphical-User-Interface）：" class="headerlink" title="什么是GUI（Graphical User Interface）："></a>什么是GUI（Graphical User Interface）：</h2><p>GUI(图形用户界面)允许用户使用图形控件（如图标、按钮和对话框）与操作系统和其他程序进行交互。</p>
+<hr>
+<h2 id="tkinter模块"><a href="#tkinter模块" class="headerlink" title="tkinter模块"></a>tkinter模块</h2><p>15个tkinter控件（摘自菜鸟教程）</p>
+<table>
+<thead>
+<tr>
+<th>控件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-tk-button.html">Button</a></td>
+<td>按钮控件；在程序中显示按钮。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-tk-canvas.html">Canvas</a></td>
+<td>画布控件；显示图形元素如线条或文本</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-tk-checkbutton.html">Checkbutton</a></td>
+<td>多选框控件；用于在程序中提供多项选择框</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-tkinter-entry.html">Entry</a></td>
+<td>输入控件；用于显示简单的文本内容</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-tk-frame.html">Frame</a></td>
+<td>框架控件；在屏幕上显示一个矩形区域，多用来作为容器</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-tk-label.html">Label</a></td>
+<td>标签控件；可以显示文本和位图</td>
+</tr>
+<tr>
+<td>Listbox</td>
+<td>列表框控件；在Listbox窗口小部件是用来显示一个字符串列表给用户</td>
+</tr>
+<tr>
+<td>Menubutton</td>
+<td>菜单按钮控件，用于显示菜单项。</td>
+</tr>
+<tr>
+<td>Menu</td>
+<td>菜单控件；显示菜单栏,下拉菜单和弹出菜单</td>
+</tr>
+<tr>
+<td>Message</td>
+<td>消息控件；用来显示多行文本，与label比较类似</td>
+</tr>
+<tr>
+<td>Radiobutton</td>
+<td>单选按钮控件；显示一个单选的按钮状态</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>范围控件；显示一个数值刻度，为输出限定范围的数字区间</td>
+</tr>
+<tr>
+<td>Scrollbar</td>
+<td>滚动条控件，当内容超过可视化区域时使用，如列表框。.</td>
+</tr>
+<tr>
+<td>Text</td>
+<td>文本控件；用于显示多行文本</td>
+</tr>
+<tr>
+<td>Toplevel</td>
+<td>容器控件；用来提供一个单独的对话框，和Frame比较类似</td>
+</tr>
+<tr>
+<td>Spinbox</td>
+<td>输入控件；与Entry类似，但是可以指定输入范围值</td>
+</tr>
+<tr>
+<td>PanedWindow</td>
+<td>PanedWindow是一个窗口布局管理的插件，可以包含一个或者多个子控件。</td>
+</tr>
+<tr>
+<td>LabelFrame</td>
+<td>labelframe 是一个简单的容器控件。常用与复杂的窗口布局。</td>
+</tr>
+<tr>
+<td>tkMessageBox</td>
+<td>用于显示你应用程序的消息框。</td>
+</tr>
+</tbody></table>
+<p><strong>创建程序主窗体</strong></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs ruby">import tkinter<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    main_window=tkinter.Tk() <span class="hljs-comment"># 创建程序主窗体</span><br><br>    tkinter.mainloop() <span class="hljs-comment"># 让程序主窗体一直运行，直到你主动×掉它</span><br><br><br>main()<br>    <br>或者<br><br>import tkinter<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">My</span><span class="hljs-symbol">GUI:</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params"><span class="hljs-variable language_">self</span></span>):<br>        <span class="hljs-variable language_">self</span>.main_window=tkinter.Tk()<br>  <br>        tkinter.mainloop()<br><br><br>my_gui=MyGUI()<br></code></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" srcset="/img/loading.gif" lazyload alt="点击并拖拽以移动"></p>
+<hr>
+<h2 id="Label控件"><a href="#Label控件" class="headerlink" title="Label控件"></a>Label控件</h2><p><strong>用于在窗体中显示文本</strong></p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-keyword">import</span> tkinter<br><span class="hljs-class"></span><br><span class="hljs-class"></span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-type">MyGUI</span>:</span><br><span class="hljs-class">    def __init__(<span class="hljs-title">self</span>):</span><br><span class="hljs-class">        self.main_window=tkinter.<span class="hljs-type">Tk</span>()</span><br><span class="hljs-class"></span><br><span class="hljs-class">        self.label=tkinter.<span class="hljs-type">Label</span>(<span class="hljs-title">self</span>.<span class="hljs-title">main_window</span>,<span class="hljs-title">text</span>=&#x27;<span class="hljs-type">Hello</span> <span class="hljs-title">world</span>!&#x27;)  # 第一参数是引用root(<span class="hljs-title">self</span>.<span class="hljs-title">main_window</span>)控件,第二参数是在窗体上写什么值 </span><br><span class="hljs-class">        self.label.pack()  # pack()确定控件在窗体的位置，以及控件可用,pack()函数有个参数叫side（从那边开始显示文本内容）。</span><br><span class="hljs-class"></span><br><span class="hljs-class">        tkinter.mainloop()</span><br><span class="hljs-class"></span><br><span class="hljs-class"></span><br><span class="hljs-class">my_gui=<span class="hljs-type">MyGUI</span>()</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" srcset="/img/loading.gif" lazyload alt="点击并拖拽以移动"></p>
+<hr>
+<h2 id="Frame控件"><a href="#Frame控件" class="headerlink" title="Frame控件"></a>Frame控件</h2><p><strong>一个包容其他控件的容器</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> tkinter<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyGUI</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.main_window = tkinter.Tk()<br><br>        self.top_frame = tkinter.Frame(self.main_window)<br>        self.bottom_frame = tkinter.Frame(self.main_window)<br><br>        self.label1 = tkinter.Label(self.top_frame, text=<span class="hljs-string">&#x27;Winken&#x27;</span>)<br>        self.label2 = tkinter.Label(self.top_frame, text=<span class="hljs-string">&#x27;Blinken&#x27;</span>)<br>        self.label3 = tkinter.Label(self.top_frame, text=<span class="hljs-string">&#x27;Nod&#x27;</span>)<br><br>        self.label1.pack(side=<span class="hljs-string">&#x27;top&#x27;</span>)<br>        self.label2.pack(side=<span class="hljs-string">&#x27;top&#x27;</span>)<br>        self.label3.pack(side=<span class="hljs-string">&#x27;top&#x27;</span>)<br><br>        self.label4 = tkinter.Label(self.bottom_frame, text=<span class="hljs-string">&#x27;Winken&#x27;</span>)<br>        self.label5 = tkinter.Label(self.bottom_frame, text=<span class="hljs-string">&#x27;Blinken&#x27;</span>)<br>        self.label6 = tkinter.Label(self.bottom_frame, text=<span class="hljs-string">&#x27;Nod&#x27;</span>)<br><br>        self.label4.pack(side=<span class="hljs-string">&#x27;left&#x27;</span>)<br>        self.label5.pack(side=<span class="hljs-string">&#x27;left&#x27;</span>)<br>        self.label6.pack(side=<span class="hljs-string">&#x27;left&#x27;</span>)<br><br>        self.top_frame.pack()<br>        self.bottom_frame.pack()<br><br>        tkinter.mainloop()<br><br><br>my_gui = MyGUI()<br></code></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" srcset="/img/loading.gif" lazyload alt="点击并拖拽以移动"></p>
+<hr>
+<h2 id="Button控件和信息对话框"><a href="#Button控件和信息对话框" class="headerlink" title="Button控件和信息对话框"></a>Button控件和信息对话框</h2><p><strong>消息对话框是一个简单的窗体，向用户显示一条消息，并具有一个OK按钮用于消除该对话框。</strong></p>
+<p><strong>Button控件是一种在用户单击是可以触发事件操作的控件。</strong></p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">import tkinter<br>import tkinter.messagebox<br><br><br><span class="hljs-keyword">class</span> MyGUI:<br>    def <span class="hljs-constructor">__init__(<span class="hljs-params">self</span>)</span>:<br>        self.main_window = tkinter.<span class="hljs-constructor">Tk()</span><br><br>        self.my_button=tkinter.<span class="hljs-constructor">Button(<span class="hljs-params">self</span>.<span class="hljs-params">main_window</span>,<span class="hljs-params">text</span>=&#x27;Click <span class="hljs-params">me</span>!&#x27;,<span class="hljs-params">command</span>=<span class="hljs-params">self</span>.<span class="hljs-params">do_something</span>)</span><br>        self.quit_button=tkinter.<span class="hljs-constructor">Button(<span class="hljs-params">self</span>.<span class="hljs-params">main_window</span>,<span class="hljs-params">text</span>=&#x27;Quit&#x27;,<span class="hljs-params">command</span>=<span class="hljs-params">self</span>.<span class="hljs-params">main_window</span>.<span class="hljs-params">destroy</span>)</span><br><br>        self.my_button.pack<span class="hljs-literal">()</span><br>        self.quit_button.pack<span class="hljs-literal">()</span><br><br>        tkinter.mainloop<span class="hljs-literal">()</span><br><br>    def <span class="hljs-keyword">do</span><span class="hljs-constructor">_something(<span class="hljs-params">self</span>)</span>:<br>        tkinter.messagebox.showinfo(&#x27;Response<span class="hljs-character">&#x27;,&#x27;</span>Thanks <span class="hljs-keyword">for</span> clicking the button&#x27;)<br><br><br>my_gui = <span class="hljs-constructor">MyGUI()</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" srcset="/img/loading.gif" lazyload alt="点击并拖拽以移动"></p>
+<hr>
+<h2 id="使用Entry控件获得输入"><a href="#使用Entry控件获得输入" class="headerlink" title="使用Entry控件获得输入"></a>使用Entry控件获得输入</h2><p><strong>Entry控件是一个用户可以输入文本的矩形区域。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> tkinter<br><span class="hljs-keyword">import</span> tkinter.messagebox<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyGUI</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.main_window = tkinter.Tk()<br><br>        self.top_frame = tkinter.Frame(self.main_window)<br>        self.bottom_frame = tkinter.Frame(self.main_window)<br><br>        self.prompt_label=tkinter.Label(self.top_frame,text=<span class="hljs-string">&#x27;Enter a distance in kilometers:&#x27;</span>)<br>        self.kilo_entry=tkinter.Entry(self.top_frame,width=<span class="hljs-number">10</span>)<br><br>        self.prompt_label.pack(side=<span class="hljs-string">&#x27;left&#x27;</span>)<br>        self.kilo_entry.pack(side=<span class="hljs-string">&#x27;left&#x27;</span>)<br><br>        self.calc_button=tkinter.Button(self.main_window,text=<span class="hljs-string">&#x27;Convert&#x27;</span>,command=self.convert)<br>        self.quit_button=tkinter.Button(self.main_window,text=<span class="hljs-string">&#x27;Quit&#x27;</span>,command=self.main_window.destroy)<br><br>        self.calc_button.pack(side=<span class="hljs-string">&#x27;left&#x27;</span>)<br>        self.quit_button.pack(side=<span class="hljs-string">&#x27;left&#x27;</span>)<br><br>        self.top_frame.pack()<br>        self.bottom_frame.pack()<br><br>        tkinter.mainloop()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">convert</span>(<span class="hljs-params">self</span>):<br>        kilo=<span class="hljs-built_in">float</span>(self.kilo_entry.get())<br>        miles=kilo*<span class="hljs-number">0.6214</span><br>        tkinter.messagebox.showinfo(<span class="hljs-string">&#x27;Results&#x27;</span>,<span class="hljs-string">&#x27;&#123;&#125; kilometers is equal to &#123;:.1f&#125; miles&#x27;</span>.<span class="hljs-built_in">format</span>(kilo,miles))   <span class="hljs-comment"># format保留几位小数的表示法别忘记！</span><br><br><br>my_gui = MyGUI()<br></code></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" srcset="/img/loading.gif" lazyload alt="点击并拖拽以移动"></p>
+<hr>
+<h2 id="使用标签显示输出"><a href="#使用标签显示输出" class="headerlink" title="使用标签显示输出"></a>使用标签显示输出</h2><p><strong>当一个StringVar对象与一个Label控件相关联时，Label控件显示存储在StringVar对象中的任何数据。</strong></p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">import tkinter<br><br><br><span class="hljs-keyword">class</span> MyGUI:<br>    def <span class="hljs-constructor">__init__(<span class="hljs-params">self</span>)</span>:<br>        self.main_window = tkinter.<span class="hljs-constructor">Tk()</span><br><br>        self.top_frame = tkinter.<span class="hljs-constructor">Frame(<span class="hljs-params">self</span>.<span class="hljs-params">main_window</span>)</span><br>        self.mid_frame = tkinter.<span class="hljs-constructor">Frame(<span class="hljs-params">self</span>.<span class="hljs-params">main_window</span>)</span><br>        self.bottom_frame = tkinter.<span class="hljs-constructor">Frame(<span class="hljs-params">self</span>.<span class="hljs-params">main_window</span>)</span><br><br>        self.prompt_label=tkinter.<span class="hljs-constructor">Label(<span class="hljs-params">self</span>.<span class="hljs-params">top_frame</span>,<span class="hljs-params">text</span>=&#x27;Enter <span class="hljs-params">a</span> <span class="hljs-params">distance</span> <span class="hljs-params">in</span> <span class="hljs-params">kilometers</span>:&#x27;)</span><br>        self.kilo_entry=tkinter.<span class="hljs-constructor">Entry(<span class="hljs-params">self</span>.<span class="hljs-params">top_frame</span>,<span class="hljs-params">width</span>=10)</span><br><br>        self.prompt_label.pack(side=&#x27;left&#x27;)<br>        self.kilo_entry.pack(side=&#x27;left&#x27;)<br><br>        self.descr_label = tkinter.<span class="hljs-constructor">Label(<span class="hljs-params">self</span>.<span class="hljs-params">mid_frame</span>,<span class="hljs-params">text</span>=&#x27;Converted <span class="hljs-params">to</span> <span class="hljs-params">miles</span>:&#x27;)</span><br>        self.value = tkinter.<span class="hljs-constructor">StringVar()</span><br>        self.miles_label = tkinter.<span class="hljs-constructor">Label(<span class="hljs-params">self</span>.<span class="hljs-params">mid_frame</span>,<span class="hljs-params">textvariable</span>=<span class="hljs-params">self</span>.<span class="hljs-params">value</span>)</span><br><br>        self.descr_label.pack(side=&#x27;left&#x27;)<br>        self.miles_label.pack(side=&#x27;left&#x27;)<br><br>        self.calc_button = tkinter.<span class="hljs-constructor">Button(<span class="hljs-params">self</span>.<span class="hljs-params">main_window</span>,<span class="hljs-params">text</span>=&#x27;Convert&#x27;,<span class="hljs-params">command</span>=<span class="hljs-params">self</span>.<span class="hljs-params">convert</span>)</span><br>        self.quit_button = tkinter.<span class="hljs-constructor">Button(<span class="hljs-params">self</span>.<span class="hljs-params">main_window</span>,<span class="hljs-params">text</span>=&#x27;Quit&#x27;,<span class="hljs-params">command</span>=<span class="hljs-params">self</span>.<span class="hljs-params">main_window</span>.<span class="hljs-params">destroy</span>)</span><br><br>        self.calc_button.pack(side=&#x27;left&#x27;)<br>        self.quit_button.pack(side=&#x27;left&#x27;)<br><br>        self.top_frame.pack<span class="hljs-literal">()</span><br>        self.mid_frame.pack<span class="hljs-literal">()</span><br>        self.bottom_frame.pack<span class="hljs-literal">()</span><br><br>        tkinter.mainloop<span class="hljs-literal">()</span><br><br>    def convert(self):<br>        kilo=<span class="hljs-built_in">float</span>(self.kilo_entry.get<span class="hljs-literal">()</span>)<br>        miles=kilo*<span class="hljs-number">0.6214</span><br>        self.value.set(miles)<br><br><br>my_gui = <span class="hljs-constructor">MyGUI()</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" srcset="/img/loading.gif" lazyload alt="点击并拖拽以移动"></p>
+<hr>
+<h2 id="Radio按钮和Check按钮"><a href="#Radio按钮和Check按钮" class="headerlink" title="Radio按钮和Check按钮"></a>Radio按钮和Check按钮</h2><p><strong>Radio按钮通常以组的形式出现有两个或两个以上选项并允许用户从几种选项中选择其中一项。Check按钮可以单独或分组显示，每个选项都 是&#x2F;否 或 开&#x2F;关 选择。</strong></p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">import tkinter<br>import tkinter.messagebox<br><br><br><span class="hljs-keyword">class</span> MyGUI:<br>    def <span class="hljs-constructor">__init__(<span class="hljs-params">self</span>)</span>:<br>        self.main_window = tkinter.<span class="hljs-constructor">Tk()</span><br><br>        self.top_frame = tkinter.<span class="hljs-constructor">Frame(<span class="hljs-params">self</span>.<span class="hljs-params">main_window</span>)</span><br>        self.bottom_frame = tkinter.<span class="hljs-constructor">Frame(<span class="hljs-params">self</span>.<span class="hljs-params">main_window</span>)</span><br><br>        self.radio_var=tkinter.<span class="hljs-constructor">IntVar()</span><br>        self.radio_var.set(<span class="hljs-number">1</span>)<br><br>        self.rb1=tkinter.<span class="hljs-constructor">Radiobutton(<span class="hljs-params">self</span>.<span class="hljs-params">top_frame</span>,<span class="hljs-params">text</span>=&#x27;Option 1&#x27;,<span class="hljs-params">variable</span>=<span class="hljs-params">self</span>.<span class="hljs-params">radio_var</span>,<span class="hljs-params">value</span>=1)</span><br>        self.rb2=tkinter.<span class="hljs-constructor">Radiobutton(<span class="hljs-params">self</span>.<span class="hljs-params">top_frame</span>,<span class="hljs-params">text</span>=&#x27;Option 2&#x27;,<span class="hljs-params">variable</span>=<span class="hljs-params">self</span>.<span class="hljs-params">radio_var</span>,<span class="hljs-params">value</span>=2)</span><br>        self.rb3=tkinter.<span class="hljs-constructor">Radiobutton(<span class="hljs-params">self</span>.<span class="hljs-params">top_frame</span>,<span class="hljs-params">text</span>=&#x27;Option 3&#x27;,<span class="hljs-params">variable</span>=<span class="hljs-params">self</span>.<span class="hljs-params">radio_var</span>,<span class="hljs-params">value</span>=3)</span><br><br>        self.rb1.pack<span class="hljs-literal">()</span><br>        self.rb2.pack<span class="hljs-literal">()</span><br>        self.rb3.pack<span class="hljs-literal">()</span><br><br>        self.ok_button = tkinter.<span class="hljs-constructor">Button(<span class="hljs-params">self</span>.<span class="hljs-params">bottom_frame</span>,<span class="hljs-params">text</span>=&#x27;OK&#x27;,<span class="hljs-params">command</span>=<span class="hljs-params">self</span>.<span class="hljs-params">show_choice</span>)</span><br>        self.quit_button = tkinter.<span class="hljs-constructor">Button(<span class="hljs-params">self</span>.<span class="hljs-params">bottom_frame</span>,<span class="hljs-params">text</span>=&#x27;Quit&#x27;,<span class="hljs-params">command</span>=<span class="hljs-params">self</span>.<span class="hljs-params">main_window</span>.<span class="hljs-params">destroy</span>)</span><br><br>        self.ok_button.pack(side=&#x27;left&#x27;)<br>        self.quit_button.pack(side=&#x27;left&#x27;)<br><br>        self.top_frame.pack<span class="hljs-literal">()</span><br>        self.bottom_frame.pack<span class="hljs-literal">()</span><br><br>        tkinter.mainloop<span class="hljs-literal">()</span><br><br>    def show<span class="hljs-constructor">_choice(<span class="hljs-params">self</span>)</span>:<br>        tkinter.messagebox.showinfo(&#x27;Selection<span class="hljs-character">&#x27;,&#x27;</span>You selected option&#x27;+str(self.radio_var.get<span class="hljs-literal">()</span>))<br><br><br>my_gui = <span class="hljs-constructor">MyGUI()</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" srcset="/img/loading.gif" lazyload alt="点击并拖拽以移动"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> tkinter<br><span class="hljs-keyword">import</span> tkinter.messagebox<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyGUI</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.main_window = tkinter.Tk()<br><br>        self.top_frame = tkinter.Frame(self.main_window)<br>        self.bottom_frame = tkinter.Frame(self.main_window)<br><br>        self.cb_var1 = tkinter.IntVar()<br>        self.cb_var2 = tkinter.IntVar()<br>        self.cb_var3 = tkinter.IntVar()<br><br>        self.cb_var1.<span class="hljs-built_in">set</span>(<span class="hljs-number">0</span>)<br>        self.cb_var2.<span class="hljs-built_in">set</span>(<span class="hljs-number">0</span>)<br>        self.cb_var3.<span class="hljs-built_in">set</span>(<span class="hljs-number">0</span>)<br><br>        self.cb1=tkinter.Checkbutton(self.top_frame,text=<span class="hljs-string">&#x27;Option 1&#x27;</span>,variable=self.cb_var1)<br>        self.cb2=tkinter.Checkbutton(self.top_frame,text=<span class="hljs-string">&#x27;Option 2&#x27;</span>,variable=self.cb_var2)<br>        self.cb3=tkinter.Checkbutton(self.top_frame,text=<span class="hljs-string">&#x27;Option 3&#x27;</span>,variable=self.cb_var3)<br><br>        self.cb1.pack()<br>        self.cb2.pack()<br>        self.cb3.pack()<br><br>        self.ok_button = tkinter.Button(self.bottom_frame,text=<span class="hljs-string">&#x27;OK&#x27;</span>,command=self.show_choice)<br>        self.quit_button = tkinter.Button(self.bottom_frame,text=<span class="hljs-string">&#x27;Quit&#x27;</span>,command=self.main_window.destroy)<br><br>        self.ok_button.pack(side=<span class="hljs-string">&#x27;left&#x27;</span>)<br>        self.quit_button.pack(side=<span class="hljs-string">&#x27;left&#x27;</span>)<br><br>        self.top_frame.pack()<br>        self.bottom_frame.pack()<br><br>        tkinter.mainloop()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">show_choice</span>(<span class="hljs-params">self</span>):<br>        self.message = <span class="hljs-string">&#x27;You selected:\n&#x27;</span><br><br>        <span class="hljs-keyword">if</span> self.cb_var1.get()==<span class="hljs-number">1</span>:<br>            self.message = self.message+<span class="hljs-string">&#x27;Option 1\n&#x27;</span><br>        <span class="hljs-keyword">if</span> self.cb_var2.get()==<span class="hljs-number">1</span>:<br>            self.message = self.message+<span class="hljs-string">&#x27;Option 2\n&#x27;</span><br>        <span class="hljs-keyword">if</span> self.cb_var3.get()==<span class="hljs-number">1</span>:<br>            self.message = self.message+<span class="hljs-string">&#x27;Option 3\n&#x27;</span><br><br>        tkinter.messagebox.showinfo(<span class="hljs-string">&#x27;Selection&#x27;</span>,self.message)<br><br><br>my_gui = MyGUI()<br></code></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" srcset="/img/loading.gif" lazyload alt="点击并拖拽以移动"></p>
+<h2 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h2><p>## Python的GUI</p>
+<p><strong>一般来说写GUI肯定是好几个界面，最好把每一个界面都写成类。</strong></p>
+<p>parent_window是传入的参数可以理解为：tkinter.TK（）</p>
+<p>`&#96;&#96;<br> #这俩个写在类初始化__init__(self,parent_window)的开头</p>
+<p>parent_window.update()    # 之前数据库一直连接不上，查了资料说加上这句话就可以了。我的理解就是它能够更新界面，使数据显示。<br> parent_window.destroy()    # 销毁子界面<br> `&#96;&#96;</p>
+<p>`&#96;&#96;<br> window&#x3D;tkinter.TK()</p>
+<p> window.title() 界面标题</p>
+<p> window.geometry(‘widthxheight+x1+y1’) #x1,y1 即主界面在电脑屏幕中出现的位置，一般是左上角那个位置</p>
+<p> window.destroy() #界面销毁</p>
+<p> 控件.place(x&#x3D;,y&#x3D;)  # place是用来确定控件位置，以及让控件可用， x,y是指button控件在界面内部的位置。 pack（）也行</p>
+<p> window.mainloop() # 让程序主窗体一直运行，直到你主动×掉它</p>
+<p> command——&gt;可以用匿名函数参数 #command&#x3D;lambda: 函数&#x2F;类（参数）</p>
+<p> 连接数据库和别的一样，注意<br> #eg:<br> #value&#x3D;tkinter.StringVar()<br> #sql&#x3D;”sql语句” %(value.get())</p>
+<p> window.protocol(“WM_DELETE_WINDOW”, back)  # 捕捉右上角关闭点击<br> def back():<br>   Another_window(window)  # 显示另一个窗口 销毁本窗口<br> `&#96;&#96;</p>
+<p>案例：仓库管理系统</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pymysql.cursors<br><span class="hljs-keyword">from</span> tkinter <span class="hljs-keyword">import</span> ttk<br><span class="hljs-keyword">import</span> tkinter <span class="hljs-keyword">as</span> tk<br><span class="hljs-keyword">import</span> tkinter.font <span class="hljs-keyword">as</span> tkFont<br><span class="hljs-keyword">from</span> tkinter <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">import</span> tkinter.messagebox <span class="hljs-keyword">as</span> messagebox<br><br><br><span class="hljs-comment"># 主页面</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">StartPage</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, parent_window</span>):<br>        parent_window.update()  <span class="hljs-comment"># 之前数据库一直连接不上，查了资料说加上这句话就可以了。我的理解就是它能够更新界面，使数据显示。</span><br>        parent_window.destroy()  <span class="hljs-comment"># 销毁子界面</span><br><br>        self.window = tk.Tk()<br>        self.window.title(<span class="hljs-string">&#x27;仓库管理系统&#x27;</span>)<br>        self.window.geometry(<span class="hljs-string">&#x27;700x600+150+150&#x27;</span>)  <span class="hljs-comment"># 700*600是width*height 150:分别是x,y 即主界面在电脑屏幕中出现的位置，一般是左上角那个位置</span><br><br>        <span class="hljs-comment"># 显示仓库管理系统文本</span><br>        label = Label(self.window, text=<span class="hljs-string">&quot;仓库管理系统&quot;</span>, font=(<span class="hljs-string">&quot;楷体&quot;</span>, <span class="hljs-number">30</span>))<br>        label.pack(pady=<span class="hljs-number">10</span>)  <span class="hljs-comment"># y轴间距，以像素计</span><br><br>        <span class="hljs-comment"># 入库，出库，查询仓库清单，退出系统四个操作</span><br>        <span class="hljs-comment"># Button控件是一种在用户单击是可以触发事件操作的控件。</span><br>        <span class="hljs-comment"># 参数：首先也需要确定button控件是在哪里运行的，text，font同label控件，command是指在你鼠标点击这个button时执行的函数，width和height是指控件的宽高。fg是指字体颜色，bg是指背景色</span><br>        <span class="hljs-comment"># place是用来确定button控件位置，以及让控件可用， x,y是指button控件在界面内部的位置</span><br>        Button(self.window, text=<span class="hljs-string">&quot;入库操作&quot;</span>, font=tkFont.Font(size=<span class="hljs-number">16</span>), command=<span class="hljs-keyword">lambda</span>: Warehousing(self.window), width=<span class="hljs-number">20</span>,<br>               height=<span class="hljs-number">2</span>, fg=<span class="hljs-string">&#x27;white&#x27;</span>, bg=<span class="hljs-string">&#x27;gray&#x27;</span>).place(x=<span class="hljs-number">100</span>, y=<span class="hljs-number">300</span>)<br>        Button(self.window, text=<span class="hljs-string">&quot;仓库查询&quot;</span>, font=tkFont.Font(size=<span class="hljs-number">16</span>), command=<span class="hljs-keyword">lambda</span>: Warehousing_enquire(self.window), width=<span class="hljs-number">20</span>,<br>               height=<span class="hljs-number">2</span>, fg=<span class="hljs-string">&#x27;white&#x27;</span>, bg=<span class="hljs-string">&#x27;gray&#x27;</span>).place(x=<span class="hljs-number">400</span>, y=<span class="hljs-number">300</span>)<br>        Button(self.window, text=<span class="hljs-string">&quot;出库操作&quot;</span>, font=tkFont.Font(size=<span class="hljs-number">16</span>), command=<span class="hljs-keyword">lambda</span>: chuku(self.window), width=<span class="hljs-number">20</span>,<br>               height=<span class="hljs-number">2</span>, fg=<span class="hljs-string">&#x27;white&#x27;</span>, bg=<span class="hljs-string">&#x27;gray&#x27;</span>).place(x=<span class="hljs-number">100</span>, y=<span class="hljs-number">400</span>)<br>        Button(self.window, text=<span class="hljs-string">&quot;退出系统&quot;</span>, font=tkFont.Font(size=<span class="hljs-number">16</span>), command=self.window.destroy, width=<span class="hljs-number">20</span>,<br>               height=<span class="hljs-number">2</span>, fg=<span class="hljs-string">&#x27;white&#x27;</span>, bg=<span class="hljs-string">&#x27;gray&#x27;</span>).place(x=<span class="hljs-number">400</span>, y=<span class="hljs-number">400</span>)<br><br>        <span class="hljs-comment"># 让程序主窗体一直运行，直到你主动×掉它</span><br>        self.window.mainloop()<br><br><br><span class="hljs-comment"># 入库操作页面</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Warehousing</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, parent_window</span>):<br>        parent_window.update()<br>        parent_window.destroy()  <span class="hljs-comment"># 销毁子界面</span><br><br>        self.window = tk.Tk()<br>        self.window.title(<span class="hljs-string">&#x27;入库操作&#x27;</span>)<br>        self.window.geometry(<span class="hljs-string">&#x27;800x700+80+80&#x27;</span>)<br><br>        self.top_title = Label(self.window, text=<span class="hljs-string">&#x27;入库操作&#x27;</span>, bg=<span class="hljs-string">&#x27;SkyBlue&#x27;</span>, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">20</span>), width=<span class="hljs-number">70</span>, height=<span class="hljs-number">2</span>)<br>        self.top_title.pack()  <span class="hljs-comment"># pack()确定控件在窗体的位置，以及控件可用</span><br><br>        self.var_id = StringVar()        <span class="hljs-comment"># 仓库id</span><br>        self.var_name = StringVar()      <span class="hljs-comment"># 产品</span><br>        self.var_gender = StringVar()    <span class="hljs-comment"># 数量</span><br>        self.var_age = StringVar()       <span class="hljs-comment"># 单价</span><br>        self.var_gid = StringVar()       <span class="hljs-comment"># 金额</span><br>        self.var_method = StringVar()    <span class="hljs-comment"># 所在仓库</span><br><br>        self.right_top_id_label = Label(text=<span class="hljs-string">&quot;ID：&quot;</span>, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack(pady=<span class="hljs-number">15</span>)<br>        self.right_top_id_entry = Entry(textvariable=self.var_id, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack()<br><br>        self.right_top_name_label = Label(text=<span class="hljs-string">&quot;产品&quot;</span>, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack(pady=<span class="hljs-number">15</span>)<br>        self.right_top_name_entry = Entry(textvariable=self.var_name, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack()<br><br>        self.right_top_gender_label = Label(text=<span class="hljs-string">&quot;数量&quot;</span>, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack(pady=<span class="hljs-number">15</span>)<br>        self.right_top_gender_entry = Entry(textvariable=self.var_gender, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack()<br><br>        self.right_top_gender_label = Label(text=<span class="hljs-string">&quot;单价&quot;</span>, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack(pady=<span class="hljs-number">15</span>)<br>        self.right_top_gender_entry = Entry(textvariable=self.var_age, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack()<br><br>        self.right_top_gender_label = Label(text=<span class="hljs-string">&quot;金额&quot;</span>, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack(pady=<span class="hljs-number">15</span>)<br>        self.right_top_gender_entry = Entry(textvariable=self.var_gid, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack()<br><br>        self.right_top_method_label = Label(text=<span class="hljs-string">&quot;所在仓库&quot;</span>, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack(pady=<span class="hljs-number">15</span>)<br>        self.right_top_method_entry = Entry(textvariable=self.var_method, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack()<br><br>        self.right_top_button1 = ttk.Button(text=<span class="hljs-string">&#x27;确定&#x27;</span>, width=<span class="hljs-number">20</span>, command=self.new_row).pack(pady=<span class="hljs-number">30</span>)<br>        self.right_top_button2 = ttk.Button(text=<span class="hljs-string">&#x27;返回&#x27;</span>, width=<span class="hljs-number">20</span>, command=self.back).pack()<br><br>        self.window.protocol(<span class="hljs-string">&quot;WM_DELETE_WINDOW&quot;</span>, self.back)  <span class="hljs-comment"># 捕捉右上角关闭点击</span><br><br><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">back</span>(<span class="hljs-params">self</span>):<br>        StartPage(self.window)  <span class="hljs-comment"># 显示主窗口 销毁本窗口</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">new_row</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">if</span> self.var_id.get() != <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-keyword">and</span> self.var_name.get() != <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-keyword">and</span> \<br>                self.var_gender.get() != <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-keyword">and</span> self.var_age.get() != <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-keyword">and</span> self.var_gid.get() != <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-keyword">and</span> self.var_method.get():<br>            db = pymysql.connect(host=<span class="hljs-string">&#x27;localhost&#x27;</span>,user=<span class="hljs-string">&#x27;root&#x27;</span>,port=<span class="hljs-number">3306</span>,password=<span class="hljs-string">&#x27;zx045498&#x27;</span>,db=<span class="hljs-string">&#x27;project&#x27;</span>)<br>            cursor = db.cursor()  <span class="hljs-comment"># 使用cursor()方法获取操作游标</span><br>            <span class="hljs-keyword">if</span> self.var_method.get()==<span class="hljs-string">&quot;warehouse_a&quot;</span>:<br>                sql = <span class="hljs-string">&quot;INSERT INTO warehouse_a(id,product,amount,price,money)  VALUES (&#x27;%s&#x27;,&#x27;%s&#x27;,&#x27;%s&#x27;,&#x27;%s&#x27;,&#x27;%s&#x27;)&quot;</span> % \<br>                      (self.var_id.get(), self.var_name.get(), self.var_gender.get(), self.var_age.get(), self.var_gid.get())<br>            <span class="hljs-keyword">else</span>:<br>                sql=<span class="hljs-string">&quot;INSERT INTO warehouse_b(id,product,amount,price,money)   VALUES (&#x27;%s&#x27;,&#x27;%s&#x27;,&#x27;%s&#x27;,&#x27;%s&#x27;,&#x27;%s&#x27;)&quot;</span> % \<br>                      (self.var_id.get(), self.var_name.get(), self.var_gender.get(), self.var_age.get(), self.var_gid.get())<br><br>            <span class="hljs-keyword">try</span>:<br>                cursor.execute(sql)  <span class="hljs-comment"># 执行sql语句</span><br>                db.commit()  <span class="hljs-comment"># 提交到数据库执行</span><br>                messagebox.showinfo(<span class="hljs-string">&#x27;成功！&#x27;</span>)<br>            <span class="hljs-keyword">except</span>:<br>                db.rollback()  <span class="hljs-comment"># 发生错误时回滚</span><br>                messagebox.showinfo(<span class="hljs-string">&#x27;警告！&#x27;</span>, <span class="hljs-string">&#x27;数据库连接失败！&#x27;</span>)<br>            db.close()  <span class="hljs-comment"># 关闭数据库连接</span><br>        <span class="hljs-keyword">else</span>:<br>            messagebox.showinfo(<span class="hljs-string">&#x27;请输入数据！&#x27;</span>)<br><br><br><span class="hljs-comment"># 仓库查询</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Warehousing_enquire</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, parent_window</span>):<br>        parent_window.update()<br>        parent_window.destroy()  <span class="hljs-comment"># 销毁子界面</span><br>        self.window = tk.Tk()<br>        self.window.title(<span class="hljs-string">&#x27;仓库清单&#x27;</span>)<br>        self.window.geometry(<span class="hljs-string">&#x27;800x800+150+150&#x27;</span>)<br>        db = pymysql.connect(host=<span class="hljs-string">&#x27;localhost&#x27;</span>, user=<span class="hljs-string">&#x27;root&#x27;</span>, port=<span class="hljs-number">3306</span>, password=<span class="hljs-string">&#x27;zx045498&#x27;</span>, db=<span class="hljs-string">&#x27;project&#x27;</span>)<br>        cursor = db.cursor()  <span class="hljs-comment"># 使用cursor()方法获取操作游标</span><br>        sql = <span class="hljs-string">&quot;SELECT * FROM allgoods&quot;</span>  <span class="hljs-comment"># SQL 语句</span><br>        <span class="hljs-keyword">try</span>:<br>            cursor.execute(sql)  <span class="hljs-comment"># 执行sql语句</span><br>            results = cursor.fetchall()<br>            <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> results:<br>                self.name = <span class="hljs-string">&#x27;ID:&#x27;</span> + row[<span class="hljs-number">0</span>]<br>                self.<span class="hljs-built_in">id</span> = <span class="hljs-string">&#x27;产品:&#x27;</span> + row[<span class="hljs-number">1</span>]<br>                self.gender = <span class="hljs-string">&#x27;数量：&#x27;</span> + row[<span class="hljs-number">2</span>]<br>                self.age=<span class="hljs-string">&#x27;单价：&#x27;</span>+row[<span class="hljs-number">3</span>]<br>                self.gid = <span class="hljs-string">&#x27;金额：&#x27;</span> + row[<span class="hljs-number">4</span>]<br>                self.warehouse = <span class="hljs-string">&#x27;所在仓库：&#x27;</span> + row[<span class="hljs-number">5</span>]<br><br><br>                db.commit()  <span class="hljs-comment"># 提交到数据库执行</span><br><br>                Label(self.window, text=self.name+<span class="hljs-string">&quot; &quot;</span>+self.<span class="hljs-built_in">id</span>+<span class="hljs-string">&quot; &quot;</span>+self.gender+<span class="hljs-string">&quot; &quot;</span>+self.age+<span class="hljs-string">&quot; &quot;</span>+<br>                                        self.gid+<span class="hljs-string">&quot; &quot;</span>+self.warehouse, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">18</span>)).pack(pady=<span class="hljs-number">5</span>)<br><br>        <span class="hljs-keyword">except</span>:<br>            db.rollback()  <span class="hljs-comment"># 发生错误时回滚</span><br>            messagebox.showinfo(<span class="hljs-string">&#x27;警告！&#x27;</span>, <span class="hljs-string">&#x27;数据库连接失败！&#x27;</span>)<br>        db.close()  <span class="hljs-comment"># 关闭数据库连接</span><br><br>        self.right_top_button4 = ttk.Button(text=<span class="hljs-string">&#x27;返回&#x27;</span>, width=<span class="hljs-number">20</span>, command=self.back).pack()<br>        self.window.protocol(<span class="hljs-string">&quot;WM_DELETE_WINDOW&quot;</span>, self.back)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">back</span>(<span class="hljs-params">self</span>):<br>        StartPage(self.window)<br><br><br><span class="hljs-comment"># 出库</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">chuku</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, parent_window</span>):<br>        parent_window.update()<br>        parent_window.destroy()  <span class="hljs-comment"># 销毁子界面</span><br><br>        self.window = tk.Tk()<br>        self.window.title(<span class="hljs-string">&#x27;出库表&#x27;</span>)<br>        self.window.geometry(<span class="hljs-string">&#x27;800x700+80+80&#x27;</span>)<br><br>        self.top_title = Label(self.window, text=<span class="hljs-string">&#x27;出库&#x27;</span>, bg=<span class="hljs-string">&#x27;SkyBlue&#x27;</span>, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">20</span>), width=<span class="hljs-number">70</span>, height=<span class="hljs-number">2</span>)<br>        self.top_title.pack()<br><br>        self.var_id = StringVar()    <span class="hljs-comment"># 仓库A/B</span><br>        self.var_name = StringVar()  <span class="hljs-comment"># 货号</span><br>        self.var_gender = StringVar() <span class="hljs-comment"># 数量</span><br>        self.var_age = StringVar()  <span class="hljs-comment"># 单价</span><br>        self.var_gid = StringVar() <span class="hljs-comment"># 金额</span><br>        self.var_method = StringVar()  <span class="hljs-comment"># 所在仓库</span><br><br>        self.right_top_id_label = Label(text=<span class="hljs-string">&quot;ID&quot;</span>, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack(pady=<span class="hljs-number">15</span>)<br>        self.right_top_id_entry = Entry(textvariable=self.var_id, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack()<br><br>        self.right_top_name_label = Label(text=<span class="hljs-string">&quot;产品&quot;</span>, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack(pady=<span class="hljs-number">15</span>)<br>        self.right_top_name_entry = Entry(textvariable=self.var_name, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack()<br><br>        self.right_top_gender_label = Label(text=<span class="hljs-string">&quot;数量&quot;</span>, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack(pady=<span class="hljs-number">15</span>)<br>        self.right_top_gender_entry = Entry(textvariable=self.var_gender, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack()<br><br>        self.right_top_gender_label = Label(text=<span class="hljs-string">&quot;单价&quot;</span>, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack(pady=<span class="hljs-number">15</span>)<br>        self.right_top_gender_entry = Entry(textvariable=self.var_age, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack()<br><br>        self.right_top_gender_label = Label(text=<span class="hljs-string">&quot;金额&quot;</span>, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack(pady=<span class="hljs-number">15</span>)<br>        self.right_top_gender_entry = Entry(textvariable=self.var_gid, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack()<br><br>        self.right_top_method_label = Label(text=<span class="hljs-string">&quot;所在仓库&quot;</span>, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack(pady=<span class="hljs-number">15</span>)<br>        self.right_top_method_entry = Entry(textvariable=self.var_method, font=(<span class="hljs-string">&#x27;楷体&#x27;</span>, <span class="hljs-number">15</span>)).pack()<br><br>        self.right_top_button1 = ttk.Button(text=<span class="hljs-string">&#x27;确定&#x27;</span>, width=<span class="hljs-number">20</span>, command=self.new_row).pack(pady=<span class="hljs-number">30</span>)<br>        self.right_top_button2 = ttk.Button(text=<span class="hljs-string">&#x27;返回&#x27;</span>, width=<span class="hljs-number">20</span>, command=self.back).pack()<br><br>        self.window.protocol(<span class="hljs-string">&quot;WM_DELETE_WINDOW&quot;</span>, self.back)  <span class="hljs-comment"># 捕捉右上角关闭点击</span><br><br>        self.<span class="hljs-built_in">id</span> = []<br>        self.name = []<br>        self.gender = []<br>        self.age = []<br>        self.gid = []<br>        self.method = []<br><br>        <span class="hljs-comment"># 打开数据库连接</span><br>        db = pymysql.connect(host=<span class="hljs-string">&#x27;localhost&#x27;</span>, user=<span class="hljs-string">&#x27;root&#x27;</span>, port=<span class="hljs-number">3306</span>, password=<span class="hljs-string">&#x27;zx045498&#x27;</span>, db=<span class="hljs-string">&#x27;project&#x27;</span>)<br>        cursor = db.cursor()  <span class="hljs-comment"># 使用cursor()方法获取操作游标</span><br>        sql = <span class="hljs-string">&quot;SELECT * FROM allgoods&quot;</span>  <span class="hljs-comment"># SQL 查询语句</span><br>        <span class="hljs-keyword">try</span>:<br>            <span class="hljs-comment"># 执行SQL语句</span><br>            cursor.execute(sql)<br>            <span class="hljs-comment"># 获取所有记录列表</span><br>            results = cursor.fetchall()<br>            <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> results:<br>                self.<span class="hljs-built_in">id</span>.append(row[<span class="hljs-number">0</span>])<br>                self.name.append(row[<span class="hljs-number">1</span>])<br>                self.gender.append(row[<span class="hljs-number">2</span>])<br>                self.age.append(row[<span class="hljs-number">3</span>])<br>                self.gid.append(row[<span class="hljs-number">4</span>])<br>                self.method.append(row[<span class="hljs-number">5</span>])<br>        <span class="hljs-keyword">except</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Error: unable to fetch data&quot;</span>)<br>            messagebox.showinfo(<span class="hljs-string">&#x27;提示&#x27;</span>, <span class="hljs-string">&#x27;数据库连接失败！&#x27;</span>)<br>        db.close()  <span class="hljs-comment"># 关闭数据库连接</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">back</span>(<span class="hljs-params">self</span>):<br>        StartPage(self.window)  <span class="hljs-comment"># 显示主窗口 销毁本窗口</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">new_row</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">if</span> self.var_id.get() != <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-keyword">and</span> self.var_name.get() != <span class="hljs-string">&#x27;&#x27;</span>:<br>            db = pymysql.connect(host=<span class="hljs-string">&#x27;localhost&#x27;</span>, user=<span class="hljs-string">&#x27;root&#x27;</span>, port=<span class="hljs-number">3306</span>, password=<span class="hljs-string">&#x27;zx045498&#x27;</span>, db=<span class="hljs-string">&#x27;project&#x27;</span>)<br>            cursor = db.cursor()  <span class="hljs-comment"># 使用cursor()方法获取操作游标</span><br>            sql = <span class="hljs-string">&quot;DELETE FROM allgoods WHERE id=&#x27;%s&#x27;&quot;</span> %(self.var_id.get())  <span class="hljs-comment"># SQL 插入语句</span><br><br>            <span class="hljs-keyword">try</span>:<br>                cursor.execute(sql)  <span class="hljs-comment"># 执行sql语句</span><br>                db.commit()  <span class="hljs-comment"># 提交到数据库执行</span><br>                messagebox.showinfo(<span class="hljs-string">&#x27;提示！&#x27;</span>, <span class="hljs-string">&#x27;出库成功！&#x27;</span>)<br>            <span class="hljs-keyword">except</span>:<br>                db.rollback()  <span class="hljs-comment"># 发生错误时回滚</span><br>                messagebox.showinfo(<span class="hljs-string">&#x27;警告！&#x27;</span>, <span class="hljs-string">&#x27;数据库连接失败！&#x27;</span>)<br>            db.close()  <span class="hljs-comment"># 关闭数据库连接</span><br>        <span class="hljs-keyword">else</span>:<br>            messagebox.showinfo(<span class="hljs-string">&#x27;警告！&#x27;</span>, <span class="hljs-string">&#x27;填写出库信息&#x27;</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    window = tk.Tk()<br>    StartPage(window)<br></code></pre></td></tr></table></figure>
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/tkinter/" class="category-chain-item">tkinter</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/">#Python</a>
+      
+        <a href="/tags/GUI/">#GUI</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>pythonGUI编程</div>
+      <div>http://example.com/2022/07/04/Python GUI编程/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Olivia的小跟班</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月4日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/04/Python%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/" title="python数据库编程">
+                        <span class="hidden-mobile">python数据库编程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
