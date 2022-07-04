@@ -1,0 +1,627 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Olivia的小跟班">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="index.html123456789101112131415161718192021222324252627282930&lt;!DOCTYPE html&gt;&lt;html&gt;	&lt;head&gt;		&lt;meta charset&#x3D;&quot;utf-8&quot;&gt;		&lt;title&gt;Login&lt;&#x2F;title&gt;        &lt;link hr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php登陆界面">
+<meta property="og:url" content="http://example.com/2022/07/04/php%E7%99%BB%E9%99%86%E7%95%8C%E9%9D%A2/index.html">
+<meta property="og:site_name" content="Olivia的小跟班">
+<meta property="og:description" content="index.html123456789101112131415161718192021222324252627282930&lt;!DOCTYPE html&gt;&lt;html&gt;	&lt;head&gt;		&lt;meta charset&#x3D;&quot;utf-8&quot;&gt;		&lt;title&gt;Login&lt;&#x2F;title&gt;        &lt;link hr">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-04T05:46:21.487Z">
+<meta property="article:modified_time" content="2022-07-04T05:50:09.608Z">
+<meta property="article:author" content="Olivia的小跟班">
+<meta property="article:tag" content="php">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="css">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>php登陆界面 - Olivia的小跟班</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Olivia的小跟班</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="php登陆界面"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-04 13:46" pubdate>
+          2022年7月4日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          72 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">php登陆界面</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="index-html"><a href="#index-html" class="headerlink" title="index.html"></a>index.html</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Login<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;style.css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;login&quot;</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Login<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;authenticate.php&quot;</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;post&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form1&quot;</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;input-wrapper&quot;</span>&gt;</span><br>					<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;border-wrapper&quot;</span>&gt;</span><br>						<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;username&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;username&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;border-item&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span>&gt;</span><br>					<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>					<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;border-wrapper&quot;</span>&gt;</span><br>						<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;password&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;password&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;password&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;border-item&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span>&gt;</span><br>					<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;action&quot;</span>&gt;</span><br>					<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn&quot;</span>&gt;</span><br>						<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;submit1&quot;</span>&gt;</span>login<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>					<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br> <br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="style-css"><a href="#style-css" class="headerlink" title="style.css"></a>style.css</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><code class="hljs css"> <br>* &#123;<br>    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;<br>    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;<br>&#125;<br> <br><span class="hljs-selector-tag">html</span> &#123;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;<br>&#125;<br> <br><span class="hljs-selector-tag">body</span> &#123;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;<br>    <span class="hljs-attribute">font-family</span>: JetBrains Mono Medium;<br>    <span class="hljs-attribute">display</span>: flex;<br>    <span class="hljs-attribute">align-items</span>: center;<br>    <span class="hljs-attribute">justify-content</span>: center;<br>    <span class="hljs-comment">/* background-color: #0e92b3; */</span><br>    <span class="hljs-attribute">background</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&#x27;background.png&#x27;</span>) no-repeat;<br>    <span class="hljs-attribute">background-size</span>: <span class="hljs-number">100%</span> <span class="hljs-number">100%</span>;<br>&#125;<br> <br><span class="hljs-selector-class">.login</span> &#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">300px</span>;<br>    <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">41</span>, <span class="hljs-number">45</span>, <span class="hljs-number">62</span>, .<span class="hljs-number">8</span>);<br>    <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;<br>    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">2px</span>;<br>    <span class="hljs-attribute">padding</span>: <span class="hljs-number">50px</span>;<br>&#125;<br> <br><span class="hljs-selector-tag">h1</span> &#123;<br>    <span class="hljs-attribute">text-align</span>: center;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">30px</span>;<br>    <span class="hljs-attribute">text-transform</span>: capitalize;<br>&#125;<br> <br><span class="hljs-selector-class">.login</span> <span class="hljs-selector-class">.input-wrapper</span> <span class="hljs-selector-tag">input</span> &#123;<br>    <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgb</span>(<span class="hljs-number">41</span>, <span class="hljs-number">45</span>, <span class="hljs-number">62</span>);<br>    <span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;<br>    <span class="hljs-attribute">text-align</span>: center;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">10px</span>;<br>    <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;<br>    <span class="hljs-attribute">outline</span>: none;<br>&#125;<br> <br><span class="hljs-selector-class">.login</span> <span class="hljs-selector-class">.input-wrapper</span> <span class="hljs-selector-tag">input</span><span class="hljs-selector-pseudo">::placeholder</span> &#123;<br>    <span class="hljs-attribute">text-transform</span>: capitalize;<br>&#125;<br> <br><span class="hljs-selector-class">.login</span> <span class="hljs-selector-class">.input-wrapper</span> <span class="hljs-selector-class">.border-wrapper</span> &#123;<br>    <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">linear-gradient</span>(to right, <span class="hljs-number">#e8198b</span>, <span class="hljs-number">#0eb4dd</span>);<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">50px</span>;<br>    <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">20px</span>;<br>    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">30px</span>;<br>    <span class="hljs-attribute">display</span>: flex;<br>    <span class="hljs-attribute">align-items</span>: center;<br>    <span class="hljs-attribute">justify-content</span>: center;<br>&#125;<br> <br><span class="hljs-selector-class">.login</span> <span class="hljs-selector-class">.input-wrapper</span> <span class="hljs-selector-class">.border-wrapper</span> <span class="hljs-selector-class">.border-item</span> &#123;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-number">100%</span> - <span class="hljs-number">4px</span>);<br>    <span class="hljs-attribute">width</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-number">100%</span> - <span class="hljs-number">4px</span>);<br>    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">30px</span>;<br>&#125;<br> <br><span class="hljs-selector-tag">button</span> &#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;<br>    <span class="hljs-attribute">text-transform</span>: capitalize;<br>    <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid <span class="hljs-number">#0e92b3</span>;<br>    <span class="hljs-attribute">text-align</span>: center;<br>    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">50px</span>;<br>    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">30px</span>;<br>    <span class="hljs-attribute">cursor</span>: pointer;<br>    <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgb</span>(<span class="hljs-number">41</span>, <span class="hljs-number">45</span>, <span class="hljs-number">62</span>);<br>    <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="authenticate-php"><a href="#authenticate-php" class="headerlink" title="authenticate.php"></a>authenticate.php</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br> <br><span class="hljs-title function_ invoke__">session_start</span>();<br><span class="hljs-variable">$DATABASE_HOST</span> = <span class="hljs-string">&#x27;localhost&#x27;</span>;<br><span class="hljs-variable">$DATABASE_USER</span> = <span class="hljs-string">&#x27;root&#x27;</span>;<br><span class="hljs-variable">$DATABASE_PASS</span> = <span class="hljs-string">&#x27;&#x27;</span>;<br><span class="hljs-variable">$DATABASE_NAME</span> = <span class="hljs-string">&#x27;phplogin&#x27;</span>;<br><span class="hljs-variable">$con</span> = <span class="hljs-title function_ invoke__">mysqli_connect</span>(<span class="hljs-variable">$DATABASE_HOST</span>, <span class="hljs-variable">$DATABASE_USER</span>, <span class="hljs-variable">$DATABASE_PASS</span>, <span class="hljs-variable">$DATABASE_NAME</span>);<br> <br><span class="hljs-keyword">if</span> (!<span class="hljs-variable">$con</span>) &#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;connection is failed this database due to&quot;</span> . <span class="hljs-title function_ invoke__">mysqli_connect_error</span>());<br>    &#125;<br><span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-title function_ invoke__">printf</span>(<span class="hljs-string">&#x27;Connected successfully.&lt;br/&gt;&#x27;</span>);<br>&#125;    <br> <br> <br><span class="hljs-comment">// Now we check if the data from the login form was submitted, isset() will check if the data exists.</span><br><span class="hljs-keyword">if</span> ( !<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;username&#x27;</span>], <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;password&#x27;</span>]) ) &#123;<br>	<span class="hljs-comment">// Could not get the data that should have been sent.</span><br>	<span class="hljs-keyword">exit</span>(<span class="hljs-string">&#x27;Please fill both the username and password fields!&#x27;</span>);<br>&#125;<br> <br><span class="hljs-comment">// Prepare our SQL, preparing the SQL statement will prevent SQL injection.</span><br><span class="hljs-keyword">if</span> (<span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$con</span>-&gt;<span class="hljs-title function_ invoke__">prepare</span>(<span class="hljs-string">&#x27;SELECT id,password FROM accounts WHERE username = ?&#x27;</span>)) &#123;<br>	<span class="hljs-comment">// Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use &quot;s&quot;</span><br>	<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">bind_param</span>(<span class="hljs-string">&#x27;s&#x27;</span>, <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;username&#x27;</span>]);<br>	<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">execute</span>();<br>	<span class="hljs-comment">// Store the result so we can check if the account exists in the database.</span><br>	<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">store_result</span>();<br> <br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$stmt</span>-&gt;num_rows &gt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">bind_result</span>(<span class="hljs-variable">$id</span>, <span class="hljs-variable">$password</span>);<br>        <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">fetch</span>();<br>        <span class="hljs-comment">// Account exists, now we verify the password.</span><br>        <span class="hljs-comment">// Note: remember to use password_hash in your registration file to store the hashed passwords.</span><br>        <span class="hljs-keyword">if</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;password&#x27;</span>] === <span class="hljs-variable">$password</span>) &#123;<br>            <span class="hljs-comment">// Verification success! User has logged-in!</span><br>            <span class="hljs-comment">// Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.</span><br>            <span class="hljs-title function_ invoke__">session_regenerate_id</span>();<br>            <span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&#x27;loggedin&#x27;</span>] = <span class="hljs-literal">TRUE</span>;<br>            <span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&#x27;name&#x27;</span>] = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;username&#x27;</span>];<br>            <span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&#x27;id&#x27;</span>] = <span class="hljs-variable">$id</span>;<br>            <span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&#x27;Location: home.php&#x27;</span>);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// Incorrect password</span><br>            <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;Incorrect username and/or password!&#x27;</span>;<br>        &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-comment">// Incorrect username</span><br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;Incorrect username and/or password!&#x27;</span>;<br>    &#125;<br> <br>	<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">close</span>();<br>&#125;<br> <br><span class="hljs-meta">?&gt;</span><br> <br></code></pre></td></tr></table></figure>
+
+<h2 id="home-php"><a href="#home-php" class="headerlink" title="home.php"></a>home.php</h2><figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-php"><span class="hljs-meta">&lt;?php</span></span><br><span class="language-php"><span class="hljs-title function_ invoke__">session_start</span>();</span><br><span class="language-php"><span class="hljs-comment">// We need to use sessions, so you should always start sessions using the below code.</span></span><br><span class="language-php"><span class="hljs-variable">$DATABASE_HOST</span> = <span class="hljs-string">&#x27;localhost&#x27;</span>;</span><br><span class="language-php"><span class="hljs-variable">$DATABASE_USER</span> = <span class="hljs-string">&#x27;root&#x27;</span>;</span><br><span class="language-php"><span class="hljs-variable">$DATABASE_PASS</span> = <span class="hljs-string">&#x27;&#x27;</span>;</span><br><span class="language-php"><span class="hljs-variable">$DATABASE_NAME</span> = <span class="hljs-string">&#x27;phplogin&#x27;</span>;</span><br><span class="language-php"><span class="hljs-variable">$con</span> = <span class="hljs-title function_ invoke__">mysqli_connect</span>(<span class="hljs-variable">$DATABASE_HOST</span>, <span class="hljs-variable">$DATABASE_USER</span>, <span class="hljs-variable">$DATABASE_PASS</span>, <span class="hljs-variable">$DATABASE_NAME</span>);</span><br><span class="language-php"><span class="hljs-comment">// If the user is not logged in redirect to the login page...</span></span><br><span class="language-php"><span class="hljs-keyword">if</span> (!<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&#x27;loggedin&#x27;</span>])) &#123;</span><br><span class="language-php">	<span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&#x27;Location: index.html&#x27;</span>);</span><br><span class="language-php">	<span class="hljs-keyword">exit</span>;</span><br><span class="language-php">&#125;</span><br><span class="language-php"><span class="hljs-meta">?&gt;</span></span><span class="language-xml"></span><br><span class="language-xml"> </span><br><span class="language-xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span></span><br><span class="language-xml">	<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Home Page<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span></span><br><span class="language-xml">	<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></span><br><span class="language-xml">	<span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;loggedin&quot;</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;<span class="hljs-name">nav</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;navtop&quot;</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Website Title<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;profile.php&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;fas fa-user-circle&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>Profile<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;logout.php&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;fas fa-sign-out-alt&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>Logout<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Home Page<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Welcome back, </span><span class="language-php"><span class="hljs-meta">&lt;?=</span><span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&#x27;name&#x27;</span>]<span class="hljs-meta">?&gt;</span></span><span class="language-xml">!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<h2 id="profile-php"><a href="#profile-php" class="headerlink" title="profile.php"></a>profile.php</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-meta">session_start();</span><br><span class="hljs-meta">// We need to use sessions, so you should always start sessions using the below code.</span><br><span class="hljs-meta">$DATABASE_HOST = &#x27;localhost&#x27;;</span><br><span class="hljs-meta">$DATABASE_USER = &#x27;root&#x27;;</span><br><span class="hljs-meta">$DATABASE_PASS = &#x27;&#x27;;</span><br><span class="hljs-meta">$DATABASE_NAME = &#x27;phplogin&#x27;;</span><br><span class="hljs-meta">$con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);</span><br><span class="hljs-meta">// If the user is not logged in redirect to the login page...</span><br><span class="hljs-meta">if (!isset($_SESSION[&#x27;loggedin&#x27;])) &#123;</span><br><span class="hljs-meta">	header(&#x27;Location: index.html&#x27;);</span><br><span class="hljs-meta">	exit;</span><br><span class="hljs-meta">&#125;</span><br><span class="hljs-meta">$DATABASE_HOST = &#x27;localhost&#x27;;</span><br><span class="hljs-meta">$DATABASE_USER = &#x27;root&#x27;;</span><br><span class="hljs-meta">$DATABASE_PASS = &#x27;&#x27;;</span><br><span class="hljs-meta">$DATABASE_NAME = &#x27;phplogin&#x27;;</span><br><span class="hljs-meta">$con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);</span><br><span class="hljs-meta">if (mysqli_connect_errno()) &#123;</span><br><span class="hljs-meta">	exit(&#x27;Failed to connect to MySQL: &#x27; . mysqli_connect_error());</span><br><span class="hljs-meta">&#125;</span><br><span class="hljs-meta">// We don&#x27;t have the password or email info stored in sessions so instead we can get the results from the database.</span><br><span class="hljs-meta">$stmt = $con-&gt;prepare(&#x27;SELECT password, email FROM accounts WHERE id = ?&#x27;);</span><br><span class="hljs-meta">// In this case we can use the account ID to get the account info.</span><br><span class="hljs-meta">$stmt-&gt;bind_param(&#x27;i&#x27;, $_SESSION[&#x27;id&#x27;]);</span><br><span class="hljs-meta">$stmt-&gt;execute();</span><br><span class="hljs-meta">$stmt-&gt;bind_result($password, $email);</span><br><span class="hljs-meta">$stmt-&gt;fetch();</span><br><span class="hljs-meta">$stmt-&gt;close();</span><br><span class="hljs-meta">?&gt;</span><br> <br> <br> <br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Profile Page<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;style.css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://use.fontawesome.com/releases/v5.7.1/css/all.css&quot;</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;loggedin&quot;</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">nav</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;navtop&quot;</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Website Title<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;profile.php&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;fas fa-user-circle&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>Profile<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;logout.php&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;fas fa-sign-out-alt&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>Logout<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Profile Page<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Your account details are below:<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span><br>					<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><br>						<span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Username:<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>						<span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>&lt;?=$_SESSION[&#x27;name&#x27;]?&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>					<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span><br>					<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><br>						<span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Password:<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>						<span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>&lt;?=$password?&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>					<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span><br>					<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><br>						<span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Email:<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>						<span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>&lt;?=$email?&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>					<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span><br>				<span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="logout-php"><a href="#logout-php" class="headerlink" title="logout.php"></a>logout.php</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">session_start</span>();<br><span class="hljs-variable">$DATABASE_HOST</span> = <span class="hljs-string">&#x27;localhost&#x27;</span>;<br><span class="hljs-variable">$DATABASE_USER</span> = <span class="hljs-string">&#x27;root&#x27;</span>;<br><span class="hljs-variable">$DATABASE_PASS</span> = <span class="hljs-string">&#x27;&#x27;</span>;<br><span class="hljs-variable">$DATABASE_NAME</span> = <span class="hljs-string">&#x27;phplogin&#x27;</span>;<br><span class="hljs-variable">$con</span> = <span class="hljs-title function_ invoke__">mysqli_connect</span>(<span class="hljs-variable">$DATABASE_HOST</span>, <span class="hljs-variable">$DATABASE_USER</span>, <span class="hljs-variable">$DATABASE_PASS</span>, <span class="hljs-variable">$DATABASE_NAME</span>);<br><span class="hljs-title function_ invoke__">session_destroy</span>();<br><span class="hljs-comment">// Redirect to the login page:</span><br><span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&#x27;Location: index.html&#x27;</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/php%E7%99%BB%E9%99%86%E7%95%8C%E9%9D%A2/" class="category-chain-item">php登陆界面</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/php/">#php</a>
+      
+        <a href="/tags/html/">#html</a>
+      
+        <a href="/tags/css/">#css</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>php登陆界面</div>
+      <div>http://example.com/2022/07/04/php登陆界面/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Olivia的小跟班</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月4日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/04/hello-world/" title="Hello World">
+                        <span class="hidden-mobile">Hello World</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
