@@ -39,7 +39,7 @@
 <meta property="og:image" content="http://example.com/images/%E7%88%AC%E8%99%AB%E5%9F%BA%E7%A1%80/3g8jg.png">
 <meta property="og:image" content="http://example.com/images/%E7%88%AC%E8%99%AB%E5%9F%BA%E7%A1%80/5yb6e.jpg">
 <meta property="article:published_time" content="2022-07-06T06:18:59.000Z">
-<meta property="article:modified_time" content="2022-07-06T11:41:03.903Z">
+<meta property="article:modified_time" content="2022-07-06T12:05:15.770Z">
 <meta property="article:author" content="Olivia的小跟班">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="爬虫">
@@ -255,7 +255,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          22k 字
+          24k 字
         
       </span>
     
@@ -266,7 +266,7 @@
         
         
         
-          180 分钟
+          200 分钟
         
       </span>
     
@@ -1060,6 +1060,45 @@
 <h2 id="5-常见误区"><a href="#5-常见误区" class="headerlink" title="5. 常见误区"></a>5. 常见误区</h2><p>在谈论 Session 机制的时候，常常听到这样一种误解 ——“只要关闭浏览器，Session 就消失了”。可以想象一下会员卡的例子，除非顾客主动对店家提出销卡，否则店家绝对不会轻易删除顾客的资料。对 Session 来说，也一样，除非程序通知服务器删除一个 Session，否则服务器会一直保留。比如，程序一般都是在我们做注销操作时才去删除 Session。</p>
 <p>但是当我们关闭浏览器时，浏览器不会主动在关闭之前通知服务器它将要关闭，所以服务器根本不会有机会知道浏览器已经关闭。之所以会有这种错觉，是因为大部分网站都使用会话 Cookie 来保存 Session ID 信息，而关闭浏览器后 Cookies 就消失了，再次连接服务器时，也就无法找到原来的 Session 了。如果服务器设置的 Cookies 保存到硬盘上，或者使用某种手段改写浏览器发出的 HTTP 请求头，把原来的 Cookies 发送给服务器，则再次打开浏览器，仍然能够找到原来的 Session ID，依旧还是可以保持登录状态的。</p>
 <p>而且恰恰是由于关闭浏览器不会导致 Session 被删除，这就需要服务器为 Session 设置一个失效时间，当距离客户端上一次使用 Session 的时间超过这个失效时间时，服务器就可以认为客户端已经停止了活动，才会把 Session 删除以节省存储空间。</p>
+<h1 id="7-代理的基本内容"><a href="#7-代理的基本内容" class="headerlink" title="7.代理的基本内容"></a>7.代理的基本内容</h1><p>我们在做爬虫的过程中经常会遇到这样的情况，最初爬虫正常运行，正常抓取数据，一切看起来都是那么美好，然而一杯茶的功夫可能就会出现错误，比如 403 Forbidden，这时打开网页一看，可能会看到 “您的 IP 访问频率太高” 这样的提示。出现这种现象的原因是网站采取了一些反爬虫措施。比如，服务器会检测某个 IP 在单位时间内的请求次数，如果超过了这个阈值，就会直接拒绝服务，返回一些错误信息，这种情况可以称为封 IP。</p>
+<p>既然服务器检测的是某个 IP 单位时间的请求次数，那么借助某种方式来伪装我们的 IP，让服务器识别不出是由我们本机发起的请求，不就可以成功防止封 IP 了吗？</p>
+<p>一种有效的方式就是使用代理，后面会详细说明代理的用法。在这之前，需要先了解下代理的基本原理，它是怎样实现伪装 IP 的呢？</p>
+<h2 id="1-基本原理"><a href="#1-基本原理" class="headerlink" title="1. 基本原理"></a>1. 基本原理</h2><p>代理实际上指的就是代理服务器，英文叫作 Proxy Server，它的功能是代理网络用户去取得网络信息。形象地说，它是网络信息的中转站。在我们正常请求一个网站时，是发送了请求给 Web 服务器，Web 服务器把响应传回给我们。如果设置了代理服务器，实际上就是在本机和服务器之间搭建了一个桥，此时本机不是直接向 Web 服务器发起请求，而是向代理服务器发出请求，请求会发送给代理服务器，然后由代理服务器再发送给 Web 服务器，接着由代理服务器再把 Web 服务器返回的响应转发给本机。这样我们同样可以正常访问网页，但这个过程中 Web 服务器识别出的真实 IP 就不再是我们本机的 IP 了，就成功实现了 IP 伪装，这就是代理的基本原理。</p>
+<h2 id="2-代理的作用"><a href="#2-代理的作用" class="headerlink" title="2. 代理的作用"></a>2. 代理的作用</h2><p>那么，代理有什么作用呢？我们可以简单列举如下。</p>
+<ul>
+<li>突破自身 IP 访问限制，访问一些平时不能访问的站点。</li>
+<li>访问一些单位或团体内部资源。比如，使用教育网内地址段的免费代理服务器，就可以下载和上传对教育网开放的各类 FTP，以及查询、共享各类资料等。</li>
+<li>提高访问速度。通常，代理服务器都设置一个较大的硬盘缓冲区，当有外界的信息通过时，会同时将其保存到缓冲区中，而当其他用户再访问相同的信息时，则直接由缓冲区中取出信息，传给用户，以提高访问速度。</li>
+<li>隐藏真实 IP。上网者也可以通过这种方法隐藏自己的 IP，免受攻击。对于爬虫来说，我们用代理就是为了隐藏自身的 IP，防止自身的 IP 被封锁。</li>
+</ul>
+<h2 id="3-爬虫代理"><a href="#3-爬虫代理" class="headerlink" title="3. 爬虫代理"></a>3. 爬虫代理</h2><p>对于爬虫来说，由于爬虫爬取速度过快，在爬取过程中可能遇到同一个 IP 访问过于频繁的问题，此时网站就会让我们输入验证码登录或者直接封锁 IP，这样会给爬取带来极大的不便。</p>
+<p>使用代理隐藏真实的 IP，让服务器误以为是代理服务器在请求自己。这样在爬取过程中通过不断更换代理，就不会被封锁，可以达到很好的爬取效果。</p>
+<h2 id="4-代理分类"><a href="#4-代理分类" class="headerlink" title="4. 代理分类"></a>4. 代理分类</h2><p>对代理进行分类时，既可以根据协议区分，也可以根据其匿名程度区分，下面总结如下。</p>
+<h3 id="根据协议区分"><a href="#根据协议区分" class="headerlink" title="根据协议区分"></a>根据协议区分</h3><p>根据代理的协议，代理可以分为如下类别。</p>
+<ul>
+<li><strong>FTP 代理服务器</strong>。主要用于访问 FTP 服务器，一般有上传、下载以及缓存功能，端口一般为 21、2121 等。</li>
+<li><strong>HTTP 代理服务器</strong>。主要用于访问网页，一般有内容过滤和缓存功能，端口一般为 80、8080、3128 等。</li>
+<li><strong>SSL&#x2F;TLS 代理</strong>。主要用于访问加密网站，一般有 SSL 或 TLS 加密功能（最高支持 128 位加密强度），端口一般为 443。</li>
+<li><strong>RTSP 代理</strong>。主要用于 Realplayer 访问 Real 流媒体服务器，一般有缓存功能，端口一般为 554。</li>
+<li><strong>Telnet 代理</strong>。主要用于 Telnet 远程控制（黑客入侵计算机时常用于隐藏身份），端口一般为 23。</li>
+<li><strong>POP3&#x2F;SMTP 代理</strong>。主要用于 POP3&#x2F;SMTP 方式收发邮件，一般有缓存功能，端口一般为 110&#x2F;25。</li>
+<li><strong>SOCKS 代理</strong>。只是单纯传递数据包，不关心具体协议和用法，所以速度快很多，一般有缓存功能，端口一般为 1080。SOCKS 代理协议又分为 SOCKS4 和 SOCKS5，SOCKS4 协议只支持 TCP，而 SOCKS5 协议支持 TCP 和 UDP，还支持各种身份验证机制、服务器端域名解析等。简单来说，SOCKS4 能做到的 SOCKS5 都可以做到，但 SOCKS5 能做到的 SOCKS4 不一定能做到。</li>
+</ul>
+<h3 id="根据匿名程度区分"><a href="#根据匿名程度区分" class="headerlink" title="根据匿名程度区分"></a>根据匿名程度区分</h3><p>根据代理的匿名程度，代理可以分为如下类别。</p>
+<ul>
+<li><strong>高度匿名代理</strong>：高度匿名代理会将数据包原封不动地转发，在服务端看来就好像真的是一个普通客户端在访问，而记录的 IP 是代理服务器的 IP。</li>
+<li><strong>普通匿名代理</strong>：普通匿名代理会在数据包上做一些改动，服务端上有可能发现这是个代理服务器，也有一定几率追查到客户端的真实 IP。代理服务器通常会加入的 HTTP 头有 <code>HTTP_VIA</code> 和 <code>HTTP_X_FORWARDED_FOR</code>。</li>
+<li><strong>透明代理</strong>：透明代理不但改动了数据包，还会告诉服务器客户端的真实 IP。这种代理除了能用缓存技术提高浏览速度，能用内容过滤提高安全性之外，并无其他显著作用，最常见的例子是内网中的硬件防火墙。</li>
+<li><strong>间谍代理</strong>：间谍代理指组织或个人创建的，用于记录用户传输的数据，然后进行研究、监控等目的的代理服务器。</li>
+</ul>
+<h2 id="5-常见代理设置"><a href="#5-常见代理设置" class="headerlink" title="5. 常见代理设置"></a>5. 常见代理设置</h2><p>常见的代理设置如下：</p>
+<ul>
+<li>使用网上的免费代理，最好使用高匿代理，使用前抓取下来并筛选一下可用代理，也可以进一步维护一个代理池。</li>
+<li>使用付费代理服务，互联网上存在许多代理商，可以付费使用，其质量比免费代理好很多。</li>
+<li>ADSL 拨号，拨一次号换一次 IP，稳定性高，也是一种比较有效的解决方案。</li>
+<li>蜂窝代理，即用 4G 或 5G 网卡等制作的代理。由于蜂窝网络用作代理的情形较少，因此整体被封锁的几率会较低，但搭建蜂窝代理的成本较高。</li>
+</ul>
+<h1 id="8-多进程和多线程的基本原理"><a href="#8-多进程和多线程的基本原理" class="headerlink" title="8.多进程和多线程的基本原理"></a>8.多进程和多线程的基本原理</h1><p>Python多线程的用法: <a target="_blank" rel="noopener" href="https://setup.scrape.center/python-threading%E3%80%82">https://setup.scrape.center/python-threading。</a><br>Python多进程的用法: <a target="_blank" rel="noopener" href="https://setup.scrape.center/python-multiprocessingo">https://setup.scrape.center/python-multiprocessingo</a></p>
 
                 
               </div>
