@@ -1,0 +1,1048 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Olivia的小跟班">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1.TXT文件文本存储将数据保存到 TXT 文本的操作非常简单，而且 TXT 文本几乎兼容任何平台，但是这有个缺点，那就是不利于检索。所以如果对检索和数据结构要求不高，追求方便第一的话，可以采用 TXT 文本存储。 1. 本节目标本节我们以电影示例网站 https:&#x2F;&#x2F;ssr1.scrape.center&#x2F; 为例，爬取首页 10 部电影的数据，然后将相关信息存储为 TXT 文本格式。 2. 基本实">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据的存储">
+<meta property="og:url" content="http://example.com/2022/07/08/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/index.html">
+<meta property="og:site_name" content="Olivia的小跟班">
+<meta property="og:description" content="1.TXT文件文本存储将数据保存到 TXT 文本的操作非常简单，而且 TXT 文本几乎兼容任何平台，但是这有个缺点，那就是不利于检索。所以如果对检索和数据结构要求不高，追求方便第一的话，可以采用 TXT 文本存储。 1. 本节目标本节我们以电影示例网站 https:&#x2F;&#x2F;ssr1.scrape.center&#x2F; 为例，爬取首页 10 部电影的数据，然后将相关信息存储为 TXT 文本格式。 2. 基本实">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/uwg48.png">
+<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/puyn5.png">
+<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/ryvux.png">
+<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/m571c.png">
+<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/6naa7.png">
+<meta property="og:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/5-6.jpg">
+<meta property="article:published_time" content="2022-07-08T07:01:05.000Z">
+<meta property="article:modified_time" content="2022-07-08T07:59:13.836Z">
+<meta property="article:author" content="Olivia的小跟班">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="爬虫">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/uwg48.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>数据的存储 - Olivia的小跟班</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"KJlmf4xNi8wwPlRowDLWrIcA-gzGzoHsz","app_key":"3h5JmTeNVedhRAJocD3w5qfn","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Olivia的小跟班</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="数据的存储"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-08 15:01" pubdate>
+          2022年7月8日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          21k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          172 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span>次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">数据的存储</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="1-TXT文件文本存储"><a href="#1-TXT文件文本存储" class="headerlink" title="1.TXT文件文本存储"></a>1.TXT文件文本存储</h1><p>将数据保存到 TXT 文本的操作非常简单，而且 TXT 文本几乎兼容任何平台，但是这有个缺点，那就是不利于检索。所以如果对检索和数据结构要求不高，追求方便第一的话，可以采用 TXT 文本存储。</p>
+<h2 id="1-本节目标"><a href="#1-本节目标" class="headerlink" title="1. 本节目标"></a>1. 本节目标</h2><p>本节我们以电影示例网站 <a target="_blank" rel="noopener" href="https://ssr1.scrape.center/">https://ssr1.scrape.center/</a> 为例，爬取首页 10 部电影的数据，然后将相关信息存储为 TXT 文本格式。</p>
+<h2 id="2-基本实例"><a href="#2-基本实例" class="headerlink" title="2. 基本实例"></a>2. 基本实例</h2><p>首先，可以用 requests 将网页源代码获取下来，然后使用 pyquery 解析库解析，接下来将提取的电影名称、类别、上映时间等信息保存到 TXT 文本中，代码如下：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">import requests<br><span class="hljs-built_in">from</span> pyquery import PyQuery <span class="hljs-keyword">as</span> pq<br>import re<br><br>url = <span class="hljs-string">&#x27;https://ssr1.scrape.center/&#x27;</span><br>html = requests.<span class="hljs-built_in">get</span>(url).<span class="hljs-keyword">text</span><br>doc = pq(html)<br><span class="hljs-keyword">items</span> = doc(<span class="hljs-string">&#x27;.el-card&#x27;</span>).<span class="hljs-keyword">items</span>()<br><br><span class="hljs-built_in">file</span> = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;movies.txt&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br><span class="hljs-keyword">for</span> <span class="hljs-keyword">item</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">items</span>:<br>    <span class="hljs-comment"># 电影名称</span><br>    name = <span class="hljs-keyword">item</span>.find(<span class="hljs-string">&#x27;a &gt; h2&#x27;</span>).<span class="hljs-keyword">text</span>()<br>    <span class="hljs-built_in">file</span>.<span class="hljs-built_in">write</span>(f<span class="hljs-string">&#x27;名称: &#123;name&#125;\n&#x27;</span>)<br>    <span class="hljs-comment"># 类别</span><br>    categories = [<span class="hljs-keyword">item</span>.<span class="hljs-keyword">text</span>() <span class="hljs-keyword">for</span> <span class="hljs-keyword">item</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">item</span>.find(<span class="hljs-string">&#x27;.categories button span&#x27;</span>).<span class="hljs-keyword">items</span>()]<br>    <span class="hljs-built_in">file</span>.<span class="hljs-built_in">write</span>(f<span class="hljs-string">&#x27;类别: &#123;categories&#125;\n&#x27;</span>)<br>    <span class="hljs-comment"># 上映时间</span><br>    published_at = <span class="hljs-keyword">item</span>.find(<span class="hljs-string">&#x27;.info:contains(上映)&#x27;</span>).<span class="hljs-keyword">text</span>()<br>    published_at = re.search(<span class="hljs-string">&#x27;(\d&#123;4&#125;-\d&#123;2&#125;-\d&#123;2&#125;)&#x27;</span>, published_at).group(<span class="hljs-number">1</span>) \<br>        <span class="hljs-keyword">if</span> published_at <span class="hljs-keyword">and</span> re.search(<span class="hljs-string">&#x27;\d&#123;4&#125;-\d&#123;2&#125;-\d&#123;2&#125;&#x27;</span>, published_at) <span class="hljs-keyword">else</span> None<br>    <span class="hljs-built_in">file</span>.<span class="hljs-built_in">write</span>(f<span class="hljs-string">&#x27;上映时间: &#123;published_at&#125;\n&#x27;</span>)<br>    <span class="hljs-comment"># 评分</span><br>    score = <span class="hljs-keyword">item</span>.find(<span class="hljs-string">&#x27;p.score&#x27;</span>).<span class="hljs-keyword">text</span>()<br>    <span class="hljs-built_in">file</span>.<span class="hljs-built_in">write</span>(f<span class="hljs-string">&#x27;评分: &#123;score&#125;\n&#x27;</span>)<br>    <span class="hljs-built_in">file</span>.<span class="hljs-built_in">write</span>(f<span class="hljs-string">&#x27;&#123;&quot;=&quot; * 50&#125;\n&#x27;</span>)<br><span class="hljs-built_in">file</span>.<span class="hljs-built_in">close</span>()<br></code></pre></td></tr></table></figure>
+
+<p>这里主要是为了演示文件保存的方式，因此 requests 异常处理部分在此省去。首先，用 requests 提取首页的 HTML 代码，然后利用 pyquery 将电影的名称、类别、上映时间、评分信息提取出来。</p>
+<p>利用 Python 提供的 open 方法打开一个文本文件，获取一个文件操作对象，这里赋值为 file，每提取一部分信息，就利用 file 对象的 write 方法将提取的内容写入文件。</p>
+<p>全部提取完毕之后，最后调用 close 方法将其关闭，这样抓取的内容即可成功写入文本中了。</p>
+<p>运行程序，可以发现在本地生成了一个 movies.txt 文件，其内容如图所示。</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/uwg48.png" srcset="/img/loading.gif" lazyload alt="image-20200531171232808"></p>
+<p>这样电影信息的内容就被保存成文本形式了。</p>
+<p>回过头来我们看下本节重点需要了解的内容，就是文本写入操作，其实就是 open、write、close 这三个方法的用法。</p>
+<p>这里 open 方法的第一个参数即要保存的目标文件名称；第二个参数为 w，代表以覆盖写入的方式写入文本；另外，我们还指定了文件的编码为 utf-8。最后，写入完成后，还需要调用 close 方法来关闭文件对象。</p>
+<h2 id="3-打开方式"><a href="#3-打开方式" class="headerlink" title="3. 打开方式"></a>3. 打开方式</h2><p>在刚才的实例中，open 方法的第二个参数设置成了 w，这样在每次写入文本时会清空源文件，然后将新的内容写入文件，这是一种文件打开方式。关于文件的打开方式，其实还有其他几种，这里简要介绍一下。</p>
+<ul>
+<li>r：以只读方式打开文件，意思就是只能读取文件内容，不能写入文件内容。这是默认模式。</li>
+<li>rb：以二进制只读方式打开一个文件，通常用于打开二进制文件，比如音频、图片、视频等等。</li>
+<li>r+：以读写方式打开一个文件，既可以读文件又可以写文件。</li>
+<li>rb+：以二进制读写方式打开一个文件，同样既可以读又可以写，但读取和写入的都是二进制数据。</li>
+<li>w：以写入方式打开一个文件。如果该文件已存在，则将其覆盖。如果该文件不存在，则创建新文件。</li>
+<li>wb：以二进制写入方式打开一个文件。如果该文件已存在，则将其覆盖。如果该文件不存在，则创建新文件。</li>
+<li>w+：以读写方式打开一个文件。如果该文件已存在，则将其覆盖。如果该文件不存在，则创建新文件。</li>
+<li>wb+：以二进制读写格式打开一个文件。如果该文件已存在，则将其覆盖。如果该文件不存在，则创建新文件。</li>
+<li>a：以追加方式打开一个文件。如果该文件已存在，文件指针将会放在文件结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，则创建新文件来写入。</li>
+<li>ab：以二进制追加方式打开一个文件。如果该文件已存在，则文件指针将会放在文件结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，则创建新文件来写入。</li>
+<li>a+：以读写方式打开一个文件。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，则创建新文件来读写。</li>
+<li>ab+：以二进制追加方式打开一个文件。如果该文件已存在，则文件指针将会放在文件结尾。如果该文件不存在，则创建新文件用于读写。</li>
+</ul>
+<h2 id="4-简化写法"><a href="#4-简化写法" class="headerlink" title="4. 简化写法"></a>4. 简化写法</h2><p>另外，文件写入还有一种简写方法，那就是使用 with as 语法。在 with 控制块结束时，文件会自动关闭，所以就不需要再调用 close 方法了。</p>
+<p>这种保存方式可以简写如下：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;movies.txt&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>):<br>    <span class="hljs-built_in">file</span>.<span class="hljs-built_in">write</span>(f<span class="hljs-string">&#x27;名称: &#123;name&#125;\n&#x27;</span>)<br>    <span class="hljs-built_in">file</span>.<span class="hljs-built_in">write</span>(f<span class="hljs-string">&#x27;类别: &#123;categories&#125;\n&#x27;</span>)<br>    <span class="hljs-built_in">file</span>.<span class="hljs-built_in">write</span>(f<span class="hljs-string">&#x27;上映时间: &#123;published_at&#125;\n&#x27;</span>)<br>    <span class="hljs-built_in">file</span>.<span class="hljs-built_in">write</span>(f<span class="hljs-string">&#x27;评分: &#123;score&#125;\n&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>上面便是利用 Python 将结果保存为 TXT 文件的方法，这种方法简单易用，操作高效，是一种最基本的保存数据的方法。</p>
+<h1 id="2-JSON文件存储"><a href="#2-JSON文件存储" class="headerlink" title="2.JSON文件存储"></a>2.JSON文件存储</h1><p>JSON，全称为 JavaScript Object Notation, 也就是 JavaScript 对象标记，它通过对象和数组的组合来表示数据，构造简洁但是结构化程度非常高，是一种轻量级的数据交换格式。</p>
+<p>本节中，我们就来了解如何利用 Python 保存数据到 JSON 文件。</p>
+<h2 id="1-对象和数组"><a href="#1-对象和数组" class="headerlink" title="1. 对象和数组"></a>1. 对象和数组</h2><p>在 JavaScript 语言中，一切都是对象。因此，任何支持的类型都可以通过 JSON 来表示，例如字符串、数字、对象、数组等，但是对象和数组是比较特殊且常用的两种类型，下面简要介绍一下它们。</p>
+<ul>
+<li>对象：它在 JavaScript 中是使用花括号 <code>&#123;&#125;</code> 包裹起来的内容，数据结构为 <code>&#123;key1：value1, key2：value2, ...&#125;</code> 的键值对结构。在面向对象的语言中，key 为对象的属性，value 为对应的值。键名可以使用整数和字符串来表示。值的类型可以是任意类型。</li>
+<li>数组：数组在 JavaScript 中是方括号 <code>[]</code> 包裹起来的内容，数据结构为 <code>[&quot;java&quot;, &quot;javascript&quot;, &quot;vb&quot;, ...]</code> 的索引结构。在 JavaScript 中，数组是一种比较特殊的数据类型，它也可以像对象那样使用键值对，但还是索引用得多。同样，值的类型可以是任意类型。</li>
+</ul>
+<p>所以，一个 JSON 对象可以写为如下形式：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs dts">[<br>  <span class="hljs-punctuation">&#123;</span><br><span class="hljs-symbol">    name:</span> <span class="hljs-string">&quot;Bob&quot;</span>,<br><span class="hljs-symbol">    gender:</span> <span class="hljs-string">&quot;male&quot;</span>,<br><span class="hljs-symbol">    birthday:</span> <span class="hljs-string">&quot;1992-10-18&quot;</span>,<br>  <span class="hljs-punctuation">&#125;</span>,<br>  <span class="hljs-punctuation">&#123;</span><br><span class="hljs-symbol">    name:</span> <span class="hljs-string">&quot;Selina&quot;</span>,<br><span class="hljs-symbol">    gender:</span> <span class="hljs-string">&quot;female&quot;</span>,<br><span class="hljs-symbol">    birthday:</span> <span class="hljs-string">&quot;1995-10-18&quot;</span>,<br>  <span class="hljs-punctuation">&#125;</span>,<br>]<span class="hljs-punctuation">;</span><br></code></pre></td></tr></table></figure>
+
+<p>由中括号包围的就相当于列表类型，列表中的每个元素可以是任意类型，这个示例中它是字典类型，由大括号包围。</p>
+<p>JSON 可以由以上两种形式自由组合而成，可以无限次嵌套，结构清晰，是数据交换的极佳方式。</p>
+<h2 id="2-读取-JSON"><a href="#2-读取-JSON" class="headerlink" title="2. 读取 JSON"></a>2. 读取 JSON</h2><p>Python 为我们提供了简单易用的 JSON 库来实现 JSON 文件的读写操作，我们可以调用 JSON 库的 loads 方法将 JSON 文本字符串转为 JSON 对象，实际上 JSON 对象为 Python 中的 list 和 dict 的嵌套和组合，这里称之为 JSON 对象。另外我们还可以通过 dumps 方法将 JSON 对象转为文本字符串。</p>
+<p>例如，这里有一段 JSON 形式的字符串，它是 str 类型，我们用 Python 将其转换为可操作的数据结构，如列表或字典：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-keyword">import</span> json<br><br><span class="hljs-title">str</span> = &#x27;&#x27;&#x27;<br>[&#123;<br>    <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Bob&quot;</span>,<br>    <span class="hljs-string">&quot;gender&quot;</span>: <span class="hljs-string">&quot;male&quot;</span>,<br>    <span class="hljs-string">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1992-10-18&quot;</span><br>&#125;, &#123;<br>    <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Selina&quot;</span>,<br>    <span class="hljs-string">&quot;gender&quot;</span>: <span class="hljs-string">&quot;female&quot;</span>,<br>    <span class="hljs-string">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1995-10-18&quot;</span><br>&#125;]<br>&#x27;&#x27;&#x27;<br><span class="hljs-title">print</span>(<span class="hljs-class"><span class="hljs-keyword">type</span>(<span class="hljs-title">str</span>))</span><br><span class="hljs-class"><span class="hljs-keyword">data</span> = json.loads(<span class="hljs-title">str</span>)</span><br><span class="hljs-title">print</span>(<span class="hljs-class"><span class="hljs-keyword">data</span>)</span><br><span class="hljs-title">print</span>(<span class="hljs-class"><span class="hljs-keyword">type</span>(<span class="hljs-title">data</span>))</span><br></code></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs 1c">&lt;class&#x27;str&#x27;&gt;<br>[&#123;&#x27;name&#x27;: &#x27;Bob&#x27;, &#x27;gender&#x27;: &#x27;male&#x27;, &#x27;birthday&#x27;: &#x27;<span class="hljs-number">1992-10-18</span>&#x27;&#125;, &#123;&#x27;name&#x27;: &#x27;Selina&#x27;, &#x27;gender&#x27;: &#x27;female&#x27;, &#x27;birthday&#x27;: &#x27;<span class="hljs-number">1995-10-18</span>&#x27;&#125;]<br>&lt;class &#x27;list&#x27;&gt;<br></code></pre></td></tr></table></figure>
+
+<p>这里使用 loads 方法将字符串转为 JSON 对象。由于最外层是中括号，所以最终的类型是列表类型。</p>
+<p>这样一来，我们就可以用索引来获取对应的内容了。例如，如果想取第一个元素里的 name 属性，就可以使用如下方式：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus">data<span class="hljs-selector-attr">[0]</span><span class="hljs-selector-attr">[<span class="hljs-string">&#x27;name&#x27;</span>]</span><br>data<span class="hljs-selector-attr">[0]</span><span class="hljs-selector-class">.get</span>(<span class="hljs-string">&#x27;name&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>得到的结果都是：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">Bob</span><br></code></pre></td></tr></table></figure>
+
+<p>通过中括号加 0 索引，可以得到第一个字典元素，然后再调用其键名即可得到相应的键值。获取键值时有两种方式，一种是中括号加键名，另一种是通过 get 方法传入键名。这里推荐使用 get 方法，这样如果键名不存在，则不会报错，会返回 None。另外，get 方法还可以传入第二个参数（即默认值），示例如下：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-class"><span class="hljs-keyword">data</span>[0].get(&#x27;<span class="hljs-title">age&#x27;</span>)</span><br><span class="hljs-class"><span class="hljs-keyword">data</span>[0].get(&#x27;<span class="hljs-title">age&#x27;</span>, 25)</span><br></code></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-built_in">None</span><br><span class="hljs-number">25</span><br></code></pre></td></tr></table></figure>
+
+<p>这里我们尝试获取年龄 age，其实在原字典中该键名不存在，此时默认会返回 None。如果传入第二个参数（即默认值），那么在不存在的情况下返回该默认值。</p>
+<p>值得注意的是，JSON 的数据需要用双引号来包围，不能使用单引号。例如，若使用如下形式表示，则会出现错误：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">import</span> <span class="hljs-type">json</span><br><br>str = <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">[&#123;</span><br><span class="hljs-string">    &#x27;</span><span class="hljs-type">name</span><span class="hljs-string">&#x27;: &#x27;</span>Bob<span class="hljs-string">&#x27;,</span><br><span class="hljs-string">    &#x27;</span>gender<span class="hljs-string">&#x27;: &#x27;</span>mal<span class="hljs-string">e&#x27;,</span><br><span class="hljs-string">    &#x27;</span>birthday<span class="hljs-string">&#x27;: &#x27;</span><span class="hljs-number">1992</span><span class="hljs-number">-10</span><span class="hljs-number">-18</span><span class="hljs-string">&#x27;</span><br><span class="hljs-string">&#125;]</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br>data = <span class="hljs-type">json</span>.loads(str)<br></code></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-type">json</span>.decoder.JSONDecodeError: Expecting property <span class="hljs-type">name</span> enclosed <span class="hljs-keyword">in</span> <span class="hljs-type">double</span> quotes: <span class="hljs-type">line</span> <span class="hljs-number">3</span> <span class="hljs-keyword">column</span> <span class="hljs-number">5</span> (<span class="hljs-type">char</span> <span class="hljs-number">8</span>)<br></code></pre></td></tr></table></figure>
+
+<p>这里会出现 JSON 解析错误的提示。这是因为这里数据用单引号来包围，请千万注意 JSON 字符串的表示需要用双引号，否则 loads 方法会解析失败。</p>
+<p>如果从 JSON 文本中读取内容，例如这里有一个 data.json 文本文件，其内容是刚才定义的 JSON 字符串，我们可以先将文本文件内容读出，然后再利用 loads 方法转化：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-keyword">import</span> json<br><br><span class="hljs-title">with</span> open(&#x27;<span class="hljs-class"><span class="hljs-keyword">data</span>.json&#x27;, encoding=&#x27;utf-8&#x27;) as file:</span><br>    str = file.read()<br>    <span class="hljs-class"><span class="hljs-keyword">data</span> = json.loads(<span class="hljs-title">str</span>)</span><br>    print(<span class="hljs-class"><span class="hljs-keyword">data</span>)</span><br></code></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scheme">[&#123;<span class="hljs-symbol">&#x27;name</span><span class="hljs-symbol">&#x27;:</span> <span class="hljs-symbol">&#x27;Bob</span>&#x27;, <span class="hljs-symbol">&#x27;gender</span><span class="hljs-symbol">&#x27;:</span> <span class="hljs-symbol">&#x27;male</span>&#x27;, <span class="hljs-symbol">&#x27;birthday</span><span class="hljs-symbol">&#x27;:</span> <span class="hljs-symbol">&#x27;1992-10-18</span>&#x27;&#125;, &#123;<span class="hljs-symbol">&#x27;name</span><span class="hljs-symbol">&#x27;:</span> <span class="hljs-symbol">&#x27;Selina</span>&#x27;, <span class="hljs-symbol">&#x27;gender</span><span class="hljs-symbol">&#x27;:</span> <span class="hljs-symbol">&#x27;female</span>&#x27;, <span class="hljs-symbol">&#x27;birthday</span><span class="hljs-symbol">&#x27;:</span> <span class="hljs-symbol">&#x27;1995-10-18</span>&#x27;&#125;]<br></code></pre></td></tr></table></figure>
+
+<p>这里我们用 open 方法读取了文本文件，同时使用了默认的读模式，编码指定为 utf-8，文件操作对象赋值为 file。接着我们调用了 file 对象的 read 方法读取了文本的所有内容，赋值为 str。然后再调用 loads 方法解析 JSON 字符串，将其转化为 JSON 对象。</p>
+<p>这里其实也有更简便的写法，我们可以直接使用 load 方法传入文件操作对象，同样也可以将文本转化为 JSON 对象，写法如下：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">import</span> <span class="hljs-type">json</span><br><br>data = <span class="hljs-type">json</span>.<span class="hljs-keyword">load</span>(<span class="hljs-keyword">open</span>(<span class="hljs-string">&#x27;data.json&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br>print(data)<br></code></pre></td></tr></table></figure>
+
+<p>注意这里使用的是 load 方法，而不是 loads 方法。前者的参数是一个文件操作对象，后者的参数是一个 JSON 字符串。</p>
+<p>这两种写法的运行结果也是完全一样的。只不过 load 方法是将整个文件的内容转化为 JSON 对象，而使用 loads 方法可以更灵活地控制要转化的内容。两种方法可以在适当的场景下使用。</p>
+<h2 id="3-输出-JSON"><a href="#3-输出-JSON" class="headerlink" title="3. 输出 JSON"></a>3. 输出 JSON</h2><p>另外，我们还可以调用 dumps 方法将 JSON 对象转化为字符串。例如，将上例中的列表重新写入文本：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">import</span> json<br><br><span class="hljs-keyword">data</span> = [&#123;<br>    <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;Bob&#x27;</span>,<br>    <span class="hljs-string">&#x27;gender&#x27;</span>: <span class="hljs-string">&#x27;male&#x27;</span>,<br>    <span class="hljs-string">&#x27;birthday&#x27;</span>: <span class="hljs-string">&#x27;1992-10-18&#x27;</span><br>&#125;]<br>with <span class="hljs-keyword">open</span>(<span class="hljs-string">&#x27;data.json&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> file:<br>    file.write(json.dumps(<span class="hljs-keyword">data</span>))<br></code></pre></td></tr></table></figure>
+
+<p>利用 dumps 方法，我们可以将 JSON 对象转为字符串，然后再调用文件的 write 方法写入文本，结果如图所示。</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/puyn5.png" srcset="/img/loading.gif" lazyload alt="写入结果"></p>
+<p>另外，如果想保存 JSON 的格式缩进，可以再加一个参数 indent，代表缩进字符个数。示例如下：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;data.json&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> <span class="hljs-built_in">file</span>:<br>    <span class="hljs-built_in">file</span>.<span class="hljs-built_in">write</span>(json.dumps(data, indent=<span class="hljs-number">2</span>))<br></code></pre></td></tr></table></figure>
+
+<p>此时写入结果如图所示。</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/ryvux.png" srcset="/img/loading.gif" lazyload alt="写入结果"></p>
+<p>这样得到的内容会自动带缩进，格式会更加清晰。</p>
+<p>另外，如果 JSON 中包含中文字符，会怎么样呢？例如，我们将之前的 JSON 的部分值改为中文，再用之前的方法写入到文本：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs vim">import json<br><br>data = [&#123;<br>    <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;王伟&#x27;</span>,<br>    <span class="hljs-string">&#x27;gender&#x27;</span>: <span class="hljs-string">&#x27;男&#x27;</span>,<br>    <span class="hljs-string">&#x27;birthday&#x27;</span>: <span class="hljs-string">&#x27;1992-10-18&#x27;</span><br>&#125;]<br>with <span class="hljs-keyword">open</span>(<span class="hljs-string">&#x27;data.json&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> <span class="hljs-keyword">file</span>:<br>    <span class="hljs-keyword">file</span>.<span class="hljs-keyword">write</span>(json.dumps(data, <span class="hljs-built_in">indent</span>=<span class="hljs-number">2</span>))<br></code></pre></td></tr></table></figure>
+
+<p>写入结果如图所示。</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/m571c.png" srcset="/img/loading.gif" lazyload alt="写入结果"></p>
+<p>可以看到，中文字符都变成了 Unicode 字符，这并不是我们想要的结果。</p>
+<p>为了输出中文，还需要指定参数 ensure_ascii 为 False，另外还要规定文件输出的编码：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">with open(<span class="hljs-string">&#x27;data.json&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>, <span class="hljs-attribute">encoding</span>=<span class="hljs-string">&#x27;utf-8&#x27;</span>) as file:<br>    file.write(json.dumps(data, <span class="hljs-attribute">indent</span>=2, <span class="hljs-attribute">ensure_ascii</span>=<span class="hljs-literal">False</span>))<br></code></pre></td></tr></table></figure>
+
+<p>写入结果如图所示。</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/6naa7.png" srcset="/img/loading.gif" lazyload alt="写入结果"></p>
+<p>可以发现，这样就可以输出 JSON 为中文了。</p>
+<p>同样地，类比 loads 与 load 方法，dumps 也有对应的 dump 方法，它可以直接将 JSON 对象全部写入到文件中，因此上述的写法也可以写为如下形式：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">json.dump(data, open(<span class="hljs-string">&#x27;data.json&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>, <span class="hljs-attribute">encoding</span>=<span class="hljs-string">&#x27;utf-8&#x27;</span>), <span class="hljs-attribute">indent</span>=2, <span class="hljs-attribute">ensure_ascii</span>=<span class="hljs-literal">False</span>)<br></code></pre></td></tr></table></figure>
+
+<p>这里第一个参数就是 JSON 对象，第二个参数可以传入文件操作对象，其他的 indent、ensure_ascii 对象还是保持不变，运行效果是一样的。</p>
+<h1 id="3-CSV文件存储"><a href="#3-CSV文件存储" class="headerlink" title="3.CSV文件存储"></a>3.CSV文件存储</h1><p>CSV，全称为 Comma-Separated Values，中文可以叫作逗号分隔值或字符分隔值，其文件以纯文本形式存储表格数据。该文件是一个字符序列，可以由任意数目的记录组成，记录间以某种换行符分隔。每条记录由字段组成，字段间的分隔符是其他字符或字符串，最常见的是逗号或制表符。不过所有记录都有完全相同的字段序列，相当于一个结构化表的纯文本形式。它比 Excel 文件更加简介，XLS 文本是电子表格，它包含了文本、数值、公式和格式等内容，而 CSV 中不包含这些内容，就是特定字符分隔的纯文本，结构简单清晰。所以，有时候用 CSV 来保存数据是比较方便的。本节中，我们来讲解 Python 读取和写入 CSV 文件的过程。</p>
+<h2 id="1-写入"><a href="#1-写入" class="headerlink" title="1. 写入"></a>1. 写入</h2><p>这里先看一个最简单的例子：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs stylus">import csv<br><br>with <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;data.csv&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>) as csvfile:<br>    writer = csv<span class="hljs-selector-class">.writer</span>(csvfile)<br>    writer<span class="hljs-selector-class">.writerow</span>(<span class="hljs-selector-attr">[<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>]</span>)<br>    writer<span class="hljs-selector-class">.writerow</span>(<span class="hljs-selector-attr">[<span class="hljs-string">&#x27;10001&#x27;</span>, <span class="hljs-string">&#x27;Mike&#x27;</span>, 20]</span>)<br>    writer<span class="hljs-selector-class">.writerow</span>(<span class="hljs-selector-attr">[<span class="hljs-string">&#x27;10002&#x27;</span>, <span class="hljs-string">&#x27;Bob&#x27;</span>, 22]</span>)<br>    writer<span class="hljs-selector-class">.writerow</span>(<span class="hljs-selector-attr">[<span class="hljs-string">&#x27;10003&#x27;</span>, <span class="hljs-string">&#x27;Jordan&#x27;</span>, 21]</span>)<br></code></pre></td></tr></table></figure>
+
+<p>首先，打开 data.csv 文件，然后指定打开的模式为 <code>w</code>（即写入），获得文件句柄，随后调用 csv 库的 <code>writer()</code> 方法初始化写入对象，传入该句柄，然后调用 <code>writerow()</code> 方法传入每行的数据即可完成写入。</p>
+<p>运行结束后，会生成一个名为 data.csv 的文件，此时数据就成功写入了。直接以文本形式打开的话，其内容如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">id</span>,name,age<br><span class="hljs-attribute">10001</span>,Mike,<span class="hljs-number">20</span><br><span class="hljs-attribute">10002</span>,Bob,<span class="hljs-number">22</span><br><span class="hljs-attribute">10003</span>,Jordan,<span class="hljs-number">21</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看到，写入的文本默认以逗号分隔，调用一次 <code>writerow()</code> 方法即可写入一行数据。用 Excel 打开的结果如图 5-6 所示。</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/5-6.jpg" srcset="/img/loading.gif" lazyload alt="img">图 5-6 打开结果</p>
+<p>如果想修改列与列之间的分隔符，可以传入 <code>delimiter</code> 参数，其代码如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs stylus">import csv<br><br>with <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;data.csv&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>) as csvfile:<br>    writer = csv<span class="hljs-selector-class">.writer</span>(csvfile, delimiter=<span class="hljs-string">&#x27; &#x27;</span>)<br>    writer<span class="hljs-selector-class">.writerow</span>(<span class="hljs-selector-attr">[<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>]</span>)<br>    writer<span class="hljs-selector-class">.writerow</span>(<span class="hljs-selector-attr">[<span class="hljs-string">&#x27;10001&#x27;</span>, <span class="hljs-string">&#x27;Mike&#x27;</span>, 20]</span>)<br>    writer<span class="hljs-selector-class">.writerow</span>(<span class="hljs-selector-attr">[<span class="hljs-string">&#x27;10002&#x27;</span>, <span class="hljs-string">&#x27;Bob&#x27;</span>, 22]</span>)<br>    writer<span class="hljs-selector-class">.writerow</span>(<span class="hljs-selector-attr">[<span class="hljs-string">&#x27;10003&#x27;</span>, <span class="hljs-string">&#x27;Jordan&#x27;</span>, 21]</span>)<br></code></pre></td></tr></table></figure>
+
+<p>这里在初始化写入对象时传入 <code>delimiter</code> 为空格，此时输出结果的每一列就是以空格分隔了，内容如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">id</span> name age<br><span class="hljs-attribute">10001</span> Mike <span class="hljs-number">20</span><br><span class="hljs-attribute">10002</span> Bob <span class="hljs-number">22</span><br><span class="hljs-attribute">10003</span> Jordan <span class="hljs-number">21</span><br></code></pre></td></tr></table></figure>
+
+<p>另外，我们也可以调用 <code>writerows()</code> 方法同时写入多行，此时参数就需要为二维列表，例如：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stylus">import csv<br><br>with <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;data.csv&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>) as csvfile:<br>    writer = csv<span class="hljs-selector-class">.writer</span>(csvfile)<br>    writer<span class="hljs-selector-class">.writerow</span>(<span class="hljs-selector-attr">[<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>]</span>)<br>    writer<span class="hljs-selector-class">.writerows</span>(<span class="hljs-selector-attr">[[<span class="hljs-string">&#x27;10001&#x27;</span>, <span class="hljs-string">&#x27;Mike&#x27;</span>, 20]</span>, <span class="hljs-selector-attr">[<span class="hljs-string">&#x27;10002&#x27;</span>, <span class="hljs-string">&#x27;Bob&#x27;</span>, 22]</span>, <span class="hljs-selector-attr">[<span class="hljs-string">&#x27;10003&#x27;</span>, <span class="hljs-string">&#x27;Jordan&#x27;</span>, 21]</span>])<br></code></pre></td></tr></table></figure>
+
+<p>输出效果是相同的，内容如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">id</span>,name,age<br><span class="hljs-attribute">10001</span>,Mike,<span class="hljs-number">20</span><br><span class="hljs-attribute">10002</span>,Bob,<span class="hljs-number">22</span><br><span class="hljs-attribute">10003</span>,Jordan,<span class="hljs-number">21</span><br></code></pre></td></tr></table></figure>
+
+<p>但是一般情况下，爬虫爬取的都是结构化数据，我们一般会用字典来表示。在 csv 库中也提供了字典的写入方式，示例如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs stylus">import csv<br><br>with <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;data.csv&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>) as csvfile:<br>    fieldnames = <span class="hljs-selector-attr">[<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>]</span><br>    writer = csv<span class="hljs-selector-class">.DictWriter</span>(csvfile, fieldnames=fieldnames)<br>    writer<span class="hljs-selector-class">.writeheader</span>()<br>    writer<span class="hljs-selector-class">.writerow</span>(&#123;<span class="hljs-string">&#x27;id&#x27;</span>: <span class="hljs-string">&#x27;10001&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;Mike&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>: <span class="hljs-number">20</span>&#125;)<br>    writer<span class="hljs-selector-class">.writerow</span>(&#123;<span class="hljs-string">&#x27;id&#x27;</span>: <span class="hljs-string">&#x27;10002&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;Bob&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>: <span class="hljs-number">22</span>&#125;)<br>    writer<span class="hljs-selector-class">.writerow</span>(&#123;<span class="hljs-string">&#x27;id&#x27;</span>: <span class="hljs-string">&#x27;10003&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;Jordan&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>: <span class="hljs-number">21</span>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>这里先定义 3 个字段，用 <code>fieldnames</code> 表示，然后将其传给 <code>DictWriter</code> 来初始化一个字典写入对象，接着可以调用 <code>writeheader()</code> 方法先写入头信息，然后再调用 <code>writerow()</code> 方法传入相应字典即可。最终写入的结果是完全相同的，内容如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">id</span>,name,age<br><span class="hljs-attribute">10001</span>,Mike,<span class="hljs-number">20</span><br><span class="hljs-attribute">10002</span>,Bob,<span class="hljs-number">22</span><br><span class="hljs-attribute">10003</span>,Jordan,<span class="hljs-number">21</span><br></code></pre></td></tr></table></figure>
+
+<p>这样就可以完成字典到 CSV 文件的写入了。</p>
+<p>另外，如果想追加写入的话，可以修改文件的打开模式，即将 <code>open()</code> 函数的第二个参数改成 <code>a</code>，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> csv<br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;data.csv&#x27;</span>, <span class="hljs-string">&#x27;a&#x27;</span>) <span class="hljs-keyword">as</span> csvfile:<br>    fieldnames = [<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>]<br>    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)<br>    writer.writerow(&#123;<span class="hljs-string">&#x27;id&#x27;</span>: <span class="hljs-string">&#x27;10004&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;Durant&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>: <span class="hljs-number">22</span>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>这样在上面的基础上再执行这段代码，文件内容便会变成：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">id</span>,name,age<br><span class="hljs-attribute">10001</span>,Mike,<span class="hljs-number">20</span><br><span class="hljs-attribute">10002</span>,Bob,<span class="hljs-number">22</span><br><span class="hljs-attribute">10003</span>,Jordan,<span class="hljs-number">21</span><br><span class="hljs-attribute">10004</span>,Durant,<span class="hljs-number">22</span><br></code></pre></td></tr></table></figure>
+
+<p>可见，数据被追加写入到文件中。</p>
+<p>如果要写入中文内容的话，可能会遇到字符编码的问题，此时需要给 <code>open()</code> 参数指定编码格式。比如，这里再写入一行包含中文的数据，代码需要改写如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> csv<br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;data.csv&#x27;</span>, <span class="hljs-string">&#x27;a&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> csvfile:<br>    fieldnames = [<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>]<br>    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)<br>    writer.writerow(&#123;<span class="hljs-string">&#x27;id&#x27;</span>: <span class="hljs-string">&#x27;10005&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;王伟&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>: <span class="hljs-number">22</span>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>这里需要给 <code>open()</code> 函数指定编码，否则可能发生编码错误。</p>
+<p>另外，如果接触过 pandas 等库的话，可以调用 <code>DataFrame</code> 对象的 <code>to_csv()</code> 方法来将数据写入 CSV 文件中。</p>
+<h2 id="2-读取"><a href="#2-读取" class="headerlink" title="2. 读取"></a>2. 读取</h2><p>我们同样可以使用 csv 库来读取 CSV 文件。例如，将刚才写入的文件内容读取出来，相关代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> csv<br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;data.csv&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> csvfile:<br>    reader = csv.reader(csvfile)<br>    <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> reader:<br>        <span class="hljs-built_in">print</span>(row)<br></code></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs scheme">[<span class="hljs-symbol">&#x27;id</span>&#x27;, <span class="hljs-symbol">&#x27;name</span>&#x27;, <span class="hljs-symbol">&#x27;age</span>&#x27;]<br>[<span class="hljs-symbol">&#x27;10001</span>&#x27;, <span class="hljs-symbol">&#x27;Mike</span>&#x27;, <span class="hljs-symbol">&#x27;20</span>&#x27;]<br>[<span class="hljs-symbol">&#x27;10002</span>&#x27;, <span class="hljs-symbol">&#x27;Bob</span>&#x27;, <span class="hljs-symbol">&#x27;22</span>&#x27;]<br>[<span class="hljs-symbol">&#x27;10003</span>&#x27;, <span class="hljs-symbol">&#x27;Jordan</span>&#x27;, <span class="hljs-symbol">&#x27;21</span>&#x27;]<br>[<span class="hljs-symbol">&#x27;10004</span>&#x27;, <span class="hljs-symbol">&#x27;Durant</span>&#x27;, <span class="hljs-symbol">&#x27;22</span>&#x27;]<br>[<span class="hljs-symbol">&#x27;10005</span>&#x27;, <span class="hljs-symbol">&#x27;王伟</span>&#x27;, <span class="hljs-symbol">&#x27;22</span>&#x27;]<br></code></pre></td></tr></table></figure>
+
+<p>这里我们构造的是 <code>Reader</code> 对象，通过遍历输出了每行的内容，每一行都是一个列表形式。注意，如果 CSV 文件中包含中文的话，还需要指定文件编码。</p>
+<p>另外，如果接触过 pandas 的话，可以利用 <code>read_csv()</code> 方法将数据从 CSV 中读取出来，例如：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-keyword">import</span> pandas  <span class="hljs-keyword">as</span> pd<br><br><span class="hljs-title">df</span> = pd.read_csv(&#x27;<span class="hljs-class"><span class="hljs-keyword">data</span>.csv&#x27;)</span><br><span class="hljs-title">print</span>(df)<br></code></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs apache">      <span class="hljs-attribute">id</span>    name  age<br><span class="hljs-attribute">0</span>  <span class="hljs-number">10001</span>    Mike   <span class="hljs-number">20</span><br><span class="hljs-attribute">1</span>  <span class="hljs-number">10002</span>     Bob   <span class="hljs-number">22</span><br><span class="hljs-attribute">2</span>  <span class="hljs-number">10003</span>  Jordan   <span class="hljs-number">21</span><br><span class="hljs-attribute">3</span>  <span class="hljs-number">10004</span>  Durant   <span class="hljs-number">22</span><br><span class="hljs-attribute">4</span>  <span class="hljs-number">10005</span>      王伟   <span class="hljs-number">22</span><br></code></pre></td></tr></table></figure>
+
+<p>在做数据分析的时候，此种方法用得比较多，也是一种比较方便地读取 CSV 文件的方法。</p>
+<p>本节中，我们了解了 CSV 文件的写入和读取方式。这也是一种常用的数据存储方式，需要熟练掌握。</p>
+<h1 id="4-MYSQL存储"><a href="#4-MYSQL存储" class="headerlink" title="4.MYSQL存储"></a>4.MYSQL存储</h1><p>关系型数据库是基于关系模型的数据库，而关系模型是通过二维表来保存的，所以它的存储方式就是行列组成的表，每一列是一个字段，每一行是一条记录。表可以看作某个实体的集合，而实体之间存在联系，这就需要表与表之间的关联关系来体现，如主键外键的关联关系。多个表组成一个数据库，也就是关系型数据库。</p>
+<p>关系型数据库有多种，如 SQLite、MySQL、Oracle、SQL Server、DB2 等，本节我们主要来了解下 MySQL 数据库的存储操作。</p>
+<p>在 Python 2 中，连接 MySQL 的库大多是使用 MySQLdb，但是此库的官方并不支持 Python 3，所以这里推荐使用的库是 PyMySQL。本节中，我们就来讲解使用 PyMySQL 操作 MySQL 数据库的方法。</p>
+<h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a>1. 准备工作</h2><p>使用 pip3 来安装：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">pip3 <span class="hljs-keyword">install</span> pymysql<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-连接数据库"><a href="#2-连接数据库" class="headerlink" title="2. 连接数据库"></a>2. 连接数据库</h2><p>这里首先尝试连接一下数据库。假设当前的 MySQL 运行在本地，用户名为 root，密码为 123456，运行端口为 3306。这里利用 PyMySQL 先连接 MySQL，然后创建一个新的数据库，名字叫作 spiders，代码如下：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">import</span> pymysql<br><br>db = pymysql.<span class="hljs-keyword">connect</span>(host=<span class="hljs-string">&#x27;localhost&#x27;</span>,<span class="hljs-keyword">user</span>=<span class="hljs-string">&#x27;root&#x27;</span>, <span class="hljs-keyword">password</span>=<span class="hljs-string">&#x27;123456&#x27;</span>, port=<span class="hljs-number">3306</span>)<br><span class="hljs-keyword">cursor</span> = db.<span class="hljs-keyword">cursor</span>()<br><span class="hljs-keyword">cursor</span>.<span class="hljs-keyword">execute</span>(<span class="hljs-string">&#x27;SELECT VERSION()&#x27;</span>)<br>data = <span class="hljs-keyword">cursor</span>.fetchone()<br>print(<span class="hljs-string">&#x27;Database version:&#x27;</span>, data)<br><span class="hljs-keyword">cursor</span>.<span class="hljs-keyword">execute</span>(&quot;CREATE DATABASE spiders DEFAULT CHARACTER SET utf8mb4&quot;)<br>db.<span class="hljs-keyword">close</span>()<br></code></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Database</span> version: (&#x27;<span class="hljs-number">8</span>.<span class="hljs-number">0</span>.<span class="hljs-number">19</span>&#x27;,)<br></code></pre></td></tr></table></figure>
+
+<p>这里通过 PyMySQL 的 <code>connect</code> 方法声明一个 MySQL 连接对象 <code>db</code>，此时需要传入 MySQL 运行的 <code>host</code>（即 IP）。由于 MySQL 在本地运行，所以传入的是 <code>localhost</code>。如果 MySQL 在远程运行，则传入其公网 IP 地址。后续的参数 <code>user</code> 即用户名，<code>password</code> 即密码，<code>port</code> 即端口（默认为 3306）。</p>
+<p>连接成功后，需要再调用 <code>cursor</code> 方法获得 MySQL 的操作游标，利用游标来执行 SQL 语句。这里我们执行了两句 SQL，直接用 <code>execute</code> 方法执行即可。第一句 SQL 用于获得 MySQL 的当前版本，然后调用 <code>fetchone</code> 方法获得第一条数据，也就得到了版本号。第二句 SQL 执行创建数据库的操作，数据库名叫作 spiders，默认编码为 UTF-8。由于该语句不是查询语句，所以直接执行后就成功创建了数据库 spiders。接着，再利用这个数据库进行后续的操作。</p>
+<h2 id="3-创建表"><a href="#3-创建表" class="headerlink" title="3. 创建表"></a>3. 创建表</h2><p>一般来说，创建数据库的操作只需要执行一次就好了。当然，我们也可以手动创建数据库。以后，我们的操作都在 spiders 数据库上执行。</p>
+<p>创建数据库后，在连接时需要额外指定一个参数 <code>db</code>。</p>
+<p>接下来，新创建一个数据表 students，此时执行创建表的 SQL 语句即可。这里指定 3 个字段，结构如表 4- 所示。</p>
+<p>表 4- 数据表 students</p>
+<table>
+<thead>
+<tr>
+<th align="left">字　段　名</th>
+<th align="left">含　　义</th>
+<th align="left">类　　型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>id</code></td>
+<td align="left">学号</td>
+<td align="left"><code>varchar</code></td>
+</tr>
+<tr>
+<td align="left"><code>name</code></td>
+<td align="left">姓名</td>
+<td align="left"><code>varchar</code></td>
+</tr>
+<tr>
+<td align="left"><code>age</code></td>
+<td align="left">年龄</td>
+<td align="left"><code>int</code></td>
+</tr>
+</tbody></table>
+<p>创建该表的示例代码如下：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">import</span> pymysql<br><br>db = pymysql.<span class="hljs-keyword">connect</span>(host=<span class="hljs-string">&#x27;localhost&#x27;</span>, <span class="hljs-keyword">user</span>=<span class="hljs-string">&#x27;root&#x27;</span>, <span class="hljs-keyword">password</span>=<span class="hljs-string">&#x27;123456&#x27;</span>, port=<span class="hljs-number">3306</span>, db=<span class="hljs-string">&#x27;spiders&#x27;</span>)<br><span class="hljs-keyword">cursor</span> = db.<span class="hljs-keyword">cursor</span>()<br><span class="hljs-keyword">sql</span> = <span class="hljs-string">&#x27;CREATE TABLE IF NOT EXISTS students (id VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, age INT NOT NULL, PRIMARY KEY (id))&#x27;</span><br><span class="hljs-keyword">cursor</span>.<span class="hljs-keyword">execute</span>(<span class="hljs-keyword">sql</span>)<br>db.<span class="hljs-keyword">close</span>()<br></code></pre></td></tr></table></figure>
+
+<p>运行之后，我们便创建了一个名为 students 的数据表。</p>
+<p>当然，为了演示，这里只指定了最简单的几个字段。实际上，在爬虫过程中，我们会根据爬取结果设计特定的字段。</p>
+<h2 id="4-插入数据"><a href="#4-插入数据" class="headerlink" title="4. 插入数据"></a>4. 插入数据</h2><p>下一步就是向数据库中插入数据了。例如，这里爬取了一个学生信息，学号为 20120001，名字为 Bob，年龄为 20，那么如何将该条数据插入数据库呢？示例代码如下：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs routeros">import pymysql<br><br>id = <span class="hljs-string">&#x27;20120001&#x27;</span><span class="hljs-built_in"></span><br><span class="hljs-built_in">user </span>= <span class="hljs-string">&#x27;Bob&#x27;</span><br>age = 20<br><br>db = pymysql.connect(<span class="hljs-attribute">host</span>=<span class="hljs-string">&#x27;localhost&#x27;</span>, <span class="hljs-attribute">user</span>=<span class="hljs-string">&#x27;root&#x27;</span>, <span class="hljs-attribute">password</span>=<span class="hljs-string">&#x27;123456&#x27;</span>, <span class="hljs-attribute">port</span>=3306, <span class="hljs-attribute">db</span>=<span class="hljs-string">&#x27;spiders&#x27;</span>)<br>cursor = db.cursor()<br>sql = <span class="hljs-string">&#x27;INSERT INTO students(id, name, age) values(%s, %s, %s)&#x27;</span><br>try:<br>    cursor.execute(sql, (id, user, age))<br>    db.commit()<br>except:<br>    db.rollback()<br>db.close()<br></code></pre></td></tr></table></figure>
+
+<p>这里首先构造了一个 SQL 语句，其值没有用字符串拼接的方式来构造，如：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">sql</span> = <span class="hljs-string">&#x27;INSERT INTO students(id, name, age) values(&#x27;</span> + id + <span class="hljs-string">&#x27;, &#x27;</span> + name + <span class="hljs-string">&#x27;, &#x27;</span> + age + <span class="hljs-string">&#x27;)&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>这样的写法烦琐而且不直观，所以我们选择直接用格式化符 <code>%s</code> 来实现。有几个 <code>value</code> 写几个 <code>%s</code>，我们只需要在 <code>execute</code> 方法的第一个参数传入该 SQL 语句，<code>value</code> 值用统一的元组传过来就好了。这样的写法既可以避免字符串拼接的麻烦，又可以避免引号冲突的问题。</p>
+<p>之后值得注意的是，需要执行 <code>db</code> 对象的 <code>commit</code> 方法才可以实现数据插入，这个方法才是真正将语句提交到数据库执行的方法。对于数据插入、更新、删除操作，都需要调用该方法才能生效。</p>
+<p>接下来，我们加了一层异常处理。如果执行失败，则调用 <code>rollback</code> 执行数据回滚，相当于什么都没有发生过。</p>
+<p>这里涉及事务的问题。事务机制可以确保数据的一致性，也就是这件事要么发生了，要么没有发生。比如插入一条数据，不会存在插入一半的情况，要么全部插入，要么都不插入，这就是事务的原子性。另外，事务还有 3 个属性 —— 一致性、隔离性和持久性。这 4 个属性通常称为 ACID 特性，具体如表 4- 所示。</p>
+<p>表 4- 事务的 4 个属性</p>
+<table>
+<thead>
+<tr>
+<th align="left">属　　性</th>
+<th align="left">解　　释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">原子性（atomicity）</td>
+<td align="left">事务是一个不可分割的工作单位，事务中包括的诸操作要么都做，要么都不做</td>
+</tr>
+<tr>
+<td align="left">一致性（consistency）</td>
+<td align="left">事务必须使数据库从一个一致性状态变到另一个一致性状态。一致性与原子性是密切相关的</td>
+</tr>
+<tr>
+<td align="left">隔离性（isolation）</td>
+<td align="left">一个事务的执行不能被其他事务干扰，即一个事务内部的操作及使用的数据对并发的其他事务是隔离的，并发执行的各个事务之间不能互相干扰</td>
+</tr>
+<tr>
+<td align="left">持久性（durability）</td>
+<td align="left">持续性也称永久性（permanence），指一个事务一旦提交，它对数据库中数据的改变就应该是永久性的。接下来的其他操作或故障不应该对其有任何影响</td>
+</tr>
+</tbody></table>
+<p>插入、更新和删除操作都是对数据库进行更改的操作，而更改操作都必须为一个事务，所以这些操作的标准写法就是：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css">try:<br>    cursor.<span class="hljs-built_in">execute</span>(sql)<br>    db.<span class="hljs-built_in">commit</span>()<br>except:<br>    db.<span class="hljs-built_in">rollback</span>()<br></code></pre></td></tr></table></figure>
+
+<p>这样便可以保证数据的一致性。这里的 <code>commit</code> 和 <code>rollback</code> 方法就为事务的实现提供了支持。</p>
+<p>上面数据插入的操作是通过构造 SQL 语句实现的，但是很明显，这有一个极其不方便的地方，比如突然增加了性别字段 <code>gender</code>，此时 SQL 语句就需要改成：</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sas"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> students(id, name, age, gender) values(<span class="hljs-title function_">%s</span>, <span class="hljs-title function_">%s</span>, <span class="hljs-title function_">%s</span>, <span class="hljs-title function_">%s</span>)<br></code></pre></td></tr></table></figure>
+
+<p>相应的元组参数则需要改成：</p>
+<figure class="highlight hy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs hy">(<span class="hljs-name"><span class="hljs-built_in">id</span></span>, name, age, gender)<br></code></pre></td></tr></table></figure>
+
+<p>这显然不是我们想要的。在很多情况下，我们要达到的效果是插入方法无须改动，做成一个通用方法，只需要传入一个动态变化的字典就好了。比如，构造这样一个字典：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs 1c">&#123;<br>    &#x27;id&#x27;: &#x27;<span class="hljs-number">20120001</span>&#x27;,<br>    &#x27;name&#x27;: &#x27;Bob&#x27;,<br>    &#x27;age&#x27;: <span class="hljs-number">20</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后 SQL 语句会根据字典动态构造，元组也动态构造，这样才能实现通用的插入方法。所以，这里我们需要改写一下插入方法：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs vim">data = &#123;<br>    <span class="hljs-string">&#x27;id&#x27;</span>: <span class="hljs-string">&#x27;20120001&#x27;</span>,<br>    <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;Bob&#x27;</span>,<br>    <span class="hljs-string">&#x27;age&#x27;</span>: <span class="hljs-number">20</span><br>&#125;<br>table = <span class="hljs-string">&#x27;students&#x27;</span><br><span class="hljs-built_in">keys</span> = <span class="hljs-string">&#x27;, &#x27;</span>.<span class="hljs-keyword">join</span>(data.<span class="hljs-built_in">keys</span>())<br><span class="hljs-built_in">values</span> = <span class="hljs-string">&#x27;, &#x27;</span>.<span class="hljs-keyword">join</span>([<span class="hljs-string">&#x27;%s&#x27;</span>] * <span class="hljs-built_in">len</span>(data))<br>sql = <span class="hljs-string">&#x27;INSERT INTO &#123;table&#125;(&#123;keys&#125;) VALUES (&#123;values&#125;)&#x27;</span>.format(table=table, <span class="hljs-built_in">keys</span>=<span class="hljs-built_in">keys</span>, <span class="hljs-built_in">values</span>=<span class="hljs-built_in">values</span>)<br><span class="hljs-keyword">try</span>:<br>   <span class="hljs-keyword">if</span> <span class="hljs-built_in">cursor</span>.<span class="hljs-keyword">execute</span>(sql, tuple(data.<span class="hljs-built_in">values</span>())):<br>       <span class="hljs-keyword">print</span>(<span class="hljs-string">&#x27;Successful&#x27;</span>)<br>       db.commit()<br>except:<br>    <span class="hljs-keyword">print</span>(<span class="hljs-string">&#x27;Failed&#x27;</span>)<br>    db.rollback()<br>db.<span class="hljs-keyword">close</span>()<br></code></pre></td></tr></table></figure>
+
+<p>这里我们传入的数据是字典，并将其定义为 <code>data</code> 变量。表名也定义成变量 <code>table</code>。接下来，就需要构造一个动态的 SQL 语句了。</p>
+<p>首先，需要构造插入的字段 <code>id</code>、<code>name</code> 和 <code>age</code>。这里只需要将 <code>data</code> 的键名拿过来，然后用逗号分隔即可。所以 <code>&#39;, &#39;.join(data.keys())</code> 的结果就是 <code>id, name, age</code>，然后需要构造多个 <code>%ss</code> 当作占位符，有几个字段构造几个即可。比如，这里有三个字段，就需要构造 <code>%s, %s, %s</code>。这里首先定义了长度为 1 的数组 <code>[&#39;%s&#39;]</code>，然后用乘法将其扩充为 <code>[&#39;%s&#39;, &#39;%s&#39;, &#39;%s&#39;]</code>，再调用 <code>join</code> 方法，最终变成 <code>%s, %s, %s</code>。最后，我们再利用字符串的 <code>format</code> 方法将表名、字段名和占位符构造出来。最终的 SQL 语句就被动态构造成了：</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sas"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> students(id, name, age) VALUES (<span class="hljs-title function_">%s</span>, <span class="hljs-title function_">%s</span>, <span class="hljs-title function_">%s</span>)<br></code></pre></td></tr></table></figure>
+
+<p>最后，为 <code>execute</code> 方法的第一个参数传入 <code>sql</code> 变量，第二个参数传入 <code>data</code> 的键值构造的元组，就可以成功插入数据了。</p>
+<p>如此以来，我们便实现了传入一个字典来插入数据的方法，不需要再去修改 SQL 语句和插入操作了。</p>
+<h2 id="5-更新数据"><a href="#5-更新数据" class="headerlink" title="5. 更新数据"></a>5. 更新数据</h2><p>数据更新操作实际上也是执行 SQL 语句，最简单的方式就是构造一个 SQL 语句，然后执行：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs stata">sql = &#x27;<span class="hljs-keyword">UPDATE</span> students <span class="hljs-keyword">SET</span> age = %ss WHERE name = %s&#x27;<br>try:<br>   cursor.execute(sql, (25, &#x27;Bob&#x27;))<br>   <span class="hljs-keyword">db</span>.commit()<br>except:<br>   <span class="hljs-keyword">db</span>.rollback()<br><span class="hljs-keyword">db</span>.<span class="hljs-keyword">close</span>()<br></code></pre></td></tr></table></figure>
+
+<p>这里同样用占位符的方式构造 SQL，然后执行 <code>execute</code> 方法，传入元组形式的参数，同样执行 <code>commit</code> 方法执行操作。如果要做简单的数据更新的话，完全可以使用此方法。</p>
+<p>但是在实际的数据抓取过程中，大部分情况下需要插入数据，但是我们关心的是会不会出现重复数据，如果出现了，我们希望更新数据而不是重复保存一次。另外，就像前面所说的动态构造 SQL 的问题，所以这里可以再实现一种去重的方法，如果数据存在，则更新数据；如果数据不存在，则插入数据。另外，这种做法支持灵活的字典传值。示例如下：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs vim">data = &#123;<br>    <span class="hljs-string">&#x27;id&#x27;</span>: <span class="hljs-string">&#x27;20120001&#x27;</span>,<br>    <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;Bob&#x27;</span>,<br>    <span class="hljs-string">&#x27;age&#x27;</span>: <span class="hljs-number">21</span><br>&#125;<br><br>table = <span class="hljs-string">&#x27;students&#x27;</span><br><span class="hljs-built_in">keys</span> = <span class="hljs-string">&#x27;, &#x27;</span>.<span class="hljs-keyword">join</span>(data.<span class="hljs-built_in">keys</span>())<br><span class="hljs-built_in">values</span> = <span class="hljs-string">&#x27;, &#x27;</span>.<span class="hljs-keyword">join</span>([<span class="hljs-string">&#x27;%s&#x27;</span>] * <span class="hljs-built_in">len</span>(data))<br><br>sql = <span class="hljs-string">&#x27;INSERT INTO &#123;table&#125;(&#123;keys&#125;) VALUES (&#123;values&#125;) ON DUPLICATE KEY UPDATE &#x27;</span>.format(table=table, <span class="hljs-built_in">keys</span>=<span class="hljs-built_in">keys</span>, <span class="hljs-built_in">values</span>=<span class="hljs-built_in">values</span>)<br><span class="hljs-keyword">update</span> = <span class="hljs-string">&#x27;,&#x27;</span>.<span class="hljs-keyword">join</span>([<span class="hljs-string">&quot;&#123;key&#125; = %s&quot;</span>.format(key=key) <span class="hljs-keyword">for</span> key in data])<br>sql += <span class="hljs-keyword">update</span><br><span class="hljs-keyword">try</span>:<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">cursor</span>.<span class="hljs-keyword">execute</span>(sql, tuple(data.<span class="hljs-built_in">values</span>())*<span class="hljs-number">2</span>):<br>        <span class="hljs-keyword">print</span>(<span class="hljs-string">&#x27;Successful&#x27;</span>)<br>        db.commit()<br>except:<br>    <span class="hljs-keyword">print</span>(<span class="hljs-string">&#x27;Failed&#x27;</span>)<br>    db.rollback()<br>db.<span class="hljs-keyword">close</span>()<br></code></pre></td></tr></table></figure>
+
+<p>这里构造的 SQL 语句其实是插入语句，但是我们在后面加了 <code>ON DUPLICATE KEY UPDATE</code>。这行代码的意思是如果主键已经存在，就执行更新操作。比如，我们传入的数据 <code>id</code> 仍然为 20120001，但是年龄有所变化，由 20 变成了 21，此时这条数据不会被插入，而是直接更新 id 为 20120001 的数据。完整的 SQL 构造出来是这样的：</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sas"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> students(id, name, age) VALUES (<span class="hljs-title function_">%s</span>, <span class="hljs-title function_">%s</span>, <span class="hljs-title function_">%s</span>) <span class="hljs-keyword">ON</span> DUPLICATE <span class="hljs-keyword">KEY</span> <span class="hljs-keyword">UPDATE</span> id = <span class="hljs-title function_">%s</span>, name = <span class="hljs-title function_">%s</span>, age = <span class="hljs-title function_">%s</span><br></code></pre></td></tr></table></figure>
+
+<p>这里就变成了 6 个 <code>%ss</code>。所以在后面的 <code>execute</code> 方法的第二个参数元组就需要乘以 2 变成原来的 2 倍。</p>
+<p>如此一来，我们就可以实现主键不存在便插入数据，存在则更新数据的功能了。</p>
+<h2 id="6-删除数据"><a href="#6-删除数据" class="headerlink" title="6. 删除数据"></a>6. 删除数据</h2><p>删除操作相对简单，直接使用 <code>DELETE</code> 语句即可，只是需要指定要删除的目标表名和删除条件，而且仍然需要使用 <code>db</code> 的 <code>commit</code> 方法才能生效。示例如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">table</span> <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;students&#x27;</span><br><span class="hljs-keyword">condition</span> <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;age &gt; 20&#x27;</span><br><br><span class="hljs-keyword">sql</span> <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;DELETE FROM  &#123;table&#125; WHERE &#123;condition&#125;&#x27;</span>.format(<span class="hljs-keyword">table</span><span class="hljs-operator">=</span><span class="hljs-keyword">table</span>, <span class="hljs-keyword">condition</span><span class="hljs-operator">=</span><span class="hljs-keyword">condition</span>)<br>try:<br>    cursor.execute(<span class="hljs-keyword">sql</span>)<br>    db.commit()<br><span class="hljs-keyword">except</span>:<br>    db.rollback()<br><br>db.close()<br></code></pre></td></tr></table></figure>
+
+<p>因为删除条件多种多样，运算符有大于、小于、等于、<code>LIKE</code> 等，条件连接符有 <code>AND</code>、<code>OR</code> 等，所以不再继续构造复杂的判断条件。这里直接将条件当作字符串来传递，以实现删除操作。</p>
+<h2 id="7-查询数据"><a href="#7-查询数据" class="headerlink" title="7. 查询数据"></a>7. 查询数据</h2><p>说完插入、修改和删除等操作，还剩下非常重要的一个操作，那就是查询。查询会用到 <code>SELECT</code> 语句，示例如下：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs vim">sql = <span class="hljs-string">&#x27;SELECT * FROM students WHERE age &gt;= 20&#x27;</span><br><br><span class="hljs-keyword">try</span>:<br>    <span class="hljs-built_in">cursor</span>.<span class="hljs-keyword">execute</span>(sql)<br>    <span class="hljs-keyword">print</span>(<span class="hljs-string">&#x27;Count:&#x27;</span>, <span class="hljs-built_in">cursor</span>.rowcount)<br>    one = <span class="hljs-built_in">cursor</span>.fetchone()<br>    <span class="hljs-keyword">print</span>(<span class="hljs-string">&#x27;One:&#x27;</span>, one)<br>    results = <span class="hljs-built_in">cursor</span>.fetchall()<br>    <span class="hljs-keyword">print</span>(<span class="hljs-string">&#x27;Results:&#x27;</span>, results)<br>    <span class="hljs-keyword">print</span>(<span class="hljs-string">&#x27;Results Type:&#x27;</span>, <span class="hljs-built_in">type</span>(results))<br>    <span class="hljs-keyword">for</span> row in results:<br>        <span class="hljs-keyword">print</span>(row)<br>except:<br>    <span class="hljs-keyword">print</span>(<span class="hljs-string">&#x27;Error&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs 1c">Count: <span class="hljs-number">4</span><br>One: (&#x27;<span class="hljs-number">20120001</span>&#x27;, &#x27;Bob&#x27;, <span class="hljs-number">25</span>)<br>Results: ((&#x27;<span class="hljs-number">20120011</span>&#x27;, &#x27;Mary&#x27;, <span class="hljs-number">21</span>), (&#x27;<span class="hljs-number">20120012</span>&#x27;, &#x27;Mike&#x27;, <span class="hljs-number">20</span>), (&#x27;<span class="hljs-number">20120013</span>&#x27;, &#x27;James&#x27;, <span class="hljs-number">22</span>))<br>Results Type: &lt;class &#x27;tuple&#x27;&gt;<br>(&#x27;<span class="hljs-number">20120011</span>&#x27;, &#x27;Mary&#x27;, <span class="hljs-number">21</span>)<br>(&#x27;<span class="hljs-number">20120012</span>&#x27;, &#x27;Mike&#x27;, <span class="hljs-number">20</span>)<br>(&#x27;<span class="hljs-number">20120013</span>&#x27;, &#x27;James&#x27;, <span class="hljs-number">22</span>)<br></code></pre></td></tr></table></figure>
+
+<p>这里我们构造了一条 SQL 语句，将年龄 20 岁及以上的学生查询出来，然后将其传给 <code>execute</code> 方法。注意，这里不再需要 <code>db</code> 的 <code>commit</code> 方法。接着，调用 <code>cursor</code> 的 <code>rowcount</code> 属性获取查询结果的条数，当前示例中是 4 条。</p>
+<p>然后我们调用了 <code>fetchone</code> 方法，这个方法可以获取结果的第一条数据，返回结果是元组形式，元组的元素顺序跟字段一一对应，即第一个元素就是第一个字段 <code>id</code>，第二个元素就是第二个字段 <code>name</code>，以此类推。随后，我们又调用了 <code>fetchall</code> 方法，它可以得到结果的所有数据。然后将其结果和类型打印出来，它是二重元组，每个元素都是一条记录，我们将其遍历输出出来。</p>
+<p>但是这里需要注意一个问题，这里显示的是 3 条数据而不是 4 条，<code>fetchall</code> 方法不是获取所有数据吗？这是因为它的内部实现有一个偏移指针用来指向查询结果，最开始偏移指针指向第一条数据，取一次之后，指针偏移到下一条数据，这样再取的话，就会取到下一条数据了。我们最初调用了一次 <code>fetchone</code> 方法，这样结果的偏移指针就指向下一条数据，<code>fetchall</code> 方法返回的是偏移指针指向的数据一直到结束的所有数据，所以该方法获取的结果就只剩 3 个了。</p>
+<p>此外，我们还可以用 <code>while</code> 循环加 <code>fetchone</code> 方法来获取所有数据，而不是用 <code>fetchall</code> 全部一起获取出来。<code>fetchall</code> 会将结果以元组形式全部返回，如果数据量很大，那么占用的开销会非常高。因此，推荐使用如下方法来逐条取数据：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs vim">sql = <span class="hljs-string">&#x27;SELECT * FROM students WHERE age &gt;= 20&#x27;</span><br><span class="hljs-keyword">try</span>:<br>    <span class="hljs-built_in">cursor</span>.<span class="hljs-keyword">execute</span>(sql)<br>    <span class="hljs-keyword">print</span>(<span class="hljs-string">&#x27;Count:&#x27;</span>, <span class="hljs-built_in">cursor</span>.rowcount)<br>    row = <span class="hljs-built_in">cursor</span>.fetchone()<br>    <span class="hljs-keyword">while</span> row:<br>        <span class="hljs-keyword">print</span>(<span class="hljs-string">&#x27;Row:&#x27;</span>, row)<br>        row = <span class="hljs-built_in">cursor</span>.fetchone()<br>except:<br>    <span class="hljs-keyword">print</span>(<span class="hljs-string">&#x27;Error&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>这样每循环一次，指针就会偏移一条数据，随用随取，简单高效。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%88%AC%E8%99%AB/" class="category-chain-item">爬虫</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/">#Python</a>
+      
+        <a href="/tags/%E7%88%AC%E8%99%AB/">#爬虫</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>数据的存储</div>
+      <div>http://example.com/2022/07/08/数据的存储/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Olivia的小跟班</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月8日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/07/%E7%BD%91%E9%A1%B5%E6%95%B0%E6%8D%AE%E7%9A%84%E8%A7%A3%E6%9E%90%E6%8F%90%E5%8F%96/" title="网页数据的解析提取">
+                        <span class="hidden-mobile">网页数据的解析提取</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zhouxing9454/commit-utterance');
+      s.setAttribute('issue-term', 'title');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+  
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    
+
+
+<div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+
+<span id="sitetime" style="text-align:center;display: block;"></span>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* 
+		Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数
+        */
+		var t1 = Date.UTC(2022,07,04,12,00,00); //北京时间2018-2-13 00:00:00
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+/*diffYears+" 年 "+*/diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
