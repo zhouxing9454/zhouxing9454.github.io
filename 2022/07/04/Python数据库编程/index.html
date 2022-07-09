@@ -314,19 +314,19 @@
                 <h3 id="Python-DB-API作用"><a href="#Python-DB-API作用" class="headerlink" title="Python DB API作用"></a>Python DB API作用</h3><blockquote>
 <p><strong>背景</strong>：没有<code>Python DB API</code>之前，接口程序混乱！</p>
 </blockquote>
-<p><img src="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220059787-746351865.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220059787-746351865.png" alt="img"></p>
 <hr>
 <p>当应用程序想切换不同的的数据库时，由于程序接口的混乱所带来的代价是非常大的。为此，Python 官方规范访问数据库的接口，防止在使用不同数据库时造成的问题。这个官方规范的接口叫做 <code>Python DB API</code> 。该接口的说明文档在<a target="_blank" rel="noopener" href="https://www.python.org/dev/peps/pep-0249">这</a></p>
 <blockquote>
 <p>有了这接口带来的好处不言而喻，大大方便数据库的访问，开发只需要学习了API，就可以以少量的修改为代价进行不同数据库的切换。</p>
 </blockquote>
-<p><img src="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220117896-339776325.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220117896-339776325.png" alt="img"></p>
 <hr>
 <h3 id="Python-DB-API包含的内容"><a href="#Python-DB-API包含的内容" class="headerlink" title="Python DB API包含的内容"></a>Python DB API包含的内容</h3><p>API中主要的模块如下：</p>
-<p><img src="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220132803-799817953.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220132803-799817953.png" alt="img"></p>
 <p>各模块的作用可以用一张图表示如下：</p>
-<p><img src="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220143396-1740022108.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<h3 id="Python-DB-API访问数据库流程"><a href="#Python-DB-API访问数据库流程" class="headerlink" title="Python DB API访问数据库流程"></a>Python DB API访问数据库流程</h3><p><img src="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220156037-994551768.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220143396-1740022108.png" alt="img"></p>
+<h3 id="Python-DB-API访问数据库流程"><a href="#Python-DB-API访问数据库流程" class="headerlink" title="Python DB API访问数据库流程"></a>Python DB API访问数据库流程</h3><p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220156037-994551768.png" alt="img"></p>
 <h3 id="pymysql-和-MySQLdb"><a href="#pymysql-和-MySQLdb" class="headerlink" title="pymysql 和 MySQLdb"></a><code>pymysql</code> 和 <code>MySQLdb</code></h3><p>pymysql 是在 Python3.x 和 2.x 版本中用于连接 MySQL 服务器的一个库，Python2中则使用mysqldb。</p>
 <p>pymysql 遵循 Python 数据库 API v2.0 规范，并包含了 pure-Python MySQL 客户端库。下面便以 pymysql 为例，对于其他数据库同样的有着 pysql、pymongo 等等。</p>
 <hr>
@@ -342,12 +342,12 @@
 <h3 id="connection对象"><a href="#connection对象" class="headerlink" title="connection对象"></a>connection对象</h3><blockquote>
 <p>生成对象的方法：pymysql.connect，方法参数如下：</p>
 </blockquote>
-<p><img src="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220220756-1252741664.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220220756-1252741664.png" alt="img"></p>
 <hr>
 <blockquote>
 <p>connection 对象支持的方法：</p>
 </blockquote>
-<p><img src="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220233896-1887674176.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220233896-1887674176.png" alt="img"></p>
 <p>测试如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><br><span class="hljs-keyword">import</span> pymysql<br><br>db_connection = pymysql.connect(<br>    host=<span class="hljs-string">&#x27;127.0.0.1&#x27;</span>,<br>    user=<span class="hljs-string">&#x27;xxxx&#x27;</span>,<br>    password=<span class="hljs-string">&#x27;xxxx&#x27;</span>,<br>    database=<span class="hljs-string">&#x27;python2test&#x27;</span>,<br>    charset=<span class="hljs-string">&#x27;utf8&#x27;</span><br>)<br>cursors = db_connection.cursor()<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-built_in">print</span>(db_connection)<br>    <span class="hljs-built_in">print</span>(cursors)<br></code></pre></td></tr></table></figure>
 
@@ -356,11 +356,11 @@
 
 <h3 id="cursor对象"><a href="#cursor对象" class="headerlink" title="cursor对象"></a>cursor对象</h3><p>游标对象：用于执行查询和获取结果</p>
 <p>cursor对象支持的方法：</p>
-<p><img src="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220253912-215025051.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220253912-215025051.png" alt="img"></p>
 <p>其中execute方法：执行SQL将结果从数据库获取到客户端的过程如下：</p>
-<p><img src="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220305521-36664649.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220305521-36664649.png" alt="img"></p>
 <p>fetch*（）方法的过程如下：</p>
-<p><img src="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220318178-1845492928.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="https://images2017.cnblogs.com/blog/1048215/201801/1048215-20180117220318178-1845492928.png" alt="img"></p>
 <h4 id="执行简单查询数据库的版本"><a href="#执行简单查询数据库的版本" class="headerlink" title="执行简单查询数据库的版本"></a>执行简单查询数据库的版本</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><br><span class="hljs-keyword">import</span> pymysql<br><br>db_connection = pymysql.connect(<br>    host=<span class="hljs-string">&#x27;127.0.0.1&#x27;</span>,<br>    user=<span class="hljs-string">&#x27;xxxx&#x27;</span>,<br>    password=<span class="hljs-string">&#x27;xxxx&#x27;</span>,<br>    database=<span class="hljs-string">&#x27;python2test&#x27;</span>,<br>    charset=<span class="hljs-string">&#x27;utf8&#x27;</span><br>)<br><span class="hljs-comment"># 使用 cursor() 方法创建一个游标对象 cursor</span><br>cursors = db_connection.cursor()<br><br><br><span class="hljs-comment"># 使用 execute()  方法执行 SQL 查询</span><br>cursors.execute(<span class="hljs-string">&quot;SELECT VERSION()&quot;</span>)<br><br><span class="hljs-comment"># 使用 fetchone() 方法获取单条数据.</span><br>data = cursors.fetchone()<br><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Database version : %s &quot;</span> % data)<br><br><span class="hljs-comment"># 关闭数据库连接</span><br>db_connection.close()<br></code></pre></td></tr></table></figure>
 
 <p>运行结果：</p>
@@ -907,5 +907,11 @@
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-</body>
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
 </html>

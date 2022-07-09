@@ -316,7 +316,7 @@
 <p>利用 Python 提供的 open 方法打开一个文本文件，获取一个文件操作对象，这里赋值为 file，每提取一部分信息，就利用 file 对象的 write 方法将提取的内容写入文件。</p>
 <p>全部提取完毕之后，最后调用 close 方法将其关闭，这样抓取的内容即可成功写入文本中了。</p>
 <p>运行程序，可以发现在本地生成了一个 movies.txt 文件，其内容如图所示。</p>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/uwg48.png" srcset="/img/loading.gif" lazyload alt="image-20200531171232808"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/uwg48.png" alt="image-20200531171232808"></p>
 <p>这样电影信息的内容就被保存成文本形式了。</p>
 <p>回过头来我们看下本节重点需要了解的内容，就是文本写入操作，其实就是 open、write、close 这三个方法的用法。</p>
 <p>这里 open 方法的第一个参数即要保存的目标文件名称；第二个参数为 w，代表以覆盖写入的方式写入文本；另外，我们还指定了文件的编码为 utf-8。最后，写入完成后，还需要调用 close 方法来关闭文件对象。</p>
@@ -396,24 +396,24 @@
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">import</span> json<br><br><span class="hljs-keyword">data</span> = [&#123;<br>    <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;Bob&#x27;</span>,<br>    <span class="hljs-string">&#x27;gender&#x27;</span>: <span class="hljs-string">&#x27;male&#x27;</span>,<br>    <span class="hljs-string">&#x27;birthday&#x27;</span>: <span class="hljs-string">&#x27;1992-10-18&#x27;</span><br>&#125;]<br>with <span class="hljs-keyword">open</span>(<span class="hljs-string">&#x27;data.json&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> file:<br>    file.write(json.dumps(<span class="hljs-keyword">data</span>))<br></code></pre></td></tr></table></figure>
 
 <p>利用 dumps 方法，我们可以将 JSON 对象转为字符串，然后再调用文件的 write 方法写入文本，结果如图所示。</p>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/puyn5.png" srcset="/img/loading.gif" lazyload alt="写入结果"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/puyn5.png" alt="写入结果"></p>
 <p>另外，如果想保存 JSON 的格式缩进，可以再加一个参数 indent，代表缩进字符个数。示例如下：</p>
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;data.json&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> <span class="hljs-built_in">file</span>:<br>    <span class="hljs-built_in">file</span>.<span class="hljs-built_in">write</span>(json.dumps(data, indent=<span class="hljs-number">2</span>))<br></code></pre></td></tr></table></figure>
 
 <p>此时写入结果如图所示。</p>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/ryvux.png" srcset="/img/loading.gif" lazyload alt="写入结果"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/ryvux.png" alt="写入结果"></p>
 <p>这样得到的内容会自动带缩进，格式会更加清晰。</p>
 <p>另外，如果 JSON 中包含中文字符，会怎么样呢？例如，我们将之前的 JSON 的部分值改为中文，再用之前的方法写入到文本：</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs vim">import json<br><br>data = [&#123;<br>    <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;王伟&#x27;</span>,<br>    <span class="hljs-string">&#x27;gender&#x27;</span>: <span class="hljs-string">&#x27;男&#x27;</span>,<br>    <span class="hljs-string">&#x27;birthday&#x27;</span>: <span class="hljs-string">&#x27;1992-10-18&#x27;</span><br>&#125;]<br>with <span class="hljs-keyword">open</span>(<span class="hljs-string">&#x27;data.json&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> <span class="hljs-keyword">file</span>:<br>    <span class="hljs-keyword">file</span>.<span class="hljs-keyword">write</span>(json.dumps(data, <span class="hljs-built_in">indent</span>=<span class="hljs-number">2</span>))<br></code></pre></td></tr></table></figure>
 
 <p>写入结果如图所示。</p>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/m571c.png" srcset="/img/loading.gif" lazyload alt="写入结果"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/m571c.png" alt="写入结果"></p>
 <p>可以看到，中文字符都变成了 Unicode 字符，这并不是我们想要的结果。</p>
 <p>为了输出中文，还需要指定参数 ensure_ascii 为 False，另外还要规定文件输出的编码：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">with open(<span class="hljs-string">&#x27;data.json&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>, <span class="hljs-attribute">encoding</span>=<span class="hljs-string">&#x27;utf-8&#x27;</span>) as file:<br>    file.write(json.dumps(data, <span class="hljs-attribute">indent</span>=2, <span class="hljs-attribute">ensure_ascii</span>=<span class="hljs-literal">False</span>))<br></code></pre></td></tr></table></figure>
 
 <p>写入结果如图所示。</p>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/6naa7.png" srcset="/img/loading.gif" lazyload alt="写入结果"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/6naa7.png" alt="写入结果"></p>
 <p>可以发现，这样就可以输出 JSON 为中文了。</p>
 <p>同样地，类比 loads 与 load 方法，dumps 也有对应的 dump 方法，它可以直接将 JSON 对象全部写入到文件中，因此上述的写法也可以写为如下形式：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">json.dump(data, open(<span class="hljs-string">&#x27;data.json&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>, <span class="hljs-attribute">encoding</span>=<span class="hljs-string">&#x27;utf-8&#x27;</span>), <span class="hljs-attribute">indent</span>=2, <span class="hljs-attribute">ensure_ascii</span>=<span class="hljs-literal">False</span>)<br></code></pre></td></tr></table></figure>
@@ -428,7 +428,7 @@
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">id</span>,name,age<br><span class="hljs-attribute">10001</span>,Mike,<span class="hljs-number">20</span><br><span class="hljs-attribute">10002</span>,Bob,<span class="hljs-number">22</span><br><span class="hljs-attribute">10003</span>,Jordan,<span class="hljs-number">21</span><br></code></pre></td></tr></table></figure>
 
 <p>可以看到，写入的文本默认以逗号分隔，调用一次 <code>writerow()</code> 方法即可写入一行数据。用 Excel 打开的结果如图 5-6 所示。</p>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/5-6.jpg" srcset="/img/loading.gif" lazyload alt="img">图 5-6 打开结果</p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8/5-6.jpg" alt="img">图 5-6 打开结果</p>
 <p>如果想修改列与列之间的分隔符，可以传入 <code>delimiter</code> 参数，其代码如下：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs stylus">import csv<br><br>with <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;data.csv&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>) as csvfile:<br>    writer = csv<span class="hljs-selector-class">.writer</span>(csvfile, delimiter=<span class="hljs-string">&#x27; &#x27;</span>)<br>    writer<span class="hljs-selector-class">.writerow</span>(<span class="hljs-selector-attr">[<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>]</span>)<br>    writer<span class="hljs-selector-class">.writerow</span>(<span class="hljs-selector-attr">[<span class="hljs-string">&#x27;10001&#x27;</span>, <span class="hljs-string">&#x27;Mike&#x27;</span>, 20]</span>)<br>    writer<span class="hljs-selector-class">.writerow</span>(<span class="hljs-selector-attr">[<span class="hljs-string">&#x27;10002&#x27;</span>, <span class="hljs-string">&#x27;Bob&#x27;</span>, 22]</span>)<br>    writer<span class="hljs-selector-class">.writerow</span>(<span class="hljs-selector-attr">[<span class="hljs-string">&#x27;10003&#x27;</span>, <span class="hljs-string">&#x27;Jordan&#x27;</span>, 21]</span>)<br></code></pre></td></tr></table></figure>
 
@@ -1044,5 +1044,11 @@
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-</body>
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
 </html>

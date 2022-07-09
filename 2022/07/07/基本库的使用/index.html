@@ -332,7 +332,7 @@
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus">import urllib<span class="hljs-selector-class">.request</span><br><br>response = urllib<span class="hljs-selector-class">.request</span><span class="hljs-selector-class">.urlopen</span>(<span class="hljs-string">&#x27;https://www.python.org&#x27;</span>)<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(response.read()</span></span><span class="hljs-selector-class">.decode</span>(<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br></code></pre></td></tr></table></figure>
 
 <p>运行结果如图所示。</p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/yqq2r.png" srcset="/img/loading.gif" lazyload alt="image-20200315212839610"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/yqq2r.png" alt="image-20200315212839610"></p>
 <p>图 运行结果</p>
 <p>这里我们只用了两行代码，便完成了 Python 官网的抓取，输出了网页的源代码。得到源代码之后呢？我们想要的链接、图片地址、文本信息不就都可以提取出来了吗？</p>
 <p>接下来，看看它返回的到底是什么。利用 <code>type</code> 方法输出响应的类型：</p>
@@ -435,7 +435,7 @@
 <p>Opener 可以使用 <code>open</code> 方法，返回的类型和 <code>urlopen</code> 如出一辙。那么，它和 Handler 有什么关系呢？简而言之，就是利用 Handler 来构建 Opener。</p>
 <p>下面用几个实例来看看它们的用法。</p>
 <h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><p>在访问某些设置了身份认证的网站时，例如 <a target="_blank" rel="noopener" href="https://ssr3.scrape.center/%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AF%E8%83%BD%E4%BC%9A%E9%81%87%E5%88%B0%E8%BF%99%E6%A0%B7%E7%9A%84%E8%AE%A4%E8%AF%81%E7%AA%97%E5%8F%A3%EF%BC%8C%E5%A6%82%E5%9B%BE">https://ssr3.scrape.center/，我们可能会遇到这样的认证窗口，如图</a> 2- 所示：</p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/fries.png" srcset="/img/loading.gif" lazyload alt="image-20210704202140395"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/fries.png" alt="image-20210704202140395"></p>
 <p>图 2- 认证窗口</p>
 <p>如果遇到了这种情况，那么这个网站就是启用了基本身份认证，英文叫作 HTTP Basic Access Authentication，它是一种用来允许网页浏览器或其他客户端程序在请求时提供用户名和口令形式的身份凭证的一种登录验证方式。</p>
 <p>那么，如果要请求这样的页面，该怎么办呢？借助 <code>HTTPBasicAuthHandler</code> 就可以完成，相关代码如下：</p>
@@ -823,18 +823,18 @@
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus">import requests<br><br>r = requests<span class="hljs-selector-class">.get</span>(<span class="hljs-string">&#x27;https://scrape.center/favicon.ico&#x27;</span>)<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(r.text)</span></span><br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(r.content)</span></span><br></code></pre></td></tr></table></figure>
 
 <p>这里抓取的内容是站点图标，也就是在浏览器每一个标签上显示的小图标，如图所示：</p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/1sfy2.png" srcset="/img/loading.gif" lazyload alt="image-20210704202919308"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/1sfy2.png" alt="image-20210704202919308"></p>
 <p>这里打印了 Response 对象的两个属性，一个是 text，另一个是 content。</p>
 <p>运行结果如图所示，分别是 r.text 和 r.content 的结果。</p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/vexbl.png" srcset="/img/loading.gif" lazyload alt="image-20210704203039567"></p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/xfo4w.png" srcset="/img/loading.gif" lazyload alt="image-20210704202959490"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/vexbl.png" alt="image-20210704203039567"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/xfo4w.png" alt="image-20210704202959490"></p>
 <p>可以注意到，前者出现了乱码，后者结果前带有一个 b，这代表是 bytes 类型的数据。由于图片是二进制数据，所以前者在打印时转化为 str 类型，也就是图片直接转化为字符串，这理所当然会出现乱码。</p>
 <p>上面返回的结果我们并不能看懂，它实际上是图片的二进制数据，没关系，我们将刚才提取到的信息保存下来就好了，代码如下：</p>
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">import requests<br><br>r = requests.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;https://scrape.center/favicon.ico&#x27;</span>)<br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;favicon.ico&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>    f.<span class="hljs-built_in">write</span>(r.content)<br></code></pre></td></tr></table></figure>
 
 <p>这里用了 open 方法，它的第一个参数是文件名称，第二个参数代表以二进制写的形式打开，可以向文件里写入二进制数据。</p>
 <p>运行结束之后，可以发现在文件夹中出现了名为 favicon.ico 的图标，如图所示。</p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/16oto.png" srcset="/img/loading.gif" lazyload alt="image-20210704203204899"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/16oto.png" alt="image-20210704203204899"></p>
 <p>这样，我们就把二进制数据成功保存成一张图片了，这个小图标就被我们成功爬取下来了。</p>
 <p>同样地，音频和视频文件我们也可以用这种方法获取。</p>
 <h4 id="添加-headers"><a href="#添加-headers" class="headerlink" title="添加 headers"></a>添加 headers</h4><p>我们知道，在发起一个 HTTP 请求的时候，会有一个请求头 Request Headers，那么这个怎么来设置呢？</p>
@@ -889,12 +889,12 @@
 
 <p>这里我们首先调用 cookies 属性即可成功得到 Cookie，可以发现它是 RequestCookieJar 类型。然后用 items 方法将其转化为元组组成的列表，遍历输出每一个 Cookie 条目的名称和值，实现 Cookie 的遍历解析。</p>
 <p>当然，我们也可以直接用 Cookie 来维持登录状态，下面我们以 GitHub 为例来说明一下，首先我们登录 GitHub，然后将 Headers 中的 Cookie 内容复制下来，如图所示。</p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/odrdk.png" srcset="/img/loading.gif" lazyload alt="image-20200301214840166"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/odrdk.png" alt="image-20200301214840166"></p>
 <p>这里可以替换成你自己的 Cookie，将其设置到 Headers 里面，然后发送请求，示例如下：</p>
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs 1c">import requests<br><br>headers = &#123;<br>    &#x27;Cookie&#x27;: &#x27;_octo=GH1.1.<span class="hljs-number">1849343058.1576</span><span class="hljs-number">602081</span>; _ga=GA1.2.<span class="hljs-number">90460451.157660</span><span class="hljs-number">2111</span>; __Host-user_session_same_site=nbDv62kHNjp4N5KyQNYZ208waeqsmNgxFnFC88rnV7gTYQw_; _device_id=a7ca73be0e8f1a81d1e2ebb<span class="hljs-number">5349</span>f<span class="hljs-number">9075</span>; user_session=nbDv62kHNjp4N5KyQNYZ208waeqsmNgxFnFC88rnV7gTYQw_; logged_in=yes; dotcom_user=Germey; tz=Asia%2FShanghai; has_recent_activity=1; _gat=1; _gh_sess=your_session_info&#x27;,<br>    &#x27;User-Agent&#x27;: &#x27;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.<span class="hljs-number">2785.11</span>6 Safari/537.36&#x27;,<br>&#125;<br>r = requests.get(&#x27;https://github.com/&#x27;, headers=headers)<br>print(r.text)<br></code></pre></td></tr></table></figure>
 
 <p>我们发现，结果中包含了登录后才能包含的结果，如图所示：</p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/3j50b.png" srcset="/img/loading.gif" lazyload alt="image-20200301215251376"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/3j50b.png" alt="image-20200301215251376"></p>
 <p>可以看到这里包含了我的 GitHub 用户名信息，你如果尝试之后同样可以得到你的用户信息。</p>
 <p>得到这样类似的结果，就说明我们用 Cookie 就成功模拟了登录状态，这样我们就能爬取登录之后才能看到的页面了。</p>
 <p>当然，我们也可以通过 cookies 参数来设置 Cookie 的信息，这里我们可以构造一个 RequestsCookieJar 对象，然后把刚才复制的 Cookie 处理下并赋值，示例如下：</p>
@@ -928,7 +928,7 @@
 <p>Session 在平常用得非常广泛，可以用于模拟在一个浏览器中打开同一站点的不同页面，后面会有专门的章节来讲解这部分内容。</p>
 <h3 id="SSL-证书验证"><a href="#SSL-证书验证" class="headerlink" title="SSL 证书验证"></a>SSL 证书验证</h3><p>现在很多网站都要求使用 HTTPS 协议，但是有些网站可能并没有设置好 HTTPS 证书，或者网站的 HTTPS 证书可能并不被 CA 机构认可，这时候，这些网站可能就会出现 SSL 证书错误的提示。</p>
 <p>比如这个示例网站：<a target="_blank" rel="noopener" href="https://ssr2.scrape.center/%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%88%91%E4%BB%AC%E7%94%A8">https://ssr2.scrape.center/，如果我们用</a> Chrome 浏览器打开这个 URL，则会提示「您的连接不是私密连接」这样的错误，如图所示：</p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/gyo9f.png" srcset="/img/loading.gif" lazyload alt="image-20210704204017465"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/gyo9f.png" alt="image-20210704204017465"></p>
 <p>我们可以在浏览器中通过一些设置来忽略证书的验证。</p>
 <p>但是如果我们想用 requests 来请求这类网站，会遇到什么问题呢？我们用代码来试一下：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros">import requests<br><br>response = requests.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;https://ssr2.scrape.center/&#x27;</span>)<br><span class="hljs-built_in">print</span>(response.status_code)<br></code></pre></td></tr></table></figure>
@@ -970,7 +970,7 @@
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">r</span> = requests.get(<span class="hljs-string">&#x27;https://httpbin.org/get&#x27;</span>)<br></code></pre></td></tr></table></figure>
 
 <h3 id="身份认证"><a href="#身份认证" class="headerlink" title="身份认证"></a>身份认证</h3><p>在上一节我们讲到，在访问启用了基本身份认证的网站时，我们会首先遇到一个认证窗口，例如：<a target="_blank" rel="noopener" href="https://ssr3.scrape.center/%EF%BC%8C%E5%A6%82%E5%9B%BE%E6%89%80%E7%A4%BA%E3%80%82">https://ssr3.scrape.center/，如图所示。</a></p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/4cha6.png" srcset="/img/loading.gif" lazyload alt="image-20210704202140395"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/4cha6.png" alt="image-20210704202140395"></p>
 <p>这个网站就是启用了基本身份认证，在上一节中我们可以利用 urllib 来实现身份的校验，但实现起来相对繁琐。那在 reqeusts 中怎么做呢？当然也有办法。</p>
 <p>我们可以使用 requests 自带的身份认证功能，通过 auth 参数即可设置，示例如下：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros">import requests<br><span class="hljs-keyword">from</span> requests.auth import HTTPBasicAuth<br><br>r = requests.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;https://ssr3.scrape.center/&#x27;</span>, <span class="hljs-attribute">auth</span>=HTTPBasicAuth(&#x27;admin&#x27;, <span class="hljs-string">&#x27;admin&#x27;</span>))<br><span class="hljs-built_in">print</span>(r.status_code)<br></code></pre></td></tr></table></figure>
@@ -1349,10 +1349,10 @@
 </ul>
 <p>以上内容在前面的章节中均有讲解，如尚未准备好建议先熟悉一下这些内容。</p>
 <h2 id="2-爬取目标"><a href="#2-爬取目标" class="headerlink" title="2. 爬取目标"></a>2. 爬取目标</h2><p>本节我们以一个基本的静态网站作为案例进行爬取，需要爬取的链接为 <a target="_blank" rel="noopener" href="https://ssr1.scrape.center/%EF%BC%8C%E8%BF%99%E4%B8%AA%E7%BD%91%E7%AB%99%E9%87%8C%E9%9D%A2%E5%8C%85%E5%90%AB%E4%BA%86%E4%B8%80%E4%BA%9B%E7%94%B5%E5%BD%B1%E4%BF%A1%E6%81%AF%EF%BC%8C%E7%95%8C%E9%9D%A2%E5%A6%82%E4%B8%8B%EF%BC%9A">https://ssr1.scrape.center/，这个网站里面包含了一些电影信息，界面如下：</a></p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/ub4f5.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/ub4f5.png" alt="img"></p>
 <p>这里首页展示了一个个电影的列表，每部电影包含了它的封面、名称、分类、上映时间、评分等内容，同时列表页还支持翻页，点击相应的页码我们就能进入到对应的新列表页。</p>
 <p>如果我们点开其中一部电影，会进入到电影的详情页面，比如我们把第一个电影《霸王别姬》打开，会得到如下的页面：</p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/km8us.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/km8us.png" alt="img"></p>
 <p>这里显示的内容更加丰富、包括剧情简介、导演、演员等信息。</p>
 <p>我们本节要完成的目标是：</p>
 <ul>
@@ -1363,16 +1363,16 @@
 </ul>
 <p>好，那我们现在就开始吧。</p>
 <h2 id="3-爬取列表页"><a href="#3-爬取列表页" class="headerlink" title="3. 爬取列表页"></a>3. 爬取列表页</h2><p>好，第一步的爬取我们肯定要从列表页入手，我们首先观察一下列表页的结构和翻页规则。在浏览器中访问 <a target="_blank" rel="noopener" href="https://ssr1.scrape.center/%EF%BC%8C%E7%84%B6%E5%90%8E%E6%89%93%E5%BC%80%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%EF%BC%8C%E6%88%91%E4%BB%AC%E8%A7%82%E5%AF%9F%E6%AF%8F%E4%B8%80%E4%B8%AA%E7%94%B5%E5%BD%B1%E4%BF%A1%E6%81%AF%E5%8C%BA%E5%9D%97%E5%AF%B9%E5%BA%94%E7%9A%84">https://ssr1.scrape.center/，然后打开浏览器开发者工具，我们观察每一个电影信息区块对应的</a> HTML 以及进入到详情页的 URL 是怎样的，如图所示：</p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/q295l.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/q295l.png" alt="img"></p>
 <p>可以看到每部电影对应的区块都是一个 div 节点，它的 class 属性都有 el-card 这个值。每个列表页有 10 个这样的 div 节点，也就对应着 10 部电影的信息。</p>
 <p>好，我们再分析下从列表页是怎么进入到详情页的，我们选中电影的名称，看下结果：</p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/gi0nt.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/gi0nt.png" alt="img"></p>
 <p>可以看到这个名称实际上是一个 h2 节点，其内部的文字就是电影的标题。再看，h2 节点的外面包含了一个 a 节点，这个 a 节点带有 href 属性，这就是一个超链接，其中 href 的值为 <code>/detail/1</code>，这是一个相对网站的根 URL <a target="_blank" rel="noopener" href="https://ssr1.scrape.center/">https://ssr1.scrape.center/</a> 的路径，加上网站的根 URL 就构成了 <a target="_blank" rel="noopener" href="https://ssr1.scrape.center/detail/1">https://ssr1.scrape.center/detail/1</a> ，也就是这部电影的详情页的 URL。这样我们只需要提取到这个 href 属性就能构造出详情页的 URL 并接着爬取了。</p>
 <p>好的，那接下来我们来分析下翻页的逻辑，我们拉到页面的最下方，可以看到分页页码，如图所示：</p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/97yn6.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/97yn6.png" alt="img"></p>
 <p>这里观察到一共有 100 条数据，10 页的内容，因此页码最多是 10。</p>
 <p>接着我们点击第二页，如图所示：</p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/r63xq.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/r63xq.png" alt="img"></p>
 <p>可以看到网页的 URL 变成了 <a target="_blank" rel="noopener" href="https://ssr1.scrape.center/page/2%EF%BC%8C%E7%9B%B8%E6%AF%94%E6%A0%B9">https://ssr1.scrape.center/page/2，相比根</a> URL 多了 <code>/page/2</code> 这部分内容。网页的结构还是和原来一模一样，可以和第一页一样处理。</p>
 <p>接着我们查看第三页、第四页等内容，可以发现有这么一个规律，其 URL 最后分别变成了 <code>/page/3</code>、<code>/page/4</code>。所以，<code>/page</code> 后面跟的就是列表页的页码，当然第一页也是一样，我们在根 URL 后面加上 <code>/page/1</code> 也是能访问的，只不过网站做了一下处理，默认的页码是 1，所以显示第一页的内容。</p>
 <p>好，分析到这里，逻辑基本就清晰了。</p>
@@ -1419,7 +1419,7 @@
 <p>可以看到，这里程序首先爬取了第一页列表页，然后得到了对应详情页的每个 URL，接着再接着爬第二页、第三页，一直到第十页，依次输出了每一页的详情页 URL。这样，我们就成功获取到了所有电影的详情页 URL 啦。</p>
 <h2 id="4-爬取详情页"><a href="#4-爬取详情页" class="headerlink" title="4. 爬取详情页"></a>4. 爬取详情页</h2><p>现在我们已经可以成功获取所有详情页 URL 了，那么下一步当然就是解析详情页并提取出我们想要的信息了。</p>
 <p>我们首先观察一下详情页的 HTML 代码吧，如图所示：</p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/6j55t.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/6j55t.png" alt="img"></p>
 <p>经过分析，我们想要提取的内容和对应的节点信息如下：</p>
 <ul>
 <li>封面：是一个 img 节点，其 class 属性为 cover。</li>
@@ -1474,7 +1474,7 @@
 
 <p>通过运行结果可以发现，这里成功输出了将数据存储到 JSON 文件的信息。</p>
 <p>运行完毕之后我们可以观察下本地的结果，可以看到 results 文件夹下就多了 100 个 JSON 文件，每部电影数据都是一个 JSON 文件，文件名就是电影名，如图所示。</p>
-<p><img src="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/yse4w.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/%E5%9F%BA%E6%9C%AC%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/yse4w.png" alt="img"></p>
 <h2 id="6-多进程加速"><a href="#6-多进程加速" class="headerlink" title="6. 多进程加速"></a>6. 多进程加速</h2><p>由于整个的爬取是单进程的，而且只能逐条爬取，速度稍微有点慢，我们有没有方法来对整个爬取过程进行加速呢？</p>
 <p>在前面我们讲了多进程的基本原理和使用方法，下面我们就来实践一下多进程的爬取吧。</p>
 <p>由于一共有 10 页详情页，这 10 页内容是互不干扰的，所以我们可以一页开一个进程来爬取。而且由于这 10 个列表页页码正好可以提前构造成一个列表，所以我们可以选用多进程里面的进程池 Pool 来实现这个过程。</p>
@@ -1926,5 +1926,11 @@
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-</body>
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
 </html>
