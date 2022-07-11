@@ -1,0 +1,815 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Olivia的小跟班">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1.Pytest安装安装命令：pip install pytest 命名规则：  pytest文件：必须以test开头或者_test结尾 pytest文件中测试类：必须以Test开头，并且不能带有init方法 pytest文件中方法与函数：必须以test开头  2.简单编写了两个示例 test_demo.py 123456789class TestDemo:    def test_one(sel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pytest">
+<meta property="og:url" content="http://example.com/2022/07/11/Pytest/index.html">
+<meta property="og:site_name" content="Olivia的小跟班">
+<meta property="og:description" content="1.Pytest安装安装命令：pip install pytest 命名规则：  pytest文件：必须以test开头或者_test结尾 pytest文件中测试类：必须以Test开头，并且不能带有init方法 pytest文件中方法与函数：必须以test开头  2.简单编写了两个示例 test_demo.py 123456789class TestDemo:    def test_one(sel">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/Pytest/image-20220711152333358.png">
+<meta property="og:image" content="http://example.com/images/Pytest/image-20220711152455699.png">
+<meta property="og:image" content="http://example.com/images/Pytest/image-20220711153144568.png">
+<meta property="og:image" content="http://example.com/images/Pytest/image-20220711153437774.png">
+<meta property="og:image" content="http://example.com/images/Pytest/image-20220711153735660.png">
+<meta property="og:image" content="http://example.com/images/Pytest/image-20220711154203182.png">
+<meta property="og:image" content="http://example.com/images/Pytest/image-20220711154742058.png">
+<meta property="og:image" content="http://example.com/images/Pytest/image-20220711155713559.png">
+<meta property="og:image" content="http://example.com/images/Pytest/image-20220711155945673.png">
+<meta property="og:image" content="http://example.com/images/Pytest/image-20220711162410010.png">
+<meta property="og:image" content="http://example.com/images/Pytest/image-20220711163123661.png">
+<meta property="og:image" content="http://example.com/images/Pytest/image-20220711164238214.png">
+<meta property="article:published_time" content="2022-07-11T08:43:55.000Z">
+<meta property="article:modified_time" content="2022-07-11T08:45:02.176Z">
+<meta property="article:author" content="Olivia的小跟班">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Pytest">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/Pytest/image-20220711152333358.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Pytest - Olivia的小跟班</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"KJlmf4xNi8wwPlRowDLWrIcA-gzGzoHsz","app_key":"3h5JmTeNVedhRAJocD3w5qfn","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Olivia的小跟班</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Pytest"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-11 16:43" pubdate>
+          2022年7月11日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          24 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span>次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Pytest</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="1-Pytest安装"><a href="#1-Pytest安装" class="headerlink" title="1.Pytest安装"></a>1.Pytest安装</h2><p>安装命令：<code>pip install pytest</code></p>
+<p>命名规则：</p>
+<ul>
+<li>pytest文件：必须以test开头或者_test结尾</li>
+<li>pytest文件中测试类：必须以Test开头，并且不能带有init方法</li>
+<li>pytest文件中方法与函数：必须以test开头</li>
+</ul>
+<h2 id="2-简单编写了两个示例"><a href="#2-简单编写了两个示例" class="headerlink" title="2.简单编写了两个示例"></a>2.简单编写了两个示例</h2><p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Pytest/image-20220711152333358.png" alt="image-20220711152333358"></p>
+<p>test_demo.py</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">class</span> <span class="hljs-symbol">TestDemo:</span><br><span class="hljs-symbol">    <span class="hljs-symbol">def</span></span> <span class="hljs-symbol">test_one</span>(<span class="hljs-symbol">self</span>):<br>        <span class="hljs-symbol">assert</span> <span class="hljs-symbol">True</span><br><br>    <span class="hljs-symbol">def</span> <span class="hljs-symbol">test_two</span>(<span class="hljs-symbol">self</span>):<br>        <span class="hljs-symbol">assert</span> <span class="hljs-symbol">True</span><br><br>    <span class="hljs-symbol">def</span> <span class="hljs-symbol">test_three</span>(<span class="hljs-symbol">self</span>):<br>        <span class="hljs-symbol">assert</span> <span class="hljs-symbol">True</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>test_1.py</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">x</span>):<br>    <span class="hljs-keyword">return</span> x+<span class="hljs-number">1</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_x</span>():<br>    assert add(<span class="hljs-number">2</span>) == <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>执行最简单的命令行命令：pytest testcases（它会执行testcases文件夹下的所有测试）</p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Pytest/image-20220711152455699.png" alt="image-20220711152455699"></p>
+<h2 id="3-命令行参数"><a href="#3-命令行参数" class="headerlink" title="3.命令行参数"></a>3.命令行参数</h2><p>pytest  –collect-only :搜集要运行的测试用例</p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Pytest/image-20220711153144568.png" alt="image-20220711153144568"></p>
+<p>pytest -k：匹配表达式</p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Pytest/image-20220711153437774.png" alt="image-20220711153437774"></p>
+<p>pytest -m：自定义标记执行</p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Pytest/image-20220711153735660.png" alt="image-20220711153735660"></p>
+<p>pytest -x：失败后立马结束</p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Pytest/image-20220711154203182.png" alt="image-20220711154203182"></p>
+<p>pytest -s：代码中的打印输出</p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Pytest/image-20220711154742058.png" alt="image-20220711154742058"></p>
+<p>pytest –maxfail&#x3D;num：设置最大失败次数，到达该次数之后就立即不再执行</p>
+<p>pytest –If：不会继续运行失败之后的案例</p>
+<p>pytest –ff：可以运行完失败的案例后继续执行后续的案例</p>
+<p>pytest –tb&#x3D;no：不显示具体的失败信息</p>
+<h2 id="4-fixture的基本使用"><a href="#4-fixture的基本使用" class="headerlink" title="4.fixture的基本使用"></a>4.fixture的基本使用</h2><p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Pytest/image-20220711155713559.png" alt="image-20220711155713559"></p>
+<h2 id="5-fixture设置运行级别"><a href="#5-fixture设置运行级别" class="headerlink" title="5.fixture设置运行级别"></a>5.fixture设置运行级别</h2><p>1.创建一个conftest.py</p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Pytest/image-20220711155945673.png" alt="image-20220711155945673"></p>
+<p>2.配置conftest.py<br>1.conftest中fixture的scope参数为session，那么所有的测试文件执行前执行一次<br>2.conftest中fixture的scope参数为module，那么每一个测试文件执行前都会执行一次conftest文件中的fixture<br>3.conftest中fixture的scope参数为class，那么每一个测试文件中的测试类执行前都会执行一次conftest文件中的fixture<br>4.conftest中fixture的scope参数为function，那么所有文件的测试用例执行前都会执行一次conftest文件中的fixture</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pytest<br><br><br><span class="hljs-meta">@pytest.fixture(<span class="hljs-params">scope=<span class="hljs-string">&#x27;session&#x27;</span>,autouse=<span class="hljs-literal">True</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">session</span>():<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;before session...&#x27;</span>)<br>    <span class="hljs-keyword">yield</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;after session...&#x27;</span>)<br><br><br><span class="hljs-meta">@pytest.fixture(<span class="hljs-params">scope=<span class="hljs-string">&#x27;module&#x27;</span>,autouse=<span class="hljs-literal">True</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">module</span>():<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;before module...&#x27;</span>)<br>    <span class="hljs-keyword">yield</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;after module...&#x27;</span>)<br><br><br><span class="hljs-meta">@pytest.fixture(<span class="hljs-params">scope=<span class="hljs-string">&#x27;class&#x27;</span>,autouse=<span class="hljs-literal">True</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">class_demo</span>():<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;before class...&#x27;</span>)<br>    <span class="hljs-keyword">yield</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;after class...&#x27;</span>)<br><br><br><span class="hljs-meta">@pytest.fixture(<span class="hljs-params">scope=<span class="hljs-string">&#x27;function&#x27;</span>,autouse=<span class="hljs-literal">True</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">function</span>():<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;before function...&#x27;</span>)<br>    <span class="hljs-keyword">yield</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;after function...&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="6-parametrize参数化功能"><a href="#6-parametrize参数化功能" class="headerlink" title="6.parametrize参数化功能"></a>6.parametrize参数化功能</h2><p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Pytest/image-20220711162410010.png" alt="image-20220711162410010"></p>
+<p>没看懂的可以看一下csdn这篇博客：<a target="_blank" rel="noopener" href="http://t.csdn.cn/uVhkI">http://t.csdn.cn/uVhkI</a></p>
+<h2 id="7-fixture与参数化功能联合使用"><a href="#7-fixture与参数化功能联合使用" class="headerlink" title="7.fixture与参数化功能联合使用"></a>7.fixture与参数化功能联合使用</h2><p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Pytest/image-20220711163123661.png" alt="image-20220711163123661"></p>
+<h2 id="8-获取每一个测试用例的执行结果"><a href="#8-获取每一个测试用例的执行结果" class="headerlink" title="8.获取每一个测试用例的执行结果"></a>8.获取每一个测试用例的执行结果</h2><p>conftest.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pytest<br><br><span class="hljs-meta">@pytest.hookimpl(<span class="hljs-params">tryfirst=<span class="hljs-literal">True</span>, hookwrapper=<span class="hljs-literal">True</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">pytest_runtest_makereport</span>(<span class="hljs-params">item, call</span>):<br>    <span class="hljs-comment"># print(&#x27;--------&#x27;)</span><br>    <span class="hljs-comment"># execute all other hooks to obtain the report object</span><br>    outcome = <span class="hljs-keyword">yield</span><br>    rep = outcome.get_result()<br>    <span class="hljs-comment"># print(rep)</span><br>    <span class="hljs-comment"># set a report attribute for each phase of a call, which can</span><br>    <span class="hljs-comment"># be &quot;setup&quot;, &quot;call&quot;, &quot;teardown&quot;</span><br><br>    <span class="hljs-built_in">setattr</span>(item, <span class="hljs-string">&quot;rep_&quot;</span> + rep.when, rep)<br></code></pre></td></tr></table></figure>
+
+
+
+<p>test_result.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pytest<br><span class="hljs-keyword">from</span> _pytest.fixtures <span class="hljs-keyword">import</span> SubRequest<br><br><br><br><span class="hljs-meta">@pytest.fixture</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">something</span>(<span class="hljs-params">request:SubRequest</span>):<br>    <span class="hljs-keyword">yield</span><br>    <span class="hljs-comment"># print(&#x27;name:&#x27;,request.node.name,request.node.rep_call.outcome)</span><br>    outcome = request.node.rep_call.outcome<br>    <span class="hljs-keyword">if</span> outcome == <span class="hljs-string">&#x27;failed&#x27;</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;用例失败。。。&#x27;</span>)<br>    <span class="hljs-keyword">elif</span> outcome == <span class="hljs-string">&#x27;passed&#x27;</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;用例通过。。。&#x27;</span>)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_a1</span>(<span class="hljs-params">something</span>):<br>    <span class="hljs-keyword">assert</span> <span class="hljs-number">1</span>==<span class="hljs-number">0</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_a2</span>(<span class="hljs-params">something</span>):<br>    <span class="hljs-keyword">assert</span>  <span class="hljs-number">1</span>==<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<p>你不需要知道为什么是这样的，这部分内容抄就好</p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Pytest/image-20220711164238214.png" alt="image-20220711164238214"></p>
+<h2 id="9-pytest-order插件"><a href="#9-pytest-order插件" class="headerlink" title="9.pytest-order插件"></a>9.pytest-order插件</h2><p>指定测试用例的执行先后顺序，如果要在其中插入一条记录，可以使用before或者after指定顺序。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pytest<br><br><br><span class="hljs-meta">@pytest.mark.order(<span class="hljs-params"><span class="hljs-number">3</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_bar</span>():<br>    <span class="hljs-keyword">assert</span> <span class="hljs-literal">True</span><br><br><br><span class="hljs-meta">@pytest.mark.order(<span class="hljs-params"><span class="hljs-number">2</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_foo</span>():<br>    <span class="hljs-keyword">assert</span> <span class="hljs-literal">True</span><br><br><br><span class="hljs-meta">@pytest.mark.order(<span class="hljs-params"><span class="hljs-number">1</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_first</span>():<br>    <span class="hljs-keyword">assert</span> <span class="hljs-literal">True</span><br><br><br><span class="hljs-meta">@pytest.mark.order(<span class="hljs-params">index=<span class="hljs-number">3</span>,before=<span class="hljs-string">&quot;test_bar&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_third</span>():<br>    <span class="hljs-keyword">assert</span> <span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" class="category-chain-item">自动化测试</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/">#Python</a>
+      
+        <a href="/tags/Pytest/">#Pytest</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Pytest</div>
+      <div>http://example.com/2022/07/11/Pytest/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Olivia的小跟班</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月11日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/11/%E5%BC%82%E6%AD%A5%E7%88%AC%E8%99%AB/" title="异步爬虫">
+                        <span class="hidden-mobile">异步爬虫</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zhouxing9454/commit-utterance');
+      s.setAttribute('issue-term', 'title');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+  
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    
+
+
+<div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+
+<span id="sitetime" style="text-align:center;display: block;"></span>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* 
+		Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数
+        */
+		var t1 = Date.UTC(2022,07,04,12,00,00); //北京时间2018-2-13 00:00:00
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+/*diffYears+" 年 "+*/diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>
