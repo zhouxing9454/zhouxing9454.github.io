@@ -1,0 +1,832 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Olivia的小跟班">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1.多任务的介绍概念：多任务是指在同一时间内执行多个任务。 两种表现形式：  并发：在一段时间内交替去执行多个任务   并行：在一段时间内真正的同时一起执行多个任务    多任务的作用：充分利用CPU资源，提高程序的执行效率。 2.进程介绍进程(Process)是资源分配的最小单位，它是操作系统进行资源分配和调度运行的基本单位，通俗理解:一个正在运行的程序就是一个进程﹒例如:正在运行的qq，微信等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python多线程编程">
+<meta property="og:url" content="http://example.com/2022/07/12/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Olivia的小跟班">
+<meta property="og:description" content="1.多任务的介绍概念：多任务是指在同一时间内执行多个任务。 两种表现形式：  并发：在一段时间内交替去执行多个任务   并行：在一段时间内真正的同时一起执行多个任务    多任务的作用：充分利用CPU资源，提高程序的执行效率。 2.进程介绍进程(Process)是资源分配的最小单位，它是操作系统进行资源分配和调度运行的基本单位，通俗理解:一个正在运行的程序就是一个进程﹒例如:正在运行的qq，微信等">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/image-20220712150524043.png">
+<meta property="og:image" content="http://example.com/images/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/image-20220712150555331.png">
+<meta property="og:image" content="http://example.com/images/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/image-20220712151533803.png">
+<meta property="og:image" content="http://example.com/images/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/image-20220712153132209.png">
+<meta property="og:image" content="http://example.com/images/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/image-20220712152956111.png">
+<meta property="og:image" content="http://example.com/images/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/image-20220712153258493.png">
+<meta property="og:image" content="http://example.com/images/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/image-20220712155643196.png">
+<meta property="article:published_time" content="2022-07-12T06:57:38.000Z">
+<meta property="article:modified_time" content="2022-07-12T08:40:21.895Z">
+<meta property="article:author" content="Olivia的小跟班">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="多线程">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/image-20220712150524043.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Python多线程编程 - Olivia的小跟班</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"KJlmf4xNi8wwPlRowDLWrIcA-gzGzoHsz","app_key":"3h5JmTeNVedhRAJocD3w5qfn","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Olivia的小跟班</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Python多线程编程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-12 14:57" pubdate>
+          2022年7月12日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          39 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span>次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Python多线程编程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="1-多任务的介绍"><a href="#1-多任务的介绍" class="headerlink" title="1.多任务的介绍"></a>1.多任务的介绍</h2><p>概念：多任务是指在同一时间内执行多个任务。</p>
+<p>两种表现形式：</p>
+<ul>
+<li><p>并发：在一段时间内交替去执行多个任务</p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/image-20220712150524043.png" alt="image-20220712150524043"></p>
+</li>
+<li><p>并行：在一段时间内真正的同时一起执行多个任务</p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/image-20220712150555331.png" alt="image-20220712150555331"></p>
+</li>
+</ul>
+<p>多任务的作用：充分利用CPU资源，提高程序的执行效率。</p>
+<h2 id="2-进程介绍"><a href="#2-进程介绍" class="headerlink" title="2.进程介绍"></a>2.进程介绍</h2><p>进程(Process)是资源分配的最小单位，它是操作系统进行资源分配和调度运行的基本单位，通俗理解:一个正在运行的程序就是一个进程﹒例如:正在运行的qq，微信等他们都是一个进程。</p>
+<p>多进程的作用：多进程可以完成多任务，每个进程就好比一家独立的公司，每个公司都各自在运营，每个进程也各自在运行，执行各自的任务。</p>
+<h2 id="3-使用多进程来完成多任务"><a href="#3-使用多进程来完成多任务" class="headerlink" title="3.使用多进程来完成多任务"></a>3.使用多进程来完成多任务</h2><p>1.导入进程包<br>import multiprocessing</p>
+<p>2.通过进程类创建进程对象<br>进程对象&#x3D; multiprocessing.Process()</p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/image-20220712151533803.png" alt="image-20220712151533803"></p>
+<p>3.启动进程执行任务<br>进程对象.start(）</p>
+<p>示例：</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">import</span> <span class="hljs-variable">time</span><br><br><br><span class="hljs-variable">def</span> <span class="hljs-function"><span class="hljs-title">sing</span>():</span><br><span class="hljs-function">    <span class="hljs-variable">for</span> <span class="hljs-variable">i</span> <span class="hljs-variable"><span class="hljs-keyword">in</span></span> <span class="hljs-title">range</span>(<span class="hljs-number">3</span>):</span><br><span class="hljs-function">        <span class="hljs-title">print</span>(<span class="hljs-string">&quot;唱歌....&quot;</span>)</span><br>        <span class="hljs-variable">time.sleep</span>(<span class="hljs-number">2</span>)<br><br><br><span class="hljs-variable">def</span> <span class="hljs-function"><span class="hljs-title">dance</span>():</span><br><span class="hljs-function">    <span class="hljs-variable">for</span> <span class="hljs-variable">i</span> <span class="hljs-variable"><span class="hljs-keyword">in</span></span> <span class="hljs-title">range</span>(<span class="hljs-number">3</span>):</span><br><span class="hljs-function">        <span class="hljs-title">print</span>(<span class="hljs-string">&quot;跳舞....&quot;</span>)</span><br>        <span class="hljs-variable">time.sleep</span>(<span class="hljs-number">2</span>)<br><br><br><span class="hljs-variable"><span class="hljs-keyword">if</span></span> <span class="hljs-variable">__name__</span>==<span class="hljs-string">&quot;__main__&quot;</span>:<br>			<span class="hljs-function"><span class="hljs-title">sing</span>()</span><br>			<span class="hljs-function"><span class="hljs-title">dance</span>()</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/image-20220712153132209.png" alt="image-20220712153132209"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs css">import <span class="hljs-selector-tag">time</span><br>import multiprocessing<br><br><br>def sing():<br>    for i in <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;唱歌....&quot;</span>)<br>        time.<span class="hljs-built_in">sleep</span>(<span class="hljs-number">2</span>)<br><br><br>def <span class="hljs-built_in">dance</span>():<br>    for i in <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;跳舞....&quot;</span>)<br>        time.<span class="hljs-built_in">sleep</span>(<span class="hljs-number">2</span>)<br><br><br>if __name__==<span class="hljs-string">&quot;__main__&quot;</span>:<br>    sing_process = multiprocessing.<span class="hljs-built_in">Process</span>(target=sing)<br>    dance_process = multiprocessing.<span class="hljs-built_in">Process</span>(target=dance)<br>    sing_process.<span class="hljs-built_in">start</span>()<br>    dance_process.<span class="hljs-built_in">start</span>()<br></code></pre></td></tr></table></figure>
+
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/image-20220712152956111.png" alt="image-20220712152956111"></p>
+<h2 id="4-进程执行带有参数的任务"><a href="#4-进程执行带有参数的任务" class="headerlink" title="4.进程执行带有参数的任务"></a>4.进程执行带有参数的任务</h2><p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/image-20220712153258493.png" alt="image-20220712153258493"></p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs maxima">import <span class="hljs-built_in">time</span><br>import multiprocessing<br><br><br>def sing(<span class="hljs-built_in">num</span>):<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">num</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;唱歌....&quot;</span>)<br>        <span class="hljs-built_in">time</span>.sleep(<span class="hljs-number">2</span>)<br><br><br>def dance(<span class="hljs-built_in">num</span>):<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">num</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;跳舞....&quot;</span>)<br>        <span class="hljs-built_in">time</span>.sleep(<span class="hljs-number">2</span>)<br><br><br><span class="hljs-keyword">if</span> __name__==<span class="hljs-string">&quot;__main__&quot;</span>:<br>    sing_process = multiprocessing.Process(target=sing,<span class="hljs-built_in">args</span>=(<span class="hljs-number">3</span>,)) #以元组形式传参，注意位置<br>    dance_process = multiprocessing.Process(target=dance,kwargs=&#123;&#x27;<span class="hljs-built_in">num</span>&#x27;:<span class="hljs-number">2</span>,&#125;) #字典的<span class="hljs-built_in">key</span>对应参数的名<br>    sing_process.start()<br>    dance_process.start()<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-获取进程编号"><a href="#5-获取进程编号" class="headerlink" title="5.获取进程编号"></a>5.获取进程编号</h2><p>进程编号的作用:<br>当程序中进程的数量越来越多时，如果没有办法区分主进程和子进程还有不同的子进程，那么就无法进行有效的进程管理，为了方便管理实际上每个进程都是有自己编号的．</p>
+<p>获取进程编号的两种方式：</p>
+<ol>
+<li><p>获取当前进程编号</p>
+<p><code>os.getpid()</code></p>
+</li>
+<li><p>获取当前父进程编号</p>
+<p><code>os.getppid()</code></p>
+</li>
+</ol>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs routeros">import os<br>import time<br>import multiprocessing<br><br><br>def sing(num):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;唱歌进程的编号： &quot;</span>, os.getpid())<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;唱歌进程的父进程的编号： &quot;</span>, os.getppid())<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(num):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;唱歌....&quot;</span>)<br>        time.sleep(2)<br><br><br>def dance(num):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;跳舞进程的编号： &quot;</span>, os.getpid())<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;跳舞进程的父进程的编号： &quot;</span>, os.getppid())<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(num):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;跳舞....&quot;</span>)<br>        time.sleep(2)<br><br><br><span class="hljs-keyword">if</span> <span class="hljs-attribute">__name__</span>==&quot;__main__&quot;:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;主进程的编号： &quot;</span>, os.getpid())<br>    sing_process = multiprocessing.Process(<span class="hljs-attribute">target</span>=sing,args=(3,))    # 以元组形式传参，注意位置<br>    dance_process = multiprocessing.Process(<span class="hljs-attribute">target</span>=dance,kwargs=&#123;<span class="hljs-string">&#x27;num&#x27;</span>:2,&#125;)  # 字典的key对应参数的名<br>    sing_process.start()<br>    dance_process.start()  <br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/image-20220712155643196.png" alt="image-20220712155643196"></p>
+<h2 id="6-进程注意点"><a href="#6-进程注意点" class="headerlink" title="6.进程注意点"></a>6.进程注意点</h2><p>主进程会等待所有的子进程执行结束在结束</p>
+<p>主进程结束后不会再继续执行子进程中剩余的工作（设置守护主进程，加上这个daemon&#x3D;True）</p>
+<h2 id="7-传智教学视频文件夹高并发copy器"><a href="#7-传智教学视频文件夹高并发copy器" class="headerlink" title="7.传智教学视频文件夹高并发copy器"></a>7.传智教学视频文件夹高并发copy器</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> multiprocessing<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">copy_file</span>(<span class="hljs-params">file_name, source_dir, dest_dir</span>):<br>    <span class="hljs-comment"># 1 拼接源文件路径和目标文件路径</span><br>    source_path = source_dir + <span class="hljs-string">&#x27;\\&#x27;</span> + file_name<br>    dest_path = dest_dir + <span class="hljs-string">&#x27;\\&#x27;</span> + file_name<br>    <span class="hljs-comment"># 2 打开源文件和目标文件</span><br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(source_path, <span class="hljs-string">&#x27;rb&#x27;</span>) <span class="hljs-keyword">as</span> source_file:<br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(dest_path, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> dest_file:<br>            <span class="hljs-comment"># 3 循环读取源文件到目标路径</span><br>            <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>                data = source_file.read(<span class="hljs-number">1024</span>)<br>                <span class="hljs-keyword">if</span> data:<br>                    dest_file.write(data)<br>                <span class="hljs-keyword">else</span>:<br>                    <span class="hljs-keyword">break</span><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-comment"># 1 定义源文件夹和目标文件夹</span><br>    source_dir = <span class="hljs-string">r&#x27;F:\迅雷下载\视频-智能机器人从0到1系统入门课程\视频&#x27;</span><br>    dest_dir= <span class="hljs-string">r&#x27;F:\目标文件夹&#x27;</span><br><br>    <span class="hljs-comment"># 2.创建目标文件夹</span><br>    <span class="hljs-keyword">try</span>:<br>        os.mkdir(dest_dir)<br>    <span class="hljs-keyword">except</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;目标文件夹已经存在&quot;</span>)<br>    <span class="hljs-comment"># 3.读取源文件夹的文件列表</span><br>    file_list = os.listdir(source_dir)<br>    <span class="hljs-comment"># 4.遍历文件列表实现拷贝</span><br>    <span class="hljs-keyword">for</span> file_name <span class="hljs-keyword">in</span> file_list:<br>        <span class="hljs-comment"># copy_file(file_name, source_dir, dest_dir)</span><br>        <span class="hljs-comment"># 5.使用多进程实现多任务拷贝</span><br>        sub_process = multiprocessing.Process(target=copy_file, args=(file_name, source_dir, dest_dir))<br>        sub_process.start()<br><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="8-线程的介绍"><a href="#8-线程的介绍" class="headerlink" title="8.线程的介绍"></a>8.线程的介绍</h2><ul>
+<li>实现多任务的另一种形式</li>
+<li>线程是程序执行的最小单位</li>
+<li>同属一个进程的多个线程共享进程所拥有的全部资源</li>
+</ul>
+<p>进程是分配资源的最小单位，一旦创建一个进程就会分配一定的资源，就像跟两个人聊QQ就需要打开两个QQ软件一样是比较浪费资源的．</p>
+<p>线程是程序执行的最小单位，实际上进程只负责分配资源，而利用这些资源执行程序的是线程，也就说进程是线程的容器，一个进程中最少有一个线程来负责执行程序．同时线程自己不拥有系统资源，只需要一点儿在运行中必不可少的资源，但它可与同属一个进程的其它线程共享进程所拥有的全部资源﹒这就像通过一个QQ软件(一个进程)打开两个窗口(两个线程)跟两个人聊天一样，实现多任务的同时也节省了资源．</p>
+<h2 id="9-线程的创建步骤"><a href="#9-线程的创建步骤" class="headerlink" title="9.线程的创建步骤"></a>9.线程的创建步骤</h2><ol>
+<li><p>导入线程包</p>
+<p><code>import threading</code></p>
+</li>
+<li><p>通过线程类创建进程对象</p>
+<p><code>线程对象 = threading.Thread()</code></p>
+</li>
+<li><p>启动线程执行任务</p>
+<p><code>线程对象.start()</code></p>
+</li>
+</ol>
+<h2 id="10-实例（不讲语法了，和进程基本一模一样）"><a href="#10-实例（不讲语法了，和进程基本一模一样）" class="headerlink" title="10.实例（不讲语法了，和进程基本一模一样）"></a>10.实例（不讲语法了，和进程基本一模一样）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">copy_file</span>(<span class="hljs-params">file_name, source_dir, dest_dir</span>):<br>    <span class="hljs-comment"># 1 拼接源文件路径和目标文件路径</span><br>    source_path = source_dir + <span class="hljs-string">&#x27;\\&#x27;</span> + file_name<br>    dest_path = dest_dir + <span class="hljs-string">&#x27;\\&#x27;</span> + file_name<br>    <span class="hljs-comment"># 2 打开源文件和目标文件</span><br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(source_path, <span class="hljs-string">&#x27;rb&#x27;</span>) <span class="hljs-keyword">as</span> source_file:<br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(dest_path, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> dest_file:<br>            <span class="hljs-comment"># 3 循环读取源文件到目标路径</span><br>            <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>                data = source_file.read(<span class="hljs-number">1024</span>)<br>                <span class="hljs-keyword">if</span> data:<br>                    dest_file.write(data)<br>                <span class="hljs-keyword">else</span>:<br>                    <span class="hljs-keyword">break</span><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-comment"># 1 定义源文件夹和目标文件夹</span><br>    source_dir = <span class="hljs-string">r&#x27;F:\迅雷下载\视频-智能机器人从0到1系统入门课程\视频&#x27;</span><br>    dest_dir= <span class="hljs-string">r&#x27;F:\目标文件夹&#x27;</span><br><br>    <span class="hljs-comment"># 2.创建目标文件夹</span><br>    <span class="hljs-keyword">try</span>:<br>        os.mkdir(dest_dir)<br>    <span class="hljs-keyword">except</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;目标文件夹已经存在&quot;</span>)<br>    <span class="hljs-comment"># 3.读取源文件夹的文件列表</span><br>    file_list = os.listdir(source_dir)<br>    <span class="hljs-comment"># 4.遍历文件列表实现拷贝</span><br>    <span class="hljs-keyword">for</span> file_name <span class="hljs-keyword">in</span> file_list:<br>        <span class="hljs-comment"># copy_file(file_name, source_dir, dest_dir)</span><br>        <span class="hljs-comment"># 5.使用多线程实现多任务拷贝</span><br>        sub_thread = threading.Thread(target=copy_file, args=(file_name, source_dir, dest_dir))<br>        sub_thread.start()<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="11-进程与线程的对比"><a href="#11-进程与线程的对比" class="headerlink" title="11.进程与线程的对比"></a>11.进程与线程的对比</h2><h3 id="1-关系对比"><a href="#1-关系对比" class="headerlink" title="1.关系对比"></a>1.关系对比</h3><p>线程是依附在进程里面的，没有进程就没有线程</p>
+<h3 id="2-区别对此"><a href="#2-区别对此" class="headerlink" title="2.区别对此"></a>2.区别对此</h3><p>创建进程的资源开销要比创建线程的资源开销要大<br>进程是操作系统资源分配的基本单位，线程是CPU调度的基本单位<br>线程不能够独立执行，必须依存在进程中</p>
+<h3 id="3-优缺点对比"><a href="#3-优缺点对比" class="headerlink" title="3.优缺点对比"></a>3.优缺点对比</h3><p>进程优缺点：<br>优点：可以用多核<br>缺点：资源开销大</p>
+<p>线程优缺点：<br>优点：资源开销小<br>缺点：不可用多核</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/" class="category-chain-item">多线程编程</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/">#Python</a>
+      
+        <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">#多线程</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Python多线程编程</div>
+      <div>http://example.com/2022/07/12/Python多线程编程/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Olivia的小跟班</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月12日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/11/Pytest/" title="Pytest">
+                        <span class="hidden-mobile">Pytest</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zhouxing9454/commit-utterance');
+      s.setAttribute('issue-term', 'title');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+  
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    
+
+
+<div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+
+<span id="sitetime" style="text-align:center;display: block;"></span>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* 
+		Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数
+        */
+		var t1 = Date.UTC(2022,07,04,12,00,00); //北京时间2018-2-13 00:00:00
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+/*diffYears+" 年 "+*/diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>
