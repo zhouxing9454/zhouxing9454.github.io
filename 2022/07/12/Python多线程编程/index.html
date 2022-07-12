@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://example.com/images/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/image-20220712153258493.png">
 <meta property="og:image" content="http://example.com/images/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/image-20220712155643196.png">
 <meta property="article:published_time" content="2022-07-12T06:57:38.000Z">
-<meta property="article:modified_time" content="2022-07-12T08:40:21.895Z">
+<meta property="article:modified_time" content="2022-07-12T09:06:01.313Z">
 <meta property="article:author" content="Olivia的小跟班">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="多线程">
@@ -247,7 +247,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k 字
+          5.6k 字
         
       </span>
     
@@ -258,7 +258,7 @@
         
         
         
-          39 分钟
+          47 分钟
         
       </span>
     
@@ -388,6 +388,11 @@
 <h3 id="2-区别对此"><a href="#2-区别对此" class="headerlink" title="2.区别对此"></a>2.区别对此</h3><p>创建进程的资源开销要比创建线程的资源开销要大<br>进程是操作系统资源分配的基本单位，线程是CPU调度的基本单位<br>线程不能够独立执行，必须依存在进程中</p>
 <h3 id="3-优缺点对比"><a href="#3-优缺点对比" class="headerlink" title="3.优缺点对比"></a>3.优缺点对比</h3><p>进程优缺点：<br>优点：可以用多核<br>缺点：资源开销大</p>
 <p>线程优缺点：<br>优点：资源开销小<br>缺点：不可用多核</p>
+<h2 id="12-补充"><a href="#12-补充" class="headerlink" title="12.补充"></a>12.补充</h2><h3 id="1-互斥锁"><a href="#1-互斥锁" class="headerlink" title="1.互斥锁"></a>1.互斥锁</h3><p>可以利用<code>lock_test = threading.Lock()</code> 方法实现锁机制。通过执行 获得锁 <code>lock_test.acquire()</code>，通过 <code>lock_test.release()</code> 释放锁。</p>
+<h3 id="2-进程池"><a href="#2-进程池" class="headerlink" title="2.进程池"></a>2.进程池</h3><p>当需要创建的子进程数量不多时，可以直接利用multiprocessing中的Process动态成生多个进程，但如果是上百甚至上千个目标，手动的去创建进程的工作量巨大，此时就可以用到multiprocessing模块提供的Pool方法。</p>
+<p>初始化Pool时，可以指定一个最大进程数，当有新的请求提交到Pool中时，如果池还没有满，那么就会创建一个新的进程用来执行该请求；但如果池中的进程数已经达到指定的最大值，那么该请求就会等待，直到池中有进程结束，才会创建新的进程来执行，请看下面的实例：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">from</span> multiprocessing import Pool<br>import os,<span class="hljs-selector-tag">time</span>,random<br><br><br>def worker(msg):<br>    t_start = time.<span class="hljs-built_in">time</span>()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;%s开始执行，进程号为%d&quot;</span> % (msg,os.<span class="hljs-built_in">getpid</span>()))<br>    # random.<span class="hljs-built_in">random</span>() 随机生成一个<span class="hljs-number">0</span>-<span class="hljs-number">1</span>之间的浮点数<br>    time.<span class="hljs-built_in">sleep</span>(random.<span class="hljs-built_in">random</span>()*<span class="hljs-number">2</span>)<br>    t_stop = time.<span class="hljs-built_in">time</span>()<br>    <span class="hljs-built_in">print</span>(msg,<span class="hljs-string">&quot;执行完毕,耗时%.2f&quot;</span>%(t_stop-t_start))<br><br><br>if __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    po = <span class="hljs-built_in">Pool</span>(<span class="hljs-number">3</span>)  # 定义一个进程池，最大进程数是<span class="hljs-number">3</span><br>    for i in <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-number">10</span>):<br>        # <span class="hljs-built_in">Pool</span>().<span class="hljs-built_in">apply_async</span>(要调用的目标，(传递给目标参数的元组，))<br>        # 每次循环将会用空闲出来的子进程去调用目标<br>        po.<span class="hljs-built_in">apply_async</span>(worker,(i,))<br>        <br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;----start----&quot;</span>)<br>    po.<span class="hljs-built_in">close</span>()  # 关闭进程池，关闭后不会在接收请求<br>    po.<span class="hljs-built_in">join</span>()  # 等待po中所有子进程执行完成，必须放在close语句之后<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;------end-----&quot;</span>)<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
