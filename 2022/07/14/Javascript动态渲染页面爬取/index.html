@@ -31,8 +31,18 @@
 <meta property="og:image" content="http://example.com/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/l13mw-165778407535111.png">
 <meta property="og:image" content="http://example.com/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/tywxa-165778407535113.png">
 <meta property="og:image" content="http://example.com/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/8h0oa-165778407535115.png">
+<meta property="og:image" content="http://example.com/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717142958608.png">
+<meta property="og:image" content="http://example.com/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717143414241.png">
+<meta property="og:image" content="http://example.com/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717143549841.png">
+<meta property="og:image" content="http://example.com/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717150055686.png">
+<meta property="og:image" content="http://example.com/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717145913760.png">
+<meta property="og:image" content="http://example.com/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717154436671.png">
+<meta property="og:image" content="http://example.com/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717154557262.png">
+<meta property="og:image" content="http://example.com/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717154716608.png">
+<meta property="og:image" content="http://example.com/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717155442401.png">
+<meta property="og:image" content="http://example.com/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717160204606.png">
 <meta property="article:published_time" content="2022-07-14T07:31:20.000Z">
-<meta property="article:modified_time" content="2022-07-15T07:58:42.811Z">
+<meta property="article:modified_time" content="2022-07-17T08:04:23.519Z">
 <meta property="article:author" content="Olivia的小跟班">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="爬虫">
@@ -250,7 +260,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          19k 字
+          24k 字
         
       </span>
     
@@ -261,7 +271,7 @@
         
         
         
-          162 分钟
+          198 分钟
         
       </span>
     
@@ -538,43 +548,40 @@
 
 
 
+<h1 id="3-CSS位置偏移反爬案例分析与爬取实战"><a href="#3-CSS位置偏移反爬案例分析与爬取实战" class="headerlink" title="3.CSS位置偏移反爬案例分析与爬取实战"></a>3.CSS位置偏移反爬案例分析与爬取实战</h1><h2 id="案例1"><a href="#案例1" class="headerlink" title="案例1"></a>案例1</h2><p>爬取网站：<a target="_blank" rel="noopener" href="https://antispider3.scrape.center/">https://antispider3.scrape.center/</a></p>
+<p>常规爬取：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs stylus">from selenium import webdriver<br>from pyquery import PyQuery as pq<br>from selenium<span class="hljs-selector-class">.webdriver</span><span class="hljs-selector-class">.common</span><span class="hljs-selector-class">.by</span> import By<br>from selenium<span class="hljs-selector-class">.webdriver</span><span class="hljs-selector-class">.support</span> import expected_conditions as EC<br>from selenium<span class="hljs-selector-class">.webdriver</span><span class="hljs-selector-class">.support</span><span class="hljs-selector-class">.wait</span> import WebDriverWait<br><br>browser = webdriver<span class="hljs-selector-class">.Chrome</span>()<br>browser<span class="hljs-selector-class">.get</span>(<span class="hljs-string">&#x27;https://antispider3.scrape.center/ &#x27;</span>)<br><span class="hljs-function"><span class="hljs-title">WebDriverWait</span><span class="hljs-params">(browser, <span class="hljs-number">10</span>)</span></span><span class="hljs-selector-class">.until</span>(EC<span class="hljs-selector-class">.presence_of_all_elements_located</span>((By<span class="hljs-selector-class">.CSS_SELECTOR</span>, <span class="hljs-string">&#x27;.item&#x27;</span>)))<br><span class="hljs-selector-tag">html</span> = browser<span class="hljs-selector-class">.page_source</span><br>doc = <span class="hljs-built_in">pq</span>(html)<br>names = <span class="hljs-built_in">doc</span>(<span class="hljs-string">&#x27;.item .name &#x27;</span>)<br><span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> names<span class="hljs-selector-class">.items</span>():<br>    <span class="hljs-built_in">print</span>(name<span class="hljs-selector-class">.text</span>())<br>browser<span class="hljs-selector-class">.close</span>()<br></code></pre></td></tr></table></figure>
+
+<p>结果：<br><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717142958608.png" alt="image-20220717142958608"></p>
+<p>排查原因：</p>
+<p>查看网页源代码发现——网页本身利用CSS控制了文字的偏移位置</p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717143414241.png" alt="image-20220717143414241"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717143549841.png" alt="image-20220717143549841"></p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717150055686.png" alt="image-20220717150055686"></p>
+<p>成功爬取方法：获取（style：left：**px）排序它</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> re<br><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver<br><span class="hljs-keyword">from</span> pyquery <span class="hljs-keyword">import</span> PyQuery <span class="hljs-keyword">as</span> pq<br><span class="hljs-keyword">from</span> selenium.webdriver.common.by <span class="hljs-keyword">import</span> By<br><span class="hljs-keyword">from</span> selenium.webdriver.support <span class="hljs-keyword">import</span> expected_conditions <span class="hljs-keyword">as</span> EC<br><span class="hljs-keyword">from</span> selenium.webdriver.support.wait <span class="hljs-keyword">import</span> WebDriverWait<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">parse_name</span>(<span class="hljs-params">name_html</span>):<br>    has_whole = name_html(<span class="hljs-string">&#x27;.whole&#x27;</span>)<br>    <span class="hljs-keyword">if</span> has_whole:<br>        <span class="hljs-keyword">return</span> name_html.text()<br>    <span class="hljs-keyword">else</span>:<br>        chars = name_html(<span class="hljs-string">&#x27;.char&#x27;</span>)<br>        items = []<br>        <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> chars.items():<br>            items.append(&#123;<br>                <span class="hljs-string">&#x27;text&#x27;</span>: char.text().strip(),  <span class="hljs-comment"># strip（）去空格</span><br>                <span class="hljs-string">&#x27;left&#x27;</span>: <span class="hljs-built_in">int</span>(re.search(<span class="hljs-string">r&#x27;(\d+)px&#x27;</span>, char.attr(<span class="hljs-string">&#x27;style&#x27;</span>)).group(<span class="hljs-number">1</span>)) <span class="hljs-comment"># 正则表达式匹配left</span><br>            &#125;)<br>        items = <span class="hljs-built_in">sorted</span>(items,key=<span class="hljs-keyword">lambda</span> x:x[<span class="hljs-string">&#x27;left&#x27;</span>],reverse=<span class="hljs-literal">False</span>) <span class="hljs-comment"># lambda x:x[&#x27;left&#x27;]在这里的意思是按item[&#x27;ledft&#x27;]排序</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>.join([item.get(<span class="hljs-string">&#x27;text&#x27;</span>) <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> items]) <span class="hljs-comment"># get（）返回指定键的值</span><br><br><br>browser = webdriver.Chrome()<br>browser.get(<span class="hljs-string">&#x27;https://antispider3.scrape.center/ &#x27;</span>)<br>WebDriverWait(browser, <span class="hljs-number">10</span>).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, <span class="hljs-string">&#x27;.item&#x27;</span>)))<br>html = browser.page_source<br>doc = pq(html)<br>names = doc(<span class="hljs-string">&#x27;.item .name &#x27;</span>)<br><span class="hljs-keyword">for</span> name_html <span class="hljs-keyword">in</span> names.items():<br>    name = parse_name(name_html)<br>    <span class="hljs-built_in">print</span>(name)<br>browser.close()<br></code></pre></td></tr></table></figure>
 
 
 
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717145913760.png" alt="image-20220717145913760"></p>
+<h2 id="案例2"><a href="#案例2" class="headerlink" title="案例2"></a>案例2</h2><p>爬取网站：<a target="_blank" rel="noopener" href="https://antispider4.scrape.center/">https://antispider4.scrape.center/</a></p>
+<p>常规爬取：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs stylus">from selenium import webdriver<br>from pyquery import PyQuery as pq<br>from selenium<span class="hljs-selector-class">.webdriver</span><span class="hljs-selector-class">.common</span><span class="hljs-selector-class">.by</span> import By<br>from selenium<span class="hljs-selector-class">.webdriver</span><span class="hljs-selector-class">.support</span> import expected_conditions as EC<br>from selenium<span class="hljs-selector-class">.webdriver</span><span class="hljs-selector-class">.support</span><span class="hljs-selector-class">.wait</span> import WebDriverWait<br><br>browser = webdriver<span class="hljs-selector-class">.Chrome</span>()<br>browser<span class="hljs-selector-class">.get</span>(<span class="hljs-string">&#x27; https://antispider4.scrape.center/ &#x27;</span>)<br><span class="hljs-function"><span class="hljs-title">WebDriverWait</span><span class="hljs-params">(browser, <span class="hljs-number">10</span>)</span></span><span class="hljs-selector-class">.until</span>(EC<span class="hljs-selector-class">.presence_of_all_elements_located</span>((By<span class="hljs-selector-class">.CSS_SELECTOR</span>, <span class="hljs-string">&#x27;.item&#x27;</span>)))<br><span class="hljs-selector-tag">html</span> = browser<span class="hljs-selector-class">.page_source</span><br>doc = <span class="hljs-built_in">pq</span>(html)<br>items = <span class="hljs-built_in">doc</span>(<span class="hljs-string">&#x27;.item &#x27;</span>)<br><span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> items<span class="hljs-selector-class">.items</span>():<br>    name = <span class="hljs-built_in">item</span>(<span class="hljs-string">&#x27;.name &#x27;</span>)<span class="hljs-selector-class">.text</span>()<br>    categories = <span class="hljs-selector-attr">[o.text() for o in item(<span class="hljs-string">&#x27;.categories button &#x27;</span>).items()]</span><br>    score = <span class="hljs-built_in">item</span>(<span class="hljs-string">&#x27;.score&#x27;</span>)<span class="hljs-selector-class">.text</span>()<br>    <span class="hljs-built_in">print</span>(f<span class="hljs-string">&#x27; name: &#123;name&#125; categories: &#123;categories&#125; score: &#123;score&#125; &#x27;</span>)<br>browser<span class="hljs-selector-class">.close</span>()<br></code></pre></td></tr></table></figure>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717154436671.png" alt="image-20220717154436671"></p>
+<p>没有评分？为什么呢，又是CSS在作怪了。</p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717154557262.png" alt="image-20220717154557262"></p>
+<p>会发现i节点内部有一个::before字段，在CSS 中，该字段用于创建一个伪节点，即这个节点和i节点或者span节点不一样。::before可以往特定的节点中插入内容，同时在CSS中使用content字段定义这个内容。我们在第一个i节点里看到了9这个数字，观察另外两个i节点<br>可以看到.和5，3个内容组合起来就是9.5。</p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717154716608.png" alt="image-20220717154716608"></p>
+<p>那么怎么获取这个content呢？</p>
+<p>1.点击css源代码</p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717155442401.png" alt="image-20220717155442401"></p>
+<p>2.打开它open in new tab,格式化，找到它</p>
+<p><img src="D:\blog\public\img\loading.gif" srcset="/img/loading.gif" lazyload data-original="/images/Javascript%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%88%AC%E5%8F%96/image-20220717160204606.png" alt="image-20220717160204606"></p>
+<p>3.requests解析它</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver<br><span class="hljs-keyword">from</span> pyquery <span class="hljs-keyword">import</span> PyQuery <span class="hljs-keyword">as</span> pq<br><span class="hljs-keyword">from</span> selenium.webdriver.common.<span class="hljs-keyword">by</span> <span class="hljs-keyword">import</span> <span class="hljs-keyword">By</span><br><span class="hljs-keyword">from</span> selenium.webdriver.support <span class="hljs-keyword">import</span> expected_conditions <span class="hljs-keyword">as</span> EC<br><span class="hljs-keyword">from</span> selenium.webdriver.support.wait <span class="hljs-keyword">import</span> WebDriverWait<br><span class="hljs-keyword">import</span> re<br><span class="hljs-keyword">import</span> requests<br>url = <span class="hljs-string">&#x27;https://antispider4.scrape.center/css/app.654ba59e.css&#x27;</span><br><br><br>response = requests.<span class="hljs-keyword">get</span>(url)<br>pattern = re.compile(<span class="hljs-string">&#x27;.icon-(.*?):before\&#123;content:&quot;(.*?)&quot;\&#125;&#x27;</span>)<br>results = re.findall(pattern, response.text)<br>icon_map = &#123;item[<span class="hljs-number">0</span>]: item[<span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> results&#125;<br><br><br>def parse_score(item):<br>    elements = item(<span class="hljs-string">&#x27;.icon&#x27;</span>)<br>    icon_values = []<br>    <span class="hljs-keyword">for</span> element <span class="hljs-keyword">in</span> elements.items():<br>        class_name = (element.attr(<span class="hljs-string">&#x27;class&#x27;</span>))<br>        icon_key = re.<span class="hljs-keyword">search</span>(<span class="hljs-string">&#x27;icon-(\d+)&#x27;</span>, class_name).<span class="hljs-keyword">group</span>(<span class="hljs-number">1</span>)<br>        icon_value = icon_map.<span class="hljs-keyword">get</span>(icon_key)<br>        icon_values.append(icon_value)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>.<span class="hljs-keyword">join</span>(icon_values)<br><br><br>browser = webdriver.Chrome()<br>browser.<span class="hljs-keyword">get</span>(<span class="hljs-string">&#x27;https://antispider4.scrape.center/&#x27;</span>)<br>WebDriverWait(browser, <span class="hljs-number">10</span>) \<br>    .<span class="hljs-keyword">until</span>(EC.presence_of_all_elements_located((<span class="hljs-keyword">By</span>.CSS_SELECTOR, <span class="hljs-string">&#x27;.item&#x27;</span>)))<br>html = browser.page_source<br>doc = pq(html)<br>items = doc(<span class="hljs-string">&#x27;.item&#x27;</span>)<br><span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> items.items():<br>    <span class="hljs-type">name</span> = item(<span class="hljs-string">&#x27;.name&#x27;</span>).text()<br>    categories = [o.text() <span class="hljs-keyword">for</span> o <span class="hljs-keyword">in</span> item(<span class="hljs-string">&#x27;.categories button&#x27;</span>).items()]<br>    score = parse_score(item)<br>    print(f<span class="hljs-string">&#x27;name: &#123;name&#125; categories: &#123;categories&#125; score: &#123;score&#125;&#x27;</span>)<br>browser.<span class="hljs-keyword">close</span>()<br></code></pre></td></tr></table></figure>
 
 
                 
