@@ -1,0 +1,2873 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Olivia的小跟班">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+            <link rel="preconnect" href="https://cdn.staticfile.org" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://www.youandgentleness.cn/2023/06/05/redis从零开始学习/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="题记记录我的redis学习笔记。 1.数据库的演进及Nosql的初步认知为什么要用 Nosql ？咱们一起来看看数据库的发展过程 1、单机的 MYSQL 时代 应用访问数据库是 应用 – DAL 数据库访问层 – DB 数据库  在单机的 MYSQL 时代，数据都不会太大，而且网页也是静态网页，一般网站的访问量也小，因此单数据库就完全够用了 上面这种网站，瓶颈就会很明显：  数据量变得大了，一个机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis从零开始学习">
+<meta property="og:url" content="https://www.youandgentleness.cn/2023/06/05/Redis%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Olivia的小跟班">
+<meta property="og:description" content="题记记录我的redis学习笔记。 1.数据库的演进及Nosql的初步认知为什么要用 Nosql ？咱们一起来看看数据库的发展过程 1、单机的 MYSQL 时代 应用访问数据库是 应用 – DAL 数据库访问层 – DB 数据库  在单机的 MYSQL 时代，数据都不会太大，而且网页也是静态网页，一般网站的访问量也小，因此单数据库就完全够用了 上面这种网站，瓶颈就会很明显：  数据量变得大了，一个机">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050043212.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050044542.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050044565.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050044623.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050045626.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050051789.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050052267.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060129492.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060129961.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060131164.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060133473.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060133055.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060134810.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060136328.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060136154.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060137754.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060137806.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121548077.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121556055.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121559197.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121602445.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121612196.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121613655.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121615605.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121621945.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121628644.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121629561.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121631121.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121636728.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121639699.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121640931.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121644732.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121646664.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121700160.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121704377.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121708399.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121709077.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121712442.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121714641.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121718481.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121724685.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121729412.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121730480.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121732656.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121733248.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121737950.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121738259.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121741541.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121957201.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122034267.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122033454.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122035309.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122046522.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122052465.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122054549.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122100004.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122103849.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122104691.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122106282.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122110549.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122112021.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122113562.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122116683.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122118392.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122119641.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122126270.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122126513.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122127375.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306130040484.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306130041003.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306130042998.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306130046489.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131416228.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131431852.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131433902.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131437091.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131437725.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131441725.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131440890.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131456635.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131457143.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131457050.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131504067.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131508312.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131508401.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131529520.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131535365.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131535133.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131535678.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131536936.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131536282.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131548897.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131548563.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131549600.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131549057.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131550750.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132228517.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132228677.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132236559.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132241482.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132238460.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132238663.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132238755.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132256104.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132258745.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132258747.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132304106.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132308624.png">
+<meta property="article:published_time" content="2023-06-04T16:25:55.000Z">
+<meta property="article:modified_time" content="2023-06-14T14:00:22.000Z">
+<meta property="article:author" content="Olivia的小跟班">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050043212.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <meta name="theme-color" content="#1890ff">
+    <link rel="shortcut icon" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Redis从零开始学习 -
+        
+        Olivia的小跟班
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+
+    
+        <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    
+<script src="/js/libs/anime.min.js"></script>
+
+    <h1 class="ml13">
+        Olivia的小跟班
+    </h1>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+
+        anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [100,0],
+                translateZ: 0,
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: '.ml13 .letter',
+            translateY: [0,-100],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+        });
+
+        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
+        hidePreloaderAfterTimeout(5000);
+
+        function hidePreloaderAfterTimeout(delay) {
+            setTimeout(function () {
+                var preloader = document.querySelector('.preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 200);
+            }, delay);
+        }
+    </script>
+</div>
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"www.youandgentleness.cn","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":null,"skip_dirs":[]}},"colors":{"primary":"#1890ff","secondary":"#1890ff","default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/light.jpg","dark":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/darkness.jpg"},"title":"Talk is cheap,Show me the code.","subtitle":{"text":["他们以为击败我就是终结，而我必归来将之改写。"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#D27D2D","dark":"#191970"},"text_style":{"title_size":"2.1rem","subtitle_size":"1.2rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"email":"zhouxing9454@gmail.com","weixin":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/wechat.jpg","github":"https://github.com/zhouxing9454","qq":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/QQ.jpg","bilibili":"https://space.bilibili.com/475346328"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"最后的旅行","artist":"Rainton桐","url":"http://music.163.com/song/media/outer/url?id=30512539.mp3","cover":"https://p1.music.126.net/XWUdXb46hIdIecRihPCV_A==/109951168667887853.jpg"},{"name":"陪我长大","artist":"段奥娟","url":"http://music.163.com/song/media/outer/url?id=1299550093.mp3","cover":"http://p2.music.126.net/YxUbVoHngGMY8gZMjbEJkg==/109951163446151536.jpg"}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.1","navbar":{"auto_hide":false,"color":{"left":"#FAF9F6","right":"#FAF9F6","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"Friends":{"icon":"fa-solid fa-link","path":"/links/"},"Essays":{"icon":"fa-solid fa-paper-plane","path":"/essays/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","typography":{"line_height":1.6}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/7/4 9:30:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Olivia的小跟班
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/links/"
+                                        >
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/essays/"
+                                        >
+                                    <i class="fa-solid fa-paper-plane fa-fw"></i>
+                                    ESSAYS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/links/"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-solid fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/essays/"
+                        >
+                            <span>
+                                ESSAYS
+                            </span>
+                            
+                                <i class="fa-solid fa-paper-plane fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">Redis从零开始学习</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/avatar.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Olivia的小跟班</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-06-05 00:25:55</span>
+        <span class="mobile">2023-06-05 00:25:55</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-06-14 22:22</span>
+            <span class="mobile">2023-06-14 22:22</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Redis/">Redis</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Redis/">Redis</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h1><p>记录我的redis学习笔记。</p>
+<h2 id="1-数据库的演进及Nosql的初步认知"><a href="#1-数据库的演进及Nosql的初步认知" class="headerlink" title="1.数据库的演进及Nosql的初步认知"></a>1.数据库的演进及Nosql的初步认知</h2><h3 id="为什么要用-Nosql-？"><a href="#为什么要用-Nosql-？" class="headerlink" title="为什么要用 Nosql ？"></a>为什么要用 Nosql ？</h3><p>咱们一起来看看数据库的发展过程</p>
+<p><strong>1、单机的 MYSQL 时代</strong></p>
+<p>应用访问数据库是 <strong>应用 – DAL 数据库访问层 – DB 数据库</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050043212.png"
+                      alt="image-20210815204834911"
+                ></p>
+<p>在单机的 MYSQL 时代，数据都不会太大，而且网页也是静态网页，一般网站的访问量也小，因此单数据库就完全够用了</p>
+<p>上面这种网站，瓶颈就会很明显：</p>
+<ul>
+<li>数据量变得大了，一个机器放不下如何处理</li>
+<li>数据的索引 （B+ Tree），一个机器的内存放不下了如何处理</li>
+<li>读写的访问量，一个服务器承受不了了如何处理</li>
+</ul>
+<p>随着历史进程的演进，上面这种网站必然会面临如上问题，就必须要解决</p>
+<p><strong>2、Memecache + MYSQL + 垂直拆分</strong></p>
+<p>为了解决上面的问题，一个机器处理不过来，我们就放多个机器，但是如何保证数据的一致性呢？</p>
+<p>因此就想到了读写分离，专门指定一个数据库用于写数据，其他数据库用于读取数据，并且其他的数据库会同步用于写数据的 MYSQL 中的数据</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050044542.png"
+                      alt="img"
+                ></p>
+<p>渐渐的发现每次请求，都需要去操作数据库，这样耗时耗力，需要改变</p>
+<p>因此在访问数据库之前，加入了缓存服务器 Memcache，第一次读取数据库，第二次读取的时候在数据库不改变的情况下，读取 Memcache 中的数据，减小数据库的压力</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050044565.png"
+                      alt="img"
+                ></p>
+<p><strong>3、分库分表 + 水平拆分 + MYSQL 集群</strong></p>
+<p>随着技术发展，业务也跟着飞越发展，也就带来了更多的问题</p>
+<p>最开始我们使用的 MYSQL 使用的引擎的是 MyISAM，他是表锁，十分影响效率，当在高并发的情况下，问题尤为明显</p>
+<p>后面就有了 MYSQL 的 InnoDB 引擎，他是行锁，随着业务的不停增长，就有了 MYSQL 集群</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050044623.png"
+                      alt="img"
+                ></p>
+<p>使用集群的方式，每一个集群存储一部分数据，若数据量仍然上升，那么继续增加集群部署</p>
+<p><strong>4、现在</strong></p>
+<p>由于现代的数据量真的非常大了，大数据时代了，MYSQL 关系型数据库就不够用了，现在数据量多，变化快，以前使用 MYSQL ，设计的时候，就得把所有字段，可能用到的字段，全部想清楚，设计明白，对于现在瞬息万变的时代，这就很难了</p>
+<p>现在就会期望，例如存储文件的有文件服务器，存储图片的有图片服务器，有专门的数据库来存这些数据，那么 MYSQL 的压力就会小很多</p>
+<p>现在 的互联网项目简单来看是这个样子的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050045626.png"
+                      alt="img"
+                ></p>
+<p>对于这样的互联网项目，就非常需要 Nosql 了，Nosql 能处理上述出现的问题</p>
+<h3 id="Nosql-是什么？"><a href="#Nosql-是什么？" class="headerlink" title="Nosql 是什么？"></a>Nosql 是什么？</h3><p><strong>Nosql</strong></p>
+<p>Not only sql ， 不仅仅是 sql</p>
+<p>泛指非关系型数据库，随着 web2.0 互联网的诞生，传统的关系型数据库很难对付 web2.0 时代了</p>
+<p>例如现在互联网用户需要存储个人信息，定位信息，社交网络等等数据，Nosql 对于这些数据存储不需要用一个固定的格式就可以存储，而且很轻易就可以横向扩展，例如 Map&lt;string,interface {}&gt; ，使用键值对来控制就很 nice 了</p>
+<p><strong>Nosql 的特点</strong></p>
+<ul>
+<li>方便扩展，因为数据之间没有关系，很容易扩展</li>
+<li>高性能，例如 redis 1 秒能写 8 万次，能读 11 万次，且 Nosql 的存储是记录级别的，是一种细粒度的缓存，因此性能高</li>
+<li>数据类型多样，不需要事先设计数据库</li>
+</ul>
+<p>咱们来对比一下传统型的关系型数据库（RDBMS）和 Nosql</p>
+<p>RDBMS：</p>
+<ul>
+<li>结构化组织</li>
+<li>sql 语句</li>
+<li>数据和关系都存在单独的表中</li>
+<li>数据操作，数据定义语言</li>
+<li>严格的一致性</li>
+<li>事务处理 等等</li>
+</ul>
+<p>Nosql：</p>
+<ul>
+<li>不仅仅是数据</li>
+<li>没有固定的查询语言</li>
+<li>键值对存储，列存储，文件存储，图形数据库 例如社交关系等等</li>
+<li>最终一致性</li>
+<li>CAP 定理和 BASE 原理</li>
+<li>高可用，高性能，高可扩展</li>
+</ul>
+<p>顺便一起分享一下 3 V 和 3 高分别是什么：</p>
+<p>3 V，主要是用来描述问题的：</p>
+<ul>
+<li>海量数据 volume</li>
+<li>多样性 variety</li>
+<li>实时性 velocity</li>
+</ul>
+<p>3 高，主要是用来描述对程序的要求</p>
+<ul>
+<li>高并发</li>
+<li>高性能</li>
+<li>高可扩</li>
+</ul>
+<h3 id="Nosql-的四大分类"><a href="#Nosql-的四大分类" class="headerlink" title="Nosql 的四大分类"></a>Nosql 的四大分类</h3><p><strong>KV 键值对：</strong></p>
+<ul>
+<li>Redis</li>
+</ul>
+<p>C 编写的，单进程的 Nosql， 阿里，腾讯，百度，字节等公司都在用使用</p>
+<p><strong>文档型数据库：</strong></p>
+<ul>
+<li>Mongdb</li>
+</ul>
+<p>Mongdb 是一个基于分布式文件存储的数据库，C++ 编写的，主要用来处理大量的文档</p>
+<p>Mongdb 还是一个介于关系型数据库和非关系型数据库中间的产品，他是非关系型数据库中功能最丰富的，<strong>最像关系型数据库的非关系型数据库</strong></p>
+<p><strong>列存储型数据库：</strong></p>
+<ul>
+<li>HBase</li>
+<li>分布式文件系统</li>
+</ul>
+<p><strong>图关系型数据库：</strong></p>
+<ul>
+<li>Neo4j</li>
+<li>InfoGrid</li>
+</ul>
+<p>图关系型数据库不是存储图形，而是存放关系，例如社交关系网络</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050051789.png"
+                      alt="img"
+                ></p>
+<p>咱们来对比一下上述四种分类：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050052267.png"
+                      alt="img"
+                ></p>
+<p>图片来源于网络，这张图片已经很清晰的描述了 KV 键值对，文档型数据库，列存储数据库，图形数据库的案例，数据模型，优缺点，现在对于 Nosql 会有了一个大体的认知了吧。</p>
+<h2 id="2-Redis是什么"><a href="#2-Redis是什么" class="headerlink" title="2.Redis是什么"></a>2.Redis是什么</h2><h3 id="Redis-是什么？"><a href="#Redis-是什么？" class="headerlink" title="Redis 是什么？"></a>Redis 是什么？</h3><p>Redis（Remote Dictionary Service），远程字典服务</p>
+<p>是一个开源的使用 ANSI C 语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库，并提供多种语言的 API</p>
+<p>Redis 是免费且开源的，是当下最热门的 Nosql 技术之一，他也被成为结构化数据库</p>
+<p>Redis 支持的语言有这么多</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060129492.png"
+                      alt="img"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060129961.png"
+                      alt="img"
+                ></p>
+<p>Redis 会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并在此基础上实现 master - slave （主从同步）</p>
+<h3 id="Redis-能干嘛？"><a href="#Redis-能干嘛？" class="headerlink" title="Redis 能干嘛？"></a>Redis 能干嘛？</h3><p>Redis 能干的事情非常的多，咱们列举一些：</p>
+<ul>
+<li>内存存储，持久化。 数据存储在内存中，若服务崩溃或者服务器宕机，内存中的数据就会丢失， 持久化相当重要，Redis 里面的持久化有 RDB，AOF</li>
+<li>可以用于高速缓存，Redis 效率很高</li>
+<li>做发布订阅系统</li>
+<li>做地图信息分析</li>
+<li>做计数器，计时器 等等</li>
+</ul>
+<p><strong>Redis 有啥特性</strong></p>
+<ul>
+<li>多样的数据类型</li>
+<li>持久化</li>
+<li>集群</li>
+<li>事务处理</li>
+</ul>
+<h3 id="学习-Redis-需要用到的资料"><a href="#学习-Redis-需要用到的资料" class="headerlink" title="学习 Redis 需要用到的资料"></a>学习 Redis 需要用到的资料</h3><p>官网：<a class="link"   target="_blank" rel="noopener" href="https://redis.io/" >https://redis.io/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>中文网站：<a class="link"   target="_blank" rel="noopener" href="http://www.redis.cn/" >redis.cn <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>下载地址：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060131164.png"
+                      alt="image-20230606013158084"
+                ></p>
+<h3 id="如何安装-Redis"><a href="#如何安装-Redis" class="headerlink" title="如何安装 Redis"></a>如何安装 Redis</h3><p><strong>window 下安装 Redis</strong></p>
+<p>1、官网上下载 windows Redis 的安装包：<a class="link"   target="_blank" rel="noopener" href="https://github.com/tporadowski/redis/releases" >Releases · tporadowski&#x2F;redis <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>2、解压安装包</p>
+<p>解压 zip 安装包 Redis-x64-5.0.10.zip，这个压缩包现在有 14 M 了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060133473.png"
+                      alt="img"
+                ></p>
+<ul>
+<li>redis-server</li>
+</ul>
+<p>redis 服务端</p>
+<ul>
+<li>redis-client</li>
+</ul>
+<p>redis 客户端</p>
+<ul>
+<li>redis-check-aof 和 redis-check-rdb</li>
+</ul>
+<p>redis 的持久化工具</p>
+<ul>
+<li>redis-benchmark</li>
+</ul>
+<p>redis 的检测工具</p>
+<p>3、打开 redis-server 进入服务端，可以看到如下界面</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060133055.png"
+                      alt="image-20230606013349003"
+                ></p>
+<p>4、打开客户端 redis-cli ，可以尝试输入 <code>ping</code> 命令，得到结果为 <code>PONG</code> 说明连接成功</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060134810.png"
+                      alt="image-20230606013417773"
+                ></p>
+<p>尝试 set key 和 get key ，没有问题</p>
+<p>这里只是简单介绍一下 windows 下 redis 的安装和使用， 其实绝大部分的时间我们还是在 linux 下进行操作的，Redis 官网也是强烈建议我们在 Linux 下进行使用</p>
+<p><strong>linux 下安装 Redis</strong></p>
+<p>不写了，我个人都是在docker上用redis。</p>
+<h3 id="redis-基础知识"><a href="#redis-基础知识" class="headerlink" title="redis 基础知识"></a>redis 基础知识</h3><p>redis 默认是有 16 个数据库的，咱们可以查看 redis.conf 文件中有定义</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060136328.png"
+                      alt="image-20230606013617252"
+                ></p>
+<p>redis 默认是使用第 0 个数据库，咱们可以使用 <code>select</code> 指令来切换数据库</p>
+<p><strong>select</strong></p>
+<p>可以通过 <code>select</code> 指令来切换数据库</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060136154.png"
+                      alt="image-20230606013649115"
+                ></p>
+<p>可以看到 0 号数据库是有数据的， 3 号数据库还没有数据</p>
+<p><strong>keys</strong></p>
+<p>可以通过 <code>keys *</code> 指令来获取当前数据库所有 key , 一般很少用这个命令，因为数据量很大的时候，使用这个命令会很慢</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060137754.png"
+                      alt="image-20230606013714713"
+                ></p>
+<p><strong>flushdb</strong></p>
+<p>清空当前数据库的 key 和 value</p>
+<p><strong>flushall</strong></p>
+<p>清空所有数据库的 key 和 value</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060137806.png"
+                      alt="image-20230606013753767"
+                ></p>
+<p><strong>那么为什么 redis 的默认端口号是 6379 呢？</strong></p>
+<p>因为 redis 的作者是一个女明星 MERZ 的粉丝，MERZ 对应到 9 宫格手机键盘上就是 6379</p>
+<h3 id="redis-是单线程的"><a href="#redis-是单线程的" class="headerlink" title="redis 是单线程的"></a>redis 是单线程的</h3><p>redis 是单线程的，但是不影响他很快，官方表示，redis 是基于内存操作的，CPU 不是 redis 的瓶颈，机器内存和网络带宽才是 redis 的瓶颈。</p>
+<p>redis 是 C 语言写的，redis 官方提供的数据为 十万 + QPS</p>
+<p><strong>redis 单线程为什么这么快？</strong></p>
+<p>1、高性能的服务器一定是多线程的吗？这是一个误区，单线程一样可以非常快</p>
+<p>2、多线程的效率一定比单线程的效率高吗？这也是一个误区，多线程会有 CPU 上下文切换，非常耗时</p>
+<p><strong>效率比较：</strong> CPU &gt; 内存 &gt; 硬盘</p>
+<p><strong>redis 核心：</strong></p>
+<p>redis 是将所有的数据都放到内存中，所以单线程去操作数据就会非常快，效率就很高，而多线程会出现 CPU 的上下文切换，对于内存而言，没有上下文切换系统效率是最高的。</p>
+<h2 id="3-Redis-数据结构之string和list基本使用及熟悉"><a href="#3-Redis-数据结构之string和list基本使用及熟悉" class="headerlink" title="3.Redis 数据结构之string和list基本使用及熟悉"></a>3.Redis 数据结构之string和list基本使用及熟悉</h2><p><strong>Redis五大数据结构</strong></p>
+<p>Redis 是一个开源（BSD 许可）的，内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件。</p>
+<p>它支持多种类型的数据结构，如 字符串（strings）， 散列（hashes）， 列表（lists）， 集合（sets）， 有序集合（sorted sets） 与范围查询， bitmaps， hyperloglogs 和 地理空间（geospatial） 索引半径查询。</p>
+<p>Redis 内置了 复制（replication），LUA 脚本（Lua scripting）， LRU 驱动事件（LRU eviction），事务（transactions） 和不同级别的 磁盘持久化（persistence）， 并通过 Redis 哨兵（Sentinel）和自动 分区（Cluster）提供高可用性（high availability）</p>
+<p><strong>redis key 的基本命令</strong></p>
+<p>ping<br>查看客户端是否连接成功</p>
+<p>set key value<br>设置 key 和 value</p>
+<p>get key<br>获取 key 的值</p>
+<p>keys *<br>获取所有 key</p>
+<p>move key 1<br>删除 key</p>
+<p>expire key number<br>对 key 设置过期时间</p>
+<p>ttl key<br>查看 key 的剩余有效时间</p>
+<p>type key<br>查看 key 的类型</p>
+<p>EXISTS key<br>查看是否存在 key</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121548077.png"
+                      alt="image-20230612154757845"
+                ></p>
+<h3 id="string-字符串"><a href="#string-字符串" class="headerlink" title="string 字符串"></a>string 字符串</h3><p>设置单个值</p>
+<p>APPEND key value<br>在字符串后面追加字符串</p>
+<p>STRLEN key<br>计算 key 对应 value 的长度</p>
+<p>incr key<br>对 key 的值 +1</p>
+<p>decr key<br>对 key 的值 -1</p>
+<p>INCRBY key number<br>对 key +number</p>
+<p>DECRBY key number<br>对 key -number</p>
+<p>GETRANGE key start end<br>获取字符范围，获取 key 对应 value 的 第 start 到 end 的字符串</p>
+<p><strong>GETRANGE key 0 -1 和 get key 是一个效果</strong></p>
+<p>setrange key offset value<br>替换 key 对应 value 从左到有 offset 个偏移量后面的字符串</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121556055.png"
+                      alt="image-20230612155644904"
+                ></p>
+<p>setex key second value （set with expire）<br>设置 key 对应的过期时间 ，</p>
+<p>ttl key<br>查看 key 的有效时间</p>
+<p>setnx key value （if not exist）<br>如果 key 不存在，那就设置 ， 这个指令通常用于分布式锁</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121559197.png"
+                      alt="image-20230612155930107"
+                ></p>
+<p><strong>批量设置多个值</strong></p>
+<p>mset key value [key value …]<br>设置多个 key value</p>
+<p>mget key [key …]<br>获取多个 key 对应的值</p>
+<p>MSETNX key value [key value …]<br>设置多个值，如果 key 不存在，则设置值，<strong>这是一个原子操作，要么全部成功，要么全部失败</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121602445.png"
+                      alt="image-20230612160254332"
+                ></p>
+<p><strong>设置对象</strong></p>
+<p>设置对象，咱们可以将 redis 的 key 设计成为我们业务需要的字符 key ，例如下面的例子</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121612196.png"
+                      alt="image-20230612161209128"
+                ></p>
+<ul>
+<li><strong>getset</strong></li>
+</ul>
+<p>先 get 值，再 set 值</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121613655.png"
+                      alt="image-20230612161301599"
+                ></p>
+<p><strong>string 字符串的使用场景</strong></p>
+<p>string 类型的使用场景非常多，如下列举一些：</p>
+<ul>
+<li>计数器</li>
+<li>统计多个单位的数量</li>
+<li>对象缓存存储</li>
+<li>分数，粉丝数，点赞量 等等</li>
+</ul>
+<h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><p>List 是基本数据类型，即<strong>列表</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121615605.png"
+                      alt="image-20210818201443260"
+                ></p>
+<p>在 redis 的 List 里面，咱们可以模拟栈，队列，阻塞队列等等</p>
+<p>LPUSH key element [element …]</p>
+<ul>
+<li>从左边插入数据到 key 中，这个 key 是有个 list ， list 类型的指令都是 <strong>开头L</strong></li>
+</ul>
+<p>RPUSH key element [element …]</p>
+<ul>
+<li>从右边插入数据到 key 中</li>
+</ul>
+<p>LRANGE key start stop</p>
+<ul>
+<li>查看 list 的范围，<strong>LRANGE key 0 -1查看当前 list 的全部值</strong></li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121621945.png"
+                      alt="image-20230612162156890"
+                ></p>
+<p>LPOP key [count]<br>从 list 的左边移除数据，默认是 1 个 ，即为移除 list 的第一个元素</p>
+<p>RPOP key [count]<br>从 list 的右边移除数据 ， 即为移除 list 的最后一个元素</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121628644.png"
+                      alt="image-20230612162800550"
+                ></p>
+<ul>
+<li>LINDEX key index</li>
+</ul>
+<p>查看 list 中第 index 个值，从 0 开始</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121629561.png"
+                      alt="image-20230612162943503"
+                ></p>
+<ul>
+<li>LLEN key</li>
+</ul>
+<p>查看 list 的长度</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121631121.png"
+                      alt="image-20230612163110065"
+                ></p>
+<ul>
+<li>LREM key count element</li>
+</ul>
+<p>删除 list 中指定的元素，可以指定删除多少个</p>
+<p><strong>LREM 删除 list 中不存在的数据，返回 0 ，0 为失败，</strong></p>
+<p><strong>LREM 删除 list 中存在的数据，若期望删除 5 个，实际上只有 2 个，那么 redis 会返回 2 ，删除成功</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121636728.png"
+                      alt="image-20230612163657665"
+                ></p>
+<ul>
+<li>LTRIM key start stop</li>
+</ul>
+<p>裁剪，剪枝，获取 list 的某一段，并裁剪下来</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121639699.png"
+                      alt="image-20230612163906646"
+                ></p>
+<ul>
+<li>RPOPLPUSH source destination</li>
+</ul>
+<p>从源 list 中的右边取出数据，从目的 list 的左边加入数据</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121640931.png"
+                      alt="image-20230612164051869"
+                ></p>
+<ul>
+<li>LSET key index element</li>
+</ul>
+<p>将 list 中的对应索引的数据，替换成 element ，如果索引本没有数据，则会报错</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121644732.png"
+                      alt="image-20230612164424670"
+                ></p>
+<ul>
+<li><p>LINSERT key BEFORE|AFTER pivot element</p>
+<p>list 中在指定元素的前面或者后面添加数据</p>
+</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121646664.png"
+                      alt="image-20230612164624598"
+                ></p>
+<ul>
+<li>list 实际是一个链表，before node ， after node ，left ，right 都是可以插入数据的</li>
+<li>如果 key 不存在，会创建新的 key ，即创建新的链表</li>
+<li>如果 key 存在，正常加入数据</li>
+<li>如果移除了所有的值，那么 key 就不存在了</li>
+<li>在 list 的两边插入和删除数据效率最高，从中间操作数据，效率相对较低</li>
+</ul>
+<p>list 列表的应用场景：</p>
+<ul>
+<li>list 可以做消息队列（FIFO），也可以做栈（FILO）</li>
+</ul>
+<h2 id="4-set-集合，hash-哈希，zset-有序集合初步认知"><a href="#4-set-集合，hash-哈希，zset-有序集合初步认知" class="headerlink" title="4.set 集合，hash 哈希，zset 有序集合初步认知"></a>4.set 集合，hash 哈希，zset 有序集合初步认知</h2><h3 id="set集合"><a href="#set集合" class="headerlink" title="set集合"></a>set集合</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121700160.png"
+                      alt="img"
+                ></p>
+<p><strong>set 集合里面的数据是不能重读的</strong></p>
+<p>SADD key member [member …]<br>向 set 集合中添加元素</p>
+<p>SMEMBERS key<br>查看集合中的所有元素</p>
+<p>SISMEMBER key member<br>查看某一个数据是否在集合中</p>
+<p>SCARD key<br>查看集合数据的个数，也就是集合的长度</p>
+<p>SREM key member [member …]<br>移除集合中指定的元素</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121704377.png"
+                      alt="image-20230612170405317"
+                ></p>
+<ul>
+<li>SRANDMEMBER key [count]</li>
+</ul>
+<p>随机获取集合里面的数据，可以指定个数</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121708399.png"
+                      alt="image-20230612170831341"
+                ></p>
+<ul>
+<li>SPOP key [count]</li>
+</ul>
+<p>随机删除集合中的任意元素</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121709077.png"
+                      alt="image-20230612170942985"
+                ></p>
+<ul>
+<li>SMOVE source destination member</li>
+</ul>
+<p>从指定的集合中取出一个元素，放到另外一个集合中</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121712442.png"
+                      alt="image-20230612171249387"
+                ></p>
+<ul>
+<li>SUNION key [key …]</li>
+</ul>
+<p>取并集，对两个集合取并集</p>
+<ul>
+<li>SINTER key [key …]</li>
+</ul>
+<p>取交集，对两个集合取交集</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121714641.png"
+                      alt="image-20230612171453582"
+                ></p>
+<p>set 应用场景可以有，多个用户的共同关注，好友推荐，共同的粉丝，功能的爱好等等</p>
+<h3 id="hash-哈希"><a href="#hash-哈希" class="headerlink" title="hash 哈希"></a>hash 哈希</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121718481.png"
+                      alt="img"
+                ></p>
+<p><strong>Map 集合，key-map，此时 key-value 是一个集合，本质上和 string 类型没有啥区别，还是一个简单的 key-value 形式</strong></p>
+<p>HSET key field value [field value …] &#x2F; HMSET key field value [field value …]<br>在 hash key 中添加 1 个或者多个 key-value</p>
+<p>HGET key field<br>获取 hash 里面的一个 key 对应的 value</p>
+<p>HMGET key field [field …]<br>获取 hash 里面的多个 key 对应的 value</p>
+<p>HGETALL key<br>获取 hash 里面所有的 键值对</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121724685.png"
+                      alt="image-20230612172431590"
+                ></p>
+<ul>
+<li>HDEL key field [field …]</li>
+</ul>
+<p>删除 hash 里面的 key，一个或者多个</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121729412.png"
+                      alt="image-20230612172900297"
+                ></p>
+<ul>
+<li>HLEN key</li>
+</ul>
+<p>获取 hash 的长度，也就是 key-value 的对数</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121730480.png"
+                      alt="image-20230612173005419"
+                ></p>
+<p>HINCRBY key field increment<br>在集合中的某个 key 上增加值，若值是正数，则是加，若值是负数则是减</p>
+<p>HSETNX key field value<br>向 hash 中加入键值对，若不存在则添加，存在则添加失败</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121732656.png"
+                      alt="image-20230612173235588"
+                ></p>
+<p>hash 的应用场景有，经常变更数据的地方，尤其是一些用户的信息，经常变动的信息</p>
+<p>hash 更适合对象的存储，string 更加适合字符串的存储</p>
+<h3 id="zset-有序集合"><a href="#zset-有序集合" class="headerlink" title="zset 有序集合"></a>zset 有序集合</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121733248.png"
+                      alt="img"
+                ></p>
+<p><strong>zset 也是集合，只是在 set 的基础上加上了一个值</strong></p>
+<p>ZADD key [NX|XX] [GT|LT] [CH] [INCR] score member [score member …]<br>向有序集合中添加 分数 和 值，可以添加多个</p>
+<p>ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count]<br>按照分数的顺序排序，-inf 为负无穷，+inf 为正无穷</p>
+<p>ZRANGE key min max [BYSCORE|BYLEX] [REV] [LIMIT offset count] [WITHSCORES]<br>查看有序集合里面的所有的值</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121737950.png"
+                      alt="image-20230612173737875"
+                ></p>
+<ul>
+<li>ZREM key member [member …]</li>
+</ul>
+<p>删除有序集合里面的数据</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121738259.png"
+                      alt="image-20230612173848192"
+                ></p>
+<ul>
+<li>ZREVRANGE key start stop [WITHSCORES]</li>
+</ul>
+<p>对有序集合从大到小排序</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121741541.png"
+                      alt="image-20230612174152473"
+                ></p>
+<p>其余的 api 我们可以到 redis 官网上去进行学习和实践，可以查看 redis 官方的中文文档，<a class="link"   target="_blank" rel="noopener" href="http://www.redis.cn/" >(redis.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>zset 的应用场景有：</p>
+<p>set 排序，存储班级成绩信息，工资信息等等，用于排序和筛选的</p>
+<p>带有权重的数据或者消息，排行榜的实现等等。</p>
+<h2 id="5-Redis的三种特殊数据类型"><a href="#5-Redis的三种特殊数据类型" class="headerlink" title="5.Redis的三种特殊数据类型"></a>5.Redis的三种特殊数据类型</h2><p><strong>redis 三种特殊的数据类型</strong></p>
+<ul>
+<li>Geospatial 地理位置</li>
+<li>Hyperloglog 基数统计</li>
+<li>Bitmap 位图场景</li>
+</ul>
+<h3 id="Geospatial地理位置"><a href="#Geospatial地理位置" class="headerlink" title="Geospatial地理位置"></a>Geospatial地理位置</h3><p>redis 3.2 版本就推出了 Geospatial</p>
+<p>官方文档上可以详细的看到用法：</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.redis.net.cn/order/3685.html" >Redis GEOADD 命令 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121957201.png"
+                      alt="img"
+                ></p>
+<p>Geospatial 可以使用在如下场景：</p>
+<ul>
+<li>附近的人</li>
+<li>打车计算距离</li>
+<li>朋友定位</li>
+<li>等一系列跟定位有关的场景</li>
+</ul>
+<p>Geospatial 只有 六个命令</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="http://www.redis.cn/commands/geoadd.html" >GEOADD <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://www.redis.cn/commands/geodist.html" >GEODIST <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://www.redis.cn/commands/geohash.html" >GEOHASH <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://www.redis.cn/commands/geopos.html" >GEOPOS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://www.redis.cn/commands/georadius.html" >GEORADIUS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://www.redis.cn/commands/georadiusbymember.html" >GEORADIUSBYMEMBER <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h4 id="GEOADD"><a href="#GEOADD" class="headerlink" title="GEOADD"></a>GEOADD</h4><p><strong>添加地理位置</strong></p>
+<ul>
+<li>有效的经度从 - 180 度到 180 度。</li>
+<li>有效的纬度从 - 85.05112878 度到 85.05112878 度。</li>
+</ul>
+<p>当坐标位置超出上述指定范围时，该命令将会返回一个错误。</p>
+<p>GEOADD key [NX|XX] [CH] longitude latitude member [longitude latitude member …]<br>添加经纬度，城市名</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122034267.png"
+                      alt="image-20230612203353183"
+                ></p>
+<h4 id="GEOPOS"><a href="#GEOPOS" class="headerlink" title="GEOPOS"></a>GEOPOS</h4><ul>
+<li>GEOPOS key member [member …]</li>
+</ul>
+<p>获取指定城市的经纬度信息</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122033454.png"
+                      alt="image-20230612203359393"
+                ></p>
+<h4 id="GEODIST"><a href="#GEODIST" class="headerlink" title="GEODIST"></a>GEODIST</h4><p>GEODIST key member1 member2 [m|km|ft|mi]<br>其中有如下 4 个单位：</p>
+<p>m ：米</p>
+<p>km：公里</p>
+<p>ft：英尺</p>
+<p>mi：英里</p>
+<p>获取两个城市之间的距离</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122035309.png"
+                      alt="image-20230612203534257"
+                ></p>
+<h4 id="GEOHASH"><a href="#GEOHASH" class="headerlink" title="GEOHASH"></a>GEOHASH</h4><ul>
+<li>GEOHASH key member [member …]</li>
+</ul>
+<p>返回一个或者多个 GEOHASH 表示的元素， 返回 11 个字符 Geohash 字符串</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122046522.png"
+                      alt="image-20230612204640464"
+                ></p>
+<h4 id="GEORADIUS"><a href="#GEORADIUS" class="headerlink" title="GEORADIUS"></a>GEORADIUS</h4><p>GEORADIUS key longitude latitude radius m|km|ft|mi [WITHCOORD] [WITHDIST] [WITHHASH] [COUNT count [ANY]] [ASC|DESC] [STORE key] [STOR<br>指定经纬度作为原点，指定半径，查询在指定范围内的城市，这些城市都是在我们自己的集合里面</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122052465.png"
+                      alt="image-20230612205203398"
+                ></p>
+<h4 id="GEORADIUSBYMEMBER"><a href="#GEORADIUSBYMEMBER" class="headerlink" title="GEORADIUSBYMEMBER"></a>GEORADIUSBYMEMBER</h4><p>GEORADIUSBYMEMBER key member radius m|km|ft|mi [WITHCOORD] [WITHDIST] [WITHHASH] [COUNT count [ANY]] [ASC|DESC] [STORE key] [STOREDIST key]<br>找出位于指定元素周围的城市</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; GEORADIUSBYMEMBER city tianjin 1000 km</span><br><span class="line">1) &quot;nanjing&quot;</span><br><span class="line">2) &quot;tianjin&quot;</span><br><span class="line">3) &quot;shanghai&quot;</span><br><span class="line">127.0.0.1:6379&gt; GEORADIUSBYMEMBER city tianjin 500 km</span><br><span class="line">1) &quot;tianjin&quot;</span><br><span class="line">127.0.0.1:6379&gt; GEORADIUSBYMEMBER city tianjin 5000 km</span><br><span class="line">1) &quot;chongqing&quot;</span><br><span class="line">2) &quot;chengdu&quot;</span><br><span class="line">3) &quot;shenzhen&quot;</span><br><span class="line">4) &quot;changsha&quot;</span><br><span class="line">5) &quot;shanghai&quot;</span><br><span class="line">6) &quot;nanjing&quot;</span><br><span class="line">7) &quot;tianjin&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>Geospatial 底层的原理就是使用 Zset 有序集合来实现的</strong>，我们可以使用 Zset 有序集合的命令来操作 Geo ，咱们是用 Zset 的指令来感受一波</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122054549.png"
+                      alt="image-20230612205453510"
+                ></p>
+<h3 id="Hyperloglog-基数统计"><a href="#Hyperloglog-基数统计" class="headerlink" title="Hyperloglog 基数统计"></a>Hyperloglog 基数统计</h3><p><strong>基数是个啥？</strong></p>
+<p><strong>基数，就是不重复的数</strong>，例如：</p>
+<p>A &#x3D; {1,2,3,4,5}</p>
+<p>B &#x3D; {2,3,4,5,6}</p>
+<p>那么 A 和 B 的取并集的基数就是 6</p>
+<p><strong>简介</strong></p>
+<p>Hyperloglog 是 redis 2.8.9 版本开始有的这种数据结构</p>
+<p>redis hyperloglog 基数统计也是一种算法</p>
+<p>例如有这样的应用场景：</p>
+<ul>
+<li><p>网页访问人数统计，同一个用户多次访问网站，也是只算作 1</p>
+<p>传统的方式是使用 set 集合的方式来保存 id，统计 set 里面 id 的个数，来计算人数</p>
+<p>这种方式也没有问题，但是若数据量很大的时候，就会非常麻烦，因为我们拿 id 是没有用的，我们只需要计数而已</p>
+</li>
+</ul>
+<p><strong>优点</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122100004.png"
+                      alt="img"
+                ></p>
+<p> <strong>Hyperloglog 占用的内存空间是固定的，2^16 次方，只需要占用 12 KB 内存，从内存的角度来技术选型，Hyperloglog 是首选哦</strong></p>
+<p>PFADD key element [element …]<br>向 Hyperloglog 中添加一个或者多个元素</p>
+<p>PFMERGE destkey sourcekey [sourcekey …]<br>将多个 Hyperloglog 取并集，得到一个结果 Hyperloglog ，里面的数据是不会重复的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122103849.png"
+                      alt="image-20230612210321757"
+                ></p>
+<h3 id="Bitmaps-位图场景"><a href="#Bitmaps-位图场景" class="headerlink" title="Bitmaps 位图场景"></a>Bitmaps 位图场景</h3><p>Bitmaps 位图，位存储</p>
+<p>一般用于，统计用户信息，活跃，不活跃，</p>
+<p>登录，不登录</p>
+<p>打卡，不打卡 等等，两种状态</p>
+<p><strong>Bitmaps 位图，也是一种数据结构，是操作二进制的方式来进行记录的，只有 0 和 1 两种状态</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122104691.png"
+                      alt="img"
+                ></p>
+<p>例如我们举个例子，来记录着一周每天的心情，1 是开心，0 是沮丧</p>
+<ul>
+<li>SETBIT key offset value</li>
+</ul>
+<p>设置 bit 位的值</p>
+<ul>
+<li>GETBIT key offset</li>
+</ul>
+<p>获取 bit 位的值</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122106282.png"
+                      alt="image-20230612210651229"
+                ></p>
+<h2 id="6-Redis事务处理和监控事务"><a href="#6-Redis事务处理和监控事务" class="headerlink" title="6.Redis事务处理和监控事务"></a>6.Redis事务处理和监控事务</h2><p>我们学过的事务都是保证原子性的，但是 <strong>redis 的事务中执行多个指令，是不保证原子性的</strong></p>
+<p><strong>redis事务的本质</strong></p>
+<p>就是一组命令的集合，一个事务中所有的命令都会被序列化，在事务执行的过程，是按照顺序执行命令的，他们拥有</p>
+<ul>
+<li>一次性</li>
+<li>顺序性</li>
+<li>排他性</li>
+</ul>
+<p>redis 的事务没有隔离级别的概念</p>
+<p>redis 事务中，命令是这样执行的</p>
+<p>命令放在事务中，并没有马上执行，而是发起执行命令的时候才会执行，通过 exec 触发</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122110549.png"
+                      alt="img"
+                ></p>
+<p>redis 是单条指令保证原子性，但是事务不保证原子性</p>
+<p>执行一个事务的流程是这个样子的：</p>
+<ul>
+<li>multi 开启事务</li>
+<li>各种命令入队</li>
+<li>exec 执行事务</li>
+</ul>
+<h3 id="开启事务"><a href="#开启事务" class="headerlink" title="开启事务"></a>开启事务</h3><p><strong>MULTI</strong></p>
+<p>开启一个事务</p>
+<p><strong>EXEC</strong></p>
+<p>执行事务里面的指令</p>
+<p>执行事务完毕后，需要再使用事务，那么需要再次开启事务</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122112021.png"
+                      alt="image-20230612211258960"
+                ></p>
+<h3 id="放弃事务"><a href="#放弃事务" class="headerlink" title="放弃事务"></a>放弃事务</h3><p><strong>DISCARD</strong></p>
+<p>放弃最近开启的事务</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122113562.png"
+                      alt="image-20230612211358511"
+                ></p>
+<h3 id="事务出错"><a href="#事务出错" class="headerlink" title="事务出错"></a>事务出错</h3><p>事务出错分为两种：</p>
+<ul>
+<li>编译型出错</li>
+<li>运行时出错</li>
+</ul>
+<h4 id="编译型出错"><a href="#编译型出错" class="headerlink" title="编译型出错"></a>编译型出错</h4><p>代码编写出错，无法通过编译，此时事务里面编写的指令，全部执行失败</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122116683.png"
+                      alt="image-20230612211605625"
+                ></p>
+<p>一旦编译出错，事务里面的所有指令都不会执行</p>
+<h4 id="运行时出错"><a href="#运行时出错" class="headerlink" title="运行时出错"></a>运行时出错</h4><p>程序运行时某一个指定的某个逻辑出现问题，仅仅影响本条执行的执行，并且本条指令会跑出异常，不影响事务中其他指令的执行</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122118392.png"
+                      alt="image-20230612211801337"
+                ></p>
+<p>根据上述结果，<code>incr</code> 指令的用法正确，但是 <code>incr</code> 只能对数字进行操作，<code>name</code> 是一个字符串，无法做自增操作，因此运行时报错，事务中不影响其他的指令执行</p>
+<h3 id="redis-的-watch-监控"><a href="#redis-的-watch-监控" class="headerlink" title="redis 的 watch 监控"></a>redis 的 watch 监控</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122119641.png"
+                      alt="img"
+                ></p>
+<p>watch 监控，可以说说 乐观锁 和 悲观锁</p>
+<p>乐观锁：</p>
+<ul>
+<li>很乐观，认为什么时候都不会出问题，所以不会上锁，就更新数据的时候会去判断一下在此期间若数据发生了变化</li>
+<li>乐观锁会先获取一个基础数据版本</li>
+<li>更新数据的时候，会比较这个版本是否发生变化，若发生变化，则更新失败，若未发生变化，则更新数据</li>
+</ul>
+<p>悲观锁：</p>
+<ul>
+<li>很悲观，无论什么时候都认为会出问题，都要加锁</li>
+</ul>
+<p><strong>redis 的监控测试</strong></p>
+<p>用 watch 来加锁模拟银行取钱</p>
+<ul>
+<li><p>money 账户 有 2000</p>
+</li>
+<li><p>outer 账户 有 500</p>
+</li>
+<li><p>money 账户 给 outer 账户 500</p>
+</li>
+</ul>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; flushall</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; set money 2000</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; set outer 500</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; watch money</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; multi</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379(TX)&gt; DECRBY money 500</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379(TX)&gt; INCRBY outer 500</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379(TX)&gt; exec</span><br><span class="line">1) (integer) 1500</span><br><span class="line">2) (integer) 1000</span><br></pre></td></tr></table></figure></div>
+
+<p>开始测试模拟多个线程来操作</p>
+<p>redis <strong>客户端 1</strong></p>
+<ul>
+<li>money 账户 有 2000</li>
+<li>outer 账户 有 500</li>
+<li>money 账户 给 outer 账户 500 ，还未开始执行</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122126270.png"
+                      alt="image-20230612212633220"
+                ></p>
+<p>客户端 1 的事务操作还未开始执行，<strong>客户端 2</strong> 就进行了如下操作</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122126513.png"
+                      alt="image-20230612212656464"
+                ></p>
+<p>此时执行客户端 1 的 <strong>exec</strong> 指令</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122127375.png"
+                      alt="image-20230612212717320"
+                ></p>
+<p>发现客户端 1 执行 exec 的时候，是一个 nil ，说明变更失败，是因为 watch 监控到 money 有变动，因此事务执行失败</p>
+<h3 id="unwatch"><a href="#unwatch" class="headerlink" title="unwatch"></a>unwatch</h3><p>发现事务执行失败了，需要使用命令 unwatch 解除监控</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; UNWATCH</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; watch money</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; multi</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379(TX)&gt; DECRBY money 1000</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379(TX)&gt; INCRBY outer 1000</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379(TX)&gt; exec</span><br><span class="line">1) (integer) 9000</span><br><span class="line">2) (integer) 1500</span><br></pre></td></tr></table></figure></div>
+
+<p>这就是 redis 实现乐观锁的操作，一般使用场景会放到秒杀系统里面进行应用。</p>
+<h2 id="7-Redis配置文件详解"><a href="#7-Redis配置文件详解" class="headerlink" title="7.Redis配置文件详解"></a>7.Redis配置文件详解</h2><h3 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h3><p>redis 启动的时候会去读配置文件 <code>redis.conf</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306130040484.png"
+                      alt="image-20230613004048378"
+                ></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1k =&gt; 1000 bytes</span><br><span class="line">1kb =&gt; 1024 bytes</span><br><span class="line">1m =&gt; 1000000 bytes</span><br><span class="line">1mb =&gt; 1024*1024 bytes</span><br><span class="line">1g =&gt; 1000000000 bytes</span><br><span class="line">1gb =&gt; 1024*1024*1024 bytes</span><br></pre></td></tr></table></figure></div>
+
+<p>redis 里面单位是不分大小写的，例如，<code>1GB 1Gb 1gB</code> 表示的都是同一个意思</p>
+<h3 id="INCLUDES包含"><a href="#INCLUDES包含" class="headerlink" title="INCLUDES包含"></a>INCLUDES包含</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306130041003.png"
+                      alt="image-20230613004141940"
+                ></p>
+<p>环境中使用的 <code>redis.conf</code> 可以包含其他的 <code>redis.conf</code>，他们会整合成一个 配置文件来提供使用</p>
+<h3 id="NETWORK-网络"><a href="#NETWORK-网络" class="headerlink" title="NETWORK 网络"></a>NETWORK 网络</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306130042998.png"
+                      alt="image-20230613004247931"
+                ></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bind 0.0.0.0 </span><br><span class="line">protected-mode yes</span><br><span class="line">port 6379</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>bind</strong>：绑定地址，若绑定 127.0.0.1 是本地访问，若需要远程访问，可以绑定一个真实的 ip 地址</p>
+<p><strong>protected-mode：</strong>保护模式是否开启，默认是开启</p>
+<p><strong>port</strong>：端口设置，默认端口是 6379，我们也可以修改成其他的可用端口，例如集群的时候就会修改到端口</p>
+<h3 id="GENERAL-通用"><a href="#GENERAL-通用" class="headerlink" title="GENERAL 通用"></a>GENERAL 通用</h3><p>通用配置，常用的有</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">daemonize yes</span><br><span class="line">pidfile /var/run/redis_6379.pid</span><br><span class="line">loglevel notice</span><br><span class="line">logfile &quot;&quot;</span><br><span class="line">databases 16</span><br><span class="line">always-show-logo no</span><br><span class="line">set-proc-title yes</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>daemonize</strong>：是否以守护进程的方式运行，默认是 no，我们需要的话可以修改成 yes</p>
+<p><strong>pidfile：</strong>以后台方式运行 redis ，我们就需要制定一个 pid 文件</p>
+<p><strong>loglevel</strong>：日志等级</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">291 # Specify the server verbosity level.</span><br><span class="line">292 # This can be one of:</span><br><span class="line">293 # debug (a lot of information, useful for development/testing)</span><br><span class="line">294 # verbose (many rarely useful info, but not a mess like the debug level)</span><br><span class="line">295 # notice (moderately verbose, what you want in production probably)</span><br><span class="line">296 # warning (only very important / critical messages are logged)</span><br></pre></td></tr></table></figure></div>
+
+<p>和我们项目中用到的一致：</p>
+<ul>
+<li><p>debug：用于开发和测试的调试信息</p>
+</li>
+<li><p>verbose：罕见有用的信息</p>
+</li>
+<li><p>notice：提示信息，期望在生产环境中看到的</p>
+</li>
+<li><p>warning：告警信息，重要的信息会被打印到日志中</p>
+</li>
+</ul>
+<p>logfile：指定 redis 日志文件路径</p>
+<p>databases：redis 数据库， 默认是 16 个</p>
+<p>always-show-logo：是否总是显示 reids logo ，就是下面这个 logo</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">               _._</span><br><span class="line">          _.-``__ &#x27;&#x27;-._</span><br><span class="line">     _.-``    `.  `_.  &#x27;&#x27;-._           Redis 6.2.5 (00000000/0) 64 bit</span><br><span class="line"> .-`` .-```.  ```\/    _.,_ &#x27;&#x27;-._</span><br><span class="line">(    &#x27;      ,       .-`  | `,    )     Running in standalone mode</span><br><span class="line">|`-._`-...-` __...-.``-._|&#x27;` _.-&#x27;|     Port: 6379</span><br><span class="line">|    `-._   `._    /     _.-&#x27;    |     PID: 29303</span><br><span class="line"> `-._    `-._  `-./  _.-&#x27;    _.-&#x27;</span><br><span class="line">|`-._`-._    `-.__.-&#x27;    _.-&#x27;_.-&#x27;|</span><br><span class="line">|    `-._`-._        _.-&#x27;_.-&#x27;    |           https://redis.io</span><br><span class="line"> `-._    `-._`-.__.-&#x27;_.-&#x27;    _.-&#x27;</span><br><span class="line">|`-._`-._    `-.__.-&#x27;    _.-&#x27;_.-&#x27;|</span><br><span class="line">|    `-._`-._        _.-&#x27;_.-&#x27;    |</span><br><span class="line"> `-._    `-._`-.__.-&#x27;_.-&#x27;    _.-&#x27;</span><br><span class="line">     `-._    `-.__.-&#x27;    _.-&#x27;</span><br><span class="line">         `-._        _.-&#x27;</span><br><span class="line">             `-.__.-&#x27;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="SNAPSHOTTING-快照"><a href="#SNAPSHOTTING-快照" class="headerlink" title="SNAPSHOTTING 快照"></a>SNAPSHOTTING 快照</h3><p>快照，这里也就是 redis 的持久化，在规定的时间里面，执行了多少次操作，就会持久化到文件中</p>
+<p>redis 的持久化有两种</p>
+<ul>
+<li>RDB</li>
+<li>AOF</li>
+</ul>
+<p>redis 是内存数据库，程序宕机或者断电都会导致数据丢失，因此 redis 就有这样的持久化策略</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># save 3600 1</span><br><span class="line"># save 300 100</span><br><span class="line"># save 60 10000</span><br></pre></td></tr></table></figure></div>
+
+<p>save 3600 1<br>如果 3600 s 内 redis 发生了 1 次操作， 那么就会做数据持久化</p>
+<p>save 300 100<br>如果 300s 内 redis 发生了 100 次操作， 那么就会做数据持久化</p>
+<p>save 60 10000<br>如果 60s 内 redis 发生了 10000 次操作， 那么就会做数据持久化</p>
+<p>后面咱们详细写到持久化的时候，再来细说和实际测试持久化的事情</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">stop-writes-on-bgsave-error yes</span><br><span class="line">rdbcompression yes</span><br><span class="line">rdbchecksum yes</span><br><span class="line">dir ./</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>stop-writes-on-bgsave-error：</strong>redis 持久化出错是否继续执行 redis 程序，默认是打开的，持久化错误不能影响 redis 程序的执行，需要正常进行下去</p>
+<p><strong>rdbcompression：</strong>持久化的文件是否需要压缩，默认是开启的，这个功能会比较消耗性能</p>
+<p><strong>rdbchecksum：</strong>保存 rdb 持久化文件的时候，会进行错误检查校验</p>
+<p><strong>dir：</strong>rdb 文件的保存目录</p>
+<h3 id="REPLICATION-主从复制"><a href="#REPLICATION-主从复制" class="headerlink" title="REPLICATION 主从复制"></a>REPLICATION 主从复制</h3><p>主从复制的配置在这个位置</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306130046489.png"
+                      alt="image-20230613004623406"
+                ></p>
+<p>详细的后续写到主动复制的时候详细的写</p>
+<h3 id="SECURITY-安全"><a href="#SECURITY-安全" class="headerlink" title="SECURITY 安全"></a>SECURITY 安全</h3><p>redis 的安全相关配置文件，咱们来看看密码的事情</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># The requirepass is not compatable with aclfile option and the ACL LOAD</span><br><span class="line"># command, these will cause requirepass to be ignored.</span><br><span class="line">#</span><br><span class="line"># requirepass foobared</span><br></pre></td></tr></table></figure></div>
+
+<p>redis 默认是不设置密码的，但是我们为了远程访问安全，必须要设置密码</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ping</span><br><span class="line">PONG</span><br><span class="line">127.0.0.1:6379&gt; config get requirepass</span><br><span class="line">1) &quot;requirepass&quot;</span><br><span class="line">2) &quot;&quot;</span><br><span class="line">127.0.0.1:6379&gt; config set requirepass 888888</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; ping</span><br><span class="line">PONG</span><br><span class="line">127.0.0.1:6379&gt; config get requirepass</span><br><span class="line">1) &quot;requirepass&quot;</span><br><span class="line">2) &quot;888888&quot;</span><br><span class="line"></span><br><span class="line">退出 redis 客户端，再次连接 redis-server</span><br><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:~# redis-cli</span><br><span class="line">127.0.0.1:6379&gt; ping</span><br><span class="line">(error) NOAUTH Authentication required.</span><br></pre></td></tr></table></figure></div>
+
+<p>对 redis 设置了密码之后，退出 redis 客户端，再次连接 redis-server，发现 redis 报错权限不足，此时我们使用 redis-client 连接 redis-server 就需要密码了</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; auth 888888</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; ping</span><br><span class="line">PONG</span><br><span class="line">127.0.0.1:6379&gt; config get requirepass</span><br><span class="line">1) &quot;requirepass&quot;</span><br><span class="line">2) &quot;888888&quot;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="CLIENTS-客户端"><a href="#CLIENTS-客户端" class="headerlink" title="CLIENTS 客户端"></a>CLIENTS 客户端</h3><p>限制客户端连接数</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">maxclients 10000Copy</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>maxclients</strong></p>
+<p>redis 限制客户端连接数 默认是 10000 个，这个数字我们也可以修改成我们所期望的</p>
+<h3 id="MEMORY-MANAGEMENT-内存管理"><a href="#MEMORY-MANAGEMENT-内存管理" class="headerlink" title="MEMORY MANAGEMENT 内存管理"></a>MEMORY MANAGEMENT 内存管理</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">maxmemory &lt;bytes&gt;</span><br><span class="line">maxmemory-policy noeviction</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>maxmemory：</strong>redis 配置的最大内存容量，单位是字节</p>
+<p><strong>maxmemory-policy</strong>：redis 内存达到上限之后的处理策略是什么样的，有如下几个选型：</p>
+<ul>
+<li><p>noeviction：永不过期，返回错误</p>
+</li>
+<li><p>volatile-ttl：删除即将过期的</p>
+</li>
+<li><p>allkeys-random：随机删除 key</p>
+</li>
+<li><p>volatile-random：随机删除即将过期的 key</p>
+</li>
+<li><p>allkeys-lru：删除 lru 算法的 key</p>
+</li>
+<li><p>volatile-lru：只对设置了过期时间的 key 进行 LRU</p>
+</li>
+</ul>
+<p>LRU（Least recently used，最近最少使用）</p>
+<h3 id="APPEND-ONLY-MODE-追加模式（aof-配置）"><a href="#APPEND-ONLY-MODE-追加模式（aof-配置）" class="headerlink" title="APPEND ONLY MODE 追加模式（aof 配置）"></a>APPEND ONLY MODE 追加模式（aof 配置）</h3><p>APPEND ONLY MODE 用于 AOF 的持久化</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">appendonly no</span><br><span class="line"></span><br><span class="line">appendfilename &quot;appendonly.aof&quot;</span><br><span class="line"></span><br><span class="line"># appendfsync always</span><br><span class="line">appendfsync everysec</span><br><span class="line"># appendfsync no</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>appendonly</strong>：默认是关闭的，redis 默认使用的是 rdb 持久化模式，基本是够用的</p>
+<p><strong>appendfilename</strong>：aof 持久化 文件的名字</p>
+<p><strong>appendfsync</strong>：持久化同步策略</p>
+<ul>
+<li>always 每次修改都会同步，消耗性能</li>
+<li>everysec 每秒执行一次同步，异常情况下会丢失上 1 s 的数据</li>
+<li>no 不主动同步数据，系统会自动同步，这种方式速度最快，但是丢失数据的几率大</li>
+</ul>
+<p>对于 redis 配置文件常用常改的位置都给大家分享到了，需要多多在实际学习和工作中多多应用，熟能生巧。</p>
+<h2 id="8-Redis-持久化-RDB-和-AOF"><a href="#8-Redis-持久化-RDB-和-AOF" class="headerlink" title="8.Redis 持久化 RDB 和 AOF"></a>8.Redis 持久化 RDB 和 AOF</h2><h3 id="Redis-持久化"><a href="#Redis-持久化" class="headerlink" title="Redis 持久化"></a>Redis 持久化</h3><p>redis 是内存数据库，如果不将内存中数据库保存到磁盘上，那么服务器一旦宕机，或者 redis 进程退出，不仅数据会被丢失，服务器中的数据库状态也会被丢失。</p>
+<p>因此 redis 提供了持久化的功能</p>
+<p>redis 的持久化分为 RDB 和 AOF</p>
+<h3 id="RDB-（Redis-DatabBase）"><a href="#RDB-（Redis-DatabBase）" class="headerlink" title="RDB （Redis DatabBase）"></a>RDB （Redis DatabBase）</h3><p>在主从复制中，rdb 文件都作为备用的，放在从机上面</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131416228.png"
+                      alt="img"
+                ></p>
+<p>在指定时间间隔内将内存中的数据集快照写入到磁盘中，这就是快照 snapshot ，恢复快照的时候，是把快照文件读入到内存中。</p>
+<p>redis 通过 fork 的方式创建一个子进程来专门做持久化的动作，</p>
+<ul>
+<li>先将数据写入到一个临时文件中，待持久化过程结束，再用这个临时文件替换上一次的持久化好的文件</li>
+</ul>
+<p>整个过程中，主进程是不进行任务 IO 操作的，这就保障了极高的性能</p>
+<p>如果需要进行大规模的数据恢复，且对于数据的完整性要求不那么敏感和严格，选择 RDB 的持久化方式比 AOF 的持久化方式更优，更加高效。</p>
+<p>RDB 虽然性能高，但是在 最后一次持久化后的数据可能会被丢失，redis 默认就是使用的 RDB 持久化方式，一般情况下也不需要修改</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">save 60 3</span><br><span class="line"></span><br><span class="line"># The filename where to dump the DB</span><br><span class="line">dbfilename dump.rdb</span><br><span class="line"></span><br><span class="line">dir ./</span><br></pre></td></tr></table></figure></div>
+
+<p>我们设置 60s 内若 有操作 redis 3 次，那就做一次持久化</p>
+<p>dump.db 文件是生成在 <strong>dir</strong> 目录下的，我们这里的 <strong>dir</strong> 目录是 <strong>&#x2F;root</strong></p>
+<p>进行上述操作之后，我们发现 &#x2F;root 生成了 <strong>dump.rdb</strong> 文件 ，咱们将该文件删除掉，再尝试一次，果然也是正常生成的。</p>
+<p><strong>持久化的触发机制</strong></p>
+<ul>
+<li>按照 save 的规则满足的情况下，就会触发持久化，例如上述的 60s 操作 redis 3 次就会触发 1 次持久化</li>
+<li>执行 flushall 命令的时候，也会触发持久化，生成 dump.db 文件</li>
+<li>退出 redis 的时候， 也会触发持久化，生成 dump.db 文件</li>
+</ul>
+<p>备份就会自动生成一个 dump.db 文件</p>
+<p><strong>如何恢复持久化文件</strong></p>
+<p>1、只需要将 dump.db 文件放到 redis 的启动目录即可，redis 启动的时候会将该文件读入到内存中，进行数据恢复</p>
+<p>2、查看 redis 的启动目录可以这样做</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131431852.png"
+                      alt="image-20230613143147628"
+                ></p>
+<p>这一块的配置，我们基本上不需要修改太多，默认的配置基本就够用了</p>
+<p><strong>RDB 的优势</strong></p>
+<ul>
+<li>适合大规模的数据恢复</li>
+<li>对数据的完整性要求不高</li>
+</ul>
+<p><strong>RDB 的劣势</strong></p>
+<ul>
+<li>需要在一定的时间间隔进行操作，如果 redis 意外宕机，最后一次写入的数据就会丢失</li>
+<li>fork 子进程的时候需要占用一定的空间</li>
+</ul>
+<h3 id="AOF-持久化方式"><a href="#AOF-持久化方式" class="headerlink" title="AOF 持久化方式"></a>AOF 持久化方式</h3><p><strong>AOF 是什么？</strong></p>
+<p>将我们的写命令全部记录下来，恢复的时候，将文件中的记录全部执行一遍</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131433902.png"
+                      alt="img"
+                ></p>
+<p><strong>AOF 是 redis 的另外一种持久化方式，以日志的形式记录每一个写操作</strong>，将 redis 执行过的写操作全部记录下来，只允许追加文件，不允许改写文件</p>
+<p>redis 启动的时候就会读取这个 aof 文件重建数据库，也就是说，redis 重启的时候，就会根据日志文件的内容将写指令按照写入顺序执行，完成数据恢复</p>
+<p>aof 保存的是 appendonly.aof 文件</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># Please check https://redis.io/topics/persistence for more information.</span><br><span class="line"></span><br><span class="line">appendonly no</span><br><span class="line"></span><br><span class="line"># The name of the append only file (default: &quot;appendonly.aof&quot;)</span><br><span class="line"></span><br><span class="line">appendfilename &quot;appendonly.aof&quot;</span><br><span class="line"></span><br><span class="line"># appendfsync always</span><br><span class="line">appendfsync everysec</span><br><span class="line"># appendfsync no</span><br><span class="line"></span><br><span class="line">no-appendfsync-on-rewrite no</span><br><span class="line"></span><br><span class="line">auto-aof-rewrite-percentage 100</span><br><span class="line">auto-aof-rewrite-min-size 64mb</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>auto-aof-rewrite-min-size 64mb</strong></p>
+<p>当 aof 文件大于 64 mb 的时候，就会再创建一个子进程来写一个新的 aof 文件</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131437091.png"
+                      alt="img"
+                ></p>
+<p>关于 aof 的配置基本上其他的都是使用默认的配置即可，我们只需要把 aof 模式打开即可</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appendonly yes</span><br></pre></td></tr></table></figure></div>
+
+<p>默认 appendonly 是不开启的，我们修改了配置之后，重启 redis-server 就会马上生效</p>
+<h3 id="重写规则说明"><a href="#重写规则说明" class="headerlink" title="重写规则说明"></a>重写规则说明</h3><p>aof 默认是对文件无限追加，文件必然会越来越大</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131437725.png"
+                      alt="img"
+                ></p>
+<p>修改 redis.conf 为 aof 模式后，重启 redis-server 可以看到 appendonly.aof 文件</p>
+<p>redis 客户端连接 server 进行操作 redis ，简单的设置几个值</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131441725.png"
+                      alt="image-20230613144100604"
+                ></p>
+<p><strong>查看 appendonly.aof 文件</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131440890.png"
+                      alt="image-20230613144038771"
+                ></p>
+<p>appendonly.aof 文件里面存放的就是我们操作 redis 的写命令的记录</p>
+<p>这个时候，我们认为的在 appendonly.aof 文件中修改一些值</p>
+<p><strong>启动 redis-server ，查看是否可以恢复数据</strong></p>
+<p>发现 redis-server 启动失败，是因为咱们的 appendonly.aof 文件被人为的修改过，此时咱们需要修复该文件，redis 有提供工具修改 aof 文件，redis-check-aof</p>
+<p>使用指令：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-check-aof --fix appendonly.aof</span><br></pre></td></tr></table></figure></div>
+
+<p>修复 aof 文件后，咱们再次启动 redis-server 来回复磁盘数据，恢复成功，nice</p>
+<h3 id="aof-的优势和劣势"><a href="#aof-的优势和劣势" class="headerlink" title="aof 的优势和劣势"></a>aof 的优势和劣势</h3><p><strong>优势</strong></p>
+<ul>
+<li>每一次操作 reids 都会被记录，文件的完整性好</li>
+<li>每秒同步一次，可能会丢失一秒的数据</li>
+<li>从不同步，这个效率是最高的</li>
+</ul>
+<p><strong>劣势</strong></p>
+<ul>
+<li>相对于数据文件来说，aof 文件会远大于 rdb 文件，修复的速度也比 rdb 文件慢</li>
+<li>aof 运行的效率比 rdb 慢，所以 redis 默认的配置是 rdb 持久化</li>
+</ul>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p><strong>两种持久化方式简述</strong></p>
+<ul>
+<li><p>RDB 持久化的方式能够在指定的时间间隔内对数据进行快照存储</p>
+</li>
+<li><p>AOF 持久化的方式记录每次对服务器的写操作，当服务器重启或者宕机的时候，会重新执行这些记录里面的写操作命令来恢复数据，AOF 命令以 redis 协议追加保存每次写操作到文件末尾，redis 还能对 aof 文件进行后台重写，是的 AOF 文件的体积不至于过大</p>
+</li>
+<li><p>如果需求是只做缓存，只期望服务器运行的时候数据存在，那么不用做持久化</p>
+</li>
+</ul>
+<p><strong>两种持久化方式的开和不开</strong></p>
+<ul>
+<li>可以同时开启两种持久化方式<ul>
+<li>这种情况下，redis 重启会先载入 aof 文件来恢复数据，因为通常情况下 aof 文件保存的数据集比 rdb 的数据集要完整</li>
+<li>rdb 数据集不是实时的，同时使用两种方式时，服务器重启有只会找 aof 文件，那么要不要只使用 aof 文件呢？</li>
+</ul>
+</li>
+</ul>
+<p>redis 的作者建议是不要只使用 aof 文件，因为 rdb 更加适合用于备份数据库，因为 aof 在不断的变化，不好备份，快速重启的时候，rdb 不会有 aof 可能潜在的 bug，留着 rdb 做一个兜底的机制</p>
+<h3 id="性能上的建议"><a href="#性能上的建议" class="headerlink" title="性能上的建议"></a>性能上的建议</h3><p><strong>对于 rdb 持久化</strong></p>
+<ul>
+<li>由于 rdb 文件只用于备份数据，建议只在 slave 上面持久化 rdb 文件，15 分钟持久化一次就够了，也就是这一条指令 save 900 1</li>
+<li>如果打开 aof 持久化，好处就是在极端情况下丢失数据也不会超过 2s 的数据，启动脚本就简单的加载自己的 aof 文件即可，这样做也是有代价的<ul>
+<li>代价之一就是 这样做带来了持续的 IO 操作</li>
+<li>代价之二就是 AOF 重写的最后将重写过程产生新数据写入到新文件造成的阻塞是不可避免的，只要硬盘许可，应该要尽量的减少 aof 重写的频率</li>
+</ul>
+</li>
+</ul>
+<p><strong>对于 aof 持久化</strong></p>
+<ul>
+<li>aof 重写的基础大小值是 64 mb，我们可以设置成 5g 以上，默认超过原大小 100% 大小重写，这个参数可以设置成一个合理的参数</li>
+<li>如果不打开 aof 模式，仅仅靠主从复制实现高可用也是可以的，能够省掉一大笔 IO 消耗，也减少了重写带来系统的性能波动，这样做仍然是有代价的<ul>
+<li>代价之一就是 如果主备 redis 同时挂掉（例如断电），会丢失十几分钟的数据，启动脚本也要比较主备的 rdb 文件，载入较新的那个 rdb 文件</li>
+</ul>
+</li>
+</ul>
+<h2 id="9-Redis的发布和订阅是咋玩的"><a href="#9-Redis的发布和订阅是咋玩的" class="headerlink" title="9.Redis的发布和订阅是咋玩的"></a>9.Redis的发布和订阅是咋玩的</h2><h3 id="Redis-发布订阅"><a href="#Redis-发布订阅" class="headerlink" title="Redis 发布订阅"></a>Redis 发布订阅</h3><p>Redis 发布订阅（pub &#x2F;sub）是一种消息通信模式</p>
+<ul>
+<li>发送者发送消息 pub</li>
+<li>接受者订阅消息 sub</li>
+</ul>
+<p>例如微信，微博这样的关注系统</p>
+<p>Redis 的客户端可以订阅任意数量的频道，不受限制</p>
+<h3 id="来看看图示"><a href="#来看看图示" class="headerlink" title="来看看图示"></a>来看看图示</h3><ul>
+<li>消息发布者</li>
+<li>消息订阅者</li>
+<li>频道</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131456635.png"
+                      alt="img"
+                ></p>
+<p>这里的消息发布者，和消息订阅者都是 redis 客户端， 订阅者订阅某个频道，发布者在该频道中发布相关信息，例如文章，例如沸点，等等，消息订阅者就能实时收到刚才发布者发送的内容了</p>
+<p>如下图中，频道 channel1</p>
+<p>以及订阅这个频道的三个客户端 —— client2 、 client5 和 client1 之间的关系：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131457143.png"
+                      alt="img"
+                ></p>
+<p>当有新消息通过 PUBLISH 命令发送给频道 channel1 时</p>
+<p>这个消息就会被发送给订阅它的三个客户端：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131457050.png"
+                      alt="img"
+                ></p>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>下表列出了 redis 发布订阅常用命令：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>命令及描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>PSUBSCRIBE pattern [pattern …] 订阅一个或多个符合给定模式的频道。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>PUBSUB subcommand [argument [argument …] 查看订阅与发布系统状态。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>PUBLISH channel message 将信息发送到指定的频道。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>[PUNSUBSCRIBE [pattern [pattern …] 退订所有给定模式的频道。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>SUBSCRIBE channel [channel …] 订阅给定的一个或多个频道的信息。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>UNSUBSCRIBE [channel [channel …] 指退订给定的频道。</td>
+</tr>
+</tbody></table>
+<h3 id="实际测试和验证"><a href="#实际测试和验证" class="headerlink" title="实际测试和验证"></a>实际测试和验证</h3><p>subscribe channel [channel …]<br>订阅一个或者多个通道</p>
+<p>PUBLISH channel message<br>向频道中发送消息</p>
+<p><strong>接收端：</strong></p>
+<p>接收端订阅 xiaomotong 频道，只要发送端有 publish 消息到频道中，接收端就能马上收到</p>
+<p><strong>发送端：</strong></p>
+<p>发送端向 xiaomotong 频道依次发送 message ，hellowrold</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131504067.png"
+                      alt="image-20230613150443969"
+                ></p>
+<p>那么这个实现的原理是啥呢？</p>
+<h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><p>redis 是 C 语言实现的，单进程的开源组件</p>
+<p>通过分析 redis 源码里面的 publish.c 文件，我们可以了解到 redis 发布订阅的底层实现，这能加深我们对 redis 的理解</p>
+<p>redis 通过 publish ，subscribe 和 psubscribe 等命令来实现发布和订阅功能</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131508312.png"
+                      alt="img"
+                ></p>
+<p>例如我们每个人都会使用的微信：</p>
+<p><strong>subscribe</strong></p>
+<p>通过 subscribe 订阅某个频道后，redis-server 内部会维护一个字典，字典的键就是这个频道的名字，而字典的值是一个链表，这个链表里面保存了所有订阅这个频道的客户端</p>
+<p>因此，我们就知道，subscribe 指令就是将客户端添加到频道的订阅链表里面</p>
+<p><strong>publish</strong></p>
+<p>redis 通过 publish 向频道中发送消息，redis-server 会使用给定的键作为频道的名字，在它自己维护的频道字典里面记录了订阅这个频道所有的客户端的链表，遍历这个链表，将消息发送给所有的订阅者</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131508401.png"
+                      alt="img"
+                ></p>
+<p>pub &#x2F; sub</p>
+<p>pub &#x2F;sub 见名知意就是发布（publish）和订阅（subscribe）</p>
+<p>在 redis 里面，我们可以设定对某一个 key 值，进行消息发布及消息订阅，当在一个 key 值上面进行了消息发布后，所有订阅他的客户端都会收到它刚才发布的消息，这一功能最明显的用法就是用作实时消息系统</p>
+<p>例如我们平常都会使用到的聊天系统，即时通信系统等等</p>
+<p>但是这里我们需要注意</p>
+<p>Redis 集群为了实现所有订阅的客户端都可以接收到发布的消息，但是不同的客户端可能连接的是不同的主节点，为此 redis 会广播所有的发布的消息到所有的节点，如果发布的消息较大，网络开销将会很大，因此需要避免发送大消息</p>
+<h3 id="Redis-发布-订阅应用场景"><a href="#Redis-发布-订阅应用场景" class="headerlink" title="Redis 发布 &#x2F; 订阅应用场景"></a>Redis 发布 &#x2F; 订阅应用场景</h3><p>1、实时消息系统</p>
+<p>2、即时通信，频道作为聊天室，将信息回显给订阅频道的所有人</p>
+<p>3、订阅系统，关注系统都是 ok 的</p>
+<p>对于复杂的场景，我们就不用考虑 redis 了，可以直接使用专业的 MQ 开源组件，例如 rabbitMQ 或者 kafka</p>
+<h3 id="使用-Redis-发布-订阅-需要注意的点"><a href="#使用-Redis-发布-订阅-需要注意的点" class="headerlink" title="使用 Redis 发布 &#x2F; 订阅 需要注意的点"></a>使用 Redis 发布 &#x2F; 订阅 需要注意的点</h3><p>使用 Redis 发布 &#x2F; 订阅是有缺陷的</p>
+<p>1、对于消息处理可靠性要求不强</p>
+<p>2、消费能力无需通过增加消费方进行增强</p>
+<h2 id="10-Redis-集群搭建和主从复制"><a href="#10-Redis-集群搭建和主从复制" class="headerlink" title="10.Redis 集群搭建和主从复制"></a>10.Redis 集群搭建和主从复制</h2><h3 id="主从复制的理论"><a href="#主从复制的理论" class="headerlink" title="主从复制的理论"></a>主从复制的理论</h3><p>先来说说什么是主从复制</p>
+<p>主从复制，就是将一台 redis 服务器的数据，复制到其他的 redis 服务器上， 前者为主节点 master，后者为从节点 slave</p>
+<p>数据的复制是单向的，只能是主机复制到从机，master 以写为主，slave 以读为主</p>
+<p><strong>默认的情况下</strong>，每台 redis 服务器都是主节点，并且一个主节点都会有多个从节点或者没有从节点，但是反过来，一个从节点，只能有一个主节点</p>
+<p>主从复制的作用：</p>
+<ul>
+<li>数据冗余</li>
+</ul>
+<p>主从复制实现了数据的热备份，是持久化之外的一种数据冗余方式</p>
+<ul>
+<li>故障恢复</li>
+</ul>
+<p>当主节点出现异常问题时，从节点可以顶替上去提供服务，实现快速的故障恢复，实际上是一种服务的冗余</p>
+<ul>
+<li>负载均衡</li>
+</ul>
+<p>主从复制的基础上，加上读写分离，可以由主节点提供写服务，由从节点提供读服务（也就是 写的时候连接 redis 的主服务器，读数据的时候连接 redis 的从服务器），这就可以分担服务器的压力</p>
+<p>特别是在读多写少的情况下，通过多个从节点分担负载，可以大大的提供 redis 服务器的并发量</p>
+<ul>
+<li>是高可用的基础</li>
+</ul>
+<p>主从复制是哨兵模式和集群能够实施的基础，so 主从复制是 redis 高可用的基石</p>
+<p>在我们实际工作项目中，绝对不可能在生产环境中只有一台 redis 服务器，必须是集群模式的，最次也是 一主二从</p>
+<ul>
+<li>从结构来说，单个 reids 服务器会发生单点故障，且一台 redis 服务器承担所有读和写的压力，他太难了</li>
+<li>从 redis 服务器自身容量来看，单个 redis 服务器自身的容量是有限的，一般来说，单台的 redis 服务器最大使用内存不应该超过 20 GB</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131529520.png"
+                      alt="img"
+                ></p>
+<p>例如电商平台，进本上都是<strong>多读少写</strong>的方式，就会用到上述图示的架构，主从复制，读写分离，大部分情况都是在做读操作，很少一部分情况是在做写操作，这样可以减轻服务器的压力，架构中经常使用一主二从</p>
+<h3 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h3><p>咱们在一台服务器上开启 3 个 redis-server 来模拟 reids 的集群，这是一个伪集群</p>
+<p>查看 redis master 节点的信息，</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; info replication</span><br><span class="line"># Replication</span><br><span class="line">role:master</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_failover_state:no-failover</span><br><span class="line">master_replid:87d84e1268d878bd3b1e7d5ea7f5060d4f71471e</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:0</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:0</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:0</span><br><span class="line">repl_backlog_histlen:0</span><br></pre></td></tr></table></figure></div>
+
+<p>将原有的 redis.conf 文件复制 3 份，分别是 <strong>6379.conf ， 6380.conf ，6381.conf</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:/usr/local/redis/redis-6.2.5# cp redis.conf 6379.conf</span><br><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:/usr/local/redis/redis-6.2.5# cp redis.conf 6380.conf</span><br><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:/usr/local/redis/redis-6.2.5# cp redis.conf 6381.conf</span><br></pre></td></tr></table></figure></div>
+
+<p>分别修改上述 3 个文件的如下 4 个位置：</p>
+<ul>
+<li>redis server 的端口号 port 6379</li>
+<li>后台运行的 redis server pid 的名字，pidfile &#x2F;var&#x2F;run&#x2F;redis_6379.pid</li>
+<li>日志文件，logfile “6379.log”</li>
+<li>rdb 持久化文件，dbfilename dump6379.rdb</li>
+</ul>
+<p>三个文件分别修改完毕后，分别启动三个 <strong>redis-server</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:~# redis-server /usr/local/redis/redis-6.2.5/6379.conf</span><br><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:~# redis-server /usr/local/redis/redis-6.2.5/6380.conf</span><br><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:~# redis-server /usr/local/redis/redis-6.2.5/6381.conf</span><br></pre></td></tr></table></figure></div>
+
+<p>redis-server 后台启动后，我们查看一下是否启动成功</p>
+<p><code>ps aux | grep reids</code></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:~# ps aux |grep redis</span><br><span class="line">root      4345  0.0  0.1  62776  3864 ?        Ssl  08:50   0:00 redis-server 0.0.0.0:6379</span><br><span class="line">root      4351  0.0  0.1  62776  3860 ?        Ssl  08:50   0:00 redis-server 0.0.0.0:6380</span><br><span class="line">root      4359  0.1  0.1  62776  3856 ?        Ssl  08:50   0:00 redis-server 0.0.0.0:6381</span><br><span class="line">root      4369  0.0  0.0  14436  1016 pts/0    S+   08:50   0:00 grep --color=auto redis</span><br></pre></td></tr></table></figure></div>
+
+<p>使用 redis-cli 连接每一个不同端口的 redis-server，查看主从信息，发现每一个 redis-server 都是主机，如下：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; info replication</span><br><span class="line"># Replication</span><br><span class="line">role:master                    # 主机</span><br><span class="line">connected_slaves:0            # 从机</span><br><span class="line">master_failover_state:no-failover</span><br><span class="line">master_replid:38cbcdac7d7f6b1c154643f94d6742111826cccb</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:0</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:0</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:0</span><br><span class="line">repl_backlog_histlen:0</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="开始设置主从（一主二从）"><a href="#开始设置主从（一主二从）" class="headerlink" title="开始设置主从（一主二从）"></a>开始设置主从（一主二从）</h3><p>默认情况下，redis 服务器默认都是主节点，我们只需要配置从节点即可</p>
+<p>我们设置 6379 为主，6380 为从，6381 为从</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131535365.png"
+                      alt="img"
+                ></p>
+<p>6380 和 6381 都设置好是 6379 的从节点，现在可以查看 6379 的配置信息如下，自己是 master ，有 2 个 slave</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131535133.png"
+                      alt="img"
+                ></p>
+<p>这就是设置好了 redis 集群，一主二从，这是通过命令的方式临时设置，若其中一个 redis 服务器重启后，自己也会变成 master，因此我们要持久的设置，可以去配置文件中设置</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131535678.png"
+                      alt="img"
+                ></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:~# redis-cli -p 6379</span><br><span class="line">127.0.0.1:6379&gt;</span><br><span class="line">127.0.0.1:6379&gt; set k1 v1</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get k1</span><br><span class="line">&quot;v1&quot;</span><br><span class="line">127.0.0.1:6379&gt; set k2 v2</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; set k3 v3</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt;</span><br><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:~# redis-cli -p 6380</span><br><span class="line">127.0.0.1:6380&gt; get k2</span><br><span class="line">&quot;v2&quot;</span><br><span class="line">127.0.0.1:6380&gt; set k4 v4</span><br><span class="line">(error) READONLY You can&#x27;t write against a read only replica.</span><br><span class="line">127.0.0.1:6380&gt;</span><br><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:~# redis-cli -p 6381</span><br><span class="line">127.0.0.1:6381&gt; get k3</span><br><span class="line">&quot;v3&quot;</span><br><span class="line">127.0.0.1:6381&gt; set k5 v5</span><br><span class="line">(error) READONLY You can&#x27;t write against a read only replica.</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>主机上，可以读，可以写</strong></p>
+<p><strong>从机上，只能读，不能写</strong></p>
+<h3 id="测试断掉主机"><a href="#测试断掉主机" class="headerlink" title="测试断掉主机"></a>测试断掉主机</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:~# redis-cli -p 6379</span><br><span class="line">127.0.0.1:6379&gt; shutdown</span><br><span class="line">not connected&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131536936.png"
+                      alt="img"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131536282.png"
+                      alt="img"
+                ></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:~# redis-cli -p 6381</span><br><span class="line">127.0.0.1:6381&gt; keys *</span><br><span class="line">1) &quot;k3&quot;</span><br><span class="line">2) &quot;k2&quot;</span><br><span class="line">3) &quot;k1&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p>主机挂掉，从机仍然可以读取数据，只是还是不能写，主机起来后，主机仍然可以读和写，写操作又回来了，我们的快乐又回来了</p>
+<h3 id="复制的原理"><a href="#复制的原理" class="headerlink" title="复制的原理"></a>复制的原理</h3><p>Slave 启动成功连接到 master 后会发送一个 sync 命令</p>
+<p>master 收到命令后，启动后台存盘进程，同时收集所有接收到用于修改数据库集命令，在后台进程执行完毕后，master 进程将传送整个数据文件给到 slave ，并完成一次同步</p>
+<p><strong>全量复制</strong></p>
+<p>slave 服务接收到 master 传过来的数据后，将其存盘并加载到内存</p>
+<p><strong>增量复制</strong></p>
+<p>master 将新的收集到的所有修改的命令依次传递给 slave ，并完成同步</p>
+<p>一旦重新连接 master 节点，一次完全的全量同步就会被执行</p>
+<h2 id="11-Redis的哨兵模式详解和实战"><a href="#11-Redis的哨兵模式详解和实战" class="headerlink" title="11.Redis的哨兵模式详解和实战"></a>11.Redis的哨兵模式详解和实战</h2><p>上一次我们说到的主从复制是这样搭建的</p>
+<p><strong>主机可以读，可以写</strong></p>
+<p><strong>从机只能读，不能写</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131548897.png"
+                      alt="img"
+                ></p>
+<p>想一想，那么我们是不是也可以这样呢？</p>
+<p>多个 redis-server 首尾相连</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131548563.png"
+                      alt="img"
+                ></p>
+<p>那么咱们部署的时候就是 <strong>6379 – 6380 – 6381</strong></p>
+<p>此时，若主机 6379 宕机掉，6380 会不会变成主机呢？</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; info replication</span><br><span class="line"># Replication</span><br><span class="line">role:master</span><br><span class="line">connected_slaves:1</span><br><span class="line">slave0:ip=127.0.0.1,port=6380,state=online,offset=0,lag=1</span><br><span class="line">master_failover_state:no-failover</span><br><span class="line">master_replid:f1e3db9e5e438f5d98e4cad23f684b12d790ae56</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:0</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:1</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:1</span><br><span class="line">repl_backlog_histlen:0</span><br></pre></td></tr></table></figure></div>
+
+<p>我们可以看到 6379 有一个从机，6380 自身也是作为从机（虽然 6380 是 6381 的主机）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131549600.png"
+                      alt="img"
+                ></p>
+<p><strong>此时将 6379 宕机掉，发现 6380 仍然是 slave</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; shudown</span><br><span class="line">not connected&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131549057.png"
+                      alt="img"
+                ></p>
+<p>我们人为的将 reids 6380 的服务器修改为主机，看看 6379 redis-server 起来之后，是否可以把 master 抢回去</p>
+<p>使用 slaveof no one 可以将自己设置成 master</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131550750.png"
+                      alt="img"
+                ></p>
+<p>启动 6379 redis-server</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server /usr/local/redis/redis-6.2.5/6379.conf</span><br></pre></td></tr></table></figure></div>
+
+<p>发现 6380 仍然是主机，6379 成为了光杆司令</p>
+<p>实际项目中，我们肯定不会采取上面和上一次文章说到的部署方式，他们抵御风险的能力太低了</p>
+<p>因为实际生产环境中，主机宕机了，若从机没有办法成为主机的话，岂不是在主机回复之前再也不能做写入操作了吗？这是很严重的问题</p>
+<p>下面我们来详细看看 哨兵模式是如何解决上述问题的</p>
+<h3 id="哨兵模式"><a href="#哨兵模式" class="headerlink" title="哨兵模式"></a>哨兵模式</h3><p>自动选举 master 的模式</p>
+<h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>主动切换 master 的方法是：</p>
+<p>当主机服务器宕机后，以往的情况咱们需要手动把某一个从机服务器修改为主机服务器，需要人为处理，耗时耗力，且会造成一段时间内服务不可用的情况，这种做法是不可取的</p>
+<p>所以有了哨兵模式，哨兵模式是 redis 2.8 版本开始真是提供的 sentinel 架构来解决上述的问题</p>
+<p>哨兵模式，能够监控后台的主机服务器是否故障，若出现了故障，则会投票选举出一个从机服务器来做主机</p>
+<p>哨兵模式是一种特殊的模式，Redis 提供了哨兵的命令</p>
+<p>哨兵其实是一个独立的进程，作为进程，它会独立运行</p>
+<p>其原理就是哨兵通过发送命令，等到 Redis 服务器响应，从而监控运行的多个 Redis 实例。</p>
+<h3 id="实际演练"><a href="#实际演练" class="headerlink" title="实际演练"></a>实际演练</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132228517.png"
+                      alt="img"
+                ></p>
+<p>上图中的架构图，哨兵有 2 个作用：</p>
+<ul>
+<li>通过发送命令，Redis 服务器返回监控状态信息，包括主服务器和从服务器的</li>
+<li>若哨兵检测到主服务器宕机，会自动将 slave 切换 master，然后通过发布订阅通知其他从服务器，修改配置文件，让他成为主机</li>
+</ul>
+<p>可是一个哨兵来监控一个 redis 集群，出现问题的可能性会大很多，因此，我们的哨兵也可以是集群的，每隔哨兵之间还会互相监控的，就像下面这张图</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132228677.png"
+                      alt="img"
+                ></p>
+<p><strong>主观下线</strong></p>
+<p>例如咱们举一个例子，如果 master 服务器宕机了，那么其中一个哨兵就会检测到，系统并不会马上执行 failover 的过程，仅仅是当前这个哨兵，判断 master 不可用，这个就是<strong>主观下线</strong></p>
+<p><strong>客观下线</strong></p>
+<p>当其他两个哨兵也发现 master 服务器不可用的时候，那么哨兵之间就会产生投票，具体的投票算法我们后续再写，投票的结构由一个哨兵发起，进行 failover 故障转移的操作，切换成功之后，就会通过发布订阅模式，让每一个监控的哨兵把自己监控的服务器切换到这个 master 服务器上， 这个就是<strong>客观下线</strong></p>
+<p><strong>我们来配置和开启一个哨兵：</strong></p>
+<p>同样在我们的配置文件目录，与 redis 是同级的目录下，创建一个 sentinel.conf 文件， 并写入配置，这个文件安装 redis 默认也会生成一个</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132236559.png"
+                      alt="img"
+                ></p>
+<p>如上，咱们关注的命令是</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sentinel monitor mymaster 127.0.0.1  6379  1</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132241482.png"
+                      alt="image-20230613224103415"
+                ></p>
+<p>配置一个哨兵，进行监控 redis 集群</p>
+<p><strong>开启哨兵进程</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:/usr/local/redis/redis-6.2.5# redis-sentinel sentinel.conf</span><br><span class="line">18148:X 26 Aug 2021 22:22:36.187 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span><br><span class="line">18148:X 26 Aug 2021 22:22:36.187 # Redis version=6.2.5, bits=64, commit=00000000, modified=0, pid=18148, just started</span><br><span class="line">18148:X 26 Aug 2021 22:22:36.187 # Configuration loaded</span><br><span class="line">18148:X 26 Aug 2021 22:22:36.188 * monotonic clock: POSIX clock_gettime</span><br><span class="line">                _._</span><br><span class="line">           _.-``__ &#x27;&#x27;-._</span><br><span class="line">      _.-``    `.  `_.  &#x27;&#x27;-._           Redis 6.2.5 (00000000/0) 64 bit</span><br><span class="line">  .-`` .-```.  ```\/    _.,_ &#x27;&#x27;-._</span><br><span class="line"> (    &#x27;      ,       .-`  | `,    )     Running in sentinel mode</span><br><span class="line"> |`-._`-...-` __...-.``-._|&#x27;` _.-&#x27;|     Port: 26379</span><br><span class="line"> |    `-._   `._    /     _.-&#x27;    |     PID: 18148</span><br><span class="line">  `-._    `-._  `-./  _.-&#x27;    _.-&#x27;</span><br><span class="line"> |`-._`-._    `-.__.-&#x27;    _.-&#x27;_.-&#x27;|</span><br><span class="line"> |    `-._`-._        _.-&#x27;_.-&#x27;    |           https://redis.io</span><br><span class="line">  `-._    `-._`-.__.-&#x27;_.-&#x27;    _.-&#x27;</span><br><span class="line"> |`-._`-._    `-.__.-&#x27;    _.-&#x27;_.-&#x27;|</span><br><span class="line"> |    `-._`-._        _.-&#x27;_.-&#x27;    |</span><br><span class="line">  `-._    `-._`-.__.-&#x27;_.-&#x27;    _.-&#x27;</span><br><span class="line">      `-._    `-.__.-&#x27;    _.-&#x27;</span><br><span class="line">          `-._        _.-&#x27;</span><br><span class="line">              `-.__.-&#x27;</span><br><span class="line"></span><br><span class="line">18148:X 26 Aug 2021 22:22:36.189 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.</span><br><span class="line">18148:X 26 Aug 2021 22:22:36.193 # Sentinel ID is 7e01f5aa31aadb7fc54ed8ef2579c77120682dc9</span><br><span class="line">18148:X 26 Aug 2021 22:22:36.193 # +monitor master mymaster 127.0.0.1 6379 quorum 1</span><br><span class="line">18148:X 26 Aug 2021 22:22:36.193 * +slave slave 127.0.0.1:6380 127.0.0.1 6380 @ mymaster 127.0.0.1 6379</span><br><span class="line">18148:X 26 Aug 2021 22:22:36.196 * +slave slave 127.0.0.1:6381 127.0.0.1 6381 @ mymaster 127.0.0.1 6379</span><br></pre></td></tr></table></figure></div>
+
+<p>我们可以看到，开启哨兵进程之后，开始监控到 redis 集群，并输出了监控的 redis 的 ip 和端口</p>
+<p>此时，咱们查看一个 master redis 服务器的信息，可以看到目前有 2 个 slave ，现在咱们让主机宕机</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132238460.png"
+                      alt="img"
+                ></p>
+<p>查看哨兵的日志，咱们可以看到 哨兵进程在 30 秒之后，开始进行投票选举主机</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132238663.png"
+                      alt="img"
+                ></p>
+<p>根据日志，我们可以看出，6379 的主机宕机之后，哨兵选举了 6381 的从机作为新的主机，自动故障恢复成功，nice</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132238755.png"
+                      alt="img"
+                ></p>
+<p>查看 6381 的 master 主机进程，查看到自己是主机，有 1 个从机</p>
+<p>由于 6379 默认配置就是 主机，因此将 6379 服务器再次启动的时候，6379 就变成了光杆司令，从机就变成了 0 个</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:~# redis-server /usr/local/redis/redis-6.2.5/6379.conf</span><br><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:~# redis-cli -p 6379</span><br><span class="line">127.0.0.1:6379&gt; info replication</span><br><span class="line"># Replication</span><br><span class="line">role:master</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_failover_state:no-failover</span><br><span class="line">master_replid:80843f8a6497705983f6463b92d71ebd451ef385</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:0</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:0</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:0</span><br><span class="line">repl_backlog_histlen:0</span><br></pre></td></tr></table></figure></div>
+
+<p>sentinel.conf 配置文件里面的配置项也不多，下面咱们详细的一一说明一下：</p>
+<h3 id="哨兵模式详细配置如下："><a href="#哨兵模式详细配置如下：" class="headerlink" title="哨兵模式详细配置如下："></a>哨兵模式详细配置如下：</h3><p>port<br>哨兵 sentinel 实例运行的端口 ， 默认是 26379，如果有哨兵集群，我们还需要配置每个哨兵端口</p>
+<p>dir<br>哨兵 sentinel 的工作目录</p>
+<p>sentinel monitor<br>哨兵 sentinel 监控的 redis 主节点的 ip port</p>
+<p>master-name ，可以自己命名的主节点名字 只能由字母 A-Z、数字 0-9、这三个字符” . - _ “组成。</p>
+<p>quorum 配置多少个 sentinel 哨兵统一认为 master 主节点失联那么这时客观上认为主节点失联了</p>
+<p>sentine1 auth-pass<br>当在 Redis 实例中开启了 requirepass foobared 授权密码这样所有连接 redis 实例的客户端都要提供密码。设置哨兵 sentinel 连接主从的密码注意必须为主从设置一样的验证密码</p>
+<p>sentinel down-after-mi 11i seconds &lt;mi 11iseconds&gt;<br>指定多少毫秒之后主节点没有应答哨兵 sentine1 此时哨兵主观上认为主节点下线默认 30 秒</p>
+<p>sentinel paralle1-syncs<br>指定了在发生 failover 主备切换时最多可以有多少个 slave 同时对新的 master 进行同步。这个数字越小，完成 failover 所需的时间就越长。但是如果这个数字越大，就意味着越多的 slave 因为 replication 而 不可用。可以通过将这个值设为 1 来保证每次只有一个 slave 处于不能处理命令请求的状态</p>
+<p>sentinel failover-timeout<br>故障转移的超时时间 failover-timeout 可以用在以下这些方面:</p>
+<p>1、同一个 sentinel 对同一 个 master 两次 failover 之间的间隔时间</p>
+<p>2、当一个 slave 从一 个错误的 master 那里同步数据开始计算时间。直到 slave 被纠正为向正确的 master 那里同步数据时</p>
+<p>3、当想要取消一个正在进行的 failover 所需要的时间</p>
+<p>4、当进行 failover 时，配置所有 slave 指向新的 master 所需的最大时间</p>
+<p>不过，即使过了这个超时，slaves 依然会被正确配置为指向 master , 但是就不按 parallel-syncs 所配置的规则来了</p>
+<p>5、默认时间是三分钟</p>
+<p>sentinel notification-script<br>当 sentinel 有任何警告级别的事件发生时（比如说 redis 实例的主观失效和客观失效等等），将会去调用这个脚本。这时这个脚本应该通过邮件，SMS 等方式去通知系统管理员关于系统不正常运行的信息。调用该脚本时，将传给脚本两个参数：1、事件的类型	2、事件的描述。如果 sentinel . conf 配置文件中配置了这个脚本路径，那么必须保证这个脚本存在于这个路径，并且是可执行的，否则 sentinel 无法正常启动成功</p>
+<p>sentinel client-reconfig-script<br>该配置是客户端重新配置主节点参数脚本</p>
+<p>当一个 master 由于 failover 而发生改变时，这个脚本将会被调用，通知相关的客户端关于 master 地址已经发生改变的信息</p>
+<p>以下参数将会在调用脚本时传给脚本：</p>
+<p>， 是 Teader 或者 observer 中的一个</p>
+<p>， 一般是 failover</p>
+<p>参数 from-ip， from-port， to-ip，to-port 是用来和旧的master和新的master （即旧的 s lave）通信的</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">port 26379</span><br><span class="line"></span><br><span class="line">dir /tmp</span><br><span class="line"></span><br><span class="line">sentinel monitor mymaster   127.0.0.1   6379   2</span><br><span class="line"></span><br><span class="line">sentine1 auth-pass mymaster MySUPER--secret-0123passwOrd</span><br><span class="line"></span><br><span class="line">sentine1 down-after-mi 11iseconds mymaster 30000</span><br><span class="line"></span><br><span class="line">sentine1 paralle1-syncs mymaster 1</span><br><span class="line"></span><br><span class="line">sentine1 fai lover-ti meout mymaster 180000</span><br><span class="line"></span><br><span class="line">sentine1 notificati on-script mymaster /var/redis/notify.sh</span><br><span class="line"></span><br><span class="line">sentine1 client-reconfig-script mymaster /var/redis/reconfig.sh</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h2 id="12-Redis缓存穿透，缓存击穿，缓存雪崩"><a href="#12-Redis缓存穿透，缓存击穿，缓存雪崩" class="headerlink" title="12.Redis缓存穿透，缓存击穿，缓存雪崩"></a>12.Redis缓存穿透，缓存击穿，缓存雪崩</h2><p>虽然我们在使用 redis 缓存的时候非常的爽，它大大的提高了我们应用程序的性能和效率，尤其是数据查询方面，咱们不用直接去持久化的数据库中查询数据，而是到内存中查询数据即可</p>
+<p>事物总是有两面的，用的爽的同时，也必须面对它带来的问题，就是数据一致性的问题，这个问题，是一个权衡利弊的问题，咱们接着看</p>
+<p>redis 缓存和一些持久化的数据库配合使用的时候，会出现一些高可用的问题，如：</p>
+<ul>
+<li>缓存穿透</li>
+<li>缓存击穿</li>
+<li>缓存雪崩</li>
+</ul>
+<p>咱们能够解决上述问题，那就解决了一部分服务器高可用的问题</p>
+<h3 id="什么是缓存穿透"><a href="#什么是缓存穿透" class="headerlink" title="什么是缓存穿透"></a>什么是缓存穿透</h3><p>咱们先学习一部分，关于底层原理和实际源码分析，咱们之后再一起看</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132256104.png"
+                      alt="img"
+                ></p>
+<p>缓存穿透，就是用户想要查询一个数据，在 redis 中查询不到，即没有在缓存中命中，那么就会直接去持久化的 mysql 中进行查询，发现也没有这个数据，那么本次查询就失败了</p>
+<p>当用户巨多的时候，查询缓存都没有查询到，那么这些全部都去查询持久化的 mysql 数据库，压力全部打到 mysql 上面，这就是缓存穿透</p>
+<p>解决方案有一般有 2 种方式：</p>
+<ul>
+<li>使用布隆过滤器</li>
+<li>缓存空的对象</li>
+</ul>
+<p><strong>使用布隆过滤器</strong></p>
+<p>布隆过滤器是一种数据结构，对所有可能查询到的参数都是以 hash 的方式存储，会先在控制层进行校验，不符合的话，则丢弃，这就避免了对底层存储系统的压力</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132258745.png"
+                      alt="img"
+                ></p>
+<p>布隆过滤器部署在 redis 的前面，去拦截数据，减少对 redis 的冲击，进而减小对持久化层的冲击</p>
+<p><strong>缓存空的对象</strong></p>
+<p>缓存空对象，就是当我们在持久化的数据库中没有查询到我们期望的数据时，那么就返回一个空对象，并且将这个空对象缓存起来，再对其设置一个过期时间</p>
+<p>那么之后再有访问这个对象的请求时，缓存直接访问空对象即可，这就可以保护持久化数据层，减少对他的冲击压力</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132258747.png"
+                      alt="img"
+                ></p>
+<p>通过上述缓存空对象的方式，貌似也能解决问题，但是使用持久下去，会发现 key 值对应的空对象越来越多，会出现下面 2 个问题：</p>
+<ul>
+<li>非常多的空对象被缓存起来，那么对应就很多的 key 占用 内存空间，占用资源，内存压力直线上升</li>
+<li>如果空对象的过期时间到了，那么请求的压力还是会打到持久化数据库上面，这会影响数据的一致性业务</li>
+</ul>
+<h3 id="什么是缓存击穿"><a href="#什么是缓存击穿" class="headerlink" title="什么是缓存击穿"></a>什么是缓存击穿</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132304106.png"
+                      alt="img"
+                ></p>
+<p>出现缓存击穿的情况是数据量太大，或者是缓存过期了</p>
+<p>当某个 key 在过期的瞬间，有大量的请求这个 key 的数据，这种数据是热点数据，由于在缓存过期的瞬间，请求会同时访问到持久化的数据库来查询数据，并且会将数据会写到缓存中，此时就会导致数据库瞬间的压力过大，导致击穿</p>
+<p>此处可以理解 击穿和穿透的区别：</p>
+<p>击穿，是一个 key 非常热点，大量的访问都打在这个 key 上面，在 key 失效的瞬间，所有请求打在数据库上，就打出一个洞，击穿了</p>
+<p>而穿透更多的是访问的数据不存在的情况，大量的请求访问的都是不存在的数据</p>
+<p>缓存击穿的解决方案</p>
+<ul>
+<li><p>将热点数据设置不过期，不设置过期时间，就不会出现热点 key 过期的瞬间造成问题</p>
+</li>
+<li><p>加上分布式锁，保证对于每一个 key ，同时只有一个服务进行访问，其他的服务没有获取到锁，就不能访问 redis 的这个 key，那么就需要等待获取锁</p>
+<p>这种方式，锁的压力就非常大了，访问 redis 前先去访问锁，相当于锁给 redis 挡了一层</p>
+</li>
+</ul>
+<h3 id="什么是缓存雪崩"><a href="#什么是缓存雪崩" class="headerlink" title="什么是缓存雪崩"></a>什么是缓存雪崩</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132308624.png"
+                      alt="img"
+                ></p>
+<p><strong>缓存雪崩</strong>就是在某一个时间段，缓存集中过期，或者 redis 宕机的情况会出现</p>
+<p>例如：</p>
+<p>在某些热点活动中，会设置某些商品在一个固定的时间内过期，那么在 redis 里面，这个固定的时间点，大量的 key 过期，这就导致在这个时间段缓存失效了，</p>
+<p>且大量的请求数据都打在了持久化数据库上面了，这就很难受，在这种压力波峰下，压力全部打在持久化数据库上，这会造成持久化数据库宕机</p>
+<p>上述的情况，key 集中过期问题还不是非常的痛，最痛的是 redis 宕机了，自然周期性的形成的波峰压力，咱们的持久化数据库还是能够顶得住压力的，偏偏是在 redis 异常宕机，一挂挂一片，这就很有可能将后方的持久化数据库全部打挂，这是毁灭性的压垮</p>
+<p><strong>缓存雪崩的解决方案：</strong></p>
+<ul>
+<li>将 redis 做成高可用的</li>
+</ul>
+<p>搭建 redis 集群，异地多活，既然担心 redis 会挂，那么我们就多准备一些 redis ，做成主备，或者异地多活</p>
+<ul>
+<li>限流降级</li>
+</ul>
+<p>就是在缓存失效的时候，通过锁的方式来限制访问数据顺序，或者关掉一些不重要的服务，让资源和性能全力提供给我们的主要服务</p>
+<ul>
+<li>做数据预热</li>
+</ul>
+<p>数据预热就是咱们在正式要上线之前，咱们就先将需要访问的数据预先访问一次，这样就可以将大量要访问数据库的数据写到缓存中</p>
+<p>这样就可以在即将发生的高并发访问数据前手动的触发并加载不同的 key ，且会设置不同的过期时间，主要是可以将缓存失效的事情均衡一些，这样就尽量避免掉大量的 key 集中过期的情况。</p>
+<h2 id="13-Redis面试题"><a href="#13-Redis面试题" class="headerlink" title="13.Redis面试题"></a>13.Redis面试题</h2><p><a class="link"   target="_blank" rel="noopener" href="https://learnku.com/articles/67307" >Redis 常问简单面试题 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="14-Go操作Redis"><a href="#14-Go操作Redis" class="headerlink" title="14.Go操作Redis"></a>14.Go操作Redis</h2><p><a class="link"   target="_blank" rel="noopener" href="https://redis.uptrace.dev/zh/" >Go-Redis文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> Redis从零开始学习</li>
+        <li><strong>作者:</strong> Olivia的小跟班</li>
+        <li><strong>创建于
+                :</strong> 2023-06-05 00:25:55</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2023-06-14 22:00:22
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://www.youandgentleness.cn/2023/06/05/Redis从零开始学习/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Redis/">#Redis</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2023/06/19/%E6%95%8F%E6%84%9F%E8%AF%8D%E6%A3%80%E6%B5%8B/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">敏感词检测</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2023/04/29/Docker%E4%BD%A0%E5%A5%BD/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Docker你好</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '782748daccf6cb467d2c',
+                    clientSecret: '2a18a038c753ac1ae59de258d979feb2e04ee274',
+                    repo: 'gitalk',
+                    owner: 'zhouxing9454',
+                    admin: ['zhouxing9454'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">Redis从零开始学习</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%BC%94%E8%BF%9B%E5%8F%8ANosql%E7%9A%84%E5%88%9D%E6%AD%A5%E8%AE%A4%E7%9F%A5"><span class="nav-text">1.数据库的演进及Nosql的初步认知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8-Nosql-%EF%BC%9F"><span class="nav-text">为什么要用 Nosql ？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nosql-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">Nosql 是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nosql-%E7%9A%84%E5%9B%9B%E5%A4%A7%E5%88%86%E7%B1%BB"><span class="nav-text">Nosql 的四大分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Redis%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">2.Redis是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">Redis 是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E8%83%BD%E5%B9%B2%E5%98%9B%EF%BC%9F"><span class="nav-text">Redis 能干嘛？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0-Redis-%E9%9C%80%E8%A6%81%E7%94%A8%E5%88%B0%E7%9A%84%E8%B5%84%E6%96%99"><span class="nav-text">学习 Redis 需要用到的资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85-Redis"><span class="nav-text">如何安装 Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-text">redis 基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84"><span class="nav-text">redis 是单线程的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Redis-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bstring%E5%92%8Clist%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E5%8F%8A%E7%86%9F%E6%82%89"><span class="nav-text">3.Redis 数据结构之string和list基本使用及熟悉</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#string-%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-text">string 字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List"><span class="nav-text">List</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-set-%E9%9B%86%E5%90%88%EF%BC%8Chash-%E5%93%88%E5%B8%8C%EF%BC%8Czset-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%E5%88%9D%E6%AD%A5%E8%AE%A4%E7%9F%A5"><span class="nav-text">4.set 集合，hash 哈希，zset 有序集合初步认知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#set%E9%9B%86%E5%90%88"><span class="nav-text">set集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash-%E5%93%88%E5%B8%8C"><span class="nav-text">hash 哈希</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zset-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88"><span class="nav-text">zset 有序集合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Redis%E7%9A%84%E4%B8%89%E7%A7%8D%E7%89%B9%E6%AE%8A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">5.Redis的三种特殊数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Geospatial%E5%9C%B0%E7%90%86%E4%BD%8D%E7%BD%AE"><span class="nav-text">Geospatial地理位置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GEOADD"><span class="nav-text">GEOADD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GEOPOS"><span class="nav-text">GEOPOS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GEODIST"><span class="nav-text">GEODIST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GEOHASH"><span class="nav-text">GEOHASH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GEORADIUS"><span class="nav-text">GEORADIUS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GEORADIUSBYMEMBER"><span class="nav-text">GEORADIUSBYMEMBER</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hyperloglog-%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1"><span class="nav-text">Hyperloglog 基数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitmaps-%E4%BD%8D%E5%9B%BE%E5%9C%BA%E6%99%AF"><span class="nav-text">Bitmaps 位图场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Redis%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E5%92%8C%E7%9B%91%E6%8E%A7%E4%BA%8B%E5%8A%A1"><span class="nav-text">6.Redis事务处理和监控事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E4%BA%8B%E5%8A%A1"><span class="nav-text">开启事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%BE%E5%BC%83%E4%BA%8B%E5%8A%A1"><span class="nav-text">放弃事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E5%87%BA%E9%94%99"><span class="nav-text">事务出错</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%9E%8B%E5%87%BA%E9%94%99"><span class="nav-text">编译型出错</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%87%BA%E9%94%99"><span class="nav-text">运行时出错</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-%E7%9A%84-watch-%E7%9B%91%E6%8E%A7"><span class="nav-text">redis 的 watch 监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unwatch"><span class="nav-text">unwatch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Redis%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3"><span class="nav-text">7.Redis配置文件详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%BD%8D"><span class="nav-text">单位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INCLUDES%E5%8C%85%E5%90%AB"><span class="nav-text">INCLUDES包含</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NETWORK-%E7%BD%91%E7%BB%9C"><span class="nav-text">NETWORK 网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GENERAL-%E9%80%9A%E7%94%A8"><span class="nav-text">GENERAL 通用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SNAPSHOTTING-%E5%BF%AB%E7%85%A7"><span class="nav-text">SNAPSHOTTING 快照</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#REPLICATION-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="nav-text">REPLICATION 主从复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SECURITY-%E5%AE%89%E5%85%A8"><span class="nav-text">SECURITY 安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CLIENTS-%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-text">CLIENTS 客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMORY-MANAGEMENT-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">MEMORY MANAGEMENT 内存管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#APPEND-ONLY-MODE-%E8%BF%BD%E5%8A%A0%E6%A8%A1%E5%BC%8F%EF%BC%88aof-%E9%85%8D%E7%BD%AE%EF%BC%89"><span class="nav-text">APPEND ONLY MODE 追加模式（aof 配置）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Redis-%E6%8C%81%E4%B9%85%E5%8C%96-RDB-%E5%92%8C-AOF"><span class="nav-text">8.Redis 持久化 RDB 和 AOF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-text">Redis 持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDB-%EF%BC%88Redis-DatabBase%EF%BC%89"><span class="nav-text">RDB （Redis DatabBase）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF-%E6%8C%81%E4%B9%85%E5%8C%96%E6%96%B9%E5%BC%8F"><span class="nav-text">AOF 持久化方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%86%99%E8%A7%84%E5%88%99%E8%AF%B4%E6%98%8E"><span class="nav-text">重写规则说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aof-%E7%9A%84%E4%BC%98%E5%8A%BF%E5%92%8C%E5%8A%A3%E5%8A%BF"><span class="nav-text">aof 的优势和劣势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E4%B8%8A%E7%9A%84%E5%BB%BA%E8%AE%AE"><span class="nav-text">性能上的建议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-Redis%E7%9A%84%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85%E6%98%AF%E5%92%8B%E7%8E%A9%E7%9A%84"><span class="nav-text">9.Redis的发布和订阅是咋玩的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85"><span class="nav-text">Redis 发布订阅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A5%E7%9C%8B%E7%9C%8B%E5%9B%BE%E7%A4%BA"><span class="nav-text">来看看图示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E6%B5%8B%E8%AF%95%E5%92%8C%E9%AA%8C%E8%AF%81"><span class="nav-text">实际测试和验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">Redis 发布 &#x2F; 订阅应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Redis-%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85-%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9"><span class="nav-text">使用 Redis 发布 &#x2F; 订阅 需要注意的点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Redis-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E5%92%8C%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="nav-text">10.Redis 集群搭建和主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E7%9A%84%E7%90%86%E8%AE%BA"><span class="nav-text">主从复制的理论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E8%AE%BE%E7%BD%AE%E4%B8%BB%E4%BB%8E%EF%BC%88%E4%B8%80%E4%B8%BB%E4%BA%8C%E4%BB%8E%EF%BC%89"><span class="nav-text">开始设置主从（一主二从）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%96%AD%E6%8E%89%E4%B8%BB%E6%9C%BA"><span class="nav-text">测试断掉主机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-text">复制的原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-Redis%E7%9A%84%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3%E5%92%8C%E5%AE%9E%E6%88%98"><span class="nav-text">11.Redis的哨兵模式详解和实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F"><span class="nav-text">哨兵模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-text">介绍</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E6%BC%94%E7%BB%83"><span class="nav-text">实际演练</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E8%AF%A6%E7%BB%86%E9%85%8D%E7%BD%AE%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-text">哨兵模式详细配置如下：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-Redis%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%EF%BC%8C%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF%EF%BC%8C%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9"><span class="nav-text">12.Redis缓存穿透，缓存击穿，缓存雪崩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F"><span class="nav-text">什么是缓存穿透</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF"><span class="nav-text">什么是缓存击穿</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9"><span class="nav-text">什么是缓存雪崩</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-Redis%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-text">13.Redis面试题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-Go%E6%93%8D%E4%BD%9CRedis"><span class="nav-text">14.Go操作Redis</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin"></i>&nbsp;&nbsp;<a href="/">Olivia的小跟班</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共 27 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.1</a></span>
+        </div>
+        
+            <div class="icp-info my-1"><a target="_blank" rel="nofollow" href="
+                
+                    https://beian.miit.gov.cn/
+                
+                ">浙ICP备2022034029号</a></div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+    <div id="aplayer"></div>
+
+<script src="/js/libs/APlayer.min.js"></script>
+
+
+<script src="/js/plugins/aplayer.js"></script>
+
+
+</body>
+</html>
+
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/love.js"></script>
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/FunnyTitle.js"></script>

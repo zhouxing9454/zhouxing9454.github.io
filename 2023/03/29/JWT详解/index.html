@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Olivia的小跟班">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+            <link rel="preconnect" href="https://cdn.staticfile.org" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://www.youandgentleness.cn/2023/03/29/jwt详解/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="题记本文主要是讲JWT的有关知识。 1.SessionSession的使用过程是怎么样的？  用户进行登录时，用户提交包含用户名和密码的表单，放入 HTTP 请求报文中； 服务器验证该用户名和密码，如果正确则把用户信息存储到 Redis 中，它在 Redis 中的 Key 称为 Session ID； 服务器返回的响应报文的 Set-Cookie 首部字段包含了这个 Session ID，客户端收">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JWT详解">
+<meta property="og:url" content="https://www.youandgentleness.cn/2023/03/29/JWT%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Olivia的小跟班">
+<meta property="og:description" content="题记本文主要是讲JWT的有关知识。 1.SessionSession的使用过程是怎么样的？  用户进行登录时，用户提交包含用户名和密码的表单，放入 HTTP 请求报文中； 服务器验证该用户名和密码，如果正确则把用户信息存储到 Redis 中，它在 Redis 中的 Key 称为 Session ID； 服务器返回的响应报文的 Set-Cookie 首部字段包含了这个 Session ID，客户端收">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20210626223811598.png">
+<meta property="article:published_time" content="2023-03-29T12:22:29.000Z">
+<meta property="article:modified_time" content="2023-05-26T19:47:42.000Z">
+<meta property="article:author" content="Olivia的小跟班">
+<meta property="article:tag" content="JWT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20210626223811598.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <meta name="theme-color" content="#1890ff">
+    <link rel="shortcut icon" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            JWT详解 -
+        
+        Olivia的小跟班
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+
+    
+        <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    
+<script src="/js/libs/anime.min.js"></script>
+
+    <h1 class="ml13">
+        Olivia的小跟班
+    </h1>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+
+        anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [100,0],
+                translateZ: 0,
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: '.ml13 .letter',
+            translateY: [0,-100],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+        });
+
+        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
+        hidePreloaderAfterTimeout(5000);
+
+        function hidePreloaderAfterTimeout(delay) {
+            setTimeout(function () {
+                var preloader = document.querySelector('.preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 200);
+            }, delay);
+        }
+    </script>
+</div>
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"www.youandgentleness.cn","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":null,"skip_dirs":[]}},"colors":{"primary":"#1890ff","secondary":"#1890ff","default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/light.jpg","dark":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/darkness.jpg"},"title":"Talk is cheap,Show me the code.","subtitle":{"text":["他们以为击败我就是终结，而我必归来将之改写。"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#D27D2D","dark":"#191970"},"text_style":{"title_size":"2.1rem","subtitle_size":"1.2rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"email":"zhouxing9454@gmail.com","weixin":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/wechat.jpg","github":"https://github.com/zhouxing9454","qq":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/QQ.jpg","bilibili":"https://space.bilibili.com/475346328"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"最后的旅行","artist":"Rainton桐","url":"http://music.163.com/song/media/outer/url?id=30512539.mp3","cover":"https://p1.music.126.net/XWUdXb46hIdIecRihPCV_A==/109951168667887853.jpg"},{"name":"陪我长大","artist":"段奥娟","url":"http://music.163.com/song/media/outer/url?id=1299550093.mp3","cover":"http://p2.music.126.net/YxUbVoHngGMY8gZMjbEJkg==/109951163446151536.jpg"}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.1","navbar":{"auto_hide":false,"color":{"left":"#FAF9F6","right":"#FAF9F6","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"Friends":{"icon":"fa-solid fa-link","path":"/links/"},"Essays":{"icon":"fa-solid fa-paper-plane","path":"/essays/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","typography":{"line_height":1.6}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/7/4 9:30:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Olivia的小跟班
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/links/"
+                                        >
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/essays/"
+                                        >
+                                    <i class="fa-solid fa-paper-plane fa-fw"></i>
+                                    ESSAYS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/links/"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-solid fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/essays/"
+                        >
+                            <span>
+                                ESSAYS
+                            </span>
+                            
+                                <i class="fa-solid fa-paper-plane fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">JWT详解</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/avatar.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Olivia的小跟班</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-03-29 20:22:29</span>
+        <span class="mobile">2023-03-29 20:22:29</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-05-27 03:47:42</span>
+            <span class="mobile">2023-05-27 03:47:42</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/JWT/">JWT</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/JWT/">JWT</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h1><p>本文主要是讲JWT的有关知识。</p>
+<h2 id="1-Session"><a href="#1-Session" class="headerlink" title="1.Session"></a>1.Session</h2><p>Session的使用过程是怎么样的？</p>
+<ul>
+<li>用户进行登录时，用户提交包含用户名和密码的表单，放入 HTTP 请求报文中；</li>
+<li>服务器验证该用户名和密码，如果正确则把用户信息存储到 Redis 中，它在 Redis 中的 Key 称为 Session ID；</li>
+<li>服务器返回的响应报文的 Set-Cookie 首部字段包含了这个 Session ID，客户端收到响应报文之后将该 Cookie 值存入浏览器中；</li>
+<li>客户端之后对同一个服务器进行请求时会包含该 Cookie 值，服务器收到之后提取出 Session ID，从 Redis 中取出用户信息，继续之前的业务操作。</li>
+</ul>
+<h2 id="2-Token"><a href="#2-Token" class="headerlink" title="2.Token"></a>2.Token</h2><p>Token的使用过程是怎么样的？</p>
+<ul>
+<li>客户端使用用户名和密码请求登录。</li>
+<li>服务端收到请求，验证用户名和密码。</li>
+<li>验证成功后，服务端会签发一个token，再把这个token返回给客户端。</li>
+<li>客户端收到token后可以把它存储起来，比如放到cookie中。</li>
+<li>客户端每次向服务端请求资源时需要携带服务端签发的token，可以在cookie或者header中携带。</li>
+<li>服务端收到请求，然后去验证客户端请求里面带着的token，如果验证成功，就向客户端返回请求数据。</li>
+</ul>
+<p>Token对比session的优点：</p>
+<ul>
+<li><strong>无状态：</strong>Token是无状态的，而Session需要维护服务器端的状态信息。这使得使用Token更容易在分布式系统和负载均衡器中进行管理。</li>
+<li><strong>扩展性：</strong>由于没有状态信息，可以轻松地将Token集成到API、移动应用程序等不同的系统中。</li>
+<li><strong>安全性：</strong>Token可以提供更高的安全性，因为它可以避免CSRF攻击，并且可以通过签名和加密来保护数据的完整性和机密性。</li>
+<li><strong>性能：</strong>由于Session需要在服务器端维护状态信息，因此可能会影响性能。而Token可以在客户端进行验证和授权，从而减少了对服务器的负载。</li>
+</ul>
+<h2 id="3-什么是JWT"><a href="#3-什么是JWT" class="headerlink" title="3.什么是JWT"></a>3.什么是JWT</h2><p>终于我们的主角JWT，登场了。JWT全称：<code>JSON Web Token</code>，本质上就是一个字符串（它是Token的一种具体实现方式）。</p>
+<p>JWT的认证流程：</p>
+<ul>
+<li>首先，前端通过Web表单将自己的用户名和密码发送到后端的接口，这个过程一般是一个POST请求。建议的方式是通过SSL加密的传输(HTTPS)，从而避免敏感信息被嗅探。</li>
+<li>后端核对用户名和密码成功后，<strong>将包含用户信息的数据作为JWT的Payload，将其与JWT Header分别进行Base64编码拼接后签名，形成一个JWT Token，</strong>形成的JWT Token就是一个如同lll.zzz.xxx的字符串</li>
+<li>后端将JWT Token字符串作为登录成功的结果返回给前端。前端可以将返回的结果保存在浏览器中，退出登录时删除保存的JWT Token即可。</li>
+<li>前端在每次请求时将JWT Token放入HTTP请求头中的Authorization属性中(解决XSS和XSRF问题)</li>
+<li>后端检查前端传过来的JWT Token，验证其有效性，比如检查签名是否正确、是否过期、token的接收方是否是自己等等。</li>
+<li>验证通过后，后端解析出JWT Token中包含的用户信息，进行其他逻辑操作(一般是根据用户信息得到权限等)，返回结果。</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20210626223811598.png"
+                      alt="img"
+                ></p>
+<h2 id="4-为什么要使用JWT"><a href="#4-为什么要使用JWT" class="headerlink" title="4.为什么要使用JWT"></a>4.为什么要使用JWT</h2><h3 id="4-1传统Session的弊端"><a href="#4-1传统Session的弊端" class="headerlink" title="4.1传统Session的弊端"></a>4.1传统Session的弊端</h3><p>传统Session认证存在一些弊端，包括以下几个方面：</p>
+<ol>
+<li><strong>服务器端状态管理：</strong>使用Session需要在服务器端维护用户的状态信息，这可能会增加服务器的负担和复杂度。</li>
+<li><strong>分布式环境下的问题：</strong>由于Session依赖于服务器端状态，因此在分布式环境下可能需要使用一些特殊技术来解决会话跨节点的问题。</li>
+<li><strong>扩展性差：</strong>传统Session认证的扩展性较差。如果要将应用程序扩展到多个客户端或不同的系统中，必须维护每个客户端的状态信息。这使得Session认证在一些场景下难以扩展和管理。</li>
+<li><strong>CSRF攻击：</strong>Session认证容易受到CSRF攻击，攻击者可以通过伪造请求来获取用户的会话信息。</li>
+<li><strong>跨域问题：</strong>由于Session是基于Cookie实现的，而Cookie在跨域请求时会受到浏览器的同源策略限制，可能会导致某些跨域场景下无法正常使用。</li>
+<li><strong>占用带宽：</strong>每次请求都要携带Session ID等相关信息，增加了请求头的大小，占用了带宽，并且可能会影响网络性能。</li>
+</ol>
+<p>相比之下，JWT认证可以更好地满足现代Web应用程序的安全和可扩展性需求。它具有以下优点：</p>
+<ol>
+<li><strong>无状态：</strong>JWT是无状态的，服务器不需要在本地存储会话信息，因此可以更容易地实现分布式、跨域和负载均衡等场景下的身份验证。</li>
+<li><strong>可扩展性：</strong>由于JWT是基于标准化的JSON格式，因此可以轻松地将其集成到API、移动应用程序等不同的系统中。</li>
+<li><strong>安全性：</strong>JWT提供了签名和加密机制，以确保数据的完整性和机密性，避免了CSRF攻击和会话劫持等安全问题。</li>
+<li><strong>可定制性：</strong>JWT可以根据业务需求进行自定义，例如添加特定的声明、过期时间等元数据，使其更适合特定的应用场景。</li>
+</ol>
+<p>注意这不是说JWT就没有缺点了，它也是有缺点的：</p>
+<ol>
+<li><strong>信息泄露：</strong>JWT中的信息是经过Base64编码的，如果密钥不安全或者遭到暴力破解，可能会导致信息泄露。</li>
+<li><strong>不可撤销性：</strong>由于JWT是无状态的，一旦JWT签发后，就无法撤销。如果需要撤销访问权限，则必须等待到JWT过期或将其加入黑名单中。</li>
+<li><strong>大小限制：</strong>由于JWT包含了所有相关信息，因此它的大小可能会比较大，这可能会导致网络传输和存储方面的性能损失。</li>
+<li><strong>安全更新问题：</strong>如果需要更新JWT中的某些信息，例如访问权限、过期时间等，需要重新签发一个新的JWT。但是，这可能会导致之前签发的JWT仍然有效，从而导致安全性问题。</li>
+</ol>
+<p>综上所述，虽然JWT具有许多优点，但在具体应用时要注意其潜在的安全风险和实施的复杂性。在使用JWT时，需要合理设置过期时间、密钥长度和加密算法等参数，以确保其安全可靠性。</p>
+<h2 id="5-JWT结构"><a href="#5-JWT结构" class="headerlink" title="5.JWT结构"></a>5.JWT结构</h2><p>JWT（JSON Web Token）的结构通常由三个部分组成，分别是<strong>Header、Payload和Signature</strong>。每个部分都使用<strong>Base64编码</strong>，并使用句点（.）将它们连接起来，形成一个完整的JWT字符串。</p>
+<p>下面是一个示例JWT的完整结构：</p>
+<div class="highlight-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.</span><br><span class="line">eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0Ijo</span><br><span class="line">xNTE2MjM5MDIyfQ.</span><br><span class="line">SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</span><br></pre></td></tr></table></figure></div>
+
+<p>其中，Header部分为：</p>
+<div class="highlight-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;alg&quot;</span><span class="punctuation">:</span> <span class="string">&quot;HS256&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;typ&quot;</span><span class="punctuation">:</span> <span class="string">&quot;JWT&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>Payload部分为：</p>
+<div class="highlight-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;sub&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1234567890&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;John Doe&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;iat&quot;</span><span class="punctuation">:</span> <span class="number">1516239022</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>Signature部分为：</p>
+<div class="highlight-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</span><br></pre></td></tr></table></figure></div>
+
+<p>需要注意的是，尽管JWT使用Base64进行编码，但它并不是加密算法，因此在使用时仍然需要保证密钥的安全性。</p>
+<h3 id="1-Header"><a href="#1-Header" class="headerlink" title="1.Header"></a>1.Header</h3><p>JWT头是一个<strong>描述JWT元数据的JSON对象</strong>，alg属性表示签名使用的算法，默认为HMAC SHA256（写为HS256）；typ属性表示令牌的类型，JWT令牌统一写为JWT。最后，使用Base64 URL算法将上述JSON对象转换为字符串保存</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;alg&quot;: &quot;HS256&quot;,</span><br><span class="line">  &quot;typ&quot;: &quot;JWT&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="2-Payload"><a href="#2-Payload" class="headerlink" title="2.Payload"></a>2.Payload</h3><p>有效载荷部分，是JWT的主体内容部分，也是一个JSON对象，包含需要传递的数据。 JWT指定七个默认字段供选择</p>
+<div class="highlight-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">iss：发行人</span><br><span class="line">exp：到期时间</span><br><span class="line">sub：主题</span><br><span class="line">aud：用户</span><br><span class="line">nbf：在此之前不可用</span><br><span class="line">iat：发布时间</span><br><span class="line">jti：JWT ID用于标识该JWT</span><br></pre></td></tr></table></figure></div>
+
+<p>除以上默认字段外，我们还可以自定义私有字段，一般会把包含用户信息的数据放到payload中，如下例：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;sub&quot;: &quot;1234567890&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;Helen&quot;,</span><br><span class="line">  &quot;admin&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>请注意，</strong>默认情况下JWT是未加密的，因为只是采用base64算法，拿到JWT字符串后可以转换回原本的JSON数据，任何人都可以解读其内容，因此不要构建隐私信息字段，比如用户的密码一定不能保存到JWT中，以防止信息泄露。JWT只是适合在网络中传输一些非敏感的信息。</p>
+<h3 id="3-Signature"><a href="#3-Signature" class="headerlink" title="3.Signature"></a>3.Signature</h3><p><strong>签名哈希</strong>部分是对上面两部分数据签名，需要使用base64编码后的header和payload数据，通过指定的算法生成哈希，<strong>以确保数据不会被篡改。</strong>首先，需要指定<strong>一个密钥（secret）。该密码仅仅为保存在服务器中</strong>，并且不能向用户公开。然后，使用header中指定的签名算法（默认情况下为HMAC SHA256）根据公式生成签名，在计算出签名哈希后，JWT头，有效载荷和签名哈希的三个部分组合成一个字符串，每个部分用.分隔，就构成整个JWT对象。</p>
+<p>注意JWT每部分的作用，在服务端接收到客户端发送过来的JWT token之后：</p>
+<ul>
+<li>header和payload可以直接利用base64解码出原文，从header中获取哈希签名的算法，从payload中获取有效数据</li>
+<li>signature由于使用了不可逆的加密算法，无法解码出原文，它的作用是校验token有没有被篡改。服务端获取header中的加密算法之后，利用该算法加上secretKey对header、payload进行加密，比对加密后的数据和客户端发送过来的是否一致。注意secretKey只能保存在服务端，而且对于不同的加密算法其含义有所不同，一般对于MD5类型的摘要加密算法，secretKey实际上代表的是盐值。</li>
+</ul>
+<h2 id="6-JWT种类"><a href="#6-JWT种类" class="headerlink" title="6.JWT种类"></a>6.JWT种类</h2><p>JWT（JSON Web Token）根据用途和属性的不同，可以分为以下几种：</p>
+<ol>
+<li><strong>JWS</strong>：JSON Web Signature，用于验证消息的完整性和来源。JWS包含Header、Payload和Signature三个部分，其中Signature是通过指定算法生成的，用于验证消息是否被篡改。</li>
+<li><strong>JWE</strong>：JSON Web Encryption，用于对消息进行加密。JWE包含Header、Payload和Encryption三个部分，其中Encryption使用指定算法对消息进行加密，以保证机密性。</li>
+<li><strong>JWK</strong>：JSON Web Key，用于描述用于加密、解密或签名JWT的公钥和私钥信息。JWK通常包括key type、key id、public key等属性。</li>
+<li><strong>JWA</strong>：JSON Web Algorithm，用于描述JWT所支持的加密、解密和签名算法，例如HMAC、RSA、AES等。</li>
+</ol>
+<p>需要注意的是，这些JWT的种类并不是相互独立的，它们可以结合使用来实现更强大的功能，例如使用JWS和JWE来同时保证消息的完整性、机密性和来源可信度。</p>
+<h2 id="7-JWT在Go中的应用"><a href="#7-JWT在Go中的应用" class="headerlink" title="7.JWT在Go中的应用"></a>7.JWT在Go中的应用</h2><p>Go中实现JWT需要使用第三方库：<a class="link"   target="_blank" rel="noopener" href="https://github.com/golang-jwt/jwt" >jwt-go <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>（官方提供的JWT库，支持生成、解析和验证JWT）,一般你需要go get第三库，然后编写相关代码。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> StandardClaims <span class="keyword">struct</span> &#123;</span><br><span class="line">	Audience  <span class="type">string</span> <span class="string">`json:&quot;aud,omitempty&quot;`</span></span><br><span class="line">	ExpiresAt <span class="type">int64</span>  <span class="string">`json:&quot;exp,omitempty&quot;`</span></span><br><span class="line">	Id        <span class="type">string</span> <span class="string">`json:&quot;jti,omitempty&quot;`</span></span><br><span class="line">	IssuedAt  <span class="type">int64</span>  <span class="string">`json:&quot;iat,omitempty&quot;`</span></span><br><span class="line">	Issuer    <span class="type">string</span> <span class="string">`json:&quot;iss,omitempty&quot;`</span></span><br><span class="line">	NotBefore <span class="type">int64</span>  <span class="string">`json:&quot;nbf,omitempty&quot;`</span></span><br><span class="line">	Subject   <span class="type">string</span> <span class="string">`json:&quot;sub,omitempty&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>这段代码定义了一个名为StandardClaims的结构体类型，它包含了一些常用的声明（claim），这些声明可以被添加到JWT的Payload部分，在身份验证、授权等方面起着重要的作用。具体来说，StandardClaims结构体包括以下字段：</p>
+<ul>
+<li>Audience：表示接收JWT的一方，可以是单个值或多个值的集合。</li>
+<li>ExpiresAt：表示JWT的过期时间，以Unix时间戳为单位。</li>
+<li>Id：表示JWT的唯一标识符，用于避免重放攻击等安全问题。</li>
+<li>IssuedAt：表示JWT的签发时间，以Unix时间戳为单位。</li>
+<li>Issuer：表示JWT的签发者，通常是应用程序的名称或网站的域名。</li>
+<li>NotBefore：表示JWT的生效时间，在此时间之前，JWT无法使用，以Unix时间戳为单位。</li>
+<li>Subject：表示JWT所代表的主题，例如用户ID、用户名等。</li>
+</ul>
+<p>这些声明都是可选的，开发人员可以根据需要自由选择使用哪些声明，并将它们填充到StandardClaims结构体中，然后再将该结构体传递给JWT库生成JWT。</p>
+<p>jwt.go</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mySignKey = []<span class="type">byte</span>(<span class="string">&quot;自己填&quot;</span>)  <span class="comment">//secretKey</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Claims <span class="keyword">struct</span> &#123;</span><br><span class="line">	UserId <span class="type">int64</span></span><br><span class="line">	jwt.StandardClaims</span><br><span class="line">&#125;  <span class="comment">//Payload</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// GenToken 获取 token</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这段代码使用了自定义的Claims结构体来生成JWT。其中，GenToken函数接收一个User类型的参数，并根据该用户信息生成JWT。具体来说，这段代码执行以下步骤：</span></span><br><span class="line"><span class="comment">定义一个过期时间expirationTime，这里设置为7天后。</span></span><br><span class="line"><span class="comment">创建一个Claims结构体对象claims，该结构体包括了UserId和StandardClaims两个字段，前者表示用户ID，后者表示标准声明（包括过期时间、签发时间、签发者等）。</span></span><br><span class="line"><span class="comment">使用jwt.NewWithClaims函数创建一个新的JWT对象token，并指定签名算法（这里使用HS256）以及要添加的声明结构体claims。</span></span><br><span class="line"><span class="comment">调用token.SignedString(mySignKey)函数对JWT进行签名，并将签名后的字符串返回。</span></span><br><span class="line"><span class="comment">需要注意的是，该代码中使用了一个自定义的密钥mySignKey来签名JWT，这个密钥应该保密地存储在服务器端，并且不应该泄露给任何人。同时，由于本代码没有对签名密钥进行加密或哈希处理，因此需要谨慎保管，以避免被恶意攻击者获取。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GenToken</span><span class="params">(user repository.User)</span></span> (<span class="type">string</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	expirationTime := time.Now().Add(<span class="number">7</span> * <span class="number">24</span> * time.Hour)</span><br><span class="line">	claims := &amp;Claims&#123;</span><br><span class="line">		UserId: user.ID,</span><br><span class="line">		StandardClaims: jwt.StandardClaims&#123;</span><br><span class="line">			ExpiresAt: expirationTime.Unix(),</span><br><span class="line">			IssuedAt:  time.Now().Unix(),</span><br><span class="line">			Issuer:    <span class="string">&quot;douyin_pro_bjxf&quot;</span>,</span><br><span class="line">			Subject:   <span class="string">&quot;user token&quot;</span>,</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)</span><br><span class="line">	tokenstring, err := token.SignedString(mySignKey)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;&quot;</span>, err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> tokenstring, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// ParseToken 解析 token</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这段代码用于解析JWT并验证其合法性，具体来说它执行以下操作：</span></span><br><span class="line"><span class="comment">调用jwt.ParseWithClaims函数解析传入的tokenString，并使用mySignKey作为签名密钥进行验证。如果验证通过，则返回一个Token对象。</span></span><br><span class="line"><span class="comment">如果Token对象不为空，则说明该JWT已经成功解析和验证，此时再将其中的声明结构体claims转换为我们定义的自定义Claims类型（当然前提是Token中的声明确实是我们定义的Claims类型），并判断是否有效（这里使用了Valid字段）。</span></span><br><span class="line"><span class="comment">如果有效则返回解析后的Claims对象和true，否则返回nil和false。</span></span><br><span class="line"><span class="comment">需要注意的是，由于JWT可以被篡改或伪造，因此在解析和验证JWT时应该非常谨慎。在实际使用中，可以根据业务需求对JWT的各个部分（Header、Payload、Signature）进行详细的检查，以确保JWT的真实性和完整性。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ParseToken</span><span class="params">(tokenString <span class="type">string</span>)</span></span> (*Claims, <span class="type">bool</span>) &#123;</span><br><span class="line">	token, _ := jwt.ParseWithClaims(tokenString, &amp;Claims&#123;&#125;, <span class="function"><span class="keyword">func</span><span class="params">(token *jwt.Token)</span></span> (<span class="keyword">interface</span>&#123;&#125;, <span class="type">error</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> mySignKey, <span class="literal">nil</span></span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="keyword">if</span> token != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> key, ok := token.Claims.(*Claims); ok &#123;</span><br><span class="line">			<span class="keyword">if</span> token.Valid &#123;</span><br><span class="line">				<span class="keyword">return</span> key, <span class="literal">true</span></span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">return</span> key, <span class="literal">false</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span>, <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>JWTMiddleWare</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// JWTMiddleWare 鉴权中间件，鉴权并设置user_id</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">JWTMiddleWare</span><span class="params">()</span></span> gin.HandlerFunc &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		tokenStr := c.Query(<span class="string">&quot;token&quot;</span>)</span><br><span class="line">		<span class="keyword">if</span> tokenStr == <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">			tokenStr = c.PostForm(<span class="string">&quot;token&quot;</span>)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//用户不存在</span></span><br><span class="line">		<span class="keyword">if</span> tokenStr == <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">			c.JSON(http.StatusOK, gin.H&#123;<span class="string">&quot;status_code&quot;</span>: <span class="number">2</span>, <span class="string">&quot;status_msg&quot;</span>: <span class="string">&quot;用户不存在&quot;</span>&#125;)</span><br><span class="line">			c.Abort() <span class="comment">//阻止执行</span></span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//验证token</span></span><br><span class="line">		tokenStruck, ok := utils.ParseToken(tokenStr)</span><br><span class="line">		<span class="keyword">if</span> !ok &#123;</span><br><span class="line">			c.JSON(http.StatusOK, gin.H&#123;</span><br><span class="line">				<span class="string">&quot;status_code&quot;</span>: <span class="number">5</span>,</span><br><span class="line">				<span class="string">&quot;status_msg&quot;</span>:  <span class="string">&quot;token不正确&quot;</span>,</span><br><span class="line">			&#125;)</span><br><span class="line">			c.Abort() <span class="comment">//阻止执行</span></span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//token超时</span></span><br><span class="line">		<span class="keyword">if</span> time.Now().Unix() &gt; tokenStruck.ExpiresAt &#123;</span><br><span class="line">			c.JSON(http.StatusOK, gin.H&#123;</span><br><span class="line">				<span class="string">&quot;status_code&quot;</span>: <span class="number">5</span>,</span><br><span class="line">				<span class="string">&quot;status_msg&quot;</span>:  <span class="string">&quot;token过期&quot;</span>,</span><br><span class="line">			&#125;)</span><br><span class="line">			c.Abort() <span class="comment">//阻止执行</span></span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line">		c.Set(<span class="string">&quot;user_id&quot;</span>, tokenStruck.UserId)</span><br><span class="line">		c.Next()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> JWT详解</li>
+        <li><strong>作者:</strong> Olivia的小跟班</li>
+        <li><strong>创建于
+                :</strong> 2023-03-29 20:22:29</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2023-05-27 03:47:42
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://www.youandgentleness.cn/2023/03/29/JWT详解/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/JWT/">#JWT</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2023/03/30/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">雪花算法</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2023/03/25/GO%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">GO设计模式</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '782748daccf6cb467d2c',
+                    clientSecret: '2a18a038c753ac1ae59de258d979feb2e04ee274',
+                    repo: 'gitalk',
+                    owner: 'zhouxing9454',
+                    admin: ['zhouxing9454'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">JWT详解</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Session"><span class="nav-text">1.Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Token"><span class="nav-text">2.Token</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BB%80%E4%B9%88%E6%98%AFJWT"><span class="nav-text">3.什么是JWT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8JWT"><span class="nav-text">4.为什么要使用JWT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1%E4%BC%A0%E7%BB%9FSession%E7%9A%84%E5%BC%8A%E7%AB%AF"><span class="nav-text">4.1传统Session的弊端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-JWT%E7%BB%93%E6%9E%84"><span class="nav-text">5.JWT结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Header"><span class="nav-text">1.Header</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Payload"><span class="nav-text">2.Payload</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Signature"><span class="nav-text">3.Signature</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-JWT%E7%A7%8D%E7%B1%BB"><span class="nav-text">6.JWT种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-JWT%E5%9C%A8Go%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-text">7.JWT在Go中的应用</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin"></i>&nbsp;&nbsp;<a href="/">Olivia的小跟班</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共 27 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.1</a></span>
+        </div>
+        
+            <div class="icp-info my-1"><a target="_blank" rel="nofollow" href="
+                
+                    https://beian.miit.gov.cn/
+                
+                ">浙ICP备2022034029号</a></div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+    <div id="aplayer"></div>
+
+<script src="/js/libs/APlayer.min.js"></script>
+
+
+<script src="/js/plugins/aplayer.js"></script>
+
+
+</body>
+</html>
+
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/love.js"></script>
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/FunnyTitle.js"></script>

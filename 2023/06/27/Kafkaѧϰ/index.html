@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Olivia的小跟班">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+            <link rel="preconnect" href="https://cdn.staticfile.org" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://www.youandgentleness.cn/2023/06/27/kafkaѧϰ/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="题记本文记录对Kafka的入门学习。 Kafka介绍Kafka是什么12345678kafka使用scala开发，支持多语言客户端（c++、java、python、go等）Kafka最先由LinkedIn公司开发，之后成为Apache的顶级项目。Kafka是一个分布式的、分区化、可复制提交的日志服务LinkedIn使用Kafka实现了公司不同应用程序之间的松耦和，那么作为一个可扩展、高可靠的消息系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kafka学习">
+<meta property="og:url" content="https://www.youandgentleness.cn/2023/06/27/Kafka%D1%A7%CF%B0/index.html">
+<meta property="og:site_name" content="Olivia的小跟班">
+<meta property="og:description" content="题记本文记录对Kafka的入门学习。 Kafka介绍Kafka是什么12345678kafka使用scala开发，支持多语言客户端（c++、java、python、go等）Kafka最先由LinkedIn公司开发，之后成为Apache的顶级项目。Kafka是一个分布式的、分区化、可复制提交的日志服务LinkedIn使用Kafka实现了公司不同应用程序之间的松耦和，那么作为一个可扩展、高可靠的消息系">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307021655205.jpeg">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307021655144.jpeg">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307021655126.jpeg">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307021655135.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307020307539.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307020333342.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307020334729.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307020310602.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307020334069.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307020335297.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307020336481.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307020337036.png">
+<meta property="article:published_time" content="2023-06-27T06:29:17.000Z">
+<meta property="article:modified_time" content="2023-07-19T05:52:38.000Z">
+<meta property="article:author" content="Olivia的小跟班">
+<meta property="article:tag" content="Kafka">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307021655205.jpeg">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <meta name="theme-color" content="#1890ff">
+    <link rel="shortcut icon" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Kafka学习 -
+        
+        Olivia的小跟班
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+
+    
+        <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    
+<script src="/js/libs/anime.min.js"></script>
+
+    <h1 class="ml13">
+        Olivia的小跟班
+    </h1>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+
+        anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [100,0],
+                translateZ: 0,
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: '.ml13 .letter',
+            translateY: [0,-100],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+        });
+
+        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
+        hidePreloaderAfterTimeout(5000);
+
+        function hidePreloaderAfterTimeout(delay) {
+            setTimeout(function () {
+                var preloader = document.querySelector('.preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 200);
+            }, delay);
+        }
+    </script>
+</div>
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"www.youandgentleness.cn","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":null,"skip_dirs":[]}},"colors":{"primary":"#1890ff","secondary":"#1890ff","default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/light.jpg","dark":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/darkness.jpg"},"title":"Talk is cheap,Show me the code.","subtitle":{"text":["他们以为击败我就是终结，而我必归来将之改写。"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#D27D2D","dark":"#191970"},"text_style":{"title_size":"2.1rem","subtitle_size":"1.2rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"email":"zhouxing9454@gmail.com","weixin":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/wechat.jpg","github":"https://github.com/zhouxing9454","qq":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/QQ.jpg","bilibili":"https://space.bilibili.com/475346328"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"最后的旅行","artist":"Rainton桐","url":"http://music.163.com/song/media/outer/url?id=30512539.mp3","cover":"https://p1.music.126.net/XWUdXb46hIdIecRihPCV_A==/109951168667887853.jpg"},{"name":"陪我长大","artist":"段奥娟","url":"http://music.163.com/song/media/outer/url?id=1299550093.mp3","cover":"http://p2.music.126.net/YxUbVoHngGMY8gZMjbEJkg==/109951163446151536.jpg"}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.1","navbar":{"auto_hide":false,"color":{"left":"#FAF9F6","right":"#FAF9F6","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"Friends":{"icon":"fa-solid fa-link","path":"/links/"},"Essays":{"icon":"fa-solid fa-paper-plane","path":"/essays/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","typography":{"line_height":1.6}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/7/4 9:30:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Olivia的小跟班
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/links/"
+                                        >
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/essays/"
+                                        >
+                                    <i class="fa-solid fa-paper-plane fa-fw"></i>
+                                    ESSAYS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/links/"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-solid fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/essays/"
+                        >
+                            <span>
+                                ESSAYS
+                            </span>
+                            
+                                <i class="fa-solid fa-paper-plane fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">Kafka学习</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/avatar.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Olivia的小跟班</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-06-27 14:29:17</span>
+        <span class="mobile">2023-06-27 14:29:17</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-07-19 13:52:38</span>
+            <span class="mobile">2023-07-19 13:52:38</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Kafka/">Kafka</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Kafka/">Kafka</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h1><p>本文记录对Kafka的入门学习。</p>
+<h2 id="Kafka介绍"><a href="#Kafka介绍" class="headerlink" title="Kafka介绍"></a>Kafka介绍</h2><h3 id="Kafka是什么"><a href="#Kafka是什么" class="headerlink" title="Kafka是什么"></a>Kafka是什么</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">kafka使用scala开发，支持多语言客户端（c++、java、python、go等）</span><br><span class="line">Kafka最先由LinkedIn公司开发，之后成为Apache的顶级项目。</span><br><span class="line">Kafka是一个分布式的、分区化、可复制提交的日志服务</span><br><span class="line">LinkedIn使用Kafka实现了公司不同应用程序之间的松耦和，那么作为一个可扩展、高可靠的消息系统</span><br><span class="line">支持高Throughput的应用</span><br><span class="line">scale out：无需停机即可扩展机器</span><br><span class="line">持久化：通过将数据持久化到硬盘以及replication防止数据丢失</span><br><span class="line">支持online和offline的场景</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Kafka的特点"><a href="#Kafka的特点" class="headerlink" title="Kafka的特点"></a>Kafka的特点</h3><p>Kafka是分布式的，其所有的构件borker(服务端集群)、producer(消息生产)、consumer(消息消费者)都可以是分布式的。</p>
+<p>在消息的生产时可以使用一个标识topic来区分，且可以进行分区；每一个分区都是一个顺序的、不可变的消息队列， 并且可以持续的添加。</p>
+<p>同时为发布和订阅提供高吞吐量。据了解，Kafka每秒可以生产约25万消息（50 MB），每秒处理55万消息（110 MB）。</p>
+<p>消息被处理的状态是在consumer端维护，而不是由server端维护。当失败时能自动平衡</p>
+<h3 id="常用的场景"><a href="#常用的场景" class="headerlink" title="常用的场景"></a>常用的场景</h3><p>监控：主机通过Kafka发送与系统和应用程序健康相关的指标，然后这些信息会被收集和处理从而创建监控仪表盘并发送警告。</p>
+<p>消息队列： 应用程度使用Kafka作为传统的消息系统实现标准的队列和消息的发布—订阅，例如搜索和内容提要（Content Feed）。比起大多数的消息系统来说，Kafka有更好的吞吐量，内置的分区，冗余及容错性，这让Kafka成为了一个很好的大规模消息处理应用的解决方案。消息系统 一般吞吐量相对较低，但是需要更小的端到端延时，并尝尝依赖于Kafka提供的强大的持久性保障。在这个领域，Kafka足以媲美传统消息系统，如ActiveMR或RabbitMQ</p>
+<p>站点的用户活动追踪: 为了更好地理解用户行为，改善用户体验，将用户查看了哪个页面、点击了哪些内容等信息发送到每个数据中心的Kafka集群上，并通过Hadoop进行分析、生成日常报告。</p>
+<p>流处理：保存收集流数据，以提供之后对接的Storm或其他流式计算框架进行处理。很多用户会将那些从原始topic来的数据进行 阶段性处理，汇总，扩充或者以其他的方式转换到新的topic下再继续后面的处理。例如一个文章推荐的处理流程，可能是先从RSS数据源中抓取文章的内 容，然后将其丢入一个叫做“文章”的topic中；后续操作可能是需要对这个内容进行清理，比如回复正常数据或者删除重复数据，最后再将内容匹配的结果返 还给用户。这就在一个独立的topic之外，产生了一系列的实时数据处理的流程。</p>
+<p>日志聚合:使用Kafka代替日志聚合（log aggregation）。日志聚合一般来说是从服务器上收集日志文件，然后放到一个集中的位置（文件服务器或HDFS）进行处理。然而Kafka忽略掉 文件的细节，将其更清晰地抽象成一个个日志或事件的消息流。这就让Kafka处理过程延迟更低，更容易支持多数据源和分布式数据处理。比起以日志为中心的 系统比如Scribe或者Flume来说，Kafka提供同样高效的性能和因为复制导致的更高的耐用性保证，以及更低的端到端延迟</p>
+<p>持久性日志：Kafka可以为一种外部的持久性日志的分布式系统提供服务。这种日志可以在节点间备份数据，并为故障节点数据回复提供一种重新同步的机制。Kafka中日志压缩功能为这种用法提供了条件。在这种用法中，Kafka类似于Apache BookKeeper项目。</p>
+<h3 id="Kafka中包含以下基础概念"><a href="#Kafka中包含以下基础概念" class="headerlink" title="Kafka中包含以下基础概念"></a>Kafka中包含以下基础概念</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.Topic(话题)：Kafka中用于区分不同类别信息的类别名称。由producer指定</span><br><span class="line">2.Producer(生产者)：将消息发布到Kafka特定的Topic的对象(过程)</span><br><span class="line">3.Consumers(消费者)：订阅并处理特定的Topic中的消息的对象(过程)</span><br><span class="line">4.Broker(Kafka服务集群)：已发布的消息保存在一组服务器中，称之为Kafka集群。集群中的每一个服务器都是一个代理(Broker). 消费者可以订阅一个或多个话题，并从Broker拉数据，从而消费这些已发布的消息。</span><br><span class="line">5.Partition(分区)：Topic物理上的分组，一个topic可以分为多个partition，每个partition是一个有序的队列。partition中的每条消息都会被分配一个有序的id（offset）</span><br><span class="line">Message：消息，是通信的基本单位，每个producer可以向一个topic（主题）发布一些消息。</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="消息"><a href="#消息" class="headerlink" title="消息"></a>消息</h3><p>消息由一个固定大小的报头和可变长度但不透明的字节阵列负载。报头包含格式版本和CRC32效验和以检测损坏或截断</p>
+<h3 id="消息格式"><a href="#消息格式" class="headerlink" title="消息格式"></a>消息格式</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">1. 4 byte CRC32 of the message</span><br><span class="line">2. 1 byte &quot;magic&quot; identifier to allow format changes, value is 0 or 1</span><br><span class="line">3. 1 byte &quot;attributes&quot; identifier to allow annotations on the message independent of the version</span><br><span class="line">   bit 0 ~ 2 : Compression codec</span><br><span class="line">       0 : no compression</span><br><span class="line">       1 : gzip</span><br><span class="line">       2 : snappy</span><br><span class="line">       3 : lz4</span><br><span class="line">   bit 3 : Timestamp type</span><br><span class="line">       0 : create time</span><br><span class="line">       1 : log append time</span><br><span class="line">   bit 4 ~ 7 : reserved</span><br><span class="line">4. (可选) 8 byte timestamp only if &quot;magic&quot; identifier is greater than 0</span><br><span class="line">5. 4 byte key length, containing length K</span><br><span class="line">6. K byte key</span><br><span class="line">7. 4 byte payload length, containing length V</span><br><span class="line">8. V byte payload</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+
+
+<h2 id="Kafka深层介绍"><a href="#Kafka深层介绍" class="headerlink" title="Kafka深层介绍"></a>Kafka深层介绍</h2><h3 id="架构介绍"><a href="#架构介绍" class="headerlink" title="架构介绍"></a>架构介绍</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307021655205.jpeg"
+                      alt="架构介绍"
+                ></p>
+<ul>
+<li>Producer：Producer即生产者，消息的产生者，是消息的⼊口。</li>
+<li>kafka cluster：kafka集群，一台或多台服务器组成<ul>
+<li>Broker：Broker是指部署了Kafka实例的服务器节点。每个服务器上有一个或多个kafka的实 例，我们姑且认为每个broker对应一台服务器。每个kafka集群内的broker都有一个不重复的 编号，如图中的broker-0、broker-1等……</li>
+<li>Topic：消息的主题，可以理解为消息的分类，kafka的数据就保存在topic。在每个broker上 都可以创建多个topic。实际应用中通常是一个业务线建一个topic。</li>
+<li>Partition：Topic的分区，每个topic可以有多个分区，分区的作用是做负载，提高kafka的吞 吐量。同一个topic在不同的分区的数据是不重复的，partition的表现形式就是一个一个的⽂件夹！</li>
+<li>Replication:每一个分区都有多个副本，副本的作用是做备胎。当主分区（Leader）故障的 时候会选择一个备胎（Follower）上位，成为Leader。在kafka中默认副本的最大数量是10 个，且副本的数量不能大于Broker的数量，follower和leader绝对是在不同的机器，同一机 器对同一个分区也只可能存放一个副本（包括自己）。</li>
+</ul>
+</li>
+<li>Consumer：消费者，即消息的消费方，是消息的出口。<ul>
+<li>Consumer Group：我们可以将多个消费组组成一个消费者组，在kafka的设计中同一个分 区的数据只能被消费者组中的某一个消费者消费。同一个消费者组的消费者可以消费同一个 topic的不同分区的数据，这也是为了提高kafka的吞吐量！</li>
+</ul>
+</li>
+</ul>
+<h3 id="⼯作流程"><a href="#⼯作流程" class="headerlink" title="⼯作流程"></a>⼯作流程</h3><p>我们看上⾯的架构图中，producer就是生产者，是数据的入口。Producer在写入数据的时候会把数据 写入到leader中，不会直接将数据写入follower！那leader怎么找呢？写入的流程又是什么样的呢？我 们看下图：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307021655144.jpeg"
+                      alt="⼯作流程"
+                ></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.⽣产者从Kafka集群获取分区leader信息</span><br><span class="line">2.⽣产者将消息发送给leader</span><br><span class="line">3.leader将消息写入本地磁盘</span><br><span class="line">4.follower从leader拉取消息数据</span><br><span class="line">5.follower将消息写入本地磁盘后向leader发送ACK</span><br><span class="line">6.leader收到所有的follower的ACK之后向生产者发送ACK</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="选择partition的原则"><a href="#选择partition的原则" class="headerlink" title="选择partition的原则"></a>选择partition的原则</h3><p>那在kafka中，如果某个topic有多个partition，producer⼜怎么知道该将数据发往哪个partition呢？ kafka中有几个原则：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.partition在写入的时候可以指定需要写入的partition，如果有指定，则写入对应的partition。</span><br><span class="line">2.如果没有指定partition，但是设置了数据的key，则会根据key的值hash出一个partition。</span><br><span class="line">3.如果既没指定partition，又没有设置key，则会采用轮询⽅式，即每次取一小段时间的数据写入某</span><br><span class="line">个partition，下一小段的时间写入下一个partition</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="ACK应答机制"><a href="#ACK应答机制" class="headerlink" title="ACK应答机制"></a>ACK应答机制</h3><p>producer在向kafka写入消息的时候，可以设置参数来确定是否确认kafka接收到数据，这个参数可设置 的值为 0,1,all</p>
+<ul>
+<li>0代表producer往集群发送数据不需要等到集群的返回，不确保消息发送成功。安全性最低但是效 率最高。</li>
+<li>1代表producer往集群发送数据只要leader应答就可以发送下一条，只确保leader发送成功。</li>
+<li>all代表producer往集群发送数据需要所有的follower都完成从leader的同步才会发送下一条，确保 leader发送成功和所有的副本都完成备份。安全性最⾼高，但是效率最低。</li>
+</ul>
+<p>最后要注意的是，如果往不存在的topic写数据，kafka会⾃动创建topic，partition和replication的数量 默认配置都是1。</p>
+<h3 id="Topic和数据⽇志"><a href="#Topic和数据⽇志" class="headerlink" title="Topic和数据⽇志"></a>Topic和数据⽇志</h3><p>topic 是同⼀类别的消息记录（record）的集合。在Kafka中，⼀个主题通常有多个订阅者。对于每个 主题，Kafka集群维护了⼀个分区数据⽇志⽂件结构如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307021655126.jpeg"
+                      alt="Topic和数据⽇志"
+                ></p>
+<p>每个partition都是⼀个有序并且不可变的消息记录集合。当新的数据写⼊时，就被追加到partition的末 尾。在每个partition中，每条消息都会被分配⼀个顺序的唯⼀标识，这个标识被称为offset，即偏移 量。注意，Kafka只保证在同⼀个partition内部消息是有序的，在不同partition之间，并不能保证消息 有序。</p>
+<p>Kafka可以配置⼀个保留期限，⽤来标识⽇志会在Kafka集群内保留多⻓时间。Kafka集群会保留在保留 期限内所有被发布的消息，不管这些消息是否被消费过。⽐如保留期限设置为两天，那么数据被发布到 Kafka集群的两天以内，所有的这些数据都可以被消费。当超过两天，这些数据将会被清空，以便为后 续的数据腾出空间。由于Kafka会将数据进⾏持久化存储（即写⼊到硬盘上），所以保留的数据⼤⼩可 以设置为⼀个⽐较⼤的值。</p>
+<h3 id="Partition结构"><a href="#Partition结构" class="headerlink" title="Partition结构"></a>Partition结构</h3><p>Partition在服务器上的表现形式就是⼀个⼀个的⽂件夹，每个partition的⽂件夹下⾯会有多组segment ⽂件，每组segment⽂件⼜包含 .index ⽂件、 .log ⽂件、 .timeindex ⽂件三个⽂件，其中 .log ⽂ 件就是实际存储message的地⽅，⽽ .index 和 .timeindex ⽂件为索引⽂件，⽤于检索消息。</p>
+<h3 id="消费数据"><a href="#消费数据" class="headerlink" title="消费数据"></a>消费数据</h3><p>多个消费者实例可以组成⼀个消费者组，并⽤⼀个标签来标识这个消费者组。⼀个消费者组中的不同消 费者实例可以运⾏在不同的进程甚⾄不同的服务器上。</p>
+<p>如果所有的消费者实例都在同⼀个消费者组中，那么消息记录会被很好的均衡的发送到每个消费者实 例。</p>
+<p>如果所有的消费者实例都在不同的消费者组，那么每⼀条消息记录会被⼴播到每⼀个消费者实例。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307021655135.png"
+                      alt="消费数据"
+                ></p>
+<p>举个例⼦，如上图所示⼀个两个节点的Kafka集群上拥有⼀个四个partition（P0-P3）的topic。有两个 消费者组都在消费这个topic中的数据，消费者组A有两个消费者实例，消费者组B有四个消费者实例。 从图中我们可以看到，在同⼀个消费者组中，每个消费者实例可以消费多个分区，但是每个分区最多只 能被消费者组中的⼀个实例消费。也就是说，如果有⼀个4个分区的主题，那么消费者组中最多只能有4 个消费者实例去消费，多出来的都不会被分配到分区。其实这也很好理解，如果允许两个消费者实例同 时消费同⼀个分区，那么就⽆法记录这个分区被这个消费者组消费的offset了。如果在消费者组中动态 的上线或下线消费者，那么Kafka集群会⾃动调整分区与消费者实例间的对应关系。</p>
+<h2 id="Kafka安装"><a href="#Kafka安装" class="headerlink" title="Kafka安装"></a>Kafka安装</h2><p>我个人喜欢直接将Kafka安装到docker上，所以我这里的安装教程也是docker下的Kafka安装。</p>
+<p>第一步：使用下述命令从Docker Hub查找镜像，此处我们要选择的是zookeeper官网的镜像</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search zookeeper</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307020307539.png"
+                      alt="image-20230702030711415"
+                ></p>
+<p>第二步：拉取zookeeper镜像</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull wurstmeister/zookeeper:latest</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307020333342.png"
+                      alt="image-20230702033317199"
+                ></p>
+<p>第三步：启动zookeeper容器</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name zookeeper -p 2181:2181 -v /etc/localtime:/etc/localtime wurstmeister/zookeeper</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>-v &#x2F;etc&#x2F;localtime:&#x2F;etc&#x2F;localtime  容器时间同步虚拟时间</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307020334729.png"
+                      alt="image-20230702033420689"
+                ></p>
+<p>第四步：拉取Kafka镜像，此处选择的是 <strong>wurstmeister&#x2F;kafka</strong> （这个镜像的受欢迎程度最高）</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull wurstmeister/kafka:latest</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307020310602.png"
+                      alt="image-20230702031048507"
+                ></p>
+<p>第五步：如果是在Windows系统中可以使用下述命令启动kafka容器</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name Kafka --publish 9092:9092 --<span class="built_in">link</span> zookeeper --<span class="built_in">env</span> KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 --<span class="built_in">env</span> KAFKA_ADVERTISED_HOST_NAME=localhost --<span class="built_in">env</span> KAFKA_ADVERTISED_PORT=9092 wurstmeister/kafka</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307020334069.png"
+                      alt="image-20230702033445023"
+                ></p>
+<p>第六步：使用下述命令进入都kafka容器内部，然后进入到 <strong>&#x2F;opt&#x2F;kafka_2.13-2.8.1&#x2F;bin</strong> 目录下</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it 容器<span class="built_in">id</span> bash</span><br><span class="line"><span class="built_in">cd</span> /opt/kafka_2.13-2.8.1/bin</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307020335297.png"
+                      alt="image-20230702033546224"
+                ></p>
+<p>第七步：使用下述命令创建一个单分区单副本的主题 “test123”，并且创建生产者生产消息</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test123</span><br><span class="line">kafka-console-producer.sh --bootstrap-server localhost:9092 --topic test123</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307020336481.png"
+                      alt="image-20230702033657445"
+                ></p>
+<p>接着另起一个连接创建消费者接收消息：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test123 --from-beginning</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307020337036.png"
+                      alt="image-20230702033715986"
+                ></p>
+<h2 id="操作Kafka"><a href="#操作Kafka" class="headerlink" title="操作Kafka"></a>操作Kafka</h2><div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> get github.com/segmentio/kafka-<span class="keyword">go</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="连接kafka发送消息"><a href="#连接kafka发送消息" class="headerlink" title="连接kafka发送消息"></a>连接kafka发送消息</h3><div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;context&quot;</span></span><br><span class="line">	kafka <span class="string">&quot;github.com/segmentio/kafka-go&quot;</span></span><br><span class="line">	<span class="string">&quot;log&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// make a writer that produces to test, using the least-bytes distribution</span></span><br><span class="line">	w := &amp;kafka.Writer&#123;</span><br><span class="line">		Addr:     kafka.TCP(<span class="string">&quot;localhost:9092&quot;</span>),</span><br><span class="line">		Topic:    <span class="string">&quot;test&quot;</span>,</span><br><span class="line">		Balancer: &amp;kafka.LeastBytes&#123;&#125;,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	err := w.WriteMessages(context.Background(),</span><br><span class="line">		kafka.Message&#123;</span><br><span class="line">			Key:   []<span class="type">byte</span>(<span class="string">&quot;Key-A&quot;</span>),</span><br><span class="line">			Value: []<span class="type">byte</span>(<span class="string">&quot;Hello World!&quot;</span>),</span><br><span class="line">		&#125;,</span><br><span class="line">		kafka.Message&#123;</span><br><span class="line">			Key:   []<span class="type">byte</span>(<span class="string">&quot;Key-B&quot;</span>),</span><br><span class="line">			Value: []<span class="type">byte</span>(<span class="string">&quot;One!&quot;</span>),</span><br><span class="line">		&#125;,</span><br><span class="line">		kafka.Message&#123;</span><br><span class="line">			Key:   []<span class="type">byte</span>(<span class="string">&quot;Key-C&quot;</span>),</span><br><span class="line">			Value: []<span class="type">byte</span>(<span class="string">&quot;Two!&quot;</span>),</span><br><span class="line">		&#125;,</span><br><span class="line">	)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(<span class="string">&quot;failed to write messages:&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err := w.Close(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(<span class="string">&quot;failed to close writer:&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="连接kafka消费消息"><a href="#连接kafka消费消息" class="headerlink" title="连接kafka消费消息"></a>连接kafka消费消息</h3><div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;context&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	kafka <span class="string">&quot;github.com/segmentio/kafka-go&quot;</span></span><br><span class="line">	<span class="string">&quot;log&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	r := kafka.NewReader(kafka.ReaderConfig&#123;</span><br><span class="line">		Brokers:  []<span class="type">string</span>&#123;<span class="string">&quot;localhost:9092&quot;</span>&#125;,</span><br><span class="line">		GroupID:  <span class="string">&quot;consumer-group-id&quot;</span>,</span><br><span class="line">		Topic:    <span class="string">&quot;test&quot;</span>,</span><br><span class="line">		MinBytes: <span class="number">10e3</span>, <span class="comment">// 10KB</span></span><br><span class="line">		MaxBytes: <span class="number">10e6</span>, <span class="comment">// 10MB</span></span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		m, err := r.ReadMessage(context.Background())</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;message at topic/partition/offset %v/%v/%v: %s = %s\n&quot;</span>, m.Topic, m.Partition, m.Offset, <span class="type">string</span>(m.Key), <span class="type">string</span>(m.Value))</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err := r.Close(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(<span class="string">&quot;failed to close reader:&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p><strong>输出</strong>：</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">message at topic/partition/offset test/<span class="number">0</span>/<span class="number">6</span>: Key-A = Hello World!</span><br><span class="line">message at topic/partition/offset test/<span class="number">0</span>/<span class="number">7</span>: Key-B = One!</span><br><span class="line">message at topic/partition/offset test/<span class="number">0</span>/<span class="number">8</span>: Key-C = Two!</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+
+
+<h2 id="消息队列面试题"><a href="#消息队列面试题" class="headerlink" title="消息队列面试题"></a>消息队列面试题</h2><h3 id="为什么要使用消息队列？"><a href="#为什么要使用消息队列？" class="headerlink" title="为什么要使用消息队列？"></a>为什么要使用消息队列？</h3><p>总结一下，主要三点原因：<strong>解耦、异步、削峰</strong>。</p>
+<p>1、解耦。比如，用户下单后，订单系统需要通知库存系统，假如库存系统无法访问，则订单减库存将失败，从而导致订单操作失败。订单系统与库存系统耦合，这个时候如果使用消息队列，可以返回给用户成功，先把消息持久化，等库存系统恢复后，就可以正常消费减去库存了。</p>
+<p>2、异步。将消息写入消息队列，非必要的业务逻辑以异步的方式运行，不影响主流程业务。</p>
+<p>3、削峰。消费端慢慢的按照数据库能处理的并发量，从消息队列中慢慢拉取消息。在生产中，这个短暂的高峰期积压是允许的。比如秒杀活动，一般会因为流量过大，从而导致流量暴增，应用挂掉。这个时候加上消息队列，服务器接收到用户的请求后，首先写入消息队列，如果消息队列长度超过最大数量，则直接抛弃用户请求或跳转到错误页面。</p>
+<h3 id="使用了消息队列会有什么缺点"><a href="#使用了消息队列会有什么缺点" class="headerlink" title="使用了消息队列会有什么缺点"></a>使用了消息队列会有什么缺点</h3><ul>
+<li>系统可用性降低。引入消息队列之后，如果消息队列挂了，可能会影响到业务系统的可用性。</li>
+<li>系统复杂性增加。加入了消息队列，要多考虑很多方面的问题，比如：一致性问题、如何保证消息不被重复消费、如何保证消息可靠性传输等。</li>
+</ul>
+<h3 id="如何避免消息重复消费？"><a href="#如何避免消息重复消费？" class="headerlink" title="如何避免消息重复消费？"></a>如何避免消息重复消费？</h3><p>在消息生产时，MQ内部针对每条生产者发送的消息生成一个唯一id，作为去重和幂等的依据（消息投递失败并重传），避免重复的消息进入队列。</p>
+<p>在消息消费时，要求消息体中也要有一全局唯一id作为去重和幂等的依据，避免同一条消息被重复消费。</p>
+<h3 id="多线程异步和MQ的区别"><a href="#多线程异步和MQ的区别" class="headerlink" title="多线程异步和MQ的区别"></a>多线程异步和MQ的区别</h3><ul>
+<li><strong>CPU消耗</strong>。多线程异步可能存在CPU竞争，而MQ不会消耗本机的CPU。</li>
+<li>MQ 方式实现异步是完全<strong>解耦</strong>的，适合于大型互联网项目。</li>
+<li><strong>削峰或者消息堆积能力</strong>。当业务系统处于高并发，MQ可以将消息堆积在Broker实例中，而多线程会创建大量线程，甚至触发拒绝策略。</li>
+<li>使用MQ引入了中间件，增加了项目复杂度和运维难度。</li>
+</ul>
+<p>总的来说，规模比较小的项目可以使用多线程实现异步，大项目建议使用MQ实现异步。</p>
+<h3 id="MQ-中的消息过期失效了怎么办？"><a href="#MQ-中的消息过期失效了怎么办？" class="headerlink" title="MQ 中的消息过期失效了怎么办？"></a>MQ 中的消息过期失效了怎么办？</h3><p>如果使用的是RabbitMQ的话，RabbtiMQ 是可以设置过期时间的（TTL）。如果消息在 Queue 中积压超过一定的时间就会被 RabbitMQ 给清理掉，这个数据就没了。这时的问题就不是数据会大量积压在 MQ 里，而是大量的数据会直接搞丢。这个情况下，就不是说要增加 Consumer 消费积压的消息，因为实际上没啥积压，而是丢了大量的消息。</p>
+<p>我们可以采取一个方案，就是批量重导。就是大量积压的时候，直接将数据写到数据库，然后等过了高峰期以后将这批数据一点一点的查出来，然后重新灌入 MQ 里面去，把丢的数据给补回来。</p>
+<h3 id="大量消息在-MQ-里长时间积压，该如何解决？"><a href="#大量消息在-MQ-里长时间积压，该如何解决？" class="headerlink" title="大量消息在 MQ 里长时间积压，该如何解决？"></a>大量消息在 MQ 里长时间积压，该如何解决？</h3><p>一般这个时候，只能临时紧急扩容了，具体操作步骤和思路如下：</p>
+<ol>
+<li>先修复 consumer 的问题，确保其恢复消费速度，然后将现有 consumer 都停掉；</li>
+<li>新建一个 topic，partition 是原来的 10 倍，临时建立好原先 10 倍的 queue 数量；</li>
+<li>然后写一个临时的分发数据的 consumer 程序，这个程序部署上去消费积压的数据，消费之后不做耗时的处理，直接均匀轮询写入临时建立好的 10 倍数量的 queue；</li>
+<li>接着临时用 10 倍的机器来部署 consumer，每一批 consumer 消费一个临时 queue 的数据。这种做法相当于是临时将 queue 资源和 consumer 资源扩大 10 倍，以正常的 10 倍速度来消费数据；</li>
+<li>等快速消费完积压数据之后，得恢复原先部署的架构，重新用原先的 consumer 机器来消费消息。</li>
+</ol>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> Kafka学习</li>
+        <li><strong>作者:</strong> Olivia的小跟班</li>
+        <li><strong>创建于
+                :</strong> 2023-06-27 14:29:17</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2023-07-19 13:52:38
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://www.youandgentleness.cn/2023/06/27/Kafkaѧϰ/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Kafka/">#Kafka</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2023/07/12/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1%E6%96%87%E6%B1%87%E6%80%BB/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">计算机基础八股文汇总</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2023/06/19/%E6%95%8F%E6%84%9F%E8%AF%8D%E6%A3%80%E6%B5%8B/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">敏感词检测</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '782748daccf6cb467d2c',
+                    clientSecret: '2a18a038c753ac1ae59de258d979feb2e04ee274',
+                    repo: 'gitalk',
+                    owner: 'zhouxing9454',
+                    admin: ['zhouxing9454'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">Kafka学习</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka%E4%BB%8B%E7%BB%8D"><span class="nav-text">Kafka介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">Kafka是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-text">Kafka的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E5%9C%BA%E6%99%AF"><span class="nav-text">常用的场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E4%B8%AD%E5%8C%85%E5%90%AB%E4%BB%A5%E4%B8%8B%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-text">Kafka中包含以下基础概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF"><span class="nav-text">消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E6%A0%BC%E5%BC%8F"><span class="nav-text">消息格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka%E6%B7%B1%E5%B1%82%E4%BB%8B%E7%BB%8D"><span class="nav-text">Kafka深层介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D"><span class="nav-text">架构介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%BC%AF%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-text">⼯作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9partition%E7%9A%84%E5%8E%9F%E5%88%99"><span class="nav-text">选择partition的原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ACK%E5%BA%94%E7%AD%94%E6%9C%BA%E5%88%B6"><span class="nav-text">ACK应答机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Topic%E5%92%8C%E6%95%B0%E6%8D%AE%E2%BD%87%E5%BF%97"><span class="nav-text">Topic和数据⽇志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Partition%E7%BB%93%E6%9E%84"><span class="nav-text">Partition结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE"><span class="nav-text">消费数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka%E5%AE%89%E8%A3%85"><span class="nav-text">Kafka安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9CKafka"><span class="nav-text">操作Kafka</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5kafka%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF"><span class="nav-text">连接kafka发送消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5kafka%E6%B6%88%E8%B4%B9%E6%B6%88%E6%81%AF"><span class="nav-text">连接kafka消费消息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-text">消息队列面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%9F"><span class="nav-text">为什么要使用消息队列？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%BA%86%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E4%BC%9A%E6%9C%89%E4%BB%80%E4%B9%88%E7%BC%BA%E7%82%B9"><span class="nav-text">使用了消息队列会有什么缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%B6%88%E6%81%AF%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9%EF%BC%9F"><span class="nav-text">如何避免消息重复消费？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%BC%82%E6%AD%A5%E5%92%8CMQ%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">多线程异步和MQ的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MQ-%E4%B8%AD%E7%9A%84%E6%B6%88%E6%81%AF%E8%BF%87%E6%9C%9F%E5%A4%B1%E6%95%88%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="nav-text">MQ 中的消息过期失效了怎么办？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E9%87%8F%E6%B6%88%E6%81%AF%E5%9C%A8-MQ-%E9%87%8C%E9%95%BF%E6%97%B6%E9%97%B4%E7%A7%AF%E5%8E%8B%EF%BC%8C%E8%AF%A5%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%EF%BC%9F"><span class="nav-text">大量消息在 MQ 里长时间积压，该如何解决？</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin"></i>&nbsp;&nbsp;<a href="/">Olivia的小跟班</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共 27 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.1</a></span>
+        </div>
+        
+            <div class="icp-info my-1"><a target="_blank" rel="nofollow" href="
+                
+                    https://beian.miit.gov.cn/
+                
+                ">浙ICP备2022034029号</a></div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+    <div id="aplayer"></div>
+
+<script src="/js/libs/APlayer.min.js"></script>
+
+
+<script src="/js/plugins/aplayer.js"></script>
+
+
+</body>
+</html>
+
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/love.js"></script>
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/FunnyTitle.js"></script>

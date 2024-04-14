@@ -1,0 +1,2767 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Olivia的小跟班">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+            <link rel="preconnect" href="https://cdn.staticfile.org" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://www.youandgentleness.cn/2023/04/29/docker你好/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="题记本文用于记录docker的相关学习。 Docker是什么Docker网址：docker   docker对进程进行封装隔离，属于操作系统层面的虚拟化技术 由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器 docker 应用场景  自动化测试和持续集成、发布 Web 应用的自动化打包和发布 后台应用易部署  docker 的优势  快速， 一致的交付应用程序 可移植，可扩展 轻巧，快">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker你好">
+<meta property="og:url" content="https://www.youandgentleness.cn/2023/04/29/Docker%E4%BD%A0%E5%A5%BD/index.html">
+<meta property="og:site_name" content="Olivia的小跟班">
+<meta property="og:description" content="题记本文用于记录docker的相关学习。 Docker是什么Docker网址：docker   docker对进程进行封装隔离，属于操作系统层面的虚拟化技术 由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器 docker 应用场景  自动化测试和持续集成、发布 Web 应用的自动化打包和发布 后台应用易部署  docker 的优势  快速， 一致的交付应用程序 可移植，可扩展 轻巧，快">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201439513.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201440381.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201440303.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201444564.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201447318.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201448108.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201448440.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201452270.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201453455.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201455862.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201458726.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201501634.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201503876.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201509652.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201510203.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201512010.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201512029.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201514371.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201553071.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201555571.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201558798.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201600742.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201609669.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201610691.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201610187.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201611420.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201613154.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201614184.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201533487.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201535916.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201536856.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201538669.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201539848.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201540442.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201543640.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201544702.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201617791.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201617784.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201618212.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201620486.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201643108.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201645715.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201648286.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201651426.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201651662.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201656217.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201656848.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201658945.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201702070.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201708363.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201708655.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201709447.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201711820.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201711124.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201711956.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201714243.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201737686.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201717126.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201739859.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201738200.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201757804.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201758541.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201800034.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201804371.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261450981.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261452873.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261453956.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261502904.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261502286.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261507008.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261508232.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261510973.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261513836.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261516357.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261533516.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261533615.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261534507.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261535718.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261536184.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261539283.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261543815.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261544805.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261548566.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261553031.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261556962.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261554069.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261500478.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261558348.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261559017.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261608992.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261608237.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261608322.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261609268.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261610824.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261610228.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261611331.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261612689.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261620657.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261622920.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261647788.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261648754.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261652417.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261658389.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261700334.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261700453.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305281506067.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291217601.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291218378.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291219754.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291220115.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291221928.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291222317.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291223624.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291225912.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291229181.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291229451.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291230181.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291230967.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291230958.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291230518.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291239568.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291238413.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291240846.png">
+<meta property="article:published_time" content="2023-04-29T07:15:18.000Z">
+<meta property="article:modified_time" content="2023-06-24T12:37:28.000Z">
+<meta property="article:author" content="Olivia的小跟班">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201439513.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <meta name="theme-color" content="#1890ff">
+    <link rel="shortcut icon" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Docker你好 -
+        
+        Olivia的小跟班
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+
+    
+        <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    
+<script src="/js/libs/anime.min.js"></script>
+
+    <h1 class="ml13">
+        Olivia的小跟班
+    </h1>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+
+        anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [100,0],
+                translateZ: 0,
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: '.ml13 .letter',
+            translateY: [0,-100],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+        });
+
+        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
+        hidePreloaderAfterTimeout(5000);
+
+        function hidePreloaderAfterTimeout(delay) {
+            setTimeout(function () {
+                var preloader = document.querySelector('.preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 200);
+            }, delay);
+        }
+    </script>
+</div>
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"www.youandgentleness.cn","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":null,"skip_dirs":[]}},"colors":{"primary":"#1890ff","secondary":"#1890ff","default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/light.jpg","dark":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/darkness.jpg"},"title":"Talk is cheap,Show me the code.","subtitle":{"text":["他们以为击败我就是终结，而我必归来将之改写。"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#D27D2D","dark":"#191970"},"text_style":{"title_size":"2.1rem","subtitle_size":"1.2rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"email":"zhouxing9454@gmail.com","weixin":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/wechat.jpg","github":"https://github.com/zhouxing9454","qq":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/QQ.jpg","bilibili":"https://space.bilibili.com/475346328"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"最后的旅行","artist":"Rainton桐","url":"http://music.163.com/song/media/outer/url?id=30512539.mp3","cover":"https://p1.music.126.net/XWUdXb46hIdIecRihPCV_A==/109951168667887853.jpg"},{"name":"陪我长大","artist":"段奥娟","url":"http://music.163.com/song/media/outer/url?id=1299550093.mp3","cover":"http://p2.music.126.net/YxUbVoHngGMY8gZMjbEJkg==/109951163446151536.jpg"}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.1","navbar":{"auto_hide":false,"color":{"left":"#FAF9F6","right":"#FAF9F6","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"Friends":{"icon":"fa-solid fa-link","path":"/links/"},"Essays":{"icon":"fa-solid fa-paper-plane","path":"/essays/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","typography":{"line_height":1.6}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/7/4 9:30:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Olivia的小跟班
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/links/"
+                                        >
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/essays/"
+                                        >
+                                    <i class="fa-solid fa-paper-plane fa-fw"></i>
+                                    ESSAYS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/links/"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-solid fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/essays/"
+                        >
+                            <span>
+                                ESSAYS
+                            </span>
+                            
+                                <i class="fa-solid fa-paper-plane fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">Docker你好</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/avatar.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Olivia的小跟班</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-04-29 15:15:18</span>
+        <span class="mobile">2023-04-29 15:15:18</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-06-24 20:37:28</span>
+            <span class="mobile">2023-06-24 20:37:28</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Docker/">Docker</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Docker/">Docker</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h1><p>本文用于记录docker的相关学习。</p>
+<h2 id="Docker是什么"><a href="#Docker是什么" class="headerlink" title="Docker是什么"></a>Docker是什么</h2><p>Docker网址：<a class="link"   target="_blank" rel="noopener" href="https://hub.docker.com/" >docker <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201439513.png"
+                      alt="image-20230520143923319"
+                ></p>
+<p><strong>docker</strong>对进程进行封装隔离，属于操作系统层面的虚拟化技术</p>
+<p>由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器</p>
+<p><strong>docker 应用场景</strong></p>
+<ul>
+<li>自动化测试和持续集成、发布</li>
+<li>Web 应用的自动化打包和发布</li>
+<li>后台应用易部署</li>
+</ul>
+<p><strong>docker 的优势</strong></p>
+<ul>
+<li>快速， 一致的交付应用程序</li>
+<li>可移植，可扩展</li>
+<li>轻巧，快速，经济，高效，压榨 <code>linux</code> 自身资源</li>
+</ul>
+<h3 id="Docker-能做什么？"><a href="#Docker-能做什么？" class="headerlink" title="Docker 能做什么？"></a>Docker 能做什么？</h3><p>先来说说<strong>Docker</strong>和虚拟机有啥不一样的</p>
+<p>以前的虚拟机这样的，系统占用资源大，很多步骤是冗余的，并且启动还很慢，不能忍</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201440381.png"
+                      alt="Nnp2dPcgnH.png!large"
+                ></p>
+<p>现在的 Docker 是这个样子的，</p>
+<p>容器之间互相隔离，互补干扰，一起运行在同一个操作系统上，最大化使用操作系统资源</p>
+<p> <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201440303.png"
+                      alt="img"
+                ></p>
+<p>Docker 技术和虚拟机技术的不同？</p>
+<ul>
+<li>每个容器间都是相互隔离的，他们有<strong>属于自己的文件系统</strong>，相互不会有影响</li>
+<li>容器<strong>没有自己的内核，没有自己的硬件</strong>，容器内的应用是<strong>直接运行在宿主机的内核中</strong></li>
+<li>传统的虚拟机是<strong>虚拟出一个硬件</strong>，运行完成的操作系统，在其上面运行应用</li>
+</ul>
+<h3 id="那么-Docker-具体能做什么？"><a href="#那么-Docker-具体能做什么？" class="headerlink" title="那么 Docker 具体能做什么？"></a>那么 Docker 具体能做什么？</h3><p><strong>做 DevOps</strong></p>
+<p>做 DevOps 有如下几个提升点：</p>
+<ul>
+<li>应用可以更快捷的部署和交付</li>
+</ul>
+<p>以前麻烦的安装步骤一去不复返，使用 Docker 容器化后，打包镜像发布测试，一键部署及运行</p>
+<ul>
+<li>可以更方便的升级和扩容</li>
+</ul>
+<p>使用 Docker，将项目打包成镜像，升级方便，扩容方便</p>
+<ul>
+<li>开发，运维，测试都会更简单</li>
+</ul>
+<p>再也不用担心开发环境，测试环境，运维环境不一致的情况了</p>
+<ul>
+<li>更高效的利用资源</li>
+</ul>
+<p>Docker 是运行在宿主机的内核中，可以在这台物理主机上部署多个Docker实例</p>
+<h3 id="Docker的组成"><a href="#Docker的组成" class="headerlink" title="Docker的组成"></a>Docker的组成</h3><p>Docker 使用客户端 - <strong>服务器 (C&#x2F;S) 架构模式，使用远程 API 来管理和创建 Docker 容器</strong></p>
+<p>Docker的三个基本概念：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201444564.png"
+                      alt="img"
+                ></p>
+<ul>
+<li>镜像</li>
+</ul>
+<p>相当于是一个 root 文件系统，类似于一个模板，这是静态的</p>
+<ul>
+<li>容器</li>
+</ul>
+<p>相当于从模板拉出来的一个实例，容器通过镜像来创建，我们可以对他做创建，启动，停止，暂停，删除等操作</p>
+<ul>
+<li>仓库</li>
+</ul>
+<p>用来保存镜像的，可以看做是一个代码控制中心</p>
+<h3 id="Docker的安装和使用"><a href="#Docker的安装和使用" class="headerlink" title="Docker的安装和使用"></a>Docker的安装和使用</h3><p><a class="link"   target="_blank" rel="noopener" href="https://juejin.cn/post/7191759357950820389" >day9 wsl2和docker的安装与迁移 |青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="docker-run-的流程"><a href="#docker-run-的流程" class="headerlink" title="docker run 的流程"></a>docker run 的流程</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201447318.png"
+                      alt="img"
+                ></p>
+<ul>
+<li>docker run 现在本地找对应的镜像，若有则直接运行</li>
+<li>若没有就去 docker hub 上下载，若有就下载到本地后运行</li>
+<li>若没有就直接报错</li>
+</ul>
+<h3 id="Docker的底层原理"><a href="#Docker的底层原理" class="headerlink" title="Docker的底层原理"></a>Docker的底层原理</h3><p>Docker 是如何工作的？</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201448108.png"
+                      alt="img"
+                ></p>
+<p>docker 是一个 C&#x2F;S 模型，docker 的后台守护进行运行在主机上，客户端和服务端通过套接字 Socket 通信</p>
+<p>docker 服务端收到 docker 客户端的指令时，则执行该指令</p>
+<h3 id="为什么-Docker-比-虚拟机快呢？"><a href="#为什么-Docker-比-虚拟机快呢？" class="headerlink" title="为什么 Docker 比 虚拟机快呢？"></a>为什么 Docker 比 虚拟机快呢？</h3><p>在网络上找了一张图，咱们对比一下就明确了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201448440.png"
+                      alt="img"
+                ></p>
+<p>如图，Docker 比虚拟机快的原因如下：</p>
+<ul>
+<li>docker 比虚拟机的抽象层更少</li>
+<li>docker 利用的是宿主机的内核，而虚拟机是需要新建一个 OS</li>
+</ul>
+<p>基于如上2点，虚拟机启动时，会加载操作系统，启动慢，时间基本上是<strong>分钟级</strong>的</p>
+<p>docker 启动的时候，不需要加载操作系统内核，因此快，时间基本上是<strong>秒级</strong>的</p>
+<h2 id="Docker的常用命令"><a href="#Docker的常用命令" class="headerlink" title="Docker的常用命令"></a>Docker的常用命令</h2><h3 id="基本帮助命令"><a href="#基本帮助命令" class="headerlink" title="基本帮助命令"></a>基本帮助命令</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 查看 docker 的基本版本信息</span><br><span class="line">docker version</span><br><span class="line"></span><br><span class="line"># 查看 docker 的系统信息，如镜像和容器数量</span><br><span class="line">docker info</span><br><span class="line"></span><br><span class="line"># 查看某个命令的帮助</span><br><span class="line">docker xx命令 --help</span><br></pre></td></tr></table></figure></div>
+
+<p>咱们可以看官方的帮助文档：<a class="link"   target="_blank" rel="noopener" href="https://docs.docker.com/reference/" >Reference documentation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201452270.png"
+                      alt="image-20230520145226169"
+                ></p>
+<h3 id="镜像命令"><a href="#镜像命令" class="headerlink" title="镜像命令"></a>镜像命令</h3><p><strong>docker images 查看镜像</strong></p>
+<p><code>Usage: docker images [OPTIONS] [REPOSITORY[:TAG]]</code></p>
+<p>查看本机上的镜像：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201453455.png"
+                      alt="image-20230520145342422"
+                ></p>
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>REPOSITORY</td>
+<td>仓库源</td>
+</tr>
+<tr>
+<td>TAG</td>
+<td>镜像标签</td>
+</tr>
+<tr>
+<td>IMAGE ID</td>
+<td>镜像 ID</td>
+</tr>
+<tr>
+<td>CREATED</td>
+<td>创建时间</td>
+</tr>
+<tr>
+<td>SIZE</td>
+<td>镜像大小</td>
+</tr>
+</tbody></table>
+<p>可选参数：</p>
+<div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Options:</span><br><span class="line">  -a, --all             显示所有的镜像</span><br><span class="line">  -q, --quiet           只显示镜像ID</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201455862.png"
+                      alt="image-20230520145500827"
+                ></p>
+<p><strong>docker search 搜索镜像</strong></p>
+<p>搜索<strong>redis</strong>为例</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201458726.png"
+                      alt="image-20230520145823665"
+                ></p>
+<ol>
+<li><strong>NAME</strong>（名称）：镜像的名称或仓库名称。</li>
+<li><strong>DESCRIPTION</strong>（描述）：镜像的描述或说明，通常包含有关镜像内容和用途的信息。</li>
+<li><strong>STARS</strong>（收藏数）：镜像的收藏数，表示该镜像受欢迎程度的指标。</li>
+<li><strong>OFFICIAL</strong>（官方镜像）：如果该镜像是官方维护的镜像，则显示为”OK”，表示来自Redis官方或Docker官方的镜像。</li>
+<li><strong>AUTOMATED</strong>（自动构建）：如果该镜像是通过自动化流程进行构建的，则显示为”OK”，表示镜像是通过自动构建过程生成的。</li>
+</ol>
+<p><strong>加上参数</strong></p>
+<p><strong>过滤 STARS 大于 2000 的 镜像</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201501634.png"
+                      alt="image-20230520150148603"
+                ></p>
+<p><strong>我们也可以在 docker hub 上面直接在页面上搜索镜像</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201503876.png"
+                      alt="image-20230520150332784"
+                ></p>
+<p><strong>docker pull下载镜像</strong></p>
+<p><code>docker pull [OPTIONS] NAME[:TAG|@DIGEST]</code></p>
+<p>下载 redis 镜像为例</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201509652.png"
+                      alt="image-20230520150831408"
+                ></p>
+<p>因此上述的下载操作：<code>docker pull redis</code> 与 <code>docker pull docker.io/library/redis:latest</code> 一致</p>
+<p>dockerhub 上面 可以查看到 redis 支持的版本</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201510203.png"
+                      alt="img"
+                ></p>
+<p>我们下载一个 6 版本的 redis</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201512010.png"
+                      alt="image-20230520151201969"
+                ></p>
+<p>可以看到 下载 版本 6 的 redis 的时候，没有分层下载了，说明在上述看到的分层下载他们是共用的</p>
+<p>查看刚才的安装的镜像</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201512029.png"
+                      alt="image-20230520151230995"
+                ></p>
+<p><strong>docker rmi 删除镜像</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">删除单个镜像	docker rmi -f 容器ID</span><br><span class="line"></span><br><span class="line">删除多个镜像	docker rmi -f 容器ID 容器ID 容器ID </span><br><span class="line"></span><br><span class="line">删除全部镜像	docker rmi -f $(docker images -q)</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201514371.png"
+                      alt="image-20230520151443324"
+                ></p>
+<h3 id="容器命令"><a href="#容器命令" class="headerlink" title="容器命令"></a>容器命令</h3><p>容器是基于镜像创建的，我们来下载一个 ubuntu 镜像</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull ubuntu</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201553071.png"
+                      alt="image-20230520155310034"
+                ></p>
+<p><strong>docker run 新建并启动容器</strong></p>
+<p>docker run [参数] 镜像名字 [指令] [参数]</p>
+<p>常用参数说明：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">--name=&quot;xxx&quot;    	# 运行容器的名字</span><br><span class="line">-d                  # 后台方式运行</span><br><span class="line">-it                 # 交互的方式运行</span><br><span class="line">-p                  # 指定容器的端口号 例如 -p 6379:6380   常用的操作有 -p 主机端口:容器端口</span><br><span class="line">-P                	# 随机指定端口号</span><br></pre></td></tr></table></figure></div>
+
+<p>启动 容器里面的 ubuntu，通过主机名字，我们已经可以看出来主机切换了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201555571.png"
+                      alt="image-20230520155510518"
+                ></p>
+<p><strong>退出容器</strong></p>
+<ul>
+<li>键入 exit 命令，容器会退出</li>
+<li>使用快捷键 Ctrl + P + Q ，回到主机，容器不会退出</li>
+</ul>
+<p><strong>docker ps 查看容器</strong></p>
+<p><code>docker ps [OPTIONS]</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201558798.png"
+                      alt="image-20230520155818757"
+                ></p>
+<p>可选参数：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">        	 # 查看正在运行的容器</span><br><span class="line">-a           # 查看运行过的容器</span><br><span class="line">-n=xx        # 查看运行过的前 xx 个容器</span><br><span class="line">-s           # 查看容器运行的 大小</span><br><span class="line">-q           # 查看容器 ID</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+<p><strong>docker rm 删除容器</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker rm 容器ID        				# 删除未运行的容器</span><br><span class="line">docker rm -f 容器ID    				# 强制删除正在运行的容器</span><br><span class="line">docker rm -f $(docker ps -aq)        # 删除所有容器</span><br><span class="line">docker ps -aq | xargs docker rm      # 删除所有容器</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201600742.png"
+                      alt="image-20230520160043684"
+                ></p>
+<p><strong>start，restart，stop，kill 开启，重启，停止，强制停止容器</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker start 容器ID</span><br><span class="line">docker restart 容器ID</span><br><span class="line">docker stop 容器ID</span><br><span class="line">docker kill 容器ID</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h3 id="常用其他命令"><a href="#常用其他命令" class="headerlink" title="常用其他命令"></a>常用其他命令</h3><p><strong>docker run -d 后台启动容器</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 后台启动一个 ubuntu</span><br><span class="line">docker run -d ubuntu</span><br><span class="line"></span><br><span class="line"># 查看 运行的容器</span><br><span class="line">docker ps </span><br><span class="line">CONTAINER ID   IMAGE     COMMAND     CREATED         STATUS         PORTS   NAMES</span><br></pre></td></tr></table></figure></div>
+
+<p>发现没有容器正在运行</p>
+<p>原因如下：</p>
+<ul>
+<li>docker 后台启动服务，需要有一个前台的进程，否则 docker 发现没有应用，则会将该服务停止</li>
+</ul>
+<p>我们主动加一个前台进程，看看效果</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">临时加上一个前台进程</span></span><br><span class="line">docker run -d ubuntu /bin/bash -c &quot;while true;do echo xiaozhupeiqi;sleep 2;done&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看正在运行的容器</span></span><br><span class="line">docker ps</span><br><span class="line">CONTAINER ID   IMAGE     COMMAND</span><br><span class="line">10ba0e687434   ubuntu    &quot;/bin/bash -c &#x27;while…&quot; </span><br></pre></td></tr></table></figure></div>
+
+<p>可以看出，docker ps 命令已经可以查看到正在运行的容器了，OK</p>
+<p><strong>docker logs 查看日志</strong></p>
+<p><code>docker logs [参数] 容器 ID</code></p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Options:</span><br><span class="line">  -f        # 和输出保持一致</span><br><span class="line">  -n        # 输出最近的几行</span><br><span class="line">  -t        # 打印时间戳</span><br></pre></td></tr></table></figure></div>
+
+<p>查看上述容器的日志</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201609669.png"
+                      alt="image-20230520160900627"
+                ></p>
+<p><strong>docker top 查看容器中进程信息</strong><br>docker top 容器 ID</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201610691.png"
+                      alt="image-20230520161004651"
+                ></p>
+<p><strong>docker inspect 查看镜像元数据</strong></p>
+<p>docker inspect 容器 ID</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201610187.png"
+                      alt="image-20230520161039111"
+                ></p>
+<p>输出信息中省略了大量信息</p>
+<p><strong>docker exec 进入当前运行的容器</strong></p>
+<p><code>docker exec [参数] 容器 ID 指令 [指令的参数]</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201611420.png"
+                      alt="image-20230520161142367"
+                ></p>
+<p><strong>docker attach 进入容器中正在执行的程序</strong></p>
+<p>docker attach 容器 ID</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201613154.png"
+                      alt="image-20230520161323115"
+                ></p>
+<p><strong>docker exec 和 docker attach 的区别</strong></p>
+<p>docker exec：进入容器，会新开一个终端，可以正常操作</p>
+<p>docker attach：进入容器正在执行的终端，不会启动新的终端</p>
+<p><strong>docker cp 将容器内文件拷贝到主机内</strong></p>
+<p>docker cp 容器 ID: 容器文件路径 主机路径</p>
+<p><strong>docker stats：查看docker内服务内存状态</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201614184.png"
+                      alt="image-20230520161445114"
+                ></p>
+<h2 id="Docker部署nginx"><a href="#Docker部署nginx" class="headerlink" title="Docker部署nginx"></a>Docker部署nginx</h2><h3 id="搜索-nginx-镜像"><a href="#搜索-nginx-镜像" class="headerlink" title="搜索 nginx 镜像"></a>搜索 nginx 镜像</h3><ul>
+<li>使用 docker search nginx</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201533487.png"
+                      alt="image-20230520153352429"
+                ></p>
+<ul>
+<li>或者在 dockerhub 上搜索 nginx，具体的版本和详细信息会更加全面，一般使用官方的</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201535916.png"
+                      alt="image-20230520153512801"
+                ></p>
+<h3 id="拉取-nginx-镜像"><a href="#拉取-nginx-镜像" class="headerlink" title="拉取 nginx 镜像"></a>拉取 nginx 镜像</h3><p>拉取 nginx 镜像，我们这里就拉取最新版本的 nginx</p>
+<p>我之前就有了nginx镜像，所以是这样的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201536856.png"
+                      alt="image-20230520153616819"
+                ></p>
+<h3 id="创建并运行容器"><a href="#创建并运行容器" class="headerlink" title="创建并运行容器"></a>创建并运行容器</h3><ul>
+<li>新建一个容器命名为 nginx1</li>
+<li>nginx 默认端口是 80，将 docker 容器中的 80 端口映射程 主机中的 8888 端口</li>
+<li>设置后台运行 nginx 容器</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201538669.png"
+                      alt="image-20230520153807627"
+                ></p>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>使用 curl 命令，访问一下 主机的 8888 端口，查看是否访问 OK</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201539848.png"
+                      alt="image-20230520153912800"
+                ></p>
+<p>咱们也可以进入到 nginx docker 容器中，直接访问 80 端口</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201540442.png"
+                      alt="image-20230520154041382"
+                ></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>因为我们在创建 nginx1 容器的时候，将主机的 8888 端口，映射到了 容器 nginx1 的 80 端口，因此可以访问主机的 8888 端口来访问到 nginx1 容器中的 80 端口</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201543640.png"
+                      alt="img"
+                ></p>
+<p>此时，可以访问我的阿里云服务器的 8888 端口，实际是可以访问到我的 nginx1 容器中的 nginx 服务器</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201544702.png"
+                      alt="img"
+                ></p>
+<p><strong>docker run –-help</strong></p>
+<p>用法: docker run [参数] 镜像 [命令] [命令的参数列表…]</p>
+<p>Run a command in a new container</p>
+<p><strong>参数:</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">-a, –attach list Attach to STDIN, STDOUT or STDERR</span><br><span class="line">-c, –cpu-shares int CPU shares (relative weight)</span><br><span class="line">-d, –detach 后台运行容器</span><br><span class="line">-e, –env list 设置环境变量</span><br><span class="line">-h, –hostname string Container host name</span><br><span class="line">-i, –interactive Keep STDIN open even if not attached</span><br><span class="line">-l, –label list Set meta data on a container</span><br><span class="line">-m, –memory bytes 内存限制</span><br><span class="line">-p, –publish list Publish a container’s port(s) to the host</span><br><span class="line">-P, –publish-all Publish all exposed ports to random ports</span><br><span class="line">-t, –tty Allocate a pseudo-TTY</span><br><span class="line">-u, –user string 用户名或者 uid</span><br><span class="line">-v, –volume list 挂载卷</span><br><span class="line">-w, –workdir string 设置容器中的工作目录</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h3 id="安装portainer"><a href="#安装portainer" class="headerlink" title="安装portainer"></a>安装portainer</h3><p><strong>1.拉取portainer镜像</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201617791.png"
+                      alt="image-20230520161720723"
+                ></p>
+<p><strong>2.运行portainer镜像</strong> </p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201617784.png"
+                      alt="image-20230520161752741"
+                ></p>
+<p><strong>3.访问portainer可视化界面</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201618212.png"
+                      alt="image-20230520161850086"
+                ></p>
+<p>这个就是本地的docker<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201620486.png"
+                      alt="image-20230520162022374"
+                ></p>
+<p>portainer其他操作可参考这篇文章：<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39135287/article/details/119717657" >Docker可视化界面portainer的安装与使用 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="镜像相关原理"><a href="#镜像相关原理" class="headerlink" title="镜像相关原理"></a>镜像相关原理</h2><h3 id="镜像是什么？"><a href="#镜像是什么？" class="headerlink" title="镜像是什么？"></a>镜像是什么？</h3><p>镜像是一种轻量级的，可执行的独立的软件包。</p>
+<p>镜像用来打包软件的运行环境和基于运行环境开发的软件，它包含运行某些软件所需要的所有内容，例如：代码，运行时库，环境变量和配置文件等等</p>
+<p>所有的应用，可以直接打包 docker 镜像，一键部署，一键运行</p>
+<p><strong>得到镜像方式有哪些？</strong></p>
+<ul>
+<li>直接拷贝其他 docker 镜像</li>
+<li>自己制作一个镜像 DockerFile</li>
+<li>从远程仓库下载，如 dockerhub</li>
+</ul>
+<h3 id="Docker-镜像的加载原理"><a href="#Docker-镜像的加载原理" class="headerlink" title="Docker 镜像的加载原理"></a>Docker 镜像的加载原理</h3><p><strong>UnionFS</strong>，是联合文件系统，还记的我们 docker 学习二 里面安装 redis 的时候，出现的分层下载吗</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201643108.png"
+                      alt="img"
+                ></p>
+<p>这就是联合文件系统</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UnionFS 联合文件系统，是一种分层，轻量级并且高性能的文件系统</span><br><span class="line">它支持对文件系统的修改作为一次提交来一层一层的叠加，同时可以将不同目录挂载到一个虚拟文件系统下</span><br><span class="line">UnionFS 联合文件系统是 Docker 镜像的基础，镜像还可以通过分层来继承，基于基础的镜像，我们可以制作成各种应用镜像</span><br></pre></td></tr></table></figure></div>
+
+<p>特性：</p>
+<p>联合文件系统一次同时加载多个文件系统，联合加载会把各层的文件系统叠加起来，最终的文件系统会包含所有底层的文件和目录</p>
+<h3 id="Docker-的镜像加载原理是什么呢？"><a href="#Docker-的镜像加载原理是什么呢？" class="headerlink" title="Docker 的镜像加载原理是什么呢？"></a><strong>Docker 的镜像加载原理是什么呢？</strong></h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201645715.png"
+                      alt="iSeHkh05Eq.png!large"
+                ></p>
+<p>Docker 的镜像是有一层一层的文件系统组成的，这个层级的文件系统就叫做联合文件系统，一般底下的层都是共用的</p>
+<p>一般系统启动，是一个加载的过程，这个过程是 bootloader 引导加载 kernel，linux 操作系统刚启动的时候还会加载 bootfs 文件系统，而咱们的 Docker 镜像最底层就是 bootfs</p>
+<p><strong>bootfs</strong></p>
+<p>boot file system 是一个文件系统，主要是包含 bootloader 和 kernel</p>
+<p>当 boot 加载完毕之后，整个内核都在运行正在内存中的，此时内存的使用权已经由 bootfs 交接给内核，这个时候系统会将 bootfs 卸载掉</p>
+<p><strong>rootfs</strong></p>
+<p>在来说一下 rootfs，root file system，根文件系统，它是在 bootfs 之上的，就是包含了，linux 操作系统中的 &#x2F;dev ，&#x2F;proc，&#x2F;bin，&#x2F;etc 等目录和文件</p>
+<p>例如我们知道的 rootfs 有 centos，ubuntu 等等</p>
+<h3 id="分层原理"><a href="#分层原理" class="headerlink" title="分层原理"></a>分层原理</h3><p>我们来下载一个 redis 看看效果</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201648286.png"
+                      alt="img"
+                ></p>
+<p>Docker 是按照层级进行下载，之前下载过的层级就不会再次下载了，我们可以通过 docker inspect 查看 redis 的细节</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># docker inspect redis:latest</span><br><span class="line">...</span><br><span class="line">&quot;RootFS&quot;: &#123;</span><br><span class="line">            &quot;Type&quot;: &quot;layers&quot;,</span><br><span class="line">            &quot;Layers&quot;: [              &quot;sha256:814bff7343242acfd20a2c841e041dd57c50f0cf844d4abd2329f78b992197f4&quot;,            &quot;sha256:dd1ebb1f5319785e34838c7332a71e5255bda9ccf61d2a0bf3bff3d2c3f4cdb4&quot;,            &quot;sha256:11f99184504048b93dc2bdabf1999d6bc7d9d9ded54d15a5f09e36d8c571c32d&quot;,            &quot;sha256:e461360755916af80821289b1cbc503692cf63e4e93f09b35784d9f7a819f7f2&quot;,           &quot;sha256:45f6df6342536d948b07e9df6ad231bf17a73e5861a84fc3c9ee8a59f73d0f9f&quot;,</span><br><span class="line">&quot;sha256:262de04acb7e0165281132c876c0636c358963aa3e0b99e7fbeb8aba08c06935&quot;</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure></div>
+
+<p>如上结果我们可以看到，redis 的层级与我们 pull 拉取镜像时候的层级一致</p>
+<p><strong>那么 Docker 为什么要采用分层下载呢？</strong></p>
+<p>主要是为了<strong>共享资源</strong></p>
+<p>例如我们的多个镜像都是从基础镜像构建而来，那么宿主机只需要在机器上保留一份基础镜像即可，并且内存中也只需要加载一份基础镜像，就可以为所有需要的容器服务，而且镜像的每一层也都是可以共享的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201651426.png"
+                      alt="3QKXFuDGPC.png!large"
+                ></p>
+<p>我们可以这样来理解：</p>
+<p>所有的 Docker 镜像都来源于基础镜像，我们增加或修改镜像内容的时候，就会在当前镜像层上面，新建一个镜像层，这就例如 windows 里面的一个安全补丁</p>
+<p>如上面图例：</p>
+<p>我们在镜像的第一层，放置 file1，file2，镜像的第二层放置 file3，file4，镜像的第三层放置 file3.1 （file3.1 是 file3 的一个新版本）</p>
+<p>那么，我们在打包镜像的时候，就会合并出 一个镜像里面，有 4 个文件，此处也就是 4 个 layer</p>
+<p>当我们下载这个最终合并的镜像时，就会一次下载上述的 4 个 layer</p>
+<p>Docker 镜像的特点：</p>
+<p><strong>Docker 镜像默认都是只读的，当容器启动时，一个新的可写层被加载到镜像的顶部</strong></p>
+<p>上面说的这一层就是咱们的容器层，容器层下面是镜像层，如下图所示</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201651662.png"
+                      alt="img"
+                ></p>
+<h3 id="如何提交咱们的镜像"><a href="#如何提交咱们的镜像" class="headerlink" title="如何提交咱们的镜像"></a>如何提交咱们的镜像</h3><p>Docker 提交原理和命令与 Git 类似</p>
+<p><strong>docker commit</strong></p>
+<p>提交当前容器，成为一个新的版本</p>
+<p>我们一般会这样使用</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit -m=&quot;描述信息&quot; -a=&quot;作者&quot; 容器ID 目标镜像名:[TAG]</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p><strong>举个例子：</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201656217.png"
+                      alt="image-20230520165606144"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201656848.png"
+                      alt="image-20230520165613749"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201658945.png"
+                      alt="image-20230520165824883"
+                ></p>
+<p>如果我们想要保存自己的容器当前状态，咱们就可以通过 commit 来提交，获得一个想要的镜像，这就有点像使用虚拟机打快照一样</p>
+<h2 id="容器数据卷"><a href="#容器数据卷" class="headerlink" title="容器数据卷"></a>容器数据卷</h2><h3 id="什么是容器数据卷"><a href="#什么是容器数据卷" class="headerlink" title="什么是容器数据卷"></a>什么是容器数据卷</h3><p>思考一个问题，我们为什么要使用 Docker？</p>
+<p>主要是为了可以将应用和环境进行打包成镜像，一键部署。</p>
+<p>再思考一个问题，容器之间是相互隔离的，如果我们在容器中部署类似 mysql 这样的组件，如果把该容器删除掉，那么 mysql 的数据也会被删掉了，数据丢失了，咱们删库跑路真刺激</p>
+<p>事实上，我们可不能让这么有风险的事情存在，因此有了卷技术</p>
+<p>卷技术是容器之间可以共享数据的技术，Docker 容器中产生数据，将数据同步到本地</p>
+<p>例如咱们将 Docker mysql 容器中的 &#x2F;usr&#x2F;mysql 目录挂载到宿主机的 &#x2F;home&#x2F;mysql 目录</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201702070.png"
+                      alt="img"
+                ></p>
+<p>使用卷技术，我们就可以让数据得以持久化</p>
+<p><strong>实际上操作起来就是挂载目录，将 Docker 容器里面的目录，挂载到宿主机上的某个目录，这就可以将数据持久化和同步了， Docker 容器间的数据共享仍然是这样做的</strong></p>
+<h3 id="咱们如何使用数据卷？"><a href="#咱们如何使用数据卷？" class="headerlink" title="咱们如何使用数据卷？"></a>咱们如何使用数据卷？</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201708363.png"
+                      alt="image-20230520170835295"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201708655.png"
+                      alt="image-20230520170854589"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201709447.png"
+                      alt="image-20230520170914370"
+                ></p>
+<h3 id="mysql-实战一波"><a href="#mysql-实战一波" class="headerlink" title="mysql 实战一波"></a>mysql 实战一波</h3><p>咱们再来一个实战，我们一起来看看数据卷如何使用</p>
+<p>下载 5.7 版本的 mysql docker 镜像，也可以下载其他版本，这个没有关系</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201711820.png"
+                      alt="image-20230520171101769"
+                ></p>
+<p>启动镜像，直接使用 -v 来挂载目录</p>
+<p>使用方式</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -v 主机目录:容器的目录</span><br></pre></td></tr></table></figure></div>
+
+<p>开始启动镜像</p>
+<p>咱们可以参考 <a class="link"   target="_blank" rel="noopener" href="https://hub.docker.com/_/mysql" >dockerhub <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 上的文档</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201711124.png"
+                      alt="img"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201711956.png"
+                      alt="img"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201714243.png"
+                      alt="image-20230520171412192"
+                ></p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">解释一下上述命令</span></span><br><span class="line">-d 后台运行</span><br><span class="line">-p 宿主机端口:容器端口  端口映射</span><br><span class="line">-v 宿主机目录:容器目录  挂载卷</span><br><span class="line">-e 设置环境变量</span><br><span class="line">--name 设置启动容器的名字</span><br></pre></td></tr></table></figure></div>
+
+<p>咱们可以通过 window 的 workbench 来远程连接一下 mysql</p>
+<p>我的是云服务器，因此输入云服务器的地址，端口填入 8888 端口</p>
+<p>默认用户名是 root ， 密码是 123456</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201737686.png"
+                      alt="image-20230520173731597"
+                ></p>
+<p>测试连接 ok ，我们可以来进入数据库</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201717126.png"
+                      alt="img"
+                ></p>
+<p><strong>咱们在 workbench 中新建一个数据库</strong></p>
+<p>看看这个数据库是否会在我们的宿主机上面有同步</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201739859.png"
+                      alt="image-20230520173926802"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201738200.png"
+                      alt="image-20230520173837137"
+                ></p>
+<p>果然是有的，再次 nice，这就达到了数据持久化的效果，这就是咱们从认识数据卷到使用数据卷的一个简单流程，咱们可以慢慢的深入下去</p>
+<h3 id="具名挂载和匿名挂载"><a href="#具名挂载和匿名挂载" class="headerlink" title="具名挂载和匿名挂载"></a>具名挂载和匿名挂载</h3><p>以启动一个 <strong>nginx</strong> 为例子：</p>
+<p>具名挂载：</p>
+<p><code>docker run -d  --name nginx3 -v JM:/etc/nginx:rw nginx</code></p>
+<p>匿名挂载：</p>
+<p><code>docker run -d  --name nginx3 -v /etc/nginx:rw nginx</code></p>
+<p><strong>rw可读可写</strong></p>
+<p><strong>ro只读，只能宿主机才能写</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201757804.png"
+                      alt="image-20230520175730754"
+                ></p>
+<p><strong>查看数据挂载卷</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201758541.png"
+                      alt="image-20230520175843490"
+                ></p>
+<p><strong>查看挂载具体目录</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201800034.png"
+                      alt="image-20230520180012985"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305201804371.png"
+                      alt="image-20230520180450292"
+                ></p>
+<h2 id="数据卷容器"><a href="#数据卷容器" class="headerlink" title="数据卷容器"></a>数据卷容器</h2><p><strong>Dockerfile</strong></p>
+<p>Dockerfile 就是用来构建 docker 镜像的构建文件，关于 Dockerfile 详细的我们在后面一期说到，此处先用用</p>
+<p>他是一个命令脚本，通过这个脚本可以生成我们想要的镜像，镜像是分层的，一层一层的，脚本也是一个一个的命令，每个命令就是一层</p>
+<p>我们可以来看一个小小的例子</p>
+<p>自己写一个 Dockerfile 来构建自己的镜像，我们以 ubuntu 为例子</p>
+<h3 id="写一个简单的-dockerfile1"><a href="#写一个简单的-dockerfile1" class="headerlink" title="写一个简单的 dockerfile1"></a>写一个简单的 dockerfile1</h3><div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">vim dockerfile1</span></span><br><span class="line"></span><br><span class="line">FROM ubuntu</span><br><span class="line"></span><br><span class="line">VOLUME [&quot;volume1&quot;,&quot;volume2&quot;]</span><br><span class="line"></span><br><span class="line">CMD echo &quot;====successfully====&quot;</span><br><span class="line"></span><br><span class="line">CMD /bin/bash</span><br></pre></td></tr></table></figure></div>
+
+<p>解释一下：</p>
+<ul>
+<li>FROM</li>
+</ul>
+<p>来源基础镜像为 ubuntu</p>
+<ul>
+<li>VOLUME</li>
+</ul>
+<p>挂载，可以匿名挂载，也可以是具名挂载 ，默认会挂载到 docker 专门挂载的目录</p>
+<ul>
+<li>CMD</li>
+</ul>
+<p>指定可以使用命令</p>
+<h3 id="构建我们自己的镜像"><a href="#构建我们自己的镜像" class="headerlink" title="构建我们自己的镜像"></a>构建我们自己的镜像</h3><div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker build -f dockerfile1 -t xiaomotong/ubuntu .</span></span><br><span class="line">Sending build context to Docker daemon  1.346GB</span><br><span class="line">Step 1/4 : FROM ubuntu</span><br><span class="line"><span class="meta prompt_"> ---&gt; </span><span class="language-bash">1318b700e415</span></span><br><span class="line">Step 2/4 : VOLUME [&quot;volume1&quot;,&quot;volume2&quot;]</span><br><span class="line"><span class="meta prompt_"> ---&gt; </span><span class="language-bash">Running <span class="keyword">in</span> d7b475cacb22</span></span><br><span class="line">Removing intermediate container d7b475cacb22</span><br><span class="line"><span class="meta prompt_"> ---&gt; </span><span class="language-bash">b8ac33cfbcfd</span></span><br><span class="line">Step 3/4 : CMD echo &quot;====successfully====&quot;</span><br><span class="line"><span class="meta prompt_"> ---&gt; </span><span class="language-bash">Running <span class="keyword">in</span> 35c98a625a9e</span></span><br><span class="line">Removing intermediate container 35c98a625a9e</span><br><span class="line"><span class="meta prompt_"> ---&gt; </span><span class="language-bash">67b6faf43370</span></span><br><span class="line">Step 4/4 : CMD /bin/bash</span><br><span class="line"><span class="meta prompt_"> ---&gt; </span><span class="language-bash">Running <span class="keyword">in</span> b2e1e0ad8d9b</span></span><br><span class="line">Removing intermediate container b2e1e0ad8d9b</span><br><span class="line"><span class="meta prompt_"> ---&gt; </span><span class="language-bash">b26faaedefac</span></span><br><span class="line">Successfully built b26faaedefac</span><br><span class="line">Successfully tagged xiaomotong/ubuntu:latest</span><br></pre></td></tr></table></figure></div>
+
+<p>通过上述我们可以看到 docker 构建镜像的时候是一层一层的，一个命令一个命令的执行的，一个命令就是一层</p>
+<ul>
+<li>docker build</li>
+</ul>
+<p>构建我们自己的镜像</p>
+<ul>
+<li>-f</li>
+</ul>
+<p>指定 dockerfile 的文件</p>
+<ul>
+<li>-t</li>
+</ul>
+<p>目标，即我们 docker 镜像的名字</p>
+<p>后面跟着生成镜像的位置</p>
+<h3 id="通过我们构建的镜像的创建并启动容器"><a href="#通过我们构建的镜像的创建并启动容器" class="headerlink" title="通过我们构建的镜像的创建并启动容器"></a>通过我们构建的镜像的创建并启动容器</h3><div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker images</span></span><br><span class="line">REPOSITORY            TAG       IMAGE ID       CREATED         SIZE</span><br><span class="line">xiaomotong/ubuntu     latest    b26faaedefac   6 minutes ago   72.8MB</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker run -it b26faaedefac</span></span><br></pre></td></tr></table></figure></div>
+
+<p>执行完上述命令之后，我们可以看到容器里面目录如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261450981.png"
+                      alt="img"
+                ></p>
+<p>从图中我们可以看到 volume1 和 volume2，这就是我们刚才构建容器时候做的匿名挂载，那么我们使用 docker inspect 命令来看看这俩挂载卷具体是挂载到宿主机的哪个位置，并测试一个同步数据</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker inspect b29995f4178d</span></span><br><span class="line">...</span><br><span class="line"> &quot;Mounts&quot;: [</span><br><span class="line">            &#123;</span><br><span class="line">                &quot;Type&quot;: &quot;volume&quot;,</span><br><span class="line">                &quot;Name&quot;: &quot;a1fd1edec5784f1153a318003bba4279b86fd2dd71b401be5864ed9b868d7332&quot;,</span><br><span class="line">                &quot;Source&quot;: &quot;/var/lib/docker/volumes/a1fd1edec5784f1153a318003bba4279b86fd2dd71b401be5864ed9b868d7332/_data&quot;,</span><br><span class="line">                &quot;Destination&quot;: &quot;volume1&quot;,</span><br><span class="line">                &quot;Driver&quot;: &quot;local&quot;,</span><br><span class="line">                &quot;Mode&quot;: &quot;&quot;,</span><br><span class="line">                &quot;RW&quot;: true,</span><br><span class="line">                &quot;Propagation&quot;: &quot;&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                &quot;Type&quot;: &quot;volume&quot;,</span><br><span class="line">                &quot;Name&quot;: &quot;975ae74c8716f5e85ccf784c716291cffda2158baf6b3f9e145ffc1ea353cb7b&quot;,</span><br><span class="line">                &quot;Source&quot;: &quot;/var/lib/docker/volumes/975ae74c8716f5e85ccf784c716291cffda2158baf6b3f9e145ffc1ea353cb7b/_data&quot;,</span><br><span class="line">                &quot;Destination&quot;: &quot;volume2&quot;,</span><br><span class="line">                &quot;Driver&quot;: &quot;local&quot;,</span><br><span class="line">                &quot;Mode&quot;: &quot;&quot;,</span><br><span class="line">                &quot;RW&quot;: true,</span><br><span class="line">                &quot;Propagation&quot;: &quot;&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">...</span><br></pre></td></tr></table></figure></div>
+
+<p>通过 docker inspect 可以看出 volume1 和 volume2 具体是挂载到宿主机的目录为 <code>/var/lib/docker/volumes/a1fd1edec5784f1153a318003bba4279b86fd2dd71b401be5864ed9b868d7332/_data</code> , 和 <code>var/lib/docker/volumes/975ae74c8716f5e85ccf784c716291cffda2158baf6b3f9e145ffc1ea353cb7b/_data</code></p>
+<p>咱们在容器挂载中创建一个文件，测试是否可以同步数据</p>
+<p>在容器中的 volume1 中创建一个文件 xiaomotong.txt，写入字符串 hello world</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@b29995f4178d:/# cd volume1</span><br><span class="line">root@b29995f4178d:/volume1# echo hello world &gt;&gt; xiaomotong.txt</span><br><span class="line">root@b29995f4178d:/volume1# ll</span><br><span class="line">total 12</span><br><span class="line">drwxr-xr-x 2 root root 4096 Aug  5 15:01 ./</span><br><span class="line">drwxr-xr-x 1 root root 4096 Aug  5 14:54 ../</span><br><span class="line">-rw-r--r-- 1 root root   12 Aug  5 15:01 xiaomotong.txt</span><br></pre></td></tr></table></figure></div>
+
+<p>查看宿主机对应的挂载目录，确认是否同步数据</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:/var/lib/docker/volumes/a1fd1edec5784f1153a318003bba4279b86fd2dd71b401be5864ed9b868d7332/_data# ls</span><br><span class="line">xiaomotong.txt</span><br><span class="line">root@iZuf66y3tuzn4wp3h02t7pZ:/var/lib/docker/volumes/a1fd1edec5784f1153a318003bba4279b86fd2dd71b401be5864ed9b868d7332/_data# cat xiaomotong.txt</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure></div>
+
+<p>果然同步 ok，nice</p>
+<p>那么我们有没有想过，现在是容器和宿主机之间同步数据，可是容器和容器之间是如何同步数据的呢？</p>
+<h3 id="数据卷容器-1"><a href="#数据卷容器-1" class="headerlink" title="数据卷容器"></a>数据卷容器</h3><p>数据卷容器，例如容器 1 通过指令 <code>--volumes-from</code> 挂载到容器 2 上的某个目录，那么容器 2 就是父容器，这个时候就实现了两个容器之间数据同步，容器 2 就是数据卷容器</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261452873.png"
+                      alt="img"
+                ></p>
+<p>来实战一个小例子：</p>
+<p>用刚才我们制作的镜像，创建 2 容器，先创建 docker2 ，再创建docker1，并且 docker1 挂载到 docker2 上，并在 docker2 挂载的目录，volume1 里面创建一个文件，xiaomotong.txt，我们验证 docker1 volume1 里面是否也有这个文件</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker images</span></span><br><span class="line">REPOSITORY            TAG       IMAGE ID       CREATED          SIZE</span><br><span class="line">xiaomotong/ubuntu     latest    b26faaedefac   38 minutes ago   72.8MB</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker run -it --name docker2 b26faaedefac</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker run -it --name docker1 --volumes-from docker2 b26faaedefac</span></span><br></pre></td></tr></table></figure></div>
+
+<p>b26faaedefac 是我们自己制作的镜像的 ID</p>
+<p>主要是使用 <code>--volumes-from</code> 指令，我们就可以将两个容器进行挂载</p>
+<p>docker1</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@3ed3ca51118f:/volume1# ls</span><br><span class="line">root@3ed3ca51118f:/volume1# touch xiaomotong.txt</span><br></pre></td></tr></table></figure></div>
+
+<p>docker2</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@e9e1a0c46331:/volume1# ls</span><br><span class="line">xiaomotong.txt</span><br></pre></td></tr></table></figure></div>
+
+<p>果然，两个容器互相同步数据了</p>
+<p>上述的例子，不仅仅是两个容器之间挂载，进行同步数据，多个容器挂载也是同样的道理，例如再来一个容器 docker3 挂载到 docker2 上，也是一样的效果</p>
+<p><strong>那么他们都是如何同步数据的呢？</strong></p>
+<p>容器间同步数据的原理是通过拷贝的方式，例如在 docker2 上面的挂载上创建了一个文件 2，这个时候 docker1 挂载了 docker2，也就是说 docker2 是父容器，那么 docker1 就会将文件 2 拷贝到自己对应的挂载中</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261453956.png"
+                      alt="img"
+                ></p>
+<p>反之，如果 docker1 在自己的挂载中创建了文件 1，那么文件 1 也会被 docker2 拷贝到自己的挂载中</p>
+<p>若这个时候，我们删除 docker2 ，那么 docker1 挂载中的文件会丢失吗？</p>
+<p>答案是不会的，因为他们是通过拷贝的方式，并不是共享一个副本</p>
+<p>那么我们回顾一下上一期我们创建 mysql 容器的时候，若我们创建多个，那么我们是不是就很容易让他们数据同步，且删除其中一个容器，数据也不会丢失了</p>
+<p>例如：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">docker run  -d -p 8888:3306 -v /etc/mysql/conf.d -v /var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql1 mysql:5.7</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">docker run  -d -p 8888:3306 -v /etc/mysql/conf.d -v /var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql2 --volumes-from mysql1 mysql:5.7</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h2 id="Dockerfile编写和实战"><a href="#Dockerfile编写和实战" class="headerlink" title="Dockerfile编写和实战"></a>Dockerfile编写和实战</h2><p>我们开始来一起学习 DockerFile 的知识点</p>
+<p>DcokerFile 是用来构建 docker 镜像的文件，是一个命令参数脚本</p>
+<p>一般 docker 镜像的构建步骤：</p>
+<p>1、编写一个 dockerfile 文件</p>
+<p>2、docker build 构建成为一个镜像</p>
+<p>3、docker run 运行镜像</p>
+<p>4、docker push 发布镜像（咱们可以发布到 DockerHub，也可以发布到阿里云上面）</p>
+<p><strong>我们来看看官方的镜像是咋玩的</strong></p>
+<p>例如我们在 DockerHub 上搜索 ubuntu ，看看官网的 DockerFile 是啥样子的</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://hub.docker.com/_/ubuntu" >Docker ubuntu <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261502904.png"
+                      alt="img"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261502286.png"
+                      alt="img"
+                ></p>
+<p>点击链接我们会进入到 git 仓库上，也是 DockerFile</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261507008.png"
+                      alt="img"
+                ></p>
+<p>咱们看到就 3 行 Docker 命令，是官方做成镜像的 DockerFile，所以这个官方的 ubuntu 镜像是非常简单的，阉割版本的，甚至连 clear 命令都没有，ll 命令也没有</p>
+<p>很多的官方镜像包都是非常简单的，很多功能都是没有的，我们通常会自己搭建自己的镜像来满足我们的各种需求</p>
+<h3 id="DockerFile-的构建过程"><a href="#DockerFile-的构建过程" class="headerlink" title="DockerFile 的构建过程"></a>DockerFile 的构建过程</h3><p>官方能构建镜像，我们也可以自己的镜像</p>
+<p>DockerFile 的基础知识：</p>
+<ul>
+<li>每个 DockerFile 的保留字（指令），都必须是大写的</li>
+<li>DockerFile 脚本执行是按照顺序执行的</li>
+<li>#表示注释</li>
+<li>每一个指令都会创建提交一个新的镜像层，并提交</li>
+</ul>
+<p>可以在网络上找到这样的图片，可以看到镜像是一层一层的，可以在浏览器上搜索到 DockerFile 里面的指令解释</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261508232.png"
+                      alt="img"
+                ></p>
+<p>dockerfile 是面向开发的，我们以后在做项目的时候，是直接发布一个镜像，交付的是一个镜像，就需要编写 DockerFile 文件，这个文件非常的简单！</p>
+<p>咱们必须要掌握 Docker 镜像，逐渐成为企业交付的标准了。</p>
+<p>咱们学习的过程是先会使用别人的东西，再去研究别人是怎么写的，进而我们也学会如何去写，去开发</p>
+<p>例如：</p>
+<p>我们先学习使用了，</p>
+<p>Docker Images：通过 DockerFile 构建生产的镜像，最终发布和运行的产品</p>
+<p>Docker 容器：容器服务就是镜像运行起来的服务器</p>
+<p>现在我们开始详细学习 DockerFIle：构建文件，定义了一切的步骤，这是源代码</p>
+<h3 id="DockerFile-的指令"><a href="#DockerFile-的指令" class="headerlink" title="DockerFile 的指令"></a>DockerFile 的指令</h3><p>图片来源于网络，我们一一解释一波</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261510973.png"
+                      alt="fMAlVQD7b2.png!large"
+                ></p>
+<p>FROM<br>基础的镜像，一切都是从这里开始的</p>
+<p>MAINTAINER(<code>已过时，推荐使用LABEL</code>)<br>指明镜像是谁写的，写下自己的姓名和邮箱</p>
+<p>RUN<br>镜像构建的时候需要运行的命令</p>
+<p>ADD<br>加入某些配置，例如加入 mysql 的压缩包，添加内容</p>
+<p>WORKDIR<br>镜像的工作目录</p>
+<p>VOLUME<br>挂载目录</p>
+<p>EXPOSE<br>暴露端口 和 -p 是一个效果</p>
+<p>CMD<br>指定这个容器启动的时候执行的命令，只会是最优一个指令进行生效，会被替代</p>
+<p>ENTRYPOINT<br>指定这个容器启动的时候执行的命令，可以追加</p>
+<p>ONBUILD<br>当构建一个被继承的 DockerFIle ，这个时候就会运行 ONBUILD 的指令，触发相应的动作</p>
+<p>COPY<br>与 ADD 类似，此命令是将文件拷贝到镜像中</p>
+<p>ENV<br>构建的时候设置环境变量</p>
+<p>乍一看感觉 CMD 和 ENTRYPOINT 功能好像差不多，但是还是不太清楚具体区别在哪里，文章末尾会有详细说明</p>
+<h3 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h3><p>我们自己来做一个自定一个 <code>ubuntu</code> 镜像</p>
+<p>官方的 <code>ubuntu</code> 是阉割版本的，很多工具和命令都是不支持的，那么我们就自己加进去，自给自足</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261513836.png"
+                      alt="img"
+                ></p>
+<p><strong>自己写一个 DockerFile</strong></p>
+<p>这里需要注意的是，基本上 99% 的镜像，都是基于这个<strong>基础镜像 scratch</strong>，我们可以看到官方的 DockerFIle 也是基于这个镜像来玩的</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/tianon/docker-brew-ubuntu-core/blob/a967c2b8734c77f7f89449d0b87c2e1eebf8b26e/bionic/Dockerfile" >docker-brew-ubuntu-core&#x2F;Dockerfile  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261516357.png"
+                      alt="img"
+                ></p>
+<p>那么我们可以基于这个 ubuntu 来进行自定义，加入一些我们需要的工具，如 <code>vim</code>，<code>ifconfig</code> 等</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新源</span></span><br><span class="line">RUN apt-get update </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装vim</span></span><br><span class="line">RUN apt-get install -y vim </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装net-tools</span></span><br><span class="line">RUN apt-get install -y net-tools </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置环境变量</span></span><br><span class="line">ENV MYPATH /usr/local </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置镜像工作目录</span></span><br><span class="line">WORKDIR $MYPATH     </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">暴露端口</span></span><br><span class="line">EXPOSE 8888</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执行<span class="built_in">echo</span>命令</span></span><br><span class="line">CMD echo &quot;----  end  ----&quot;  </span><br><span class="line"></span><br><span class="line">CMD /bin/bash</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="开始构建"><a href="#开始构建" class="headerlink" title="开始构建"></a>开始构建</h3><p><code>docker build -f dockerfile2 -t xmtubuntu .</code>Windows下在dockerfile文件的目录下运行这个命令</p>
+<p>如果不在 DockerFile 中写入 apt-get update 更新源，会出现下面这个问题，这个要注意</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261533516.png"
+                      alt="img"
+                ></p>
+<p>执行上述命令，会看到如下打印信息，最终会看到 <code>Successfully</code>，即为构建成功</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261533615.png"
+                      alt="image-20230526153313505"
+                ></p>
+<h3 id="验证结果"><a href="#验证结果" class="headerlink" title="验证结果"></a>验证结果</h3><p>docker images查看我们的镜像</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261534507.png"
+                      alt="image-20230526153427432"
+                ></p>
+<p>docker history  查看我们镜像的构建过程</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261535718.png"
+                      alt="image-20230526153538622"
+                ></p>
+<p>xmtubuntu 这个镜像的构建过程我们可以清晰的看出都执行了哪些步骤，当然，同样的方式，我们也可以看看官方的镜像是如何构建的，我们来看看官方 ubuntu 的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261536184.png"
+                      alt="image-20230526153623101"
+                ></p>
+<p>官方的就很简单，阉割了很多东西，我们可以看出官方的 ubuntu 就 2 个步骤，第一个是加入 <code>ubuntu</code> 压缩包，第二个就是 <code>/bin/bash</code></p>
+<p>我们查看我们的自定义镜像 <code>xmtubuntu</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261539283.png"
+                      alt="image-20230526153947189"
+                ></p>
+<h3 id="CMD-和-ENTRYPOINT-的区别"><a href="#CMD-和-ENTRYPOINT-的区别" class="headerlink" title="CMD 和 ENTRYPOINT 的区别"></a>CMD 和 ENTRYPOINT 的区别</h3><p>CMD<br>指定这个容器启动的时候执行的命令，只会是最优一个指令进行生效，会被替代</p>
+<p>ENTRYPOINT<br>指定这个容器启动的时候执行的命令，可以追加</p>
+<p>如何理解呢？我们来做一个对比试验就可以很好的理解上述的解释说明，docker 里面有很多命令会有这样的微小区别，我们可以举一反三，慢慢深入学习</p>
+<p><strong>CMD 的例子</strong></p>
+<p>写一个简单的 DockerFile 文件名为 dockerfile-cmd</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FROM xmtubuntu</span><br><span class="line">CMD [&quot;ls&quot;,&quot;-a&quot;]</span><br></pre></td></tr></table></figure></div>
+
+<p>构建镜像</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261543815.png"
+                      alt="image-20230526154335749"
+                ></p>
+<p>创建并启动容器</p>
+<p><code>docker run 容器id</code>，可以看到如下效果</p>
+<p>我们尝试在启动容器时候追加命令</p>
+<p><code>docker run 容器id -l</code>，就会有如下报错</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261544805.png"
+                      alt="image-20230526154448726"
+                ></p>
+<p>原因如下：</p>
+<p>使用 <code>CMD</code> 指令是（例如我们的例子是 <code>ls -a</code>），我们在启动容器的时候，后面追加的命令（<code>-l</code>）会把 <code>ls -a</code> 替换掉，由于 <code>-l</code> 不是一个命令，因此报错</p>
+<p><strong>ENTRYPOINT 的例子</strong></p>
+<p>写一个简单的 DockerFile 文件名为 dockerfile-entrypoint</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FROM xmtubuntu</span><br><span class="line">ENTRYPOINT [&quot;ls&quot;,&quot;-a&quot;]</span><br></pre></td></tr></table></figure></div>
+
+<p>构建镜像，创建并启动容器和 CMD 的例子一模一样，咱们直接启动容器的效果和 CMD 的例子也是一模一样，我们直接来看启动容器并追加参数的例子</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261548566.png"
+                      alt="image-20230526154809486"
+                ></p>
+<p>可以看出使用 ENTRYPOINT 是可以在后面追加参数的，使用 CMD 若指令后面追加参数，那么会覆盖 CMD 指定的指令</p>
+<p>那么，对于以后遇到相关的指令，我们也可以举一反三，做对比试验，这样我们就会理解的更加清楚</p>
+<h3 id="如何发布我们的镜像"><a href="#如何发布我们的镜像" class="headerlink" title="如何发布我们的镜像"></a>如何发布我们的镜像</h3><p>1、登录 dockerhub</p>
+<p>没有注册的 xdm 可以注册一个，<a class="link"   target="_blank" rel="noopener" href="https://hub.docker.com/" >hub.docker.com&#x2F; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker login -u xxxx用户名</span></span><br><span class="line">Password:</span><br><span class="line">WARNING! Your password will be stored unencrypted in /root/.docker/config.json.</span><br><span class="line">Configure a credential helper to remove this warning. See</span><br><span class="line">https://docs.docker.com/engine/reference/commandline/login/#credentials-store</span><br><span class="line"></span><br><span class="line">Login Succeeded</span><br></pre></td></tr></table></figure></div>
+
+<p>2、修改我们的镜像 tag</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker tag 我们的镜像id 我们的docker用户名/镜像名字:版本</span><br></pre></td></tr></table></figure></div>
+
+<p>3、将镜像推到我们自己的仓库中</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261553031.png"
+                      alt="img"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261556962.png"
+                      alt="image-20230526155617944"
+                ></p>
+<p>发布镜像的时候，也是按照一层一层的提交的</p>
+<p>最后补充一个网络上找到的图片，现在看这张图就能更清晰的明白其中的原理了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261554069.png"
+                      alt="img"
+                ></p>
+<h2 id="Docker网络"><a href="#Docker网络" class="headerlink" title="Docker网络"></a>Docker网络</h2><h3 id="开始理解-docker"><a href="#开始理解-docker" class="headerlink" title="开始理解 docker"></a>开始理解 docker</h3><p><strong>一开始，咱们思考一下</strong>，宿主机怎么和容器通信呢？</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261500478.png"
+                      alt="img"
+                ></p>
+<p>说容器之间是相互隔离的，那么他们是否可以通信？又是如何通信的呢？</p>
+<h3 id="开始探索"><a href="#开始探索" class="headerlink" title="开始探索"></a>开始探索</h3><p><strong>我们先来看看咱环境中的镜像都有些啥，有 <code>xmtubuntu</code></strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261558348.png"
+                      alt="image-20230526155856278"
+                ></p>
+<p><strong>再来看看宿主机的网卡信息</strong></p>
+<p><code>ip addr</code> 来查看咱们宿主机的网卡信息</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261559017.png"
+                      alt="img"
+                ></p>
+<p>我们发现有一个 <code>docker0</code>，是因为我们的宿主机上面安装了 docker 的服务，docker 会给我生成一个虚拟网卡，图中的这个 <code>docker0</code> 就是虚拟网卡信息</p>
+<p><strong>创建并启动一个 docker 命名为 ubuntu1</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name ubuntu1 -P xmtubuntu</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>查看一下宿主机网卡信息</strong></p>
+<p>查看宿主机的网卡信息</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261608992.png"
+                      alt="img"
+                ></p>
+<p>再查看 <code>ubuntu1</code> 的网卡信息，docker 也会默认给我们的容器分配 <code>ip</code> 地址</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261608237.png"
+                      alt="img"
+                ></p>
+<p>可以发现宿主机的网卡信息 docker0 下面多了 117: veth838e165@if116:，ubuntu1 的网卡信息上也正好有 116: eth0@if117</p>
+<p>我们发现这些 veth 的编号是成对出现的，咱们的宿主机就可以和 ubuntu1 进行通信了</p>
+<p>使用宿主机（docker0）和 ubuntu1 互相 ping</p>
+<p><code>docker0 ping ubuntu1 ok</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261608322.png"
+                      alt="img"
+                ></p>
+<p><code>ubuntu1</code>ping<code>docker0</code>，同样的 ok</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261609268.png"
+                      alt="img"
+                ></p>
+<p>咱们可以尝试再创建并启动一个 docker 命名为 ubuntu2，方法和上述完全一致</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -P --name ubuntu2 xmtubuntu</span><br></pre></td></tr></table></figure></div>
+
+<p>进入容器，使用 <code>ip a</code> 查看到 ubuntu2 的网卡信息。</p>
+<p>进入容器，使用 ip a 查看到 ubuntu2 的网卡信息</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261610824.png"
+                      alt="img"
+                ></p>
+<p>宿主机上面查看网信息</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261610228.png"
+                      alt="img"
+                ></p>
+<p>宿主机上面又多了一个 veth ， 119: veth0b29558@if118</p>
+<p>ubuntu2 上的网卡信息是 118: eth0@if119，他们同样是成对出现的，小伙伴看到这里应该明白了吧</p>
+<p>ubuntu1 ping ubuntu2 呢？</p>
+<p>ubuntu1 对应 172.18.0.2</p>
+<p>ubuntu2 对应 172.18.0.3</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker <span class="built_in">exec</span> -it ubuntu1 ping 172.18.0.3</span></span><br><span class="line">PING 172.18.0.3 (172.18.0.3) 56(84) bytes of data.</span><br><span class="line">64 bytes from 172.18.0.3: icmp_seq=1 ttl=64 time=0.071 ms</span><br><span class="line">64 bytes from 172.18.0.3: icmp_seq=2 ttl=64 time=0.070 ms</span><br><span class="line">64 bytes from 172.18.0.3: icmp_seq=3 ttl=64 time=0.077 ms</span><br></pre></td></tr></table></figure></div>
+
+<p>仍然是可以通信，非常 nice</p>
+<h3 id="原理是什么？"><a href="#原理是什么？" class="headerlink" title="原理是什么？"></a>原理是什么？</h3><p>上述的探索，我们发现宿主机创建的容器，都可以直接 ping 通宿主机，那么他们的原理是啥呢？</p>
+<p>细心的 xdm 应该可以看出来，上述的例子中，veth 是成对出现的，上述宿主机和容器能够进行网络通信，得益于这个技术 veth-pair</p>
+<p><strong>veth-pair</strong></p>
+<p><strong>veth-pair</strong>  是一对虚拟设备接口，他们都是成对出现的，一段连着协议，一段彼此相连</p>
+<p>正是因为这个特性，veth-pair 在此处就是充当了一个桥梁，连接各种虚拟设备</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261611331.png"
+                      alt="img"
+                ></p>
+<p>通过上图我们可以得出如下结论：</p>
+<ul>
+<li>ubuntu1 和 ubuntu2 他们是公用一个路由器，也就是 docker0，ubuntu1 能 ping 通 ubuntu2 是因为 docker0 帮助其转发的</li>
+<li>所有的容器在不指定路由的情况下，都是以 docker0 作为路由，docker 也会给我们的容器分配一个可用的 ip</li>
+<li>docker0 是在宿主机上面安装 docker 服务就会存在的</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261612689.png"
+                      alt="img"
+                ></p>
+<p>那么通过上图我们就知道，容器和宿主机之前是通过桥接的方式来打通网络的。</p>
+<p>Dcoker 中所有的网络接口都是虚拟的，因为虚拟的转发效率高呀，当我们删除某一个容器的时候，这个容器对应的网卡信息，也会被随之删除掉</p>
+<p>那么我们可以思考一下，如果都是通过找 ip 地址来通信，如果 ip 变化了，那么我们岂不是找不到正确的容器了吗？我们是否可以通过服务名来访问容器呢?</p>
+<h3 id="–link"><a href="#–link" class="headerlink" title="–link"></a>–link</h3><p>当然是可以的，当我们在创建和启动容器的时候加上–link 就可以达到这个效果</p>
+<p>我们再创建一个容器 ubuntu3，让他 link 到 ubuntu2</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name ubuntu3 -P --link ubuntu2 xmtubuntu</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># docker exec -it ubuntu3 ping ubuntu2</span><br><span class="line">PING ubuntu2 (172.18.0.3) 56(84) bytes of data.</span><br><span class="line">64 bytes from ubuntu2 (172.18.0.3): icmp_seq=1 ttl=64 time=0.093 ms</span><br><span class="line">64 bytes from ubuntu2 (172.18.0.3): icmp_seq=2 ttl=64 time=0.085 ms</span><br><span class="line">64 bytes from ubuntu2 (172.18.0.3): icmp_seq=3 ttl=64 time=0.092 ms</span><br><span class="line">64 bytes from ubuntu2 (172.18.0.3): icmp_seq=4 ttl=64 time=0.073 ms</span><br></pre></td></tr></table></figure></div>
+
+<p>很明显，我们可以到看到 ubuntu3 可以通过服务名 ubuntu2 直接和 ubuntu2 通信，但是反过来是否可以呢？</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it ubuntu2 ping ubuntu3</span><br><span class="line">ping: ubuntu3: Name or service not known</span><br></pre></td></tr></table></figure></div>
+
+
+<p>不行？这是为什么呢？</p>
+<p>我们来查看一下 ubuntu3 的本地 &#x2F;etc&#x2F;hosts 文件就清楚了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261620657.png"
+                      alt="img"
+                ></p>
+<p>看到这里，这就清楚了 link 的原理了吧，就是在自己的 &#x2F;etc&#x2F;hosts 文件中，加入一个 host 而已，这个知识点我们可以都知悉一下，但是这个 link 还是好搓，不好，他需要在创建和启动容器的时候使用，用起来不方便</p>
+<p>那么我们有没有更好的办法的呢？</p>
+<h3 id="自定义网络"><a href="#自定义网络" class="headerlink" title="自定义网络"></a>自定义网络</h3><p>可以使用 <code>docker network ls</code> 查看宿主机 docker 的网络情况</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261622920.png"
+                      alt="image-20230526162225858"
+                ></p>
+<p>网络模式</p>
+<p>bridge<br>桥接，docker0 默认使用 bridge 这个名字</p>
+<p>host<br>和宿主机共享网络</p>
+<p>none<br>不配置网络</p>
+<p>container<br>容器网络连通，这个模式用的非常少，因为局限性很大</p>
+<p>现在咱们可以自定义个网络，来连通两个容器</p>
+<p><strong>自定义网络</strong></p>
+<p>自定义应该mynet网络</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker network create --driver bridge --subnet 192.168.0.0/16 --gateway 192.168.0.1 mynet</span></span><br><span class="line">9a597fc31f1964d434181907e21ff7010738f3f7dc35ba86bf7434f05a6afc4a</span><br></pre></td></tr></table></figure></div>
+
+<p>docker network create<br>创建一个网络</p>
+<p>–driver<br>指定驱动是 bridge</p>
+<p>–subnet<br>指定子网</p>
+<p>–gateway<br>指定网关</p>
+<p>此处我们设置子网是 –subnet 192.168.0.0&#x2F;16，网关是 192.168.0.1，那么我们剩下可以使用的 ip 就是 192.168.0.2 – 192.168.255.254 ， 192.168.255.255 是广播地址</p>
+<p><strong>清空已有的容器</strong></p>
+<p>清空所有测试的容器，减去干扰</p>
+<h3 id="创建并启动-2-个容器，分别是-ubuntu1-和-ubuntu2"><a href="#创建并启动-2-个容器，分别是-ubuntu1-和-ubuntu2" class="headerlink" title="创建并启动 2 个容器，分别是 ubuntu1 和 ubuntu2"></a>创建并启动 2 个容器，分别是 ubuntu1 和 ubuntu2</h3><div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker run -it -P --name ubuntu1 --net mynet xmtubuntu</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker run -it -P --name ubuntu2 --net mynet xmtubuntu</span></span><br></pre></td></tr></table></figure></div>
+
+<p>此时我们可以查看一下宿主机的网卡信息，并验证两个容器直接通过容器名字是否可以通信</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261647788.png"
+                      alt="img"
+                ></p>
+<p>我们思考一下自定义网络的好处</p>
+<p>咱们自定义 docker 网络，已经帮我们维护好了对应关系，这样做的好处是容器之间可以做到网络隔离，</p>
+<p>例如</p>
+<p>一堆 redis 的容器，使用 192.168.0.0&#x2F;16 网段，网关是 192.168.0.1</p>
+<p>一堆 mongodb 的容器，使用 192.167.0.0&#x2F;16 网段，网关是 192.167.0.1</p>
+<p>这样就可以做到子网很好的隔离开来，不同的集群使用不同的子网，互不影响</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261648754.png"
+                      alt="gKWXC34bTV.png!large"
+                ></p>
+<p>那么子网间是否可以打通呢？</p>
+<h3 id="网络连通"><a href="#网络连通" class="headerlink" title="网络连通"></a>网络连通</h3><p>两个不同子网内的容器如何连通了呢？</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261652417.png"
+                      alt="img"
+                ></p>
+<p>我们绝对不可能让不同子网的容器不通过路由的转发而直接通信，这是不可能的，子网之间是相互隔离的</p>
+<p>但是我们有办法让 ubuntu3 这个容器通过和 mynet 打通，进而转发到 ubuntu1 或者 ubuntu2 中就可以了</p>
+<h3 id="打通子网"><a href="#打通子网" class="headerlink" title="打通子网"></a>打通子网</h3><p>我们查看 docker network 的帮助手册</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network -h</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261658389.png"
+                      alt="image-20210807203841520"
+                ></p>
+<p>可以使用 <code>docker network connect</code> 命令实现，在查看一下帮助文档</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker network connect -h</span></span><br><span class="line">Flag shorthand -h has been deprecated, please use --help</span><br><span class="line"></span><br><span class="line">Usage:  docker network connect [OPTIONS] NETWORK CONTAINER</span><br><span class="line"></span><br><span class="line">Connect a container to a network</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="开始打通"><a href="#开始打通" class="headerlink" title="开始打通"></a>开始打通</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network connect mynet ubuntu3</span><br></pre></td></tr></table></figure></div>
+
+<p>这个时候我们可以查看一下 mynet 网络的详情</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261700334.png"
+                      alt="IAZ0ptRRqo.png!large"
+                ></p>
+<p>可以看到在 mynet 网络上，又增加了一个容器，ip 是 192.168.0.4</p>
+<p>没错，docker 处理这种网络打通的事情就是这么简单粗暴，直接在 ubuntu3 容器上增加一个虚拟网卡，让 ubuntu3 能够和 mynet 网络打通</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305261700453.png"
+                      alt="img"
+                ></p>
+<p>宿主机当然也相应的多了一个 veth</p>
+<p>现在，要跨网络操作别人的容器，我们就可以使用 docker network connect 的方式将网络打通，开始干活了</p>
+<h2 id="Compose-内容编排官网初步体验"><a href="#Compose-内容编排官网初步体验" class="headerlink" title="Compose 内容编排官网初步体验"></a>Compose 内容编排官网初步体验</h2><p>我们前面的文章学习了 docker ，为什么还要 Compose 呢？Compose 到底是个啥玩意？</p>
+<p>Docker Compose 可以来轻松的高效的管理容器，定义运行多个容器</p>
+<p>咱们一起来看看官方的介绍<a class="link"   target="_blank" rel="noopener" href="https://docs.docker.com/compose/" >Docker Compose overview <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="Compose-是什么"><a href="#Compose-是什么" class="headerlink" title="Compose 是什么"></a>Compose 是什么</h3><p>Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration. To learn more about all the features of Compose, see the list of features.</p>
+<p>讲了三个点：</p>
+<ul>
+<li>Compose 可以定义和运行多个容器</li>
+<li>需要使用给到 YAML 配置文件</li>
+<li>单个命令就可以创建和启动所有的服务</li>
+</ul>
+<p>Compose works in all environments: production, staging, development, testing, as well as CI workflows. You can learn more about each case in Common Use Cases.</p>
+<p>Docker Compose 可以运行在所有的环境中</p>
+<p>Using Compose is basically a three-step process:</p>
+<p>1、Define your app’s environment with a Dockerfileso it can be reproduced anywhere.</p>
+<p>2、Define the services that make up your app in docker-compose.ymlso they can be run together in an isolated environment.</p>
+<p>3、Run docker compose up and the Docker compose command starts and runs your entire app. You can alternatively run docker-compose up using the docker-compose binary.</p>
+<p>三个步骤：</p>
+<ul>
+<li>需要定义好 Dockerfile ，保证它在任何环境都能运行</li>
+<li>在 docker-compose.yml 文件中定义好 services，那么这个 yml 文件如何写呢？services 咋定义呢</li>
+<li>使用 docker-compose binary 启动项目</li>
+</ul>
+<p>总结上述官方说明：</p>
+<p>Docker Compose 用于批量容器编排</p>
+<p>如果一个项目中的多个微服务（几十个或者几百个），我们都一个一个的使用 docker run 是不是很傻？而且对于运维来说也是一个非常不友好的事情，优化这样的问题，我们有了 Docker Compose</p>
+<h3 id="Compose-在-Docker-中默认就有吗？"><a href="#Compose-在-Docker-中默认就有吗？" class="headerlink" title="Compose 在 Docker 中默认就有吗？"></a>Compose 在 Docker 中默认就有吗？</h3><p>Docker 中默认是没有 Compose 的，Compose 是 Docker 官方的开源项目，我们使用 Compose ，是需要自己另外安装的</p>
+<h3 id="Compose-的-yml-文件如何编写？"><a href="#Compose-的-yml-文件如何编写？" class="headerlink" title="Compose 的 yml 文件如何编写？"></a>Compose 的 yml 文件如何编写？</h3><p>一起来看看官方文档的 yml 是怎样的结构：</p>
+<p>A docker-compose.yml looks like this:</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">version: &quot;3.9&quot;  # optional since v1.27.0</span><br><span class="line">services:</span><br><span class="line">  web:</span><br><span class="line">    build: .</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;5000:5000&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      - .:/code</span><br><span class="line">      - logvolume01:/var/log</span><br><span class="line">    links:</span><br><span class="line">      - redis</span><br><span class="line">  redis:</span><br><span class="line">    image: redis</span><br><span class="line">volumes:</span><br><span class="line">  logvolume01: &#123;&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>services</li>
+</ul>
+<p>指定服务</p>
+<ul>
+<li>volumes</li>
+</ul>
+<p>指定挂载卷</p>
+<p>通过官方文档的上述说明，我们可以知道 Compose 有这么 2 个重要的概念：</p>
+<ul>
+<li>services 服务，就是容器和相关的应用</li>
+<li>项目，就是一组关联的容器</li>
+</ul>
+<h3 id="Compose-安装"><a href="#Compose-安装" class="headerlink" title="Compose 安装"></a>Compose 安装</h3><p><a class="link"   target="_blank" rel="noopener" href="https://docs.docker.com/compose/install/" >Docker Compose install <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>1、咱们选择在 linux 下面安装 Docker Compose ，运行如下指令进行安装</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure></div>
+
+<p>安装成功后在我们的 linux 目录 &#x2F;usr&#x2F;local&#x2F;bin&#x2F; 会有 docker-compose 程序</p>
+<p>2、 给程序 docker-compose 加上可执行的权限</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure></div>
+
+<p>3、安装成功，查看 docker-compose 的版本，看到如下信息即为成功</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker-compose version</span></span><br><span class="line">docker-compose version 1.29.2, build 5becea4c</span><br><span class="line">docker-py version: 5.0.0</span><br><span class="line">CPython version: 3.7.10</span><br><span class="line">OpenSSL version: OpenSSL 1.1.0l  10 Sep 2019</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h3 id="Compose-官方案例体验"><a href="#Compose-官方案例体验" class="headerlink" title="Compose 官方案例体验"></a>Compose 官方案例体验</h3><p><a class="link"   target="_blank" rel="noopener" href="https://docs.docker.com/compose/gettingstarted/" >Try Docker Compose <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>咱们安装好了 docker-compose ，我们一起来体验一下官方的 例子，先会使用，再来研究</p>
+<h4 id="准备环境和代码"><a href="#准备环境和代码" class="headerlink" title="准备环境和代码"></a>准备环境和代码</h4><p>1、创建 compose 测试目录，自己可以在任意目录下执行如下指令</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir composetest</span><br><span class="line">cd composetest</span><br></pre></td></tr></table></figure></div>
+
+<p>2、编写 app.py 文件</p>
+<p><strong>app.py</strong></p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> redis</span><br><span class="line">from flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">cache = redis.Redis(host=<span class="string">&#x27;redis&#x27;</span>, port=<span class="number">6379</span>)</span><br><span class="line"></span><br><span class="line">def get_hit_count():</span><br><span class="line">    retries = <span class="number">5</span></span><br><span class="line">    while True:</span><br><span class="line">        try:</span><br><span class="line">            <span class="keyword">return</span> cache.incr(<span class="string">&#x27;hits&#x27;</span>)</span><br><span class="line">        except redis.exceptions.ConnectionError as exc:</span><br><span class="line">            <span class="keyword">if</span> retries == <span class="number">0</span>:</span><br><span class="line">                raise exc</span><br><span class="line">            retries -= <span class="number">1</span></span><br><span class="line">            time.sleep(<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line">@app.route(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">def hello():</span><br><span class="line">    count = get_hit_count()</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello World! I have been seen &#123;&#125; times.\n&#x27;</span>.format(count)</span><br></pre></td></tr></table></figure></div>
+
+<p>该 py 文件的功能就是，注册了一个路由为 &#x2F;，我们访问服务器的 &#x2F; 时，程序会去读取 redis 的计数器，来确认这个网站是访问了第几次了</p>
+<p>3、创建一个文件 requirements.txt，用于之后的安装</p>
+<p><strong>requirements.txt</strong></p>
+<div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flask</span><br><span class="line">redis</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="创建-DockerFile-文件"><a href="#创建-DockerFile-文件" class="headerlink" title="创建 DockerFile 文件"></a>创建 DockerFile 文件</h4><p>写 Dockerfile 文件</p>
+<p><strong>Dockerfile</strong></p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">syntax=docker/dockerfile:1</span></span><br><span class="line">FROM python:3.7-alpine</span><br><span class="line">WORKDIR /code</span><br><span class="line">ENV FLASK_APP=app.py</span><br><span class="line">ENV FLASK_RUN_HOST=0.0.0.0</span><br><span class="line">RUN apk add --no-cache gcc musl-dev linux-headers</span><br><span class="line">COPY requirements.txt requirements.txt</span><br><span class="line">RUN pip install -r requirements.txt</span><br><span class="line">EXPOSE 5000</span><br><span class="line">COPY . .</span><br><span class="line">CMD [&quot;flask&quot;, &quot;run&quot;]</span><br></pre></td></tr></table></figure></div>
+
+<p>Dockerfile 文件中的含义是：</p>
+<ul>
+<li>基于 python:3.7-alpine 构建镜像</li>
+<li>设置工作目录为 &#x2F;code</li>
+<li>设置 FLASK_APP 环境变量</li>
+<li>设置 FLASK_RUN_HOST 环境变量</li>
+<li>运行 apk add –no-cache gcc musl-dev linux-headers 指令</li>
+<li>拷贝文件 requirements.txt 到容器中</li>
+<li>运行 pip 安装 requirements.txt 中的组件</li>
+<li>暴露 5000 端口</li>
+<li>拷贝 . 到 .</li>
+<li>执行 flask run 命令</li>
+</ul>
+<h4 id="定义-Compose-文件（yml-文件）"><a href="#定义-Compose-文件（yml-文件）" class="headerlink" title="定义 Compose 文件（yml 文件）"></a>定义 Compose 文件（yml 文件）</h4><p><strong>docker-compose.yml</strong></p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3.9&quot;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;5000:5000&quot;</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">&quot;redis:alpine&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>这个 compose 文件定义了 2 个服务</p>
+<ul>
+<li>web 服务，暴露的是 5000 端口</li>
+<li>redis</li>
+</ul>
+<h4 id="构建和运行我们的-Compose"><a href="#构建和运行我们的-Compose" class="headerlink" title="构建和运行我们的 Compose"></a>构建和运行我们的 Compose</h4><p>运行指令前，我们来查看一下我们的 compose 测试目录都有些啥了：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305281506067.png"
+                      alt="image-20230528150629967"
+                ></p>
+<p><strong>开始构建</strong></p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">docker compose up</span></span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291217601.png"
+                      alt="image-20230529121718417"
+                ></p>
+<p>这个是因为我已经构建过一次了。</p>
+<p><strong>实际上的过程是这样的：</strong></p>
+<p>可以看到执行指令 docker-compose up 之后， Compose 也是在一层一层的执行，并且我们可以看到 compose 是最先建立了一个自定义网络</p>
+<p><code>Creating network &quot;composetest_default&quot; with the default driver</code></p>
+<p>看到这里，我们发现 Compose 会自动帮我们创建 redis 容器和 web 容器</p>
+<p><code>Creating composetest_web_1   ... done</code><br><code>Creating composetest_redis_1 ... done</code></p>
+<p>最后，我们看到 Compose 帮我们将 redis 和 web 启动起来了，程序正常运行，</p>
+<p>咱们在宿主机使用 curl 命令，来请求一下这个 web 服务</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:5000/</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291218378.png"
+                      alt="image-20230529121840283"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291219754.png"
+                      alt="image-20230529121908658"
+                ></p>
+<p>果然 ok，官方的 compose 体验 no problem ，nice</p>
+<h4 id="查看一下镜像"><a href="#查看一下镜像" class="headerlink" title="查看一下镜像"></a>查看一下镜像</h4><p>使用 docker images 查看一下镜像，发现多了 composetest_web，python，redis alpine 版本 ，这些也都是 compose 自动为我们做的，非常方便（哥们没有python呢？，可好像不影响）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291220115.png"
+                      alt="image-20230529122011021"
+                ></p>
+<h4 id="查看一下网络"><a href="#查看一下网络" class="headerlink" title="查看一下网络"></a><strong>查看一下网络</strong></h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network ls</span><br></pre></td></tr></table></figure></div>
+
+<p>compose 构建的时候，一开始就会为我们创建一个网络</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291221928.png"
+                      alt="image-20230529122115838"
+                ></p>
+<h4 id="疑问？"><a href="#疑问？" class="headerlink" title="疑问？"></a>疑问？</h4><p>细心的朋友发现了，我们的容器名字为什么是 composetest_web_1 ， 和 composetest_redis_1</p>
+<p>这个是 Docker Compose 里面的一种规则，便于标识对应的副本</p>
+<p>例如，compose 里面对于容器会是这样的命名：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">文件名_服务名_num</span><br></pre></td></tr></table></figure></div>
+
+<p>多个服务器集群的时候，这个 num 的作用就体现出来的，num 标识第几个副本</p>
+<h4 id="网络规则"><a href="#网络规则" class="headerlink" title="网络规则"></a>网络规则</h4><p>多个容器只要是在一个局域网内，就可以互相 ping 通，相互通信，通过域名访问</p>
+<p>例如 mysql 集群里面的服务，我们就可以访问 mysql:3306 ， compose 就会给我们访问到 mysql:3306 这个服务</p>
+<p>我们可以查看上面的 docker compose 给我们新建的自定义网络</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network ls</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291222317.png"
+                      alt="image-20230529122115838"
+                ></p>
+<p><code>docker network inspect composetest_default</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291223624.png"
+                      alt="image-20230529122349506"
+                ></p>
+<p>发现上面的例子， web 服务和 redis 服务，是在同一个网络下的，所有可以相互通信</p>
+<h4 id="停止-compose"><a href="#停止-compose" class="headerlink" title="停止 compose"></a>停止 compose</h4><p>咱们可以使用 <strong>ctrl + c</strong> 停止 compose</p>
+<p>也可以通过 docker-compose down 停止 compose</p>
+<p>停止 compose ，那么 compose 里面涉及的服务，全部都会停止掉</p>
+<p><code>docker-compose down</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291225912.png"
+                      alt="image-20230529122522722"
+                ></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">停止 composetest_web_1</span><br><span class="line">停止 composetest_redis_1</span><br><span class="line">删除 composetest_web_1</span><br><span class="line">删除 composetest_redis_1</span><br><span class="line">移除自定义网络 composetest_default</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h2 id="Compose编写规则及wp实战"><a href="#Compose编写规则及wp实战" class="headerlink" title="Compose编写规则及wp实战"></a>Compose编写规则及wp实战</h2><h3 id="yaml-规则"><a href="#yaml-规则" class="headerlink" title="yaml 规则"></a>yaml 规则</h3><p>docker-compose.yaml 是 Compose 的核心，咱们一定要学会 yaml 编写的规则</p>
+<p>当然，咱们还是查看官方文档，compose 部分</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://docs.docker.com/compose/compose-file/compose-file-v3/" >Compose file version 3 reference <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><strong>yaml 文件的结构分为三层：</strong></p>
+<ul>
+<li>version</li>
+</ul>
+<p>版本号</p>
+<ul>
+<li>services</li>
+</ul>
+<p>服务名</p>
+<ul>
+<li>其他配置，如网络，挂载等公共的东西</li>
+</ul>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">version:&#x27;&#x27;   # 版本号</span><br><span class="line">services:</span><br><span class="line">    服务器1 web:</span><br><span class="line">        当前服务的配置，这个部分就可以和DockerFile 写的差不多了</span><br><span class="line">        build</span><br><span class="line">        depends_on</span><br><span class="line">        ...</span><br><span class="line">    服务2 redis:</span><br><span class="line">    ...</span><br><span class="line">    服务n mongodb:</span><br><span class="line"></span><br><span class="line">network:</span><br><span class="line"></span><br><span class="line">volume:</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">其他配置</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="上面说的到版本号在哪里找呢？"><a href="#上面说的到版本号在哪里找呢？" class="headerlink" title="上面说的到版本号在哪里找呢？"></a><strong>上面说的到版本号在哪里找呢？</strong></h3><p>进入 dockerhub 网页，<a class="link"   target="_blank" rel="noopener" href="https://docs.docker.com/compose/compose-file/compose-file-v3/" >docs.docker.com&#x2F;compose&#x2F;compose-fi… <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291229181.png"
+                      alt="img"
+                ></p>
+<p>官网上的这些都是可以使用的版本，如官网给出的例子：</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3.9&quot;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">redis:alpine</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;6379&quot;</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">frontend</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">replicas:</span> <span class="number">2</span></span><br><span class="line">      <span class="attr">update_config:</span></span><br><span class="line">        <span class="attr">parallelism:</span> <span class="number">2</span></span><br><span class="line">        <span class="attr">delay:</span> <span class="string">10s</span></span><br><span class="line">      <span class="attr">restart_policy:</span></span><br><span class="line">        <span class="attr">condition:</span> <span class="string">on-failure</span></span><br><span class="line"></span><br><span class="line">      <span class="string">...</span></span><br><span class="line"></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">frontend:</span></span><br><span class="line">  <span class="attr">backend:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="attr">db-data:</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h3 id="services-和-其他命令都可以写什么呢？"><a href="#services-和-其他命令都可以写什么呢？" class="headerlink" title="services 和 其他命令都可以写什么呢？"></a>services 和 其他命令都可以写什么呢？</h3><p>services 下面可以写的命令非常的多，文档上也讲的非常的详细</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291229451.png"
+                      alt="image-20230529122959357"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291230181.png"
+                      alt="image-20230529123013090"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291230967.png"
+                      alt="image-20230529123020866"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291230958.png"
+                      alt="image-20230529123033858"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291230518.png"
+                      alt="image-20230529123042434"
+                ></p>
+<p>如上命令还是非常的多，我们一下子肯定也是记不住的，需要我们慢慢去熟悉，用的多了，写的多了，看得多了，知识慢慢的也根深蒂固了</p>
+<p>咱们学习的方法有：</p>
+<ul>
+<li>多看官方文档，看官网的例子</li>
+<li>看开源项目，看看别人的 docker-compose.yaml 是如何编写的</li>
+</ul>
+<h3 id="实战-搭建-wp-博客"><a href="#实战-搭建-wp-博客" class="headerlink" title="实战 - 搭建 wp 博客"></a>实战 - 搭建 wp 博客</h3><p>咱们来使用 docker-compose.yaml 的方式来搭建我们的个人博客，感受一下一键部署的魅力</p>
+<h4 id="创建工作目录"><a href="#创建工作目录" class="headerlink" title="创建工作目录"></a>创建工作目录</h4><div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir my_wordpress</span><br><span class="line">cd my_wordpress</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="编写我们的-docker-compose-yaml-文件"><a href="#编写我们的-docker-compose-yaml-文件" class="headerlink" title="编写我们的 docker-compose.yaml 文件"></a>编写我们的 docker-compose.yaml 文件</h4><div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">version: &quot;3.9&quot;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  db:</span><br><span class="line">    image: mysql:5.7</span><br><span class="line">    volumes:</span><br><span class="line">      - db_data:/var/lib/mysql</span><br><span class="line">    restart: always</span><br><span class="line">    environment:</span><br><span class="line">      MYSQL_ROOT_PASSWORD: somewordpress</span><br><span class="line">      MYSQL_DATABASE: wordpress</span><br><span class="line">      MYSQL_USER: wordpress</span><br><span class="line">      MYSQL_PASSWORD: wordpress</span><br><span class="line"></span><br><span class="line">  wordpress:</span><br><span class="line">    depends_on:</span><br><span class="line">      - db</span><br><span class="line">    image: wordpress:latest</span><br><span class="line">    volumes:</span><br><span class="line">      - wordpress_data:/var/www/html</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;8888:80&quot;</span><br><span class="line">    restart: always</span><br><span class="line">    environment:</span><br><span class="line">      WORDPRESS_DB_HOST: db:3306</span><br><span class="line">      WORDPRESS_DB_USER: wordpress</span><br><span class="line">      WORDPRESS_DB_PASSWORD: wordpress</span><br><span class="line">      WORDPRESS_DB_NAME: wordpress</span><br><span class="line">volumes:</span><br><span class="line">  db_data: &#123;&#125;</span><br><span class="line">  wordpress_data: &#123;&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291239568.png"
+                      alt="image-20230529123950476"
+                ></p>
+<h4 id="docker-compose-up-一键部署服务并启动"><a href="#docker-compose-up-一键部署服务并启动" class="headerlink" title="docker-compose up 一键部署服务并启动"></a>docker-compose up 一键部署服务并启动</h4><p>在工作目录执行如下指令一键部署服务</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#docker-compose up</span><br></pre></td></tr></table></figure></div>
+
+<p>我们也可以在让服务在后台启动</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#docker-compose up -d</span><br></pre></td></tr></table></figure></div>
+
+<p>启动之后我们可以看到程序先去创建网络，创建对应的挂载卷</p>
+<p>开始创建并启动对应的容器</p>
+<ul>
+<li>my_wordpress_db_1</li>
+<li>my_wordpress_wordpress_1</li>
+</ul>
+<h4 id="查看一下博客搭建的效果"><a href="#查看一下博客搭建的效果" class="headerlink" title="查看一下博客搭建的效果"></a>查看一下博客搭建的效果</h4><p>我们可以访问博客地址：服务器的 IP:8888（直接设置就可以有了）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291238413.png"
+                      alt="image-20230529123852231"
+                ></p>
+<p>nice，使用 docker-compose.yaml 搭建个人的 wordpress 博客成功！！！</p>
+<p>wordpress 的界面是这个样子的，里面的功能很多，直接就在页面上定制化我们自己的页面，非常方便，xdm 可以尝试一波，不亏</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202305291240846.png"
+                      alt="image-20230529124013650"
+                ></p>
+<h2 id="Docker面试题"><a href="#Docker面试题" class="headerlink" title="Docker面试题"></a>Docker面试题</h2><p><a class="link"   target="_blank" rel="noopener" href="https://learnku.com/articles/63714" >docker总结和面试题整理 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.topgoer.cn/docs/interview/interview-1e9o5pro7b33j" >docker面试题-地鼠文档 (topgoer.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> Docker你好</li>
+        <li><strong>作者:</strong> Olivia的小跟班</li>
+        <li><strong>创建于
+                :</strong> 2023-04-29 15:15:18</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2023-06-24 20:37:28
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://www.youandgentleness.cn/2023/04/29/Docker你好/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Docker/">#Docker</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2023/06/05/Redis%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Redis从零开始学习</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2023/04/09/SHA-1%E7%AE%97%E6%B3%95/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">SHA-1算法</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '782748daccf6cb467d2c',
+                    clientSecret: '2a18a038c753ac1ae59de258d979feb2e04ee274',
+                    repo: 'gitalk',
+                    owner: 'zhouxing9454',
+                    admin: ['zhouxing9454'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">Docker你好</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">Docker是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-%E8%83%BD%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">Docker 能做什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%82%A3%E4%B9%88-Docker-%E5%85%B7%E4%BD%93%E8%83%BD%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">那么 Docker 具体能做什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E7%9A%84%E7%BB%84%E6%88%90"><span class="nav-text">Docker的组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="nav-text">Docker的安装和使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-run-%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-text">docker run 的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E7%9A%84%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="nav-text">Docker的底层原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-Docker-%E6%AF%94-%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%BF%AB%E5%91%A2%EF%BC%9F"><span class="nav-text">为什么 Docker 比 虚拟机快呢？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">Docker的常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%B8%AE%E5%8A%A9%E5%91%BD%E4%BB%A4"><span class="nav-text">基本帮助命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E5%91%BD%E4%BB%A4"><span class="nav-text">镜像命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">容器命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4"><span class="nav-text">常用其他命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E9%83%A8%E7%BD%B2nginx"><span class="nav-text">Docker部署nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2-nginx-%E9%95%9C%E5%83%8F"><span class="nav-text">搜索 nginx 镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%89%E5%8F%96-nginx-%E9%95%9C%E5%83%8F"><span class="nav-text">拉取 nginx 镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8"><span class="nav-text">创建并运行容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81"><span class="nav-text">验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85portainer"><span class="nav-text">安装portainer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E7%9B%B8%E5%85%B3%E5%8E%9F%E7%90%86"><span class="nav-text">镜像相关原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">镜像是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-%E9%95%9C%E5%83%8F%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86"><span class="nav-text">Docker 镜像的加载原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-%E7%9A%84%E9%95%9C%E5%83%8F%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%E5%91%A2%EF%BC%9F"><span class="nav-text">Docker 的镜像加载原理是什么呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%B1%82%E5%8E%9F%E7%90%86"><span class="nav-text">分层原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4%E5%92%B1%E4%BB%AC%E7%9A%84%E9%95%9C%E5%83%8F"><span class="nav-text">如何提交咱们的镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="nav-text">容器数据卷</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="nav-text">什么是容器数据卷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%92%B1%E4%BB%AC%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%8D%B7%EF%BC%9F"><span class="nav-text">咱们如何使用数据卷？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-%E5%AE%9E%E6%88%98%E4%B8%80%E6%B3%A2"><span class="nav-text">mysql 实战一波</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E5%90%8D%E6%8C%82%E8%BD%BD%E5%92%8C%E5%8C%BF%E5%90%8D%E6%8C%82%E8%BD%BD"><span class="nav-text">具名挂载和匿名挂载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%8D%B7%E5%AE%B9%E5%99%A8"><span class="nav-text">数据卷容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84-dockerfile1"><span class="nav-text">写一个简单的 dockerfile1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E6%88%91%E4%BB%AC%E8%87%AA%E5%B7%B1%E7%9A%84%E9%95%9C%E5%83%8F"><span class="nav-text">构建我们自己的镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%88%91%E4%BB%AC%E6%9E%84%E5%BB%BA%E7%9A%84%E9%95%9C%E5%83%8F%E7%9A%84%E5%88%9B%E5%BB%BA%E5%B9%B6%E5%90%AF%E5%8A%A8%E5%AE%B9%E5%99%A8"><span class="nav-text">通过我们构建的镜像的创建并启动容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%8D%B7%E5%AE%B9%E5%99%A8-1"><span class="nav-text">数据卷容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile%E7%BC%96%E5%86%99%E5%92%8C%E5%AE%9E%E6%88%98"><span class="nav-text">Dockerfile编写和实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DockerFile-%E7%9A%84%E6%9E%84%E5%BB%BA%E8%BF%87%E7%A8%8B"><span class="nav-text">DockerFile 的构建过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DockerFile-%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="nav-text">DockerFile 的指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%88%98"><span class="nav-text">实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E6%9E%84%E5%BB%BA"><span class="nav-text">开始构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%9C"><span class="nav-text">验证结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMD-%E5%92%8C-ENTRYPOINT-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">CMD 和 ENTRYPOINT 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%8F%91%E5%B8%83%E6%88%91%E4%BB%AC%E7%9A%84%E9%95%9C%E5%83%8F"><span class="nav-text">如何发布我们的镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E7%BD%91%E7%BB%9C"><span class="nav-text">Docker网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E7%90%86%E8%A7%A3-docker"><span class="nav-text">开始理解 docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E6%8E%A2%E7%B4%A2"><span class="nav-text">开始探索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">原理是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%93link"><span class="nav-text">–link</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C"><span class="nav-text">自定义网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%B9%B6%E5%90%AF%E5%8A%A8-2-%E4%B8%AA%E5%AE%B9%E5%99%A8%EF%BC%8C%E5%88%86%E5%88%AB%E6%98%AF-ubuntu1-%E5%92%8C-ubuntu2"><span class="nav-text">创建并启动 2 个容器，分别是 ubuntu1 和 ubuntu2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%BF%9E%E9%80%9A"><span class="nav-text">网络连通</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E9%80%9A%E5%AD%90%E7%BD%91"><span class="nav-text">打通子网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E6%89%93%E9%80%9A"><span class="nav-text">开始打通</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compose-%E5%86%85%E5%AE%B9%E7%BC%96%E6%8E%92%E5%AE%98%E7%BD%91%E5%88%9D%E6%AD%A5%E4%BD%93%E9%AA%8C"><span class="nav-text">Compose 内容编排官网初步体验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Compose-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">Compose 是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compose-%E5%9C%A8-Docker-%E4%B8%AD%E9%BB%98%E8%AE%A4%E5%B0%B1%E6%9C%89%E5%90%97%EF%BC%9F"><span class="nav-text">Compose 在 Docker 中默认就有吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compose-%E7%9A%84-yml-%E6%96%87%E4%BB%B6%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%EF%BC%9F"><span class="nav-text">Compose 的 yml 文件如何编写？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compose-%E5%AE%89%E8%A3%85"><span class="nav-text">Compose 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compose-%E5%AE%98%E6%96%B9%E6%A1%88%E4%BE%8B%E4%BD%93%E9%AA%8C"><span class="nav-text">Compose 官方案例体验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E7%8E%AF%E5%A2%83%E5%92%8C%E4%BB%A3%E7%A0%81"><span class="nav-text">准备环境和代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-DockerFile-%E6%96%87%E4%BB%B6"><span class="nav-text">创建 DockerFile 文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-Compose-%E6%96%87%E4%BB%B6%EF%BC%88yml-%E6%96%87%E4%BB%B6%EF%BC%89"><span class="nav-text">定义 Compose 文件（yml 文件）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E5%92%8C%E8%BF%90%E8%A1%8C%E6%88%91%E4%BB%AC%E7%9A%84-Compose"><span class="nav-text">构建和运行我们的 Compose</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%80%E4%B8%8B%E9%95%9C%E5%83%8F"><span class="nav-text">查看一下镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%80%E4%B8%8B%E7%BD%91%E7%BB%9C"><span class="nav-text">查看一下网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%96%91%E9%97%AE%EF%BC%9F"><span class="nav-text">疑问？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%99"><span class="nav-text">网络规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%81%9C%E6%AD%A2-compose"><span class="nav-text">停止 compose</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compose%E7%BC%96%E5%86%99%E8%A7%84%E5%88%99%E5%8F%8Awp%E5%AE%9E%E6%88%98"><span class="nav-text">Compose编写规则及wp实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#yaml-%E8%A7%84%E5%88%99"><span class="nav-text">yaml 规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E9%9D%A2%E8%AF%B4%E7%9A%84%E5%88%B0%E7%89%88%E6%9C%AC%E5%8F%B7%E5%9C%A8%E5%93%AA%E9%87%8C%E6%89%BE%E5%91%A2%EF%BC%9F"><span class="nav-text">上面说的到版本号在哪里找呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#services-%E5%92%8C-%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4%E9%83%BD%E5%8F%AF%E4%BB%A5%E5%86%99%E4%BB%80%E4%B9%88%E5%91%A2%EF%BC%9F"><span class="nav-text">services 和 其他命令都可以写什么呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%88%98-%E6%90%AD%E5%BB%BA-wp-%E5%8D%9A%E5%AE%A2"><span class="nav-text">实战 - 搭建 wp 博客</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95"><span class="nav-text">创建工作目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%88%91%E4%BB%AC%E7%9A%84-docker-compose-yaml-%E6%96%87%E4%BB%B6"><span class="nav-text">编写我们的 docker-compose.yaml 文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-compose-up-%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2%E6%9C%8D%E5%8A%A1%E5%B9%B6%E5%90%AF%E5%8A%A8"><span class="nav-text">docker-compose up 一键部署服务并启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%80%E4%B8%8B%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E7%9A%84%E6%95%88%E6%9E%9C"><span class="nav-text">查看一下博客搭建的效果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-text">Docker面试题</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin"></i>&nbsp;&nbsp;<a href="/">Olivia的小跟班</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共 27 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.1</a></span>
+        </div>
+        
+            <div class="icp-info my-1"><a target="_blank" rel="nofollow" href="
+                
+                    https://beian.miit.gov.cn/
+                
+                ">浙ICP备2022034029号</a></div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+    <div id="aplayer"></div>
+
+<script src="/js/libs/APlayer.min.js"></script>
+
+
+<script src="/js/plugins/aplayer.js"></script>
+
+
+</body>
+</html>
+
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/love.js"></script>
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/FunnyTitle.js"></script>

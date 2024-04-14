@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Olivia的小跟班">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+            <link rel="preconnect" href="https://cdn.staticfile.org" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://www.youandgentleness.cn/2023/10/23/项目geecache面试题/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="项目地址https:&#x2F;&#x2F;github.com&#x2F;zhouxing9454&#x2F;Geecache  项目流程(不是Grpc版本) 什么是分布式缓存系统？分布式缓存是指将缓存数据分布在多台机器上，以提高缓存容量和并发读写能力的缓存系统。分布式缓存通常由多台机器组成一个集群，每台机器上都运行着相同的缓存服务进程，缓存数据被均匀地分布在集群中的各个节点上。 为什么要使用分布式缓存？高并发环境下，例如典型的淘宝双">
+<meta property="og:type" content="article">
+<meta property="og:title" content="项目GeeCache面试题">
+<meta property="og:url" content="https://www.youandgentleness.cn/2023/10/23/%E9%A1%B9%E7%9B%AEGeeCache%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
+<meta property="og:site_name" content="Olivia的小跟班">
+<meta property="og:description" content="项目地址https:&#x2F;&#x2F;github.com&#x2F;zhouxing9454&#x2F;Geecache  项目流程(不是Grpc版本) 什么是分布式缓存系统？分布式缓存是指将缓存数据分布在多台机器上，以提高缓存容量和并发读写能力的缓存系统。分布式缓存通常由多台机器组成一个集群，每台机器上都运行着相同的缓存服务进程，缓存数据被均匀地分布在集群中的各个节点上。 为什么要使用分布式缓存？高并发环境下，例如典型的淘宝双">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253486.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253248.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253713.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253044.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253606.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253339.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232255736.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254044.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254433.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254788.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254675.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254636.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254603.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254387.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254760.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254129.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254325.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254323.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254624.png">
+<meta property="article:published_time" content="2023-10-23T14:51:00.000Z">
+<meta property="article:modified_time" content="2024-03-06T10:09:08.490Z">
+<meta property="article:author" content="Olivia的小跟班">
+<meta property="article:tag" content="Go">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253486.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <meta name="theme-color" content="#1890ff">
+    <link rel="shortcut icon" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            项目GeeCache面试题 -
+        
+        Olivia的小跟班
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+
+    
+        <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    
+<script src="/js/libs/anime.min.js"></script>
+
+    <h1 class="ml13">
+        Olivia的小跟班
+    </h1>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+
+        anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [100,0],
+                translateZ: 0,
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: '.ml13 .letter',
+            translateY: [0,-100],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+        });
+
+        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
+        hidePreloaderAfterTimeout(5000);
+
+        function hidePreloaderAfterTimeout(delay) {
+            setTimeout(function () {
+                var preloader = document.querySelector('.preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 200);
+            }, delay);
+        }
+    </script>
+</div>
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"www.youandgentleness.cn","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":null,"skip_dirs":[]}},"colors":{"primary":"#1890ff","secondary":"#1890ff","default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/light.jpg","dark":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/darkness.jpg"},"title":"Talk is cheap,Show me the code.","subtitle":{"text":["他们以为击败我就是终结，而我必归来将之改写。"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#D27D2D","dark":"#191970"},"text_style":{"title_size":"2.1rem","subtitle_size":"1.2rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"email":"zhouxing9454@gmail.com","weixin":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/wechat.jpg","github":"https://github.com/zhouxing9454","qq":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/QQ.jpg","bilibili":"https://space.bilibili.com/475346328"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"最后的旅行","artist":"Rainton桐","url":"http://music.163.com/song/media/outer/url?id=30512539.mp3","cover":"https://p1.music.126.net/XWUdXb46hIdIecRihPCV_A==/109951168667887853.jpg"},{"name":"陪我长大","artist":"段奥娟","url":"http://music.163.com/song/media/outer/url?id=1299550093.mp3","cover":"http://p2.music.126.net/YxUbVoHngGMY8gZMjbEJkg==/109951163446151536.jpg"}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.1","navbar":{"auto_hide":false,"color":{"left":"#FAF9F6","right":"#FAF9F6","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"Friends":{"icon":"fa-solid fa-link","path":"/links/"},"Essays":{"icon":"fa-solid fa-paper-plane","path":"/essays/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","typography":{"line_height":1.6}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/7/4 9:30:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Olivia的小跟班
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/links/"
+                                        >
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/essays/"
+                                        >
+                                    <i class="fa-solid fa-paper-plane fa-fw"></i>
+                                    ESSAYS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/links/"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-solid fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/essays/"
+                        >
+                            <span>
+                                ESSAYS
+                            </span>
+                            
+                                <i class="fa-solid fa-paper-plane fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">项目GeeCache面试题</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/avatar.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Olivia的小跟班</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-10-23 22:51</span>
+        <span class="mobile">2023-10-23 22:51</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-03-06 18:09:08</span>
+            <span class="mobile">2024-03-06 18:09:08</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Go/">Go</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Go/">Go</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/zhouxing9454/Geecache" >https://github.com/zhouxing9454/Geecache <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="项目流程-不是Grpc版本"><a href="#项目流程-不是Grpc版本" class="headerlink" title="项目流程(不是Grpc版本)"></a>项目流程(不是Grpc版本)</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253486.png"
+                      alt="202308222129814.png"
+                ></p>
+<h2 id="什么是分布式缓存系统？"><a href="#什么是分布式缓存系统？" class="headerlink" title="什么是分布式缓存系统？"></a>什么是分布式缓存系统？</h2><p>分布式缓存是指将缓存数据分布在多台机器上，以提高缓存容量和并发读写能力的缓存系统。分布式缓存通常由多台机器组成一个集群，每台机器上都运行着相同的缓存服务进程，缓存数据被均匀地分布在集群中的各个节点上。</p>
+<h2 id="为什么要使用分布式缓存？"><a href="#为什么要使用分布式缓存？" class="headerlink" title="为什么要使用分布式缓存？"></a>为什么要使用分布式缓存？</h2><p>高并发环境下，例如典型的淘宝双11秒杀，几分钟内上亿的用户涌入淘宝，这个时候如果访问不加拦截，让大量的读写请求涌向数据库，由于磁盘的处理速度与内存显然不在一个量级，服务器马上就要宕机。从减轻数据库的压力和提高系统响应速度两个角度来考虑，都会在数据库之前加一层缓存，访问压力越大的，在缓存之前就开始CDN拦截图片等访问请求。<br>并且由于最早的单台机器的内存资源以及承载能力有限，如果大量使用本地缓存，也会使相同的数据被不同的节点存储多份，对内存资源造成较大的浪费，因此，才催生出了分布式缓存。</p>
+<h2 id="分布式缓存系统的优缺点？"><a href="#分布式缓存系统的优缺点？" class="headerlink" title="分布式缓存系统的优缺点？"></a>分布式缓存系统的优缺点？</h2><p><strong>优点：</strong></p>
+<ol>
+<li><strong>容量和性能可扩展</strong></li>
+</ol>
+<p>通过增加集群中的机器数量，可以扩展缓存的容量和并发读写能力。同时，缓存数据对于应用来讲都是共享的。</p>
+<ol start="2">
+<li><strong>高可用性</strong></li>
+</ol>
+<p>由于数据被分布在多台机器上，即使其中一台机器故障，缓存服务也能继续提供服务。但是分布式缓存的缺点同样不容忽视。<br><strong>缺点：</strong></p>
+<ol>
+<li><strong>网络延迟</strong></li>
+</ol>
+<p>分布式缓存通常需要通过网络通信来进行数据读写，可能会出现网络延迟等问题，相对于本地缓存而言，响应时间更长。</p>
+<ol start="2">
+<li><strong>复杂性</strong></li>
+</ol>
+<p>分布式缓存需要考虑序列化、数据分片、缓存大小等问题，相对于本地缓存而言更加复杂。</p>
+<h2 id="分布式缓存系统的应用场景？"><a href="#分布式缓存系统的应用场景？" class="headerlink" title="分布式缓存系统的应用场景？"></a>分布式缓存系统的应用场景？</h2><ol>
+<li><strong>页面缓存</strong>：用来缓存Web 页面的内容片段,包括HTML、CSS 和图片等。</li>
+<li><strong>应用对象缓存</strong>：缓存系统作为ORM 框架的二级缓存对外提供服务,目的是减轻数据库的负载压力,加速应用访问;解决分布式Web部署的 session 同步问题，状态缓存.缓存包括Session 会话状态及应用横向扩展时的状态数据等,这类数据一般是难以恢复的,对可用性要求较高,多应用于高可用集群。</li>
+<li><strong>并行处理</strong>：通常涉及大量中间计算结果需要共享。</li>
+<li><strong>云计算领域提供分布式缓存服务</strong></li>
+</ol>
+<h2 id="设计一个分布式缓存系统需要考虑哪些方面？"><a href="#设计一个分布式缓存系统需要考虑哪些方面？" class="headerlink" title="设计一个分布式缓存系统需要考虑哪些方面？"></a>设计一个分布式缓存系统需要考虑哪些方面？</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253248.png"
+                      alt="image.png"
+                ></p>
+<h2 id="缓存雪崩、击穿、穿透分别是什么，如何应对？"><a href="#缓存雪崩、击穿、穿透分别是什么，如何应对？" class="headerlink" title="缓存雪崩、击穿、穿透分别是什么，如何应对？"></a>缓存雪崩、击穿、穿透分别是什么，如何应对？</h2><p><a class="link"   target="_blank" rel="noopener" href="https://xiaolincoding.com/redis/cluster/cache_problem.html" >什么是缓存雪崩、击穿、穿透？ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="项目GeeCache中如何应对缓存雪崩和缓存击穿问题？"><a href="#项目GeeCache中如何应对缓存雪崩和缓存击穿问题？" class="headerlink" title="项目GeeCache中如何应对缓存雪崩和缓存击穿问题？"></a>项目GeeCache中如何应对缓存雪崩和缓存击穿问题？</h2><p>项目实现了<strong>singleFlight</strong>机制。</p>
+<ul>
+<li><strong>singleFlight</strong>的原理是：在多个并发请求触发的回调操作里，只有第⼀个回调方法被执行，其余请求（落在第⼀个回调方法执行的时间窗口里）阻塞等待第⼀个回调函数执行完成后直接取结果，以此保证同⼀时刻只有⼀个回调方法执行，达到防止缓存击穿的目的。</li>
+<li><strong>singleFlight</strong>常用场景： <ul>
+<li>缓存失效时的保护性更新 </li>
+<li>防止突增的接口请求对后端服务造成瞬时高负载</li>
+</ul>
+</li>
+<li>具体实现： 利用<strong>mutex互斥锁</strong>和<strong>sync.WaitGroup 机制</strong>来实现多<strong>goroutine</strong>的并发控制策略<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> call <span class="keyword">struct</span> &#123; <span class="comment">//call 代表正在进行中，或已经结束的请求。使用 sync.WaitGroup 锁避免重入。</span></span><br><span class="line">    wg  sync.WaitGroup</span><br><span class="line">    val <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">    err <span class="type">error</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Group <span class="keyword">struct</span> &#123; <span class="comment">//Group 是 singleflight 的主数据结构，管理不同 key 的请求(call).</span></span><br><span class="line">    mu sync.Mutex</span><br><span class="line">    m  <span class="keyword">map</span>[<span class="type">string</span>]*call</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(g *Group)</span></span> Do(key <span class="type">string</span>, fn <span class="function"><span class="keyword">func</span><span class="params">()</span></span> (<span class="keyword">interface</span>&#123;&#125;, <span class="type">error</span>)) (<span class="keyword">interface</span>&#123;&#125;, <span class="type">error</span>) &#123;</span><br><span class="line">    g.mu.Lock()</span><br><span class="line">    <span class="keyword">if</span> g.m == <span class="literal">nil</span> &#123;</span><br><span class="line">        g.m = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]*call)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> c, ok := g.m[key]; ok &#123;</span><br><span class="line">        g.mu.Unlock()</span><br><span class="line">        c.wg.Wait()         <span class="comment">// 如果请求正在进行中，则等待</span></span><br><span class="line">        <span class="keyword">return</span> c.val, c.err <span class="comment">// 请求结束，返回结果</span></span><br><span class="line">    &#125;</span><br><span class="line">    c := <span class="built_in">new</span>(call)</span><br><span class="line">    c.wg.Add(<span class="number">1</span>)  <span class="comment">// 发起请求前加锁</span></span><br><span class="line">    g.m[key] = c <span class="comment">// 添加到 g.m，表明 key 已经有对应的请求在处理</span></span><br><span class="line">    g.mu.Unlock()</span><br><span class="line"></span><br><span class="line">    c.val, c.err = fn() <span class="comment">// 调用 fn，发起请求</span></span><br><span class="line">    c.wg.Done()         <span class="comment">// 请求结束</span></span><br><span class="line"></span><br><span class="line">    g.mu.Lock()</span><br><span class="line">    <span class="built_in">delete</span>(g.m, key) <span class="comment">// 更新 g.m</span></span><br><span class="line">    g.mu.Unlock()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> c.val, c.err <span class="comment">// 返回结果</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h2 id="缓存淘汰策略有哪些？"><a href="#缓存淘汰策略有哪些？" class="headerlink" title="缓存淘汰策略有哪些？"></a>缓存淘汰策略有哪些？</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253713.png"
+                      alt="image.png"
+                ></p>
+<h2 id="什么是一致性哈希，为什么要在项目中使用它？"><a href="#什么是一致性哈希，为什么要在项目中使用它？" class="headerlink" title="什么是一致性哈希，为什么要在项目中使用它？"></a>什么是一致性哈希，为什么要在项目中使用它？</h2><p>一致性哈希是一种用于分布式系统中数据分片的算法。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253044.png"
+                      alt="image.png"
+                ></p>
+<h2 id="如何保证一致性哈希算法的有效性？"><a href="#如何保证一致性哈希算法的有效性？" class="headerlink" title="如何保证一致性哈希算法的有效性？"></a>如何保证一致性哈希算法的有效性？</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253606.png"
+                      alt="image.png"
+                ></p>
+<h2 id="一致性哈希算法中的虚拟节点是什么？它们的作用是什么？"><a href="#一致性哈希算法中的虚拟节点是什么？它们的作用是什么？" class="headerlink" title="一致性哈希算法中的虚拟节点是什么？它们的作用是什么？"></a>一致性哈希算法中的虚拟节点是什么？它们的作用是什么？</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253339.png"
+                      alt="image.png"
+                ></p>
+<h2 id="虚拟节点怎么实现的？查找目标-key-的过程是怎样的？"><a href="#虚拟节点怎么实现的？查找目标-key-的过程是怎样的？" class="headerlink" title="虚拟节点怎么实现的？查找目标 key 的过程是怎样的？"></a>虚拟节点怎么实现的？查找目标 key 的过程是怎样的？</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232255736.png"
+                      alt="image.png"
+                ></p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Map)</span></span> Get(key <span class="type">string</span>) <span class="type">string</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(m.keys) == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    hash := <span class="type">int</span>(m.hash([]<span class="type">byte</span>(key)))</span><br><span class="line">    idx := sort.Search(<span class="built_in">len</span>(m.keys), <span class="function"><span class="keyword">func</span><span class="params">(i <span class="type">int</span>)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> m.keys[i] &gt;= hash</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> m.hashMap[m.keys[idx%<span class="built_in">len</span>(m.keys)]]</span><br><span class="line">&#125; <span class="comment">//选择节点就非常简单了，第一步，计算 key 的哈希值。</span></span><br><span class="line"><span class="comment">//第二步，顺时针找到第一个匹配的虚拟节点的下标 idx，从 m.keys 中获取到对应的哈希值。</span></span><br><span class="line"><span class="comment">//如果 idx == len(m.keys)，说明应选择 m.keys[0]，因为 m.keys 是一个环状结构，所以用取余数的方式来处理这种情况。</span></span><br><span class="line"><span class="comment">//第三步，通过 hashMap 映射得到真实的节点。</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<h2 id="一致性hash-存在的问题及解决方案？"><a href="#一致性hash-存在的问题及解决方案？" class="headerlink" title="一致性hash 存在的问题及解决方案？"></a>一致性hash 存在的问题及解决方案？</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/CoderTnT/article/details/112383202"><strong>https://blog.csdn.net/CoderTnT/article/details/112383202</strong></a></p>
+<h2 id="协商填充、预热机制"><a href="#协商填充、预热机制" class="headerlink" title="协商填充、预热机制"></a>协商填充、预热机制</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254044.png"
+                      alt="image.png"
+                ></p>
+<h2 id="Raft算法解析"><a href="#Raft算法解析" class="headerlink" title="Raft算法解析"></a>Raft算法解析</h2><p><a class="link"   target="_blank" rel="noopener" href="https://interviewguide.cn/notes/03-hunting_job/02-interview/05-01-03-distribution.html" >系统设计07-Raft <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="Raft中的一个Term是什么意思？"><a href="#Raft中的一个Term是什么意思？" class="headerlink" title="Raft中的一个Term是什么意思？"></a>Raft中的一个Term是什么意思？</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254433.png"
+                      alt="image.png"
+                ></p>
+<h2 id="Raft状态机是怎样进行切换的？"><a href="#Raft状态机是怎样进行切换的？" class="headerlink" title="Raft状态机是怎样进行切换的？"></a>Raft状态机是怎样进行切换的？</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254788.png"
+                      alt="image.png"
+                ></p>
+<h2 id="如何保证最短时间内竞选出Leader，防止竞选冲突？"><a href="#如何保证最短时间内竞选出Leader，防止竞选冲突？" class="headerlink" title="如何保证最短时间内竞选出Leader，防止竞选冲突？"></a>如何保证最短时间内竞选出Leader，防止竞选冲突？</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254675.png"
+                      alt="image.png"
+                ></p>
+<h2 id="如何防止别的Candidate在遗漏部分数据的情况下发起投票成为Leader？"><a href="#如何防止别的Candidate在遗漏部分数据的情况下发起投票成为Leader？" class="headerlink" title="如何防止别的Candidate在遗漏部分数据的情况下发起投票成为Leader？"></a>如何防止别的Candidate在遗漏部分数据的情况下发起投票成为Leader？</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254636.png"
+                      alt="image.png"
+                ></p>
+<h2 id="Raft有节点宕机后怎样？"><a href="#Raft有节点宕机后怎样？" class="headerlink" title="Raft有节点宕机后怎样？"></a>Raft有节点宕机后怎样？</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254603.png"
+                      alt="image.png"
+                ></p>
+<h2 id="为什么Raft算法在确定可用节点数量时不需要考虑拜占庭将军问题？"><a href="#为什么Raft算法在确定可用节点数量时不需要考虑拜占庭将军问题？" class="headerlink" title="为什么Raft算法在确定可用节点数量时不需要考虑拜占庭将军问题？"></a>为什么Raft算法在确定可用节点数量时不需要考虑拜占庭将军问题？</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254387.png"
+                      alt="image.png"
+                ></p>
+<h2 id="什么是etcd以及etcd的特点、缺点？"><a href="#什么是etcd以及etcd的特点、缺点？" class="headerlink" title="什么是etcd以及etcd的特点、缺点？"></a>什么是etcd以及etcd的特点、缺点？</h2><p><strong>etcd</strong>是一种开源的分布式键值存储库，用于保存和管理分布式系统保持运行所需的关键信息。<br><strong>特点：</strong></p>
+<ul>
+<li>简单：支持REST风格的HTTP+JSON API</li>
+<li>安全：支持HTTPS方式的访问</li>
+<li>快速：支持并发1k&#x2F;s的写操作</li>
+<li>可靠：支持分布式结构，基于Raft的一致性算法，Raft是一套通过选举主节点来实现分布式系统一致性的算法。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>对于小规模应用来说，ETCD可能会带来<strong>额外的复杂性和开销</strong>。</li>
+<li>ETCD需要部署在集群中的多个节点上，如果节点之间的<strong>网络连接不稳定</strong>，可能会<strong>影响数据的一致性和可用性。</strong></li>
+<li><strong>ETCD的存储能力和性能受到硬件和网络环境的限制</strong>。在处理大量数据或高并发请求时，可能需要增加节点数量或升级硬件设备。</li>
+</ul>
+<h2 id="etcd的使用场景？"><a href="#etcd的使用场景？" class="headerlink" title="etcd的使用场景？"></a>etcd的使用场景？</h2><ul>
+<li><strong>服务发现</strong>：服务发现主要解决在同一个分布式集群中的进程或服务，要如何才能找到对方并建立连接。本质上来说，服务发现就是想要了解集群中是否有进程在监听UDP或TCP端口，并且通过名字就可以查找和连接。</li>
+<li><strong>消息发布与订阅</strong>：在分布式系统中，最适用的一种组件间通信方式就是消息发布与订阅。即构建一个配置共享中心，数据提供者在这个配置中心发布消息，而消息使用者则订阅他们关心的主题，一旦主题有消息发布，就会实时通知订阅者。通过这种方式可以做到分布式系统配置的集中式管理与动态更新。应用中用到的一些配置信息放到etcd上进行集中管理。</li>
+<li><strong>负载均衡</strong>：在分布式系统中，为了保证服务的高可用以及数据的一致性，通常都会把数据和服务部署多份，以此达到对等服务，即使其中的某一个服务失效了，也不影响使用。etcd本身分布式架构存储的信息访问支持负载均衡。etcd集群化以后，每个etcd的核心节点都可以处理用户的请求。所以，把数据量小但是访问频繁的消息数据直接存储到etcd中也可以实现负载均衡的效果。</li>
+<li><strong>分布式通知与协调</strong>：与消息发布和订阅类似，都用到了etcd中的Watcher机制，通过注册与异步通知机制，实现分布式环境下不同系统之间的通知与协调，从而对数据变更做到实时处理。</li>
+<li><strong>分布式锁</strong>：因为etcd使用Raft算法保持了数据的强一致性，某次操作存储到集群中的值必然是全局一致的，所以很容易实现分布式锁。锁服务有两种使用方式，一是保持独占，二是控制时序。</li>
+<li><strong>集群监控与Leader竞选</strong>：通过etcd来进行监控实现起来非常简单并且实时性强。</li>
+</ul>
+<h2 id="为什么在项目中使用etcd，怎么用的？"><a href="#为什么在项目中使用etcd，怎么用的？" class="headerlink" title="为什么在项目中使用etcd，怎么用的？"></a>为什么在项目中使用etcd，怎么用的？</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254760.png"
+                     
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254129.png"
+                      alt="image.png"
+                ></p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	defaultEtcdConfig = clientv3.Config&#123;</span><br><span class="line">		Endpoints:   []<span class="type">string</span>&#123;<span class="string">&quot;localhost:2379&quot;</span>&#125;,</span><br><span class="line">		DialTimeout: <span class="number">5</span> * time.Second,</span><br><span class="line">	&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// etcdAdd 在租赁模式添加一对kv至etcd</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">etcdAdd</span><span class="params">(c *clientv3.Client, lid clientv3.LeaseID, service <span class="type">string</span>, addr <span class="type">string</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">	em, err := endpoints.NewManager(c, service)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//return em.AddEndpoint(c.Ctx(), service+&quot;/&quot;+addr, endpoints.Endpoint&#123;Addr: addr&#125;)</span></span><br><span class="line">	<span class="keyword">return</span> em.AddEndpoint(c.Ctx(), service+<span class="string">&quot;/&quot;</span>+addr, endpoints.Endpoint&#123;Addr: addr&#125;, clientv3.WithLease(lid))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Register 注册一个服务至etcd</span></span><br><span class="line"><span class="comment">// 注意 Register将不会return 如果没有error的话</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Register</span><span class="params">(service <span class="type">string</span>, addr <span class="type">string</span>, stop <span class="keyword">chan</span> <span class="type">error</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">    <span class="comment">// 创建一个etcd client</span></span><br><span class="line">    cli, err := clientv3.New(defaultEtcdConfig)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;create etcd client failed: %v&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> cli.Close()</span><br><span class="line">    <span class="comment">// 创建一个租约 配置5秒过期</span></span><br><span class="line">    resp, err := cli.Grant(context.Background(), <span class="number">5</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;create lease failed: %v&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    leaseId := resp.ID</span><br><span class="line">    <span class="comment">// 注册服务</span></span><br><span class="line">    err = etcdAdd(cli, leaseId, service, addr)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;add etcd record failed: %v&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 设置服务心跳检测</span></span><br><span class="line">    ch, err := cli.KeepAlive(context.Background(), leaseId)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;set keepalive failed: %v&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    log.Printf(<span class="string">&quot;[%s] register service ok\n&quot;</span>, addr)</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> err := &lt;-stop:</span><br><span class="line">            <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                log.Println(err)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> err</span><br><span class="line">            <span class="keyword">case</span> &lt;-cli.Ctx().Done():</span><br><span class="line">            log.Println(<span class="string">&quot;service closed&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">            <span class="keyword">case</span> _, ok := &lt;-ch:</span><br><span class="line">            <span class="comment">// 监听租约</span></span><br><span class="line">            <span class="keyword">if</span> !ok &#123;</span><br><span class="line">                log.Println(<span class="string">&quot;keep alive channel closed&quot;</span>)</span><br><span class="line">                _, err := cli.Revoke(context.Background(), leaseId)</span><br><span class="line">                <span class="keyword">return</span> err</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//log.Printf(&quot;Recv reply from service: %s/%s, ttl:%d&quot;, service, addr, resp.TTL)</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<ol start="2">
+<li>发现方法的实现：服务端通过etcd的客户端实现的Watch方法监听事件<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EtcdDial 向grpc请求一个服务</span></span><br><span class="line"><span class="comment">// 通过提供一个etcd client和service name即可获得Connection</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">EtcdDial</span><span class="params">(c *clientv3.Client, service <span class="type">string</span>)</span></span> (*grpc.ClientConn, <span class="type">error</span>) &#123;</span><br><span class="line">	etcdResolver, err := resolver.NewBuilder(c)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> grpc.Dial(</span><br><span class="line">		<span class="string">&quot;etcd:///&quot;</span>+service,</span><br><span class="line">		grpc.WithResolvers(etcdResolver),</span><br><span class="line">		grpc.WithTransportCredentials(insecure.NewCredentials()),</span><br><span class="line">		grpc.WithBlock(),</span><br><span class="line">	)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//用于通过gRPC与Etcd建立连接。它通过提供Etcd服务的名称，借助Etcd解析器将其解析为实际的网络地址。</span></span><br><span class="line"><span class="comment">//然后，使用不安全的传输凭据建立连接，并在连接建立之前进行阻塞。</span></span><br><span class="line"><span class="comment">//最终，函数返回一个指向已建立连接的grpc.ClientConn类型的指针，或者在发生错误时返回一个错误</span></span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h2 id="etcd的组成部分？"><a href="#etcd的组成部分？" class="headerlink" title="etcd的组成部分？"></a>etcd的组成部分？</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254325.png"
+                      alt="image.png"
+                ><br><strong>从etcd的架构图中我们可以看到，etcd主要分为四个部分。</strong></p>
+<ul>
+<li>HTTP Server： 用于处理用户发送的API请求以及其它etcd节点的同步与心跳信息请求。</li>
+<li>Store：用于处理etcd支持的各类功能的事务，包括数据索引、节点状态变更、监控与反馈、事件处理与执行等等，是etcd对用户提供的大多数API功能的具体实现。</li>
+<li>Raft：Raft强一致性算法的具体实现，是etcd的核心。</li>
+<li>WAL：Write Ahead Log（预写式日志），是etcd的数据存储方式。除了在内存中存有所有数据的状态以及节点的索引以外，etcd就通过WAL进行持久化存储。WAL中，所有的数据提交前都会事先记录日志。Snapshot是为了防止数据过多而进行的状态快照；Entry表示存储的具体日志内容。</li>
+</ul>
+<p>通常，一个用户的请求发送过来，会经由HTTP Server转发给Store进行具体的事务处理，如果涉及到节点的修改，则交给Raft模块进行状态的变更、日志的记录，然后再同步给别的etcd节点以确认数据提交，最后进行数据的提交，再次同步。</p>
+<h2 id="为什么需要Snapshot快照？"><a href="#为什么需要Snapshot快照？" class="headerlink" title="为什么需要Snapshot快照？"></a>为什么需要Snapshot快照？</h2><p>etcd使用快照（Snapshot）来保存当前数据的状态。当etcd的数据存储变得很大时，为了避免长时间的恢复操作，etcd会周期性地创建快照。快照包含了某个时刻的etcd数据状态，可以用来加速系统的启动和恢复。</p>
+<h2 id="什么是WAL，WAL的具体结构？"><a href="#什么是WAL，WAL的具体结构？" class="headerlink" title="什么是WAL，WAL的具体结构？"></a>什么是WAL，WAL的具体结构？</h2><p>WAL（Write-Ahead Logging）是一种常见的数据持久化技术，用于在写入数据到存储引擎之前，首先将数据写入到一个预先分配的日志文件中。etcd使用WAL来持久化写入操作，确保数据的持久性。这意味着，即使在etcd节点崩溃后，通过WAL，系统可以回放日志，从而保证数据的一致性。<br>WAL通常由多个日志条目组成，每个日志条目记录一个写入操作。它包括写入的键、值，以及操作的类型等信息。这些日志条目被顺序地追加到WAL文件中。当etcd节点需要恢复数据时，它会从WAL文件中读取日志条目，将数据还原到崩溃前的状态。</p>
+<h2 id="什么是Raft协议的Entry记录？"><a href="#什么是Raft协议的Entry记录？" class="headerlink" title="什么是Raft协议的Entry记录？"></a>什么是Raft协议的Entry记录？</h2><p>在etcd中，<strong>Entry</strong>是指存储在日志中的基本操作单元。每个<strong>Entry</strong>包含一个唯一的索引号（index）、任期号（term）和一个命令（command）。这些<strong>Entries</strong>按照顺序附加到etcd的日志中，确保了在分布式系统中的一致性和可靠性。<strong>Entries</strong>的添加和读取是etcd中非常重要的操作，它们记录了系统的状态变化和用户的操作。</p>
+<h2 id="etcd的逻辑视图和物理视图？"><a href="#etcd的逻辑视图和物理视图？" class="headerlink" title="etcd的逻辑视图和物理视图？"></a>etcd的逻辑视图和物理视图？</h2><p>在etcd中，<strong>逻辑视图是用户从应用程序或客户端看到的数据模型。</strong>它把数据组织成键值对的形式，用户可以使用这些键值对来进行读取、写入和删除操作。逻辑视图隐藏了etcd的内部实现细节，使得用户可以专注于数据的操作而不用担心底层存储的复杂性。<strong>物理视图则是etcd集群内部的数据存储和复制方式。</strong>etcd使用Raft一致性算法来确保数据的一致性和可靠性。在物理视图中，数据被分布在多个节点上，每个节点都有自己的存储引擎和文件系统。etcd集群会定期进行数据同步，以确保所有节点上的数据保持一致。<br>总的来说，<strong>逻辑视图提供了用户友好的数据操作接口，而物理视图则描述了etcd集群内部的数据存储和同步机制。</strong>这两者共同构成了etcd的数据管理体系。</p>
+<h2 id="Proxy模式取代Standby模式的原因？"><a href="#Proxy模式取代Standby模式的原因？" class="headerlink" title="Proxy模式取代Standby模式的原因？"></a>Proxy模式取代Standby模式的原因？</h2><p>etcd的Proxy模式取代了Standby模式，是因为Proxy模式允许etcd集群的前端引入代理节点，从而提供了更好的可伸缩性和灵活性。Proxy节点可以接收客户端请求，并将这些请求转发给后端的etcd集群节点。这种方式可以分摊集群节点的压力，提高系统的整体性能。相比之下，Standby模式通常只有一个备用节点，无法提供Proxy模式的灵活性和负载均衡能力。</p>
+<h2 id="etcd如何保证强一致性？"><a href="#etcd如何保证强一致性？" class="headerlink" title="etcd如何保证强一致性？"></a>etcd如何保证强一致性？</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254323.png"
+                      alt="image.png"
+                ></p>
+<h2 id="etcd分布式锁实现的基础机制是怎样的？"><a href="#etcd分布式锁实现的基础机制是怎样的？" class="headerlink" title="etcd分布式锁实现的基础机制是怎样的？"></a>etcd分布式锁实现的基础机制是怎样的？</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254624.png"
+                      alt="image.png"
+                ><br><strong>具体步骤</strong><br><strong>步骤 1: 准备</strong></p>
+<ul>
+<li>客户端连接 Etcd，以 &#x2F;lock&#x2F;mylock 为前缀创建全局唯一的 key，假设第一个客户端对应的 key&#x3D;”&#x2F;lock&#x2F;mylock&#x2F;UUID1”，第二个为 key&#x3D;”&#x2F;lock&#x2F;mylock&#x2F;UUID2”；客户端分别为自己的 key 创建租约 - Lease，租约的长度根据业务耗时确定，假设为 15s；</li>
+</ul>
+<p><strong>步骤 2: 创建定时任务作为租约的“心跳”</strong></p>
+<ul>
+<li>当一个客户端持有锁期间，其它客户端只能等待，为了避免等待期间租约失效，客户端需创建一个定时任务作为“心跳”进行续约。此外，如果持有锁期间客户端崩溃，心跳停止，key 将因租约到期而被删除，从而锁释放，避免死锁。</li>
+</ul>
+<p><strong>步骤 3: 客户端将自己全局唯一的 key 写入 Etcd</strong></p>
+<ul>
+<li>进行 put 操作，将步骤 1 中创建的 key 绑定租约写入 Etcd，根据 Etcd 的 Revision 机制，假设两个客户端 put 操作返回的 Revision 分别为 1、2，客户端需记录 Revision 用以接下来判断自己是否获得锁。</li>
+</ul>
+<p><strong>步骤 4: 客户端判断是否获得锁</strong></p>
+<ul>
+<li>客户端以前缀 &#x2F;lock&#x2F;mylock 读取 keyValue 列表（keyValue 中带有 key 对应的 Revision），判断自己 key 的 Revision 是否为当前列表中最小的，如果是则认为获得锁；否则监听列表中前一个 Revision 比自己小的 key 的删除事件，一旦监听到删除事件或者因租约失效而删除的事件，则自己获得锁。</li>
+</ul>
+<p><strong>步骤 5: 执行业务</strong></p>
+<ul>
+<li>获得锁后，操作共享资源，执行业务代码。</li>
+</ul>
+<p><strong>步骤 6: 释放锁</strong></p>
+<ul>
+<li>完成业务流程后，删除对应的key释放锁。</li>
+</ul>
+<h2 id="什么是RPC（远程过程调用）？能否提供一个简单的定义和例子？"><a href="#什么是RPC（远程过程调用）？能否提供一个简单的定义和例子？" class="headerlink" title="什么是RPC（远程过程调用）？能否提供一个简单的定义和例子？"></a>什么是RPC（远程过程调用）？能否提供一个简单的定义和例子？</h2><p>RPC，全称为远程过程调用，是一种计算机通信协议。该协议允许运行在一台计算机上的程序调用另一台计算机上的子程序，就像调用本地程序一样，无需程序员显式地编制远程交互的细节。RPC是分布式系统中常用的通信方式。<br>举例来说，假设你有一个客户端应用需要从服务器获取天气信息。你可以在服务器端定义一个名为“getWeather”的过程，然后在客户端通过RPC调用这个过程，就像调用客户端本地的一个函数一样。客户端只需要知道这个过程的名称和参数，无需关心具体的网络通信细节。</p>
+<h2 id="RPC和RESTful-API有什么区别？在什么情况下我应选择使用RPC而非RESTful-API？"><a href="#RPC和RESTful-API有什么区别？在什么情况下我应选择使用RPC而非RESTful-API？" class="headerlink" title="RPC和RESTful API有什么区别？在什么情况下我应选择使用RPC而非RESTful API？"></a>RPC和RESTful API有什么区别？在什么情况下我应选择使用RPC而非RESTful API？</h2><p>RPC和RESTful API是两种不同的网络通信模式。</p>
+<ul>
+<li>RPC: 远程过程调用 (RPC) 通常被视为一种行为中心的模式，因为它关注的是执行特定的操作或函数。在RPC中，客户端知道需要远程访问的过程或方法的名称，以及所需的参数。一个RPC调用通常对应于服务器上的一个特定操作。</li>
+<li>RESTful API: 代表状态转移 (REST) 是一种资源中心的模式，它将所有事物视为资源。这些资源通过URL进行标识，并使用HTTP动词（如GET, POST, PUT, DELETE等）进行操作。RESTful API通常更加简单、直观，也更符合Web的设计原则。</li>
+</ul>
+<p>在选择RPC或RESTful API时，你可以根据以下因素进行考虑：</p>
+<ul>
+<li>复杂性: 如果你的服务非常复杂，有大量的操作和交互，那么RPC可能是更好的选择，因为它可以提供更加详细、精细的接口。</li>
+<li>可理解性和标准化: 如果你希望你的API能够被广泛理解和使用，那么RESTful API可能更适合，因为它对资源的操作更直观，也更符合Web的标准。</li>
+<li>性能: RPC通常比RESTful API有更高的性能，因为它可以直接调用服务端的函数，而无需经过HTTP的封装和解封装。</li>
+</ul>
+<p>总的来说，选择RPC还是RESTful API主要取决于你的具体需求和偏好。</p>
+<h2 id="在RPC中，如何处理网络延迟和超时？有哪些常见的策略？"><a href="#在RPC中，如何处理网络延迟和超时？有哪些常见的策略？" class="headerlink" title="在RPC中，如何处理网络延迟和超时？有哪些常见的策略？"></a>在RPC中，如何处理网络延迟和超时？有哪些常见的策略？</h2><p>处理网络延迟和超时是RPC中的一个重要问题。以下是一些常见的策略：</p>
+<ul>
+<li>设置超时限制: 为RPC调用设置合理的超时时间，如果超过这个时间还没有得到响应，那么认为这个调用失败。这可以防止客户端无限期地等待响应，从而提高系统的健壮性。</li>
+<li>重试机制: 如果一个RPC调用失败（例如，因为超时或其他网络问题），客户端可以选择重试。重试机制需要慎重设计，以防止过度的重试导致系统负载过大。</li>
+<li>负载均衡: 对于高延迟的网络调用，可以使用负载均衡技术，将请求分散到多个服务器，以减少每个服务器的负载，从而降低延迟。</li>
+<li>异步RPC: 异步RPC允许客户端在等待响应时继续执行其他任务，从而不受网络延迟的影响。这通常需要更复杂的编程模型，但可以提高系统的整体性能。</li>
+<li>使用更快的网络协议: 例如，gRPC默认使用HTTP&#x2F;2协议，它比传统的HTTP&#x2F;1.1协议更高效，可以降低网络延迟。</li>
+</ul>
+<h2 id="在分布式系统中，为什么RPC通常被认为是阻塞的？这有什么影响？"><a href="#在分布式系统中，为什么RPC通常被认为是阻塞的？这有什么影响？" class="headerlink" title="在分布式系统中，为什么RPC通常被认为是阻塞的？这有什么影响？"></a>在分布式系统中，为什么RPC通常被认为是阻塞的？这有什么影响？</h2><p>RPC (远程过程调用) 在默认情况下通常被认为是阻塞的。这意味着当一个客户端向服务端发出RPC请求时，客户端会停止执行，等待服务端的响应。在服务端响应之前，客户端不会进行其他操作。<br>阻塞RPC有以下影响：</p>
+<ul>
+<li>性能影响：因为客户端在等待服务端响应期间不能做其他事情，所以如果网络延迟高或者服务端处理时间长，客户端将会被长时间阻塞，这可能会对性能产生负面影响。</li>
+<li>并发性影响：在单线程环境中，由于阻塞RPC会导致线程挂起，因此并发性能会受到限制。为了提高并发性能，可能需要引入多线程或异步编程模型。</li>
+<li>复杂性影响：虽然阻塞RPC的模型相对简单，易于理解，但在处理复杂的、需要并发或并行处理的任务时，可能需要使用更复杂的编程模型，如回调、异步RPC等。</li>
+</ul>
+<p>然而，虽然RPC通常默认为阻塞，但许多RPC框架（如gRPC）也支持非阻塞或异步的RPC，允许客户端在等待RPC响应的同时进行其他操作。</p>
+<h2 id="如何理解同步RPC与异步RPC的区别？在实际应用中，应该如何选择？"><a href="#如何理解同步RPC与异步RPC的区别？在实际应用中，应该如何选择？" class="headerlink" title="如何理解同步RPC与异步RPC的区别？在实际应用中，应该如何选择？"></a>如何理解同步RPC与异步RPC的区别？在实际应用中，应该如何选择？</h2><p>同步RPC和异步RPC是两种不同类型的RPC调用方式：</p>
+<ul>
+<li>同步RPC: 客户端发出RPC请求后，会等待服务端的响应。在收到响应之前，客户端不会执行其他操作。这是最简单的RPC形式，也是最常见的形式。</li>
+<li>异步RPC: 客户端发出RPC请求后，不会立即等待服务端的响应。相反，它会继续执行其他操作。当服务端的响应到达时，客户端将通过某种方式（如回调函数或者Future对象）得到通知。异步RPC可以提高客户端的效率，特别是在需要进行多个并发RPC请求的情况下。</li>
+</ul>
+<p>在实际应用中，选择同步RPC还是异步RPC主要取决于你的需求：</p>
+<ul>
+<li>如果你的应用只需要进行少量的RPC请求，且这些请求之间没有并发的需求，那么同步RPC可能是更简单、更方便的选择。</li>
+<li>如果你的应用需要进行大量的并发RPC请求，或者需要在等待RPC响应的同时进行其他操作，那么异步RPC可能是更好的选择。异步RPC虽然编程模型较复杂，但可以提高应用的性能和响应性。</li>
+</ul>
+<h2 id="在使用RPC时，如何处理服务端的状态管理？"><a href="#在使用RPC时，如何处理服务端的状态管理？" class="headerlink" title="在使用RPC时，如何处理服务端的状态管理？"></a>在使用RPC时，如何处理服务端的状态管理？</h2><p>服务端的状态管理是分布式系统中的一项重要任务，尤其是在使用RPC时。以下是一些处理服务端状态管理的策略：</p>
+<ul>
+<li>无状态服务: 无状态服务意味着服务不保留任何关于客户端的信息或状态。每个请求都被视为独立的，无关联的操作。这种设计可以极大地简化服务的扩展性，因为你可以简单地增加服务实例来处理更多的请求，而无需担心同步或迁移状态。</li>
+<li>有状态服务: 有状态服务会保持关于客户端的某种信息或状态。这种状态可能会影响服务对请求的处理。在有状态服务中，你需要在服务实例之间同步状态，或者确保客户端总是连接到具有其状态的特定服务器。这会增加设计的复杂性，并可能影响服务的可扩展性。</li>
+<li>会话数据: 如果服务需要跟踪会话数据（例如，用户登录信息），你通常需要使用某种形式的会话存储。这可能是内存中的存储（例如，使用分布式缓存），或者是持久的存储（例如，使用数据库）。</li>
+<li>持久化数据: 对于需要长期存储的数据，你通常会使用数据库或其他形式的持久化存储。这种存储可以在服务重启或失败后保留数据。</li>
+</ul>
+<p>在实际应用中，理想的情况是使服务尽可能无状态，以最大限度地提高可扩展性。如果需要处理状态，应该使用合适的工具和策略，以确保数据的一致性和可靠性，并尽量减少状态管理对服务可扩展性的影响。</p>
+<h2 id="为什么说在RPC中序列化和反序列化是一个重要的环节？有哪些常见的序列化和反序列化方法？"><a href="#为什么说在RPC中序列化和反序列化是一个重要的环节？有哪些常见的序列化和反序列化方法？" class="headerlink" title="为什么说在RPC中序列化和反序列化是一个重要的环节？有哪些常见的序列化和反序列化方法？"></a>为什么说在RPC中序列化和反序列化是一个重要的环节？有哪些常见的序列化和反序列化方法？</h2><p>序列化是将数据结构或对象状态转换为可以存储或传输的形式的过程，这通常涉及将数据结构或对象状态转换为字节流。反序列化则是将这种字节流恢复为原始数据结构或对象状态的过程。在RPC中，序列化和反序列化至关重要，原因如下：</p>
+<ul>
+<li>数据交换: RPC允许在不同的系统或网络节点之间进行函数调用。为了在这些节点之间传输数据（例如，函数参数和返回值），我们需要将数据序列化为通用格式，然后在接收端进行反序列化。</li>
+<li>网络效率: 有效的序列化和反序列化可以减少网络传输的数据量，从而提高网络效率。</li>
+<li>兼容性和扩展性: 选择一个能够支持向前和向后兼容性的序列化格式，可以帮助你更容易地升级和扩展系统。</li>
+</ul>
+<p>以下是一些常见的序列化和反序列化方法：</p>
+<ul>
+<li>JSON: JSON是一种常见的数据交换格式，广泛应用于Web服务。它易于阅读和编写，但可能不如其他格式那么高效，尤其是对于大型和复杂的数据。</li>
+<li>XML: XML是另一种常见的数据交换格式，虽然它的可读性和易用性不如JSON，但它支持更复杂和灵活的数据结构。</li>
+<li>Protocol Buffers: Protocol Buffers（或称为ProtoBuf）是Google开发的一种数据序列化协议。它小巧、快速、简单，且可以跨多种语言使用。</li>
+<li>MessagePack: MessagePack是一种二进制的序列化格式，它像JSON一样可以序列化&#x2F;反序列化复杂的数据类型，但比JSON更小、更快。</li>
+<li>Avro: Avro是Apache的一个项目，它提供了一种数据序列化系统，设计用于大数据和高并发的场景。</li>
+<li>Thrift: Thrift是Apache的一个轻量级、跨语言的服务开发框架，它提供了自己的数据序列化方式。</li>
+</ul>
+<h2 id="在大规模分布式系统中，如何保证RPC的可扩展性和稳定性？"><a href="#在大规模分布式系统中，如何保证RPC的可扩展性和稳定性？" class="headerlink" title="在大规模分布式系统中，如何保证RPC的可扩展性和稳定性？"></a>在大规模分布式系统中，如何保证RPC的可扩展性和稳定性？</h2><p>在大规模的分布式系统中，保证RPC（远程过程调用）的可扩展性和稳定性是非常重要的。以下是一些常见的策略：</p>
+<ul>
+<li>负载均衡: 使用负载均衡可以将RPC请求分发到多个服务实例，防止某个服务实例过载。负载均衡可以在客户端实现，也可以通过专门的负载均衡器实现。</li>
+<li>服务发现: 在动态的环境中，服务可能会增加或减少。服务发现机制允许客户端找到可用的服务实例，并在实例变更时进行更新。</li>
+<li>容错和重试策略: 当RPC请求失败时（例如，由于网络问题或服务实例故障），客户端可以选择重试。为了防止重试导致服务过载，可以使用指数退避等策略。</li>
+<li>监控和日志: 通过监控服务的性能和记录详细的日志，可以发现问题并进行调试。这对于保证RPC的稳定性非常重要。</li>
+<li>熔断器模式: 熔断器模式可以防止系统在故障状态下过度负载，当检测到服务连续失败或响应过慢时，熔断器会“打开”并开始拒绝请求，直到服务恢复正常。</li>
+<li>限流: 限流可以防止服务在高负载下过载，通过限制系统在单位时间内接收的请求数量，保证服务对请求的处理能力。</li>
+<li>使用高效的序列化&#x2F;反序列化机制: 选择高效的序列化&#x2F;反序列化机制，如Protocol Buffers或Avro，可以减少网络传输的数据量，提高RPC的效率。</li>
+<li>无状态服务设计: 尽可能设计无状态的服务，因为无状态的服务更容易扩展，无需同步和迁移状态。</li>
+<li>异步RPC: 异步RPC允许客户端在等待RPC响应的同时进行其他操作，可以提高系统的整体性能。</li>
+</ul>
+<h2 id="如何在RPC系统中实现错误处理和异常管理？有哪些常见的策略？"><a href="#如何在RPC系统中实现错误处理和异常管理？有哪些常见的策略？" class="headerlink" title="如何在RPC系统中实现错误处理和异常管理？有哪些常见的策略？"></a>如何在RPC系统中实现错误处理和异常管理？有哪些常见的策略？</h2><p>在RPC系统中，错误处理和异常管理是非常重要的。以下是一些常见的策略：</p>
+<ul>
+<li>错误码和错误信息： 当服务端遇到错误时，可以返回一个错误码和描述错误的信息。客户端可以根据这个错误码和错误信息来决定如何处理这个错误。</li>
+<li>重试策略： 如果一个RPC请求失败（例如，因为网络问题或服务端故障），客户端可以选择重试。重试策略需要慎重设计，以防止过度的重试导致服务过载。常见的重试策略包括固定间隔重试、指数退避等。</li>
+<li>熔断机制： 熔断机制类似于电路中的熔断器，当连续的RPC请求失败时，熔断器会“打开”，阻止进一步的RPC请求，防止系统过载。在一段时间后，熔断器会自动“关闭”，允许RPC请求再次通过。</li>
+<li>超时处理： 对于每个RPC请求，都应该设置一个合理的超时时间。如果超过这个时间还没有得到响应，那么认为这个请求失败。这可以防止客户端无限期地等待响应。</li>
+<li>故障转移： 当一个服务实例发生故障时，可以将RPC请求转移到其他健康的服务实例，这称为故障转移。</li>
+<li>服务降级： 当系统压力过大或部分服务不可用时，可以选择关闭或降低一些非核心服务的功能，以保证核心服务的正常运行。</li>
+</ul>
+<h2 id="有哪些常见的RPC框架？如gRPC-Thrift等。它们的优缺点是什么？"><a href="#有哪些常见的RPC框架？如gRPC-Thrift等。它们的优缺点是什么？" class="headerlink" title="有哪些常见的RPC框架？如gRPC, Thrift等。它们的优缺点是什么？"></a>有哪些常见的RPC框架？如gRPC, Thrift等。它们的优缺点是什么？</h2><p>以下是一些常见的RPC框架，以及它们的优缺点：</p>
+<ul>
+<li>gRPC:优点：gRPC是Google开发的一个高性能、开源的RPC框架，支持多种语言。它使用Protocol Buffers作为接口定义语言，可以生成客户端和服务端的代码。gRPC支持四种不同的服务类型：单项RPC、服务器流式RPC、客户端流式RPC和双向流式RPC。gRPC使用HTTP&#x2F;2协议，支持流式传输，比HTTP&#x2F;1.1更高效。缺点：尽管gRPC支持多种语言，但在某些语言上的支持可能不如其他语言那么完善。此外，由于gRPC使用HTTP&#x2F;2协议，某些老旧的系统可能无法支持。</li>
+<li>Apache Thrift:优点：Apache Thrift是Facebook开发的一个跨语言的服务开发框架。它提供了一个接口定义语言，可以生成客户端和服务端的代码。Thrift支持多种语言，包括C++, Java, Python, PHP, Ruby, Erlang, Perl, Haskell, C#, Cocoa, JavaScript, Node.js, Smalltalk, OCaml和Delphi等。Thrift的传输层可以使用多种协议，包括TCP、HTTP、非阻塞等。缺点：Thrift的文档和社区支持可能不如gRPC那么活跃。此外，Thrift的接口定义语言比Protocol Buffers更复杂，学习曲线可能更陡峭。</li>
+<li>JSON-RPC 和 XML-RPC:优点：JSON-RPC和XML-RPC是两种简单的RPC协议，它们使用JSON和XML格式进行数据传输，因此可以在任何支持这两种格式的语言中使用。这两种协议都非常简单，易于理解和实现。缺点：由于JSON-RPC和XML-RPC使用文本格式进行数据传输，所以它们可能不如使用二进制格式的RPC协议那么高效。</li>
+</ul>
+<h2 id="什么是grpc，它比传统的HTTP通信有什么优势，适用什么场景？"><a href="#什么是grpc，它比传统的HTTP通信有什么优势，适用什么场景？" class="headerlink" title="什么是grpc，它比传统的HTTP通信有什么优势，适用什么场景？"></a>什么是grpc，它比传统的HTTP通信有什么优势，适用什么场景？</h2><p>gRPC是Google开发的一个高性能、开源的RPC框架，支持多种语言。它使用Protocol Buffers作为接口定义语言，可以生成客户端和服务端的代码（支持<strong>C++、Java、Go、Python</strong>等作为客户端和服务端语言）。<br><strong>优势：</strong></p>
+<ol>
+<li><strong>协议：</strong> gRPC使用HTTP&#x2F;2作为通信协议，而传统的HTTP通信通常使用HTTP&#x2F;1.1。HTTP&#x2F;2相比HTTP&#x2F;1.1具有更好的性能，支持多路复用、头部压缩、服务器推送等特性，提供了更高效的网络传输。</li>
+<li><strong>数据格式：</strong> gRPC使用Protocol Buffers（protobuf）作为接口描述语言和数据序列化格式，而传统的HTTP通信通常使用JSON或XML。Protocol Buffers是一种高效的二进制数据序列化格式，相比JSON和XML更轻量，序列化和反序列化的速度更快。</li>
+<li><strong>IDL（Interface Definition Language）：</strong> gRPC使用IDL来定义服务接口和消息格式，这样可以生成客户端和服务器端的代码，使得开发人员更容易理解和使用接口。而传统的HTTP通信通常使用RESTful API，开发人员需要通过文档来了解API的使用方式。</li>
+<li><strong>多语言支持：</strong> gRPC支持多种编程语言，包括但不限于C++, Java, Python, Go, Ruby, Node.js, Android, iOS等。传统的HTTP通信也支持多种语言，但是由于语言间的差异，可能需要手动处理一些细节。</li>
+<li><strong>流式处理：</strong> gRPC支持双向流（Bidirectional streaming），即客户端和服务器端可以在同一个连接上同时发送多个消息，这在处理实时性要求高的场景中非常有用。传统的HTTP通信也可以实现类似的功能，但需要通过WebSocket等技术来实现。</li>
+</ol>
+<p><strong>使用场景：</strong></p>
+<ol>
+<li><strong>微服务架构：</strong> gRPC适用于构建微服务架构，其中各个微服务之间需要进行高效、快速的通信。gRPC的性能和多语言支持使其成为微服务间通信的理想选择。</li>
+<li><strong>多语言团队合作：</strong> 如果开发团队使用不同的编程语言，而需要进行跨语言通信，gRPC是一个非常好的选择。它支持多种编程语言，可以让不同语言编写的服务进行无缝通信。</li>
+<li><strong>实时应用和游戏：</strong> gRPC支持双向流（Bidirectional streaming），适用于实时应用和在线游戏等场景，其中需要在客户端和服务器之间进行双向通信，实时传输数据。</li>
+<li><strong>大规模数据处理：</strong> gRPC的高性能和流式处理特性使其适用于大规模数据处理，例如数据分析、数据挖掘和机器学习等领域，可以快速、高效地传输大量数据。</li>
+</ol>
+<h2 id="gRPC提供了哪些类型的通信模式及其使用场景，你在项目中选择了哪种模式？"><a href="#gRPC提供了哪些类型的通信模式及其使用场景，你在项目中选择了哪种模式？" class="headerlink" title="gRPC提供了哪些类型的通信模式及其使用场景，你在项目中选择了哪种模式？"></a>gRPC提供了哪些类型的通信模式及其使用场景，你在项目中选择了哪种模式？</h2><ol>
+<li><strong>单向通信</strong>：客户端发送单个请求并等待单个响应。适用于请求-响应模式的操作，例如发送邮件。</li>
+<li><strong>服务器流式通信</strong>：客户端发送单个请求，服务器可以返回多个响应。适用于客户端只需发送请求，然后等待服务器返回数据的场景，比如从服务器端实时推送日志数据给客户端。</li>
+<li><strong>客户端流式通信</strong>：客户端可以发送多个请求，服务器只需返回单个响应。适用于客户端需要向服务器发送大量数据，但只关心单个响应的情况，比如文件上传。</li>
+<li><strong>双向流式通信</strong>：客户端和服务器可以分别通过流发送多个消息。适用于需要交互式地发送多个消息的场景，例如聊天应用程序。</li>
+</ol>
+<p>我在项目中使用了<strong>单向通信</strong>这种模式。</p>
+<h2 id="gRPC使用了哪种序列化和反序列化？为什么？"><a href="#gRPC使用了哪种序列化和反序列化？为什么？" class="headerlink" title="gRPC使用了哪种序列化和反序列化？为什么？"></a>gRPC使用了哪种序列化和反序列化？为什么？</h2><p>gRPC使用Protocol Buffers（protobuf）作为默认的数据序列化和描述接口语言。<br><strong>原因：</strong></p>
+<ul>
+<li><strong>高效性：</strong> Protocol Buffers提供了高效的数据序列化和反序列化，生成的数据包相比文本格式更小，节省带宽，同时在解析上更为迅速。</li>
+<li><strong>可扩展性：</strong> Protocol Buffers的数据格式是可扩展的，新的字段和消息类型可以被添加到已有的消息格式中，而不会破坏现有的客户端和服务端的兼容性。这种特性在分布式系统中尤为重要。</li>
+<li><strong>多语言支持：</strong> Protocol Buffers支持多种编程语言，这意味着你可以在不同的语言中使用相同的接口定义，而不需要为每种语言单独定义接口和数据传输格式。</li>
+</ul>
+<h2 id="grpc的缺点？"><a href="#grpc的缺点？" class="headerlink" title="grpc的缺点？"></a>grpc的缺点？</h2><ul>
+<li>浏览器支持受限，无法通过浏览器直接调用grpc服务。可以通过grpc-web来做，但并不支持所有 gRPC 功能。 不支持客户端和双向流式传输，并且对服务器流式传输的支持有限。</li>
+<li>默认情况下，gRPC 消息使用 Protobuf 进行编码。 尽管 Protobuf 可以高效地发送和接收，但其二进制格式人工不可读。</li>
+<li>gRPC尚未提供连接池，需要自行实现</li>
+<li>尚未提供“服务发现”、“负载均衡”机制</li>
+</ul>
+<h2 id="protobuf的缺点？"><a href="#protobuf的缺点？" class="headerlink" title="protobuf的缺点？"></a>protobuf的缺点？</h2><ol>
+<li><strong>不易读：</strong> Protocol Buffers是一种二进制格式，不像JSON或XML那样易于人类阅读和调试。这使得在调试和开发阶段，理解数据结构变得更加困难。</li>
+<li><strong>不支持动态模式：</strong> Protocol Buffers使用预定义的消息格式，这意味着消息结构必须在编译时定义，并且不容易支持动态模式。对于需要在运行时动态定义消息结构的场景，这可能是一个限制。</li>
+<li><strong>不是自描述的：</strong> Protocol Buffers消息本身不包含关于消息类型的信息。这意味着接收者必须在其他地方知道消息的类型，这可能会导致一些通信上的困扰，尤其是当消息结构发生变化时。</li>
+<li><strong>没有内建的标准化架构：</strong> Protocol Buffers没有像XML Schema或JSON Schema那样的内建标准化架构，用于定义消息的结构和约束。这使得在不同团队或组织中共享数据结构时可能会引发一些问题。</li>
+<li><strong>不适用于所有的数据类型：</strong> Protocol Buffers适用于结构化数据，但不太适用于包含嵌套、非结构化或自由格式文本的数据。对于这类数据，其他格式可能更加合适。</li>
+<li><strong>版本兼容性：</strong> 当消息结构发生变化时，可能会导致与旧版本的兼容性问题。虽然Protocol Buffers提供了一些版本兼容性的支持，但在某些情况下，仍然需要小心处理版本升级的问题。</li>
+</ol>
+<h2 id="protobuf为什么拥有更少的数据量？"><a href="#protobuf为什么拥有更少的数据量？" class="headerlink" title="protobuf为什么拥有更少的数据量？"></a>protobuf为什么拥有更少的数据量？</h2><ol>
+<li><strong>二进制格式：</strong> Protocol Buffers使用二进制编码，而不是文本编码（像XML和JSON）。二进制数据通常比文本数据更紧凑，因为它不包含像标签名这样的额外字符，也没有可读性的空格、缩进和换行符。这意味着相同的数据在二进制格式下会更小。</li>
+<li><strong>紧凑的数据结构：</strong> Protocol Buffers的数据结构非常紧凑，不仅避免了标签重复，还使用了一种紧凑的编码方案（Varint编码）来表示数字，使得小数字使用更少的字节数。这种紧凑性减少了数据的传输和存储成本。</li>
+<li><strong>预定义的消息格式：</strong> Protocol Buffers使用预定义的消息格式，这意味着消息的结构在编译时就确定了。相比之下，JSON和XML通常需要在数据中包含字段名，而这些字段名在每个数据实例中都会重复，增加了数据量。</li>
+<li><strong>高效的序列化和反序列化算法：</strong> Protocol Buffers的序列化和反序列化算法被高度优化，能够以非常高的速度进行数据的编码和解码。这使得数据在传输和处理时更加高效。</li>
+<li><strong>类型信息的压缩：</strong> Protocol Buffers使用了标签（tag）而不是字段名称进行标识。这些标签在编码时被映射到字段的名称，而不需要在每个数据实例中重复传输字段名称。这种方式减少了数据量。</li>
+</ol>
+<h2 id="请描述一下gRPC的工作原理，包括请求和响应的过程。"><a href="#请描述一下gRPC的工作原理，包括请求和响应的过程。" class="headerlink" title="请描述一下gRPC的工作原理，包括请求和响应的过程。"></a>请描述一下gRPC的工作原理，包括请求和响应的过程。</h2><ol>
+<li><strong>定义服务和消息格式：</strong> 首先，您需要定义一个服务接口和消息格式。服务接口定义了可以远程调用的方法，而消息格式定义了这些方法所使用的参数和返回值的数据结构，通常使用Protocol Buffers进行定义。</li>
+<li><strong>生成代码：</strong> 使用定义好的服务接口和消息格式，通过gRPC的编译器生成客户端和服务器端的代码。这些生成的代码包含了用于序列化和反序列化消息、处理RPC调用的代码等。</li>
+<li><strong>启动服务器：</strong> 在服务器端，您需要编写代码来实现定义好的服务接口。然后，服务器启动并监听指定的网络端口，等待客户端的请求。</li>
+<li><strong>客户端发起请求：</strong> 客户端根据生成的代码创建相应的RPC客户端，并且调用远程服务的方法，传递方法所需的参数。</li>
+<li><strong>请求的传输和序列化：</strong> 当客户端调用远程方法时，gRPC会负责将方法调用和参数序列化为字节流，然后通过网络传输到服务器端。</li>
+<li><strong>服务器端处理请求：</strong> 服务器接收到请求后，gRPC会负责将接收到的字节流反序列化为方法调用和参数。然后，服务器执行相应的方法，并将结果序列化为字节流。</li>
+<li><strong>响应的传输和反序列化：</strong> 服务器将序列化后的结果作为响应，通过网络传输回客户端。客户端接收到响应后，gRPC会负责将字节流反序列化为方法的返回值。</li>
+<li><strong>客户端处理响应：</strong> 客户端接收到响应后，可以将结果转换为适当的数据类型，并且继续执行后续的逻辑处理。</li>
+</ol>
+<h2 id="微服务架构的好处？"><a href="#微服务架构的好处？" class="headerlink" title="微服务架构的好处？"></a>微服务架构的好处？</h2><p><strong>1. 易于开发和维护</strong><br>一个微服务只关注一个特定的业务功能，所以它的业务清晰、代码量较少。开发和维护单个微服务相对是比较简单的。而整个应用是由若干个微服务构建而成的，所以整个应用也会维持在可控状态。<br><strong>2. 单个微服务启动较快</strong><br>单个微服务代码量较少，所以启动会比较快。<br><strong>3. 局部修改容易部署</strong><br>单体应用只要有修改，就得重新部署整个应用，微服务解决了这样的问题。一般来说，对某个微服务进行修改，只需要重新部署这个服务即可。<br><strong>4. 技术栈不受限</strong><br>在微服务中，我们可以结合项目业务及团队的特点，合理地选择技术栈。例如某些服务可使用关系型数据库MySQL；某些微服务有图形计算的需求，我们可以使用Neo4J；甚至可以根据需要，部分微服务使用Java开发，部分微服务使用NodeJS进行开发。<br><strong>5. 按需伸缩</strong><br>我们可以根据需求，实现细粒度的扩展。例如：系统中的某个微服务遇到了瓶颈，我们可以结合这个微服务的业务特点，增加内存、升级CPU或者是增加节点，节约了硬件成本</p>
+<h2 id="maxBytes-0有啥意思？"><a href="#maxBytes-0有啥意思？" class="headerlink" title="maxBytes&#x3D;0有啥意思？"></a>maxBytes&#x3D;0有啥意思？</h2><div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Add 方法用于向缓存中添加新的键值对。如果键已存在，则更新对应的值，并将节点移动到链表的最前面；</span></span><br><span class="line"><span class="comment">// 如果键不存在，则在链表头部插入新的节点，并更新已占用的容量。</span></span><br><span class="line"><span class="comment">// 如果添加新的键值对后超出了最大存储容量，则会连续移除最久未使用的记录，直到满足容量要求。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *LRUCache)</span></span> Add(key <span class="type">string</span>, value Value, ttl time.Duration) &#123;</span><br><span class="line">    <span class="keyword">if</span> ele, ok := c.cache[key]; ok &#123;</span><br><span class="line">       c.ll.MoveToFront(ele)</span><br><span class="line">       kv := ele.Value.(*entry)</span><br><span class="line">       c.nBytes += <span class="type">int64</span>(value.Len()) - <span class="type">int64</span>(kv.value.Len())</span><br><span class="line">       kv.value = value</span><br><span class="line">       <span class="comment">// 更新过期时间时，判断是否应该保留原本的过期时间</span></span><br><span class="line">       <span class="keyword">if</span> kv.expire.Before(time.Now().Add(ttl)) &#123;</span><br><span class="line">          kv.expire = time.Now().Add(ttl)</span><br><span class="line">       &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       ele = c.ll.PushFront(&amp;entry&#123;key: key, value: value, expire: time.Now().Add(ttl)&#125;)</span><br><span class="line">       c.cache[key] = ele</span><br><span class="line">       c.nBytes += <span class="type">int64</span>(<span class="built_in">len</span>(key)) + <span class="type">int64</span>(value.Len())</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> c.maxBytes != <span class="number">0</span> &amp;&amp; c.maxBytes &lt; c.nBytes &#123;</span><br><span class="line">       c.RemoveOldest()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>如果 maxBytes 的值为 0，表示没有限制缓存的总大小，即不限制缓存的内存使用量。在这种情况下，不需要执行缓存大小控制的相关逻辑，可以直接添加或更新缓存项。因此，不需要在 Add 方法中执行删除最旧的缓存项 (RemoveOldest) 的操作。</p>
+<h2 id="最后请你记住项目中的所有代码必须看懂、看透。"><a href="#最后请你记住项目中的所有代码必须看懂、看透。" class="headerlink" title="最后请你记住项目中的所有代码必须看懂、看透。"></a>最后请你记住项目中的所有代码必须看懂、看透。</h2>
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 项目GeeCache面试题</li>
+        <li><strong>作者:</strong> Olivia的小跟班</li>
+        <li><strong>创建于
+                :</strong> 2023-10-23 22:51:00</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2024-03-06 18:09:08
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://www.youandgentleness.cn/2023/10/23/项目GeeCache面试题/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Go/">#Go</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2023/11/06/Golang%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%831/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Golang编码规范1</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2023/09/21/Golang%E5%85%AB%E8%82%A1%E6%96%87%E6%B1%87%E6%80%BB/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Golang八股文汇总</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '782748daccf6cb467d2c',
+                    clientSecret: '2a18a038c753ac1ae59de258d979feb2e04ee274',
+                    repo: 'gitalk',
+                    owner: 'zhouxing9454',
+                    admin: ['zhouxing9454'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">项目GeeCache面试题</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80"><span class="nav-text">项目地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%B5%81%E7%A8%8B-%E4%B8%8D%E6%98%AFGrpc%E7%89%88%E6%9C%AC"><span class="nav-text">项目流程(不是Grpc版本)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F%EF%BC%9F"><span class="nav-text">什么是分布式缓存系统？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%EF%BC%9F"><span class="nav-text">为什么要使用分布式缓存？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%EF%BC%9F"><span class="nav-text">分布式缓存系统的优缺点？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9F"><span class="nav-text">分布式缓存系统的应用场景？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E5%93%AA%E4%BA%9B%E6%96%B9%E9%9D%A2%EF%BC%9F"><span class="nav-text">设计一个分布式缓存系统需要考虑哪些方面？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E3%80%81%E5%87%BB%E7%A9%BF%E3%80%81%E7%A9%BF%E9%80%8F%E5%88%86%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E5%A6%82%E4%BD%95%E5%BA%94%E5%AF%B9%EF%BC%9F"><span class="nav-text">缓存雪崩、击穿、穿透分别是什么，如何应对？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AEGeeCache%E4%B8%AD%E5%A6%82%E4%BD%95%E5%BA%94%E5%AF%B9%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E5%92%8C%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-text">项目GeeCache中如何应对缓存雪崩和缓存击穿问题？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-text">缓存淘汰策略有哪些？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%AE%83%EF%BC%9F"><span class="nav-text">什么是一致性哈希，为什么要在项目中使用它？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E6%9C%89%E6%95%88%E6%80%A7%EF%BC%9F"><span class="nav-text">如何保证一致性哈希算法的有效性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E4%B8%AD%E7%9A%84%E8%99%9A%E6%8B%9F%E8%8A%82%E7%82%B9%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%AE%83%E4%BB%AC%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">一致性哈希算法中的虚拟节点是什么？它们的作用是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E8%8A%82%E7%82%B9%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F%E6%9F%A5%E6%89%BE%E7%9B%AE%E6%A0%87-key-%E7%9A%84%E8%BF%87%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F"><span class="nav-text">虚拟节点怎么实现的？查找目标 key 的过程是怎样的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7hash-%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9F"><span class="nav-text">一致性hash 存在的问题及解决方案？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E5%95%86%E5%A1%AB%E5%85%85%E3%80%81%E9%A2%84%E7%83%AD%E6%9C%BA%E5%88%B6"><span class="nav-text">协商填充、预热机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Raft%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90"><span class="nav-text">Raft算法解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Raft%E4%B8%AD%E7%9A%84%E4%B8%80%E4%B8%AATerm%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F"><span class="nav-text">Raft中的一个Term是什么意思？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Raft%E7%8A%B6%E6%80%81%E6%9C%BA%E6%98%AF%E6%80%8E%E6%A0%B7%E8%BF%9B%E8%A1%8C%E5%88%87%E6%8D%A2%E7%9A%84%EF%BC%9F"><span class="nav-text">Raft状态机是怎样进行切换的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%9C%80%E7%9F%AD%E6%97%B6%E9%97%B4%E5%86%85%E7%AB%9E%E9%80%89%E5%87%BALeader%EF%BC%8C%E9%98%B2%E6%AD%A2%E7%AB%9E%E9%80%89%E5%86%B2%E7%AA%81%EF%BC%9F"><span class="nav-text">如何保证最短时间内竞选出Leader，防止竞选冲突？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2%E5%88%AB%E7%9A%84Candidate%E5%9C%A8%E9%81%97%E6%BC%8F%E9%83%A8%E5%88%86%E6%95%B0%E6%8D%AE%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%8F%91%E8%B5%B7%E6%8A%95%E7%A5%A8%E6%88%90%E4%B8%BALeader%EF%BC%9F"><span class="nav-text">如何防止别的Candidate在遗漏部分数据的情况下发起投票成为Leader？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Raft%E6%9C%89%E8%8A%82%E7%82%B9%E5%AE%95%E6%9C%BA%E5%90%8E%E6%80%8E%E6%A0%B7%EF%BC%9F"><span class="nav-text">Raft有节点宕机后怎样？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88Raft%E7%AE%97%E6%B3%95%E5%9C%A8%E7%A1%AE%E5%AE%9A%E5%8F%AF%E7%94%A8%E8%8A%82%E7%82%B9%E6%95%B0%E9%87%8F%E6%97%B6%E4%B8%8D%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-text">为什么Raft算法在确定可用节点数量时不需要考虑拜占庭将军问题？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFetcd%E4%BB%A5%E5%8F%8Aetcd%E7%9A%84%E7%89%B9%E7%82%B9%E3%80%81%E7%BC%BA%E7%82%B9%EF%BC%9F"><span class="nav-text">什么是etcd以及etcd的特点、缺点？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9F"><span class="nav-text">etcd的使用场景？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8etcd%EF%BC%8C%E6%80%8E%E4%B9%88%E7%94%A8%E7%9A%84%EF%BC%9F"><span class="nav-text">为什么在项目中使用etcd，怎么用的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcd%E7%9A%84%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86%EF%BC%9F"><span class="nav-text">etcd的组成部分？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81Snapshot%E5%BF%AB%E7%85%A7%EF%BC%9F"><span class="nav-text">为什么需要Snapshot快照？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFWAL%EF%BC%8CWAL%E7%9A%84%E5%85%B7%E4%BD%93%E7%BB%93%E6%9E%84%EF%BC%9F"><span class="nav-text">什么是WAL，WAL的具体结构？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRaft%E5%8D%8F%E8%AE%AE%E7%9A%84Entry%E8%AE%B0%E5%BD%95%EF%BC%9F"><span class="nav-text">什么是Raft协议的Entry记录？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcd%E7%9A%84%E9%80%BB%E8%BE%91%E8%A7%86%E5%9B%BE%E5%92%8C%E7%89%A9%E7%90%86%E8%A7%86%E5%9B%BE%EF%BC%9F"><span class="nav-text">etcd的逻辑视图和物理视图？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proxy%E6%A8%A1%E5%BC%8F%E5%8F%96%E4%BB%A3Standby%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%9F"><span class="nav-text">Proxy模式取代Standby模式的原因？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcd%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%BC%BA%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F"><span class="nav-text">etcd如何保证强一致性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcd%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9C%BA%E5%88%B6%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F"><span class="nav-text">etcd分布式锁实现的基础机制是怎样的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRPC%EF%BC%88%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%EF%BC%89%EF%BC%9F%E8%83%BD%E5%90%A6%E6%8F%90%E4%BE%9B%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E4%BE%8B%E5%AD%90%EF%BC%9F"><span class="nav-text">什么是RPC（远程过程调用）？能否提供一个简单的定义和例子？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPC%E5%92%8CRESTful-API%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F%E5%9C%A8%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E6%88%91%E5%BA%94%E9%80%89%E6%8B%A9%E4%BD%BF%E7%94%A8RPC%E8%80%8C%E9%9D%9ERESTful-API%EF%BC%9F"><span class="nav-text">RPC和RESTful API有什么区别？在什么情况下我应选择使用RPC而非RESTful API？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8RPC%E4%B8%AD%EF%BC%8C%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E7%BD%91%E7%BB%9C%E5%BB%B6%E8%BF%9F%E5%92%8C%E8%B6%85%E6%97%B6%EF%BC%9F%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AD%96%E7%95%A5%EF%BC%9F"><span class="nav-text">在RPC中，如何处理网络延迟和超时？有哪些常见的策略？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88RPC%E9%80%9A%E5%B8%B8%E8%A2%AB%E8%AE%A4%E4%B8%BA%E6%98%AF%E9%98%BB%E5%A1%9E%E7%9A%84%EF%BC%9F%E8%BF%99%E6%9C%89%E4%BB%80%E4%B9%88%E5%BD%B1%E5%93%8D%EF%BC%9F"><span class="nav-text">在分布式系统中，为什么RPC通常被认为是阻塞的？这有什么影响？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E5%90%8C%E6%AD%A5RPC%E4%B8%8E%E5%BC%82%E6%AD%A5RPC%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F%E5%9C%A8%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E4%B8%AD%EF%BC%8C%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%EF%BC%9F"><span class="nav-text">如何理解同步RPC与异步RPC的区别？在实际应用中，应该如何选择？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E4%BD%BF%E7%94%A8RPC%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%EF%BC%9F"><span class="nav-text">在使用RPC时，如何处理服务端的状态管理？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4%E5%9C%A8RPC%E4%B8%AD%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%98%AF%E4%B8%80%E4%B8%AA%E9%87%8D%E8%A6%81%E7%9A%84%E7%8E%AF%E8%8A%82%EF%BC%9F%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%B3%95%EF%BC%9F"><span class="nav-text">为什么说在RPC中序列化和反序列化是一个重要的环节？有哪些常见的序列化和反序列化方法？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%EF%BC%8C%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81RPC%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7%E5%92%8C%E7%A8%B3%E5%AE%9A%E6%80%A7%EF%BC%9F"><span class="nav-text">在大规模分布式系统中，如何保证RPC的可扩展性和稳定性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8RPC%E7%B3%BB%E7%BB%9F%E4%B8%AD%E5%AE%9E%E7%8E%B0%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E5%92%8C%E5%BC%82%E5%B8%B8%E7%AE%A1%E7%90%86%EF%BC%9F%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AD%96%E7%95%A5%EF%BC%9F"><span class="nav-text">如何在RPC系统中实现错误处理和异常管理？有哪些常见的策略？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84RPC%E6%A1%86%E6%9E%B6%EF%BC%9F%E5%A6%82gRPC-Thrift%E7%AD%89%E3%80%82%E5%AE%83%E4%BB%AC%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">有哪些常见的RPC框架？如gRPC, Thrift等。它们的优缺点是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFgrpc%EF%BC%8C%E5%AE%83%E6%AF%94%E4%BC%A0%E7%BB%9F%E7%9A%84HTTP%E9%80%9A%E4%BF%A1%E6%9C%89%E4%BB%80%E4%B9%88%E4%BC%98%E5%8A%BF%EF%BC%8C%E9%80%82%E7%94%A8%E4%BB%80%E4%B9%88%E5%9C%BA%E6%99%AF%EF%BC%9F"><span class="nav-text">什么是grpc，它比传统的HTTP通信有什么优势，适用什么场景？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gRPC%E6%8F%90%E4%BE%9B%E4%BA%86%E5%93%AA%E4%BA%9B%E7%B1%BB%E5%9E%8B%E7%9A%84%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%BC%8F%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%8C%E4%BD%A0%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E9%80%89%E6%8B%A9%E4%BA%86%E5%93%AA%E7%A7%8D%E6%A8%A1%E5%BC%8F%EF%BC%9F"><span class="nav-text">gRPC提供了哪些类型的通信模式及其使用场景，你在项目中选择了哪种模式？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gRPC%E4%BD%BF%E7%94%A8%E4%BA%86%E5%93%AA%E7%A7%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">gRPC使用了哪种序列化和反序列化？为什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#grpc%E7%9A%84%E7%BC%BA%E7%82%B9%EF%BC%9F"><span class="nav-text">grpc的缺点？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#protobuf%E7%9A%84%E7%BC%BA%E7%82%B9%EF%BC%9F"><span class="nav-text">protobuf的缺点？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#protobuf%E4%B8%BA%E4%BB%80%E4%B9%88%E6%8B%A5%E6%9C%89%E6%9B%B4%E5%B0%91%E7%9A%84%E6%95%B0%E6%8D%AE%E9%87%8F%EF%BC%9F"><span class="nav-text">protobuf为什么拥有更少的数据量？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B7%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8BgRPC%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%EF%BC%8C%E5%8C%85%E6%8B%AC%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94%E7%9A%84%E8%BF%87%E7%A8%8B%E3%80%82"><span class="nav-text">请描述一下gRPC的工作原理，包括请求和响应的过程。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E7%9A%84%E5%A5%BD%E5%A4%84%EF%BC%9F"><span class="nav-text">微服务架构的好处？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#maxBytes-0%E6%9C%89%E5%95%A5%E6%84%8F%E6%80%9D%EF%BC%9F"><span class="nav-text">maxBytes&#x3D;0有啥意思？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E8%AF%B7%E4%BD%A0%E8%AE%B0%E4%BD%8F%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E4%BB%A3%E7%A0%81%E5%BF%85%E9%A1%BB%E7%9C%8B%E6%87%82%E3%80%81%E7%9C%8B%E9%80%8F%E3%80%82"><span class="nav-text">最后请你记住项目中的所有代码必须看懂、看透。</span></a></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin"></i>&nbsp;&nbsp;<a href="/">Olivia的小跟班</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共 27 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.1</a></span>
+        </div>
+        
+            <div class="icp-info my-1"><a target="_blank" rel="nofollow" href="
+                
+                    https://beian.miit.gov.cn/
+                
+                ">浙ICP备2022034029号</a></div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+    <div id="aplayer"></div>
+
+<script src="/js/libs/APlayer.min.js"></script>
+
+
+<script src="/js/plugins/aplayer.js"></script>
+
+
+</body>
+</html>
+
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/love.js"></script>
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/FunnyTitle.js"></script>

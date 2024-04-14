@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Olivia的小跟班">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+            <link rel="preconnect" href="https://cdn.staticfile.org" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://www.youandgentleness.cn/2024/01/09/每日计划/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="题记记录一下自己的每天学习情况 2024-01-08阿秀学习笔记MySQL（1-15）共15道 图解MySQL： count(*) 和 count(1) 有什么区别？哪个性能最好？ 图解Redis： Redis 大 Key 对持久化有什么影响？ 力扣复习之前做的29道题目 2024-01-09阿秀学习笔记Redis（1，3-9）共8道 图解MySQL： MySQL 使用 like “%x“，索引一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="每日计划">
+<meta property="og:url" content="https://www.youandgentleness.cn/2024/01/09/%E6%AF%8F%E6%97%A5%E8%AE%A1%E5%88%92/index.html">
+<meta property="og:site_name" content="Olivia的小跟班">
+<meta property="og:description" content="题记记录一下自己的每天学习情况 2024-01-08阿秀学习笔记MySQL（1-15）共15道 图解MySQL： count(*) 和 count(1) 有什么区别？哪个性能最好？ 图解Redis： Redis 大 Key 对持久化有什么影响？ 力扣复习之前做的29道题目 2024-01-09阿秀学习笔记Redis（1，3-9）共8道 图解MySQL： MySQL 使用 like “%x“，索引一">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-08T16:42:06.000Z">
+<meta property="article:modified_time" content="2024-02-11T17:25:40.000Z">
+<meta property="article:author" content="Olivia的小跟班">
+<meta name="twitter:card" content="summary">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <meta name="theme-color" content="#1890ff">
+    <link rel="shortcut icon" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            每日计划 -
+        
+        Olivia的小跟班
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+
+    
+        <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    
+<script src="/js/libs/anime.min.js"></script>
+
+    <h1 class="ml13">
+        Olivia的小跟班
+    </h1>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+
+        anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [100,0],
+                translateZ: 0,
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: '.ml13 .letter',
+            translateY: [0,-100],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+        });
+
+        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
+        hidePreloaderAfterTimeout(5000);
+
+        function hidePreloaderAfterTimeout(delay) {
+            setTimeout(function () {
+                var preloader = document.querySelector('.preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 200);
+            }, delay);
+        }
+    </script>
+</div>
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"www.youandgentleness.cn","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":null,"skip_dirs":[]}},"colors":{"primary":"#1890ff","secondary":"#1890ff","default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/light.jpg","dark":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/darkness.jpg"},"title":"Talk is cheap,Show me the code.","subtitle":{"text":["他们以为击败我就是终结，而我必归来将之改写。"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#D27D2D","dark":"#191970"},"text_style":{"title_size":"2.1rem","subtitle_size":"1.2rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"email":"zhouxing9454@gmail.com","weixin":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/wechat.jpg","github":"https://github.com/zhouxing9454","qq":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/QQ.jpg","bilibili":"https://space.bilibili.com/475346328"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"最后的旅行","artist":"Rainton桐","url":"http://music.163.com/song/media/outer/url?id=30512539.mp3","cover":"https://p1.music.126.net/XWUdXb46hIdIecRihPCV_A==/109951168667887853.jpg"},{"name":"陪我长大","artist":"段奥娟","url":"http://music.163.com/song/media/outer/url?id=1299550093.mp3","cover":"http://p2.music.126.net/YxUbVoHngGMY8gZMjbEJkg==/109951163446151536.jpg"}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.1","navbar":{"auto_hide":false,"color":{"left":"#FAF9F6","right":"#FAF9F6","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"Friends":{"icon":"fa-solid fa-link","path":"/links/"},"Essays":{"icon":"fa-solid fa-paper-plane","path":"/essays/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","typography":{"line_height":1.6}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/7/4 9:30:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Olivia的小跟班
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/links/"
+                                        >
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/essays/"
+                                        >
+                                    <i class="fa-solid fa-paper-plane fa-fw"></i>
+                                    ESSAYS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/links/"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-solid fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/essays/"
+                        >
+                            <span>
+                                ESSAYS
+                            </span>
+                            
+                                <i class="fa-solid fa-paper-plane fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">每日计划</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/avatar.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Olivia的小跟班</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-01-09 00:42:06</span>
+        <span class="mobile">2024-01-09 00:42:06</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-02-12 01:25:40</span>
+            <span class="mobile">2024-02-12 01:25:40</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h1><p>记录一下自己的每天学习情况</p>
+<h3 id="2024-01-08"><a href="#2024-01-08" class="headerlink" title="2024-01-08"></a>2024-01-08</h3><p>阿秀学习笔记MySQL（1-15）共15道</p>
+<p>图解MySQL： count(*) 和 count(1) 有什么区别？哪个性能最好？</p>
+<p>图解Redis： Redis 大 Key 对持久化有什么影响？</p>
+<p>力扣复习之前做的29道题目</p>
+<h3 id="2024-01-09"><a href="#2024-01-09" class="headerlink" title="2024-01-09"></a>2024-01-09</h3><p>阿秀学习笔记Redis（1，3-9）共8道</p>
+<p>图解MySQL： MySQL 使用 like “%x“，索引一定会失效吗？</p>
+<p>图解Redis： RDB 快照是怎么实现的？</p>
+<p>力扣4道题目</p>
+<h3 id="2024-01-10"><a href="#2024-01-10" class="headerlink" title="2024-01-10"></a>2024-01-10</h3><p>Go语言面试题精讲（1-14，60）共15道</p>
+<p>力扣4道</p>
+<h3 id="2024-01-11"><a href="#2024-01-11" class="headerlink" title="2024-01-11"></a>2024-01-11</h3><p>图解MySQL： MySQL 单表不要超过 2000W 行，靠谱吗？</p>
+<p>图解Redis： AOF 持久化是怎么实现的？</p>
+<h3 id="2024-01-12"><a href="#2024-01-12" class="headerlink" title="2024-01-12"></a>2024-01-12</h3><p>有事回学校了</p>
+<h3 id="2024-01-13"><a href="#2024-01-13" class="headerlink" title="2024-01-13"></a>2024-01-13</h3><p>有事回学校了</p>
+<h3 id="2024-01-14"><a href="#2024-01-14" class="headerlink" title="2024-01-14"></a>2024-01-14</h3><p>图解MySQL：</p>
+<ul>
+<li>事务隔离级别是怎么实现的？</li>
+<li>MySQL 可重复读隔离级别，完全解决幻读了吗？</li>
+</ul>
+<p>图解Redis： </p>
+<ul>
+<li>什么是缓存雪崩、击穿、穿透？</li>
+<li>数据库和缓存如何保证一致性？</li>
+</ul>
+<h3 id="2024-01-15"><a href="#2024-01-15" class="headerlink" title="2024-01-15"></a>2024-01-15</h3><p>阿秀学习笔记MySQL（16-30）共15道</p>
+<p>力扣4道</p>
+<p>牛客网2篇面经</p>
+<p>图解MySQL：</p>
+<ul>
+<li>从数据页的角度看 B+ 树</li>
+</ul>
+<p>图解Redis： </p>
+<ul>
+<li>Redis 过期删除策略和内存淘汰策略有什么区别？</li>
+</ul>
+<h3 id="2024-01-16"><a href="#2024-01-16" class="headerlink" title="2024-01-16"></a>2024-01-16</h3><p>阿秀学习笔记Redis（10-17）共8道</p>
+<p>力扣6道</p>
+<p>牛客网5篇面经</p>
+<p>图解MySQL：</p>
+<ul>
+<li>为什么 MySQL 采用 B+ 树作为索引？</li>
+</ul>
+<p>图解Redis： </p>
+<ul>
+<li>Redis 常见面试题（1&#x2F;8）</li>
+</ul>
+<h3 id="2024-01-17"><a href="#2024-01-17" class="headerlink" title="2024-01-17"></a>2024-01-17</h3><p>Go语言面试题精讲（15-22，24-29，59）共15道</p>
+<p>力扣5道</p>
+<h3 id="2024-01-18"><a href="#2024-01-18" class="headerlink" title="2024-01-18"></a>2024-01-18</h3><p>力扣5道</p>
+<p>牛客网5篇面经</p>
+<p>图解MySQL：</p>
+<ul>
+<li><p>执行一条 SQL 查询语句，期间发生了什么？</p>
+</li>
+<li><p>Redis 常见面试题（1&#x2F;8）</p>
+</li>
+</ul>
+<h3 id="2024-01-23"><a href="#2024-01-23" class="headerlink" title="2024-01-23"></a>2024-01-23</h3><p>19、20、21、22四天忘记写了，虽然也没做什么，就在这里一起记录下。</p>
+<p>力扣12道</p>
+<p>图解Redis：</p>
+<ul>
+<li>Redis常见面试题—看完</li>
+</ul>
+<p>图解MySQL：</p>
+<ul>
+<li>MySQL一行记录是怎么存储的</li>
+<li>索引常见面试题</li>
+<li>索引失效有哪些</li>
+<li>揭开 Buffer Pool 的面纱</li>
+</ul>
+<h3 id="2024-01-24"><a href="#2024-01-24" class="headerlink" title="2024-01-24"></a>2024-01-24</h3><p>阿秀的学习笔记：MySQL（25道）</p>
+<h3 id="2024-01-25"><a href="#2024-01-25" class="headerlink" title="2024-01-25"></a>2024-01-25</h3><p>阿秀的学习笔记：Redis（16道）</p>
+<h3 id="2024-01-26"><a href="#2024-01-26" class="headerlink" title="2024-01-26"></a>2024-01-26</h3><p>图解MySQL：</p>
+<ul>
+<li>MySQL有哪些锁</li>
+<li>MySQL是怎么加锁的</li>
+<li>update没加索引会锁全表</li>
+<li>MySQL记录锁+间隙锁可以防止删除操作而导致的幻读吗</li>
+<li>MySQL 死锁了，怎么办</li>
+<li>字节面试:加了什么锁，导致死锁的</li>
+</ul>
+<h3 id="2024-01-27"><a href="#2024-01-27" class="headerlink" title="2024-01-27"></a>2024-01-27</h3><p>图解Redis：</p>
+<ul>
+<li>Redis 数据结构</li>
+<li>主从复制是怎么实现的</li>
+<li>为什么要有哨兵</li>
+<li>为什么要有集群、</li>
+</ul>
+<h3 id="2024-01-28"><a href="#2024-01-28" class="headerlink" title="2024-01-28"></a>2024-01-28</h3><p>图解Redis：</p>
+<ul>
+<li>Redis 常见数据类型和应用场景</li>
+</ul>
+<h3 id="2024-01-29"><a href="#2024-01-29" class="headerlink" title="2024-01-29"></a>2024-01-29</h3><p>阿秀的学习笔记：</p>
+<ul>
+<li>计算机网络50道（1-46，48-50，52）</li>
+</ul>
+<h3 id="2024-01-30"><a href="#2024-01-30" class="headerlink" title="2024-01-30"></a>2024-01-30</h3><p>阿秀的学习笔记：</p>
+<ul>
+<li>计算机网络54道（47，51，53-104）</li>
+</ul>
+<h3 id="2024-01-31"><a href="#2024-01-31" class="headerlink" title="2024-01-31"></a>2024-01-31</h3><p>阿秀的学习笔记：</p>
+<ul>
+<li>操作系统45道（21-65）</li>
+</ul>
+<h3 id="2024-02-01"><a href="#2024-02-01" class="headerlink" title="2024-02-01"></a>2024-02-01</h3><p>阿秀的学习笔记：</p>
+<ul>
+<li>操作系统20道（1-20）</li>
+</ul>
+<h3 id="2024-02-01-1"><a href="#2024-02-01-1" class="headerlink" title="2024-02-01"></a>2024-02-01</h3><p>GeeCache项目</p>
+<h3 id="2024-02-02"><a href="#2024-02-02" class="headerlink" title="2024-02-02"></a>2024-02-02</h3><p>年会</p>
+<h3 id="2024-02-03"><a href="#2024-02-03" class="headerlink" title="2024-02-03"></a>2024-02-03</h3><p>离职回家</p>
+<h3 id="2024-02-04"><a href="#2024-02-04" class="headerlink" title="2024-02-04"></a>2024-02-04</h3><p>离职回家</p>
+<h3 id="2024-02-05"><a href="#2024-02-05" class="headerlink" title="2024-02-05"></a>2024-02-05</h3><p>休息</p>
+<h3 id="2024-02-06"><a href="#2024-02-06" class="headerlink" title="2024-02-06"></a>2024-02-06</h3><p>休息</p>
+<h3 id="2024-02-07"><a href="#2024-02-07" class="headerlink" title="2024-02-07"></a>2024-02-07</h3><p>图解网络：</p>
+<ul>
+<li>为什么TCP每次建立连接时，初始化序列号都要不一样呢?</li>
+<li>SYN报文什么时候情况下会被丢弃?</li>
+<li>已建立连接的TCP，收到SYN会发生什么?</li>
+<li>四次挥手中收到乱序的FIN 包会如何处理?</li>
+<li>tcptwreuse为什么默认是关闭的?</li>
+<li>HTTPS 中 TLS和TCP能同时握手吗?</li>
+<li>TCP和UDP可以使用同一个端口吗?</li>
+<li>服务端没有listen，客户端发起连接建立，会发生什么?</li>
+<li>用了TCP协议，数据一定不会丢吗?</li>
+<li>TCP四次挥手，可以变成三次吗?</li>
+<li>TCP序列号和确认号是如何变化的?</li>
+</ul>
+<h3 id="2024-02-08"><a href="#2024-02-08" class="headerlink" title="2024-02-08"></a>2024-02-08</h3><p>图解网络：</p>
+<ul>
+<li><p>TCP&#x2F;IP网络模型有哪几层?</p>
+</li>
+<li><p>Linux系统是如何收发网络包的?</p>
+</li>
+<li><p>HTTP&#x2F;1.1如何优化?</p>
+</li>
+<li><p>TCP半连接队列和全连接队列</p>
+</li>
+<li><p>TCP协议有什么缺陷?</p>
+</li>
+</ul>
+<h3 id="2024-02-09"><a href="#2024-02-09" class="headerlink" title="2024-02-09"></a>2024-02-09</h3><p>图解网络：</p>
+<ul>
+<li>如何优化TCP?</li>
+<li>TCP 实战抓包分析</li>
+<li>没有accept，能建立TCP连接吗?</li>
+<li>在TIME_WAIT 状态的TCP连接，收到SYN后会发生什么?</li>
+</ul>
+<h3 id="2024-02-10"><a href="#2024-02-10" class="headerlink" title="2024-02-10"></a>2024-02-10</h3><p>休息</p>
+<h3 id="2024-02-11"><a href="#2024-02-11" class="headerlink" title="2024-02-11"></a>2024-02-11</h3><p>图解网络：</p>
+<ul>
+<li>如何基于UDP协议实现可靠传输?</li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 每日计划</li>
+        <li><strong>作者:</strong> Olivia的小跟班</li>
+        <li><strong>创建于
+                :</strong> 2024-01-09 00:42:06</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2024-02-12 01:25:40
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://www.youandgentleness.cn/2024/01/09/每日计划/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2024/02/15/%E6%B7%B1%E5%9C%B3%E4%B8%87%E5%A3%B0%E9%9F%B3%E4%B9%90%E5%AE%9E%E4%B9%A0%E6%80%BB%E7%BB%93/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">深圳万声音乐实习总结</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2023/11/06/Redis%E4%BD%BF%E7%94%A8%E8%A7%84%E8%8C%83/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Redis使用规范</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '782748daccf6cb467d2c',
+                    clientSecret: '2a18a038c753ac1ae59de258d979feb2e04ee274',
+                    repo: 'gitalk',
+                    owner: 'zhouxing9454',
+                    admin: ['zhouxing9454'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">每日计划</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-08"><span class="nav-text">2024-01-08</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-09"><span class="nav-text">2024-01-09</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-10"><span class="nav-text">2024-01-10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-11"><span class="nav-text">2024-01-11</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-12"><span class="nav-text">2024-01-12</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-13"><span class="nav-text">2024-01-13</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-14"><span class="nav-text">2024-01-14</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-15"><span class="nav-text">2024-01-15</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-16"><span class="nav-text">2024-01-16</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-17"><span class="nav-text">2024-01-17</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-18"><span class="nav-text">2024-01-18</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-23"><span class="nav-text">2024-01-23</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-24"><span class="nav-text">2024-01-24</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-25"><span class="nav-text">2024-01-25</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-26"><span class="nav-text">2024-01-26</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-27"><span class="nav-text">2024-01-27</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-28"><span class="nav-text">2024-01-28</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-29"><span class="nav-text">2024-01-29</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-30"><span class="nav-text">2024-01-30</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-01-31"><span class="nav-text">2024-01-31</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-02-01"><span class="nav-text">2024-02-01</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-02-01-1"><span class="nav-text">2024-02-01</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-02-02"><span class="nav-text">2024-02-02</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-02-03"><span class="nav-text">2024-02-03</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-02-04"><span class="nav-text">2024-02-04</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-02-05"><span class="nav-text">2024-02-05</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-02-06"><span class="nav-text">2024-02-06</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-02-07"><span class="nav-text">2024-02-07</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-02-08"><span class="nav-text">2024-02-08</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-02-09"><span class="nav-text">2024-02-09</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-02-10"><span class="nav-text">2024-02-10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2024-02-11"><span class="nav-text">2024-02-11</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin"></i>&nbsp;&nbsp;<a href="/">Olivia的小跟班</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共 27 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.1</a></span>
+        </div>
+        
+            <div class="icp-info my-1"><a target="_blank" rel="nofollow" href="
+                
+                    https://beian.miit.gov.cn/
+                
+                ">浙ICP备2022034029号</a></div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+    <div id="aplayer"></div>
+
+<script src="/js/libs/APlayer.min.js"></script>
+
+
+<script src="/js/plugins/aplayer.js"></script>
+
+
+</body>
+</html>
+
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/love.js"></script>
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/FunnyTitle.js"></script>

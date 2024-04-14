@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Olivia的小跟班">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+            <link rel="preconnect" href="https://cdn.staticfile.org" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://www.youandgentleness.cn/2023/11/06/golang编码规范1/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="题记本文主要用来规范自己编写Golang的代码，感谢本人实习的mentor孙晨辉（万声音乐），让我对编码规范有了新的认识。 正文函数和方法命名 函数和方法名称中通常可以省略以下内容：  输入和输出的类型（当没有冲突时） 方法的接收器的类型 输入或输出是否为指针   对于函数，不要重复包的名称。  对于方法，不要重复方法接收器的名称。  不要重复作为参数传递的变量的名称。  不要重复返回值的名称和类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Golang编码规范1">
+<meta property="og:url" content="https://www.youandgentleness.cn/2023/11/06/Golang%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%831/index.html">
+<meta property="og:site_name" content="Olivia的小跟班">
+<meta property="og:description" content="题记本文主要用来规范自己编写Golang的代码，感谢本人实习的mentor孙晨辉（万声音乐），让我对编码规范有了新的认识。 正文函数和方法命名 函数和方法名称中通常可以省略以下内容：  输入和输出的类型（当没有冲突时） 方法的接收器的类型 输入或输出是否为指针   对于函数，不要重复包的名称。  对于方法，不要重复方法接收器的名称。  不要重复作为参数传递的变量的名称。  不要重复返回值的名称和类">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-06T05:55:10.000Z">
+<meta property="article:modified_time" content="2023-11-06T09:34:30.000Z">
+<meta property="article:author" content="Olivia的小跟班">
+<meta property="article:tag" content="Go">
+<meta name="twitter:card" content="summary">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <meta name="theme-color" content="#1890ff">
+    <link rel="shortcut icon" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Golang编码规范1 -
+        
+        Olivia的小跟班
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+
+    
+        <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    
+<script src="/js/libs/anime.min.js"></script>
+
+    <h1 class="ml13">
+        Olivia的小跟班
+    </h1>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+
+        anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [100,0],
+                translateZ: 0,
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: '.ml13 .letter',
+            translateY: [0,-100],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+        });
+
+        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
+        hidePreloaderAfterTimeout(5000);
+
+        function hidePreloaderAfterTimeout(delay) {
+            setTimeout(function () {
+                var preloader = document.querySelector('.preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 200);
+            }, delay);
+        }
+    </script>
+</div>
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"www.youandgentleness.cn","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":null,"skip_dirs":[]}},"colors":{"primary":"#1890ff","secondary":"#1890ff","default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/light.jpg","dark":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/darkness.jpg"},"title":"Talk is cheap,Show me the code.","subtitle":{"text":["他们以为击败我就是终结，而我必归来将之改写。"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#D27D2D","dark":"#191970"},"text_style":{"title_size":"2.1rem","subtitle_size":"1.2rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"email":"zhouxing9454@gmail.com","weixin":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/wechat.jpg","github":"https://github.com/zhouxing9454","qq":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/QQ.jpg","bilibili":"https://space.bilibili.com/475346328"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"最后的旅行","artist":"Rainton桐","url":"http://music.163.com/song/media/outer/url?id=30512539.mp3","cover":"https://p1.music.126.net/XWUdXb46hIdIecRihPCV_A==/109951168667887853.jpg"},{"name":"陪我长大","artist":"段奥娟","url":"http://music.163.com/song/media/outer/url?id=1299550093.mp3","cover":"http://p2.music.126.net/YxUbVoHngGMY8gZMjbEJkg==/109951163446151536.jpg"}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.1","navbar":{"auto_hide":false,"color":{"left":"#FAF9F6","right":"#FAF9F6","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"Friends":{"icon":"fa-solid fa-link","path":"/links/"},"Essays":{"icon":"fa-solid fa-paper-plane","path":"/essays/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","typography":{"line_height":1.6}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/7/4 9:30:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Olivia的小跟班
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/links/"
+                                        >
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/essays/"
+                                        >
+                                    <i class="fa-solid fa-paper-plane fa-fw"></i>
+                                    ESSAYS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/links/"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-solid fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/essays/"
+                        >
+                            <span>
+                                ESSAYS
+                            </span>
+                            
+                                <i class="fa-solid fa-paper-plane fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">Golang编码规范1</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/avatar.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Olivia的小跟班</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-11-06 13:55:10</span>
+        <span class="mobile">2023-11-06 13:55:10</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-11-06 17:34:30</span>
+            <span class="mobile">2023-11-06 17:34:30</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Go/">Go</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Go/">Go</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h1><p>本文主要用来规范自己编写Golang的代码，感谢本人实习的mentor孙晨辉（万声音乐），让我对编码规范有了新的认识。</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h3 id="函数和方法命名"><a href="#函数和方法命名" class="headerlink" title="函数和方法命名"></a>函数和方法命名</h3><ul>
+<li><p>函数和方法名称中通常可以省略以下内容：</p>
+<ul>
+<li>输入和输出的类型（当没有冲突时）</li>
+<li>方法的接收器的类型</li>
+<li>输入或输出是否为指针</li>
+</ul>
+</li>
+<li><p>对于函数，不要重复包的名称。</p>
+</li>
+<li><p>对于方法，不要重复方法接收器的名称。</p>
+</li>
+<li><p>不要重复作为参数传递的变量的名称。</p>
+</li>
+<li><p>不要重复返回值的名称和类型。</p>
+</li>
+<li><p>当需要消除名称相似的函数的歧义时，它是可以包含额外的信息。</p>
+</li>
+</ul>
+<h3 id="命名约定"><a href="#命名约定" class="headerlink" title="命名约定"></a>命名约定</h3><p>在为函数和方法：</p>
+<ul>
+<li>返回某物的函数被赋予类似名词的名称。函数和方法名称应避免使用前缀 <code>Get</code>。</li>
+<li>执行某事的函数被赋予类似动词的名称。</li>
+<li>仅因所涉及的类型而有所不同的相同函数包括名称 名称末尾的类型</li>
+<li>如果有明确的“主要”版本，则可以从名称中省略该类型对于该版本：</li>
+</ul>
+<h3 id="测试双封装和类型"><a href="#测试双封装和类型" class="headerlink" title="测试双封装和类型"></a>测试双封装和类型</h3><ol>
+<li><p><strong>创建测试辅助包：</strong></p>
+<ul>
+<li><p>当需要为某个包创建测试替身时，可以创建一个新的Go包用于测试。一个安全的命名选择是在原始包名后加上“test”这个单词，例如，原始包名是“creditcard”，则测试包名为“creditcardtest”。</p>
+</li>
+<li><p>例如：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">package creditcardtest</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+<li><p><strong>简单情况下的测试替身：</strong></p>
+<ul>
+<li><p>当只需要为某个类型（例如<code>Service</code>）创建测试替身时，可以使用简洁的命名方式。例如，对于<code>Service</code>类型的测试替身，可以直接将其命名为<code>Stub</code>，因为<code>Card</code>类型类似于普通数据类型，不需要特殊处理。</p>
+</li>
+<li><p>示例：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import (</span><br><span class="line">    &quot;path/to/creditcard&quot;</span><br><span class="line">    &quot;path/to/money&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">// Stub替身creditcard.Service，不提供自己的行为。</span><br><span class="line">type Stub struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (Stub) Charge(*creditcard.Card, money.Money) error &#123; return nil &#125;</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+<li><p><strong>多种替身行为的命名：</strong></p>
+<ul>
+<li><p>当需要多种类型的测试替身（例如，有的替身总是成功，有的替身总是失败）时，建议根据替身的行为对其进行命名。例如，将<code>Stub</code>替身命名为<code>AlwaysCharges</code>，另一个替身命名为<code>AlwaysDeclines</code>，以便清晰地表示它们的行为。</p>
+</li>
+<li><p>示例：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// AlwaysCharges替身creditcard.Service，模拟成功。</span><br><span class="line">type AlwaysCharges struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (AlwaysCharges) Charge(*creditcard.Card, money.Money) error &#123; return nil &#125;</span><br><span class="line"></span><br><span class="line">// AlwaysDeclines替身creditcard.Service，模拟拒绝的情况。</span><br><span class="line">type AlwaysDeclines struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (AlwaysDeclines) Charge(*creditcard.Card, money.Money) error &#123;</span><br><span class="line">    return creditcard.ErrDeclined</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+<li><p><strong>多种类型的测试替身：</strong></p>
+<ul>
+<li><p>当一个包中有多个类型需要创建测试替身时，建议使用更明确的命名方式。例如，对于<code>Service</code>和<code>StoredValue</code>类型的替身，可以使用更明确的命名，例如<code>StubService</code>和<code>StubStoredValue</code>。</p>
+</li>
+<li><p>示例：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// StubService替身creditcard.Service。</span><br><span class="line">type StubService struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (StubService) Charge(*creditcard.Card, money.Money) error &#123; return nil &#125;</span><br><span class="line"></span><br><span class="line">// StubStoredValue替身creditcard.StoredValue。</span><br><span class="line">type StubStoredValue struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (StubStoredValue) Credit(*creditcard.Card, money.Money) error &#123; return nil &#125;</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+<li><p><strong>测试中的局部变量：</strong></p>
+<ul>
+<li><p>在测试中，当变量引用测试替身时，应根据上下文选择一个能够清晰区分测试替身和其他生产类型的名称。例如，在测试中引用了名为“spy”的测试替身，可以在其名称前加上前缀以提高清晰度，例如<code>spyCC</code>。</p>
+</li>
+<li><p>示例：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// Good:</span><br><span class="line">func TestProcessor(t *testing.T) &#123;</span><br><span class="line">    var spyCC creditcardtest.Spy</span><br><span class="line"></span><br><span class="line">    proc := &amp;Processor&#123;CC: spyCC&#125;</span><br><span class="line"></span><br><span class="line">    // declarations omitted: card and amount</span><br><span class="line">    if err := proc.Process(card, amount); err != nil &#123;</span><br><span class="line">        t.Errorf(&quot;proc.Process(card, amount) = %v, want %v&quot;, got, want)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    charges := []creditcardtest.Charge&#123;</span><br><span class="line">        &#123;Card: card, Amount: amount&#125;,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if got, want := spyCC.Charges, charges; !cmp.Equal(got, want) &#123;</span><br><span class="line">        t.Errorf(&quot;spyCC.Charges = %v, want %v&quot;, got, want)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+</ol>
+<h3 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h3><ul>
+<li><strong>Stomping</strong>是指在同一作用域内覆盖已有变量的值，适用于变量值不再需要的情况。（使用:&#x3D;）</li>
+<li><strong>Shadowing</strong>是指在新的作用域内声明与外部作用域同名的变量，需要小心使用，避免意外遮蔽外部变量，造成程序逻辑错误。（使用&#x3D;）</li>
+</ul>
+<h3 id="Util软件包"><a href="#Util软件包" class="headerlink" title="Util软件包"></a>Util软件包</h3><ol>
+<li><strong>包的命名和可读性</strong>：<ul>
+<li>包名称应该与包内提供的功能相关，具有信息性的名字有助于代码的可读性。</li>
+<li>避免使用过于通用或不具信息性的名称（如<code>util</code>、<code>helper</code>等），因为它们会导致代码难以阅读，可能引发导入冲突。</li>
+</ul>
+</li>
+<li><strong>导入路径和包的组织</strong>：<ul>
+<li>包的导入路径指定了包的位置，但包的名称对于可读性更为重要。</li>
+<li>包的组织应该根据功能相关性进行，相关的类型和方法应该被组织在同一个包内。例如，如果两个类型可能需要相互交互，可以将它们放在同一个包内。</li>
+<li>如果有几个相关的类型实现紧密耦合，可以将它们放在同一个封装中，这样可以在不公开这些细节的情况下实现耦合。不过，包中的代码可以访问包中未导出的标识符。</li>
+</ul>
+</li>
+<li><strong>包的尺寸</strong>：<ul>
+<li>决定包的大小时，可以考虑将相关的类型放在同一个包中，但是当某些概念在逻辑上是不同的时候，可以将它们放在不同的小包中。</li>
+<li>避免将整个项目放在一个包中，因为这样可能会使包变得太大。文件的大小和组织可以根据需要进行调整，维护者可以根据需要将代码分割成多个文件。</li>
+</ul>
+</li>
+<li><strong>目录布局</strong>：<ul>
+<li>Go的目录布局通常不需要遵循“一种类型，一种文件”的约定，文件的组织可以根据维护者的需要进行调整。</li>
+<li>在Google代码库和使用Bazel的项目中，Go的目录布局与一般的开源Go项目可能有所不同，因为它们可能需要符合特定的项目结构。</li>
+</ul>
+</li>
+</ol>
+<h3 id="Imports"><a href="#Imports" class="headerlink" title="Imports"></a>Imports</h3><ol>
+<li><strong>Proto和Stubs的导入</strong>：<ul>
+<li>Protobuf库的导入在Go语言中有一些特殊规则，主要因为Protobuf是一种跨语言的数据序列化协议。对于生成的包名，通常有以下约定：<ul>
+<li><code>pb</code>后缀通常用于<code>go_proto_library</code>规则生成的包。</li>
+<li><code>grpc</code>后缀通常用于<code>go_grpc_library</code>规则生成的包。</li>
+</ul>
+</li>
+<li>为了避免导入冲突，一般使用一个或两个字母的前缀来重命名导入的Proto库。</li>
+</ul>
+</li>
+<li><strong>导入的组织和顺序</strong>：<ul>
+<li>通常，导入语句被分为以下几个（或更多）块，按顺序排列：<ul>
+<li>标准库导入（例如：”fmt”）</li>
+<li>非标准库导入（例如：<code>“/path/to/somelib”</code>）</li>
+<li>（可选）Protobuf导入（例如：<code>fpb &quot;path/to/foo_go_proto&quot;</code>）</li>
+<li>（可选）副作用导入（例如：<code>_ &quot;path/to/package&quot;</code>）</li>
+</ul>
+</li>
+<li>如果文件中不包含上述任何可选类别的导入，那么相关的导入应该放在项目导入组内。</li>
+<li>可以根据团队的需求，选择是否将gRPC导入和Protobuf导入分开组织。</li>
+</ul>
+</li>
+<li><strong>导入排序工具（goimports）</strong>：<ul>
+<li>Go语言提供了<code>goimports</code>工具来自动处理导入，确保符合最佳实践。该工具会将导入分组并排序，符合上述规范的两个必须组的情况下。</li>
+<li>对于可选的导入组，<code>goimports</code>工具没有特定规则，因此在使用可选组时，需要开发者和代码审查者保持一致，以确保导入语句的组织结构符合约定。</li>
+</ul>
+</li>
+</ol>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><ol>
+<li><strong>错误值的处理</strong>：<ul>
+<li>在Go中，错误是值，它们由代码创建并由代码消费。错误可以被转化为诊断信息供人类查看，也可以被维护者使用，还可以被最终用户解释。</li>
+<li>错误消息可能会显示在各种不同的界面上，包括日志消息、错误转储和用户界面。</li>
+</ul>
+</li>
+<li><strong>错误处理的原则</strong>：<ul>
+<li>处理（产生或消费）错误的代码应该有意识地进行处理。避免忽视或盲目传播错误返回值，而是考虑当前函数是否最适合有效地处理错误。这是一个庞大的主题，很难给出绝对的建议。需要根据判断力来处理，但要考虑以下几点：<ul>
+<li>在创建错误值时，考虑是否为其提供结构。</li>
+<li>在处理错误时，考虑是否添加调用者和&#x2F;或被调用者可能没有的信息。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>错误结构</strong>：<ul>
+<li>如果调用者需要查询错误（例如，区分不同的错误条件），则给错误值提供结构，以便可以通过程序而不是通过字符串匹配来进行查询。可以使用无参的全局错误值来实现简单的结构化错误。</li>
+</ul>
+</li>
+<li><strong>向错误添加信息</strong>：<ul>
+<li>返回错误的任何函数都应该努力使错误值有用。有时，函数可能位于调用链的中间，只是从它调用的其他函数（甚至是其他包的函数）传播错误。在这种情况下，有机会使用额外的信息对错误进行注释，但程序员应该确保错误中有足够的信息，而不是添加重复或无关的细节。</li>
+<li>避免使用%w，除非你还记录（并有测试来验证）你公开的底层错误。如果你不希望调用者调用errors.Unwrap，errors.Is等方法，就不要使用%w。</li>
+</ul>
+</li>
+<li><strong>日志记录错误</strong>：<ul>
+<li>函数有时需要告知外部系统发生了错误，但又不希望将错误传播给调用者。在这种情况下，日志记录是一个明显的选择，但要注意日志记录的内容和方式。好的日志消息应该清楚地表达发生了什么问题，并包含有助于诊断问题的相关信息。</li>
+<li>避免重复。通常最好不要在函数内部记录错误，而是让调用者处理错误。调用者可以选择记录错误，也可以使用rate.Sometimes来限制日志记录频率。</li>
+</ul>
+</li>
+<li><strong>自定义详细程度级别</strong>：<ul>
+<li>利用verbose logging（log.V）进行详细的日志记录，可以帮助开发和跟踪。可以建立一套关于详细程度级别的约定，例如：<ul>
+<li>在V(1)级别记录少量额外信息</li>
+<li>在V(2)级别记录更多信息</li>
+<li>在V(3)级别记录大型内部状态</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h3><ol>
+<li><strong>程序初始化错误</strong>：<ul>
+<li>初始化期间的错误（例如，不良的标志和配置）应该向上传播到<code>main</code>函数，然后由<code>log.Exit</code>使用一个解释如何修复错误的错误信息来终止程序。在这种情况下，通常不应使用<code>log.Fatal</code>，因为指向检查点的堆栈跟踪可能不如人为生成的可操作消息有用。</li>
+</ul>
+</li>
+<li><strong>程序检查和恐慌</strong>：<ul>
+<li>应该围绕错误返回值来构建标准的错误处理，而不是使用<code>panic</code>中止程序，特别是对于临时错误，库应该倾向于将错误返回给调用者而不是中止程序。</li>
+<li>在某些情况下，需要对不变量执行一致性检查，并且如果不变量检查失败，则终止程序。通常，只有当不变量检查的失败意味着内部状态不可恢复时才会执行此操作。在Google代码库中，最可靠的方法是调用<code>log.Fatal</code>。在这些情况下，使用<code>panic</code>是不可靠的，因为可能会发生延迟函数死锁或进一步损坏内部或外部状态的情况。</li>
+</ul>
+</li>
+<li>**何时使用<code>panic</code>**：<ul>
+<li>标准库在API误用时会触发<code>panic</code>。例如，在很多情况下，<code>reflect</code>在值被以被误解释的方式访问时会引发<code>panic</code>。这类似于在访问超出边界的切片元素时的核心语言错误触发的<code>panic</code>。这些<code>panic</code>起到了不变性检查的作用，不依赖于库，因为标准库无法访问Google代码库使用的分级日志包。</li>
+<li>另一个使用<code>panic</code>的情况，虽然不常见，是作为包的内部实现细节。解析器和类似的深度嵌套、紧密耦合的内部函数组可能会受益于这种设计，其中在没有价值的情况下，添加错误返回只会增加复杂性。这种设计的关键属性是这些<code>panic</code>不允许跨包边界传播，并且不构成包的API的一部分。</li>
+</ul>
+</li>
+</ol>
+<h3 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h3><ol>
+<li><strong>参数和配置</strong>：<ul>
+<li>不需要在文档中列举每个参数。只需文档化那些容易出错或不明显的字段和参数，并解释它们为什么重要。</li>
+<li>文档应该考虑到可能的读者，包括维护者、新团队成员、外部用户以及将来的自己。不同的读者可能需要不同深度的信息。</li>
+</ul>
+</li>
+<li><strong>上下文（Context）</strong>：<ul>
+<li>如果上下文参数的取消会中断所提供给的函数，而函数可能返回错误，通常错误应该是<code>ctx.Err()</code>。</li>
+<li>当上下文行为不同或不明显时，应该明确地文档化。例如，如果函数在上下文取消时返回与<code>ctx.Err()</code>不同的错误，或者函数有其他可能中断它的机制，应该进行文档化。</li>
+</ul>
+</li>
+<li><strong>并发性</strong>：<ul>
+<li>Go用户默认假设只读操作是安全的，无需额外的同步。在文档中，通常可以省略关于并发性的额外说明，除非操作不明确是否只读。</li>
+<li>如果操作是不明确的只读操作或是可能是有害的，文档中应该明确说明它不是并发安全的。</li>
+<li>如果API提供了同步，应该明确指出。例如，如果一个函数是并发安全的，则应该在文档中说明。</li>
+</ul>
+</li>
+<li><strong>清理</strong>：<ul>
+<li>如果API需要显式的清理操作，文档中应该明确指出。清理操作应该由调用者负责，而不是API内部自动处理。如果清理可能不明显，文档中应该解释如何进行清理。</li>
+</ul>
+</li>
+</ol>
+<h3 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h3><ol>
+<li><strong>Godoc服务器和预览</strong>：<ul>
+<li>Go提供了一个文档服务器，建议在代码审查过程中预览生成的文档，以确保Godoc格式被正确渲染。</li>
+</ul>
+</li>
+<li><strong>Godoc格式</strong>：<ul>
+<li>文档中的段落之间需要有空行来分隔。</li>
+<li>测试文件可以包含可运行的示例，这些示例会在Godoc中与相应的文档一起显示。</li>
+<li>如果需要格式化不支持的内容（如列表和表格），可以通过额外缩进两个空格来将文本格式化为等宽字体。</li>
+<li>以大写字母开头，不包含标点符号（除括号和逗号外），并在后面跟着另一个段落的单行文本会被格式化为标题。</li>
+</ul>
+</li>
+<li><strong>信号提升（Signal Boosting）</strong>：<ul>
+<li>有时候一行代码看起来很常见，但实际上并非如此。例如，err &#x3D;&#x3D; nil检查相对较不常见（因为err !&#x3D; nil更常见）。为了突出条件的差异，可以通过添加注释来“提升”条件的信号，引起读者的注意。</li>
+</ul>
+</li>
+</ol>
+<h3 id="变量初始化"><a href="#变量初始化" class="headerlink" title="变量初始化"></a>变量初始化</h3><ol>
+<li><p><strong>初始化</strong>：</p>
+<ul>
+<li>在初始化新变量时，使用<code>:=</code>代替<code>var</code>，尤其是在赋予非零值时。</li>
+<li>例如，使用<code>i := 42</code>代替<code>var i = 42</code>。</li>
+</ul>
+</li>
+<li><p><strong>非指针类型的零值</strong>：</p>
+<ul>
+<li><p>对于变量的零值，可以使用var关键字来声明，例如：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var (</span><br><span class="line">    coords Point</span><br><span class="line">    magic  [4]byte</span><br><span class="line">    primes []int</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>当你想要表示一个准备好用于后续使用的空值时，应该使用变量的零值。这种方式比使用显式初始化的复合字面量更简洁。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>零值初始化的应用场景</strong>：</p>
+<ul>
+<li>当将变量用作解封包（unmarshalling）时的输出时，常常使用变量的零值进行初始化。</li>
+<li>如果结构体中有不可复制的字段（例如锁），可以将其声明为值类型以利用零值初始化。但需要注意，包含该字段的类型必须以指针的形式传递，并且该类型的方法必须使用指针接收器。</li>
+</ul>
+</li>
+<li><p><strong>复合字面量</strong>：</p>
+<ul>
+<li><p>使用复合字面量（composite literals）来声明具有初始元素或成员的值。例如：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var (</span><br><span class="line">    coords   = Point&#123;X: x, Y: y&#125;</span><br><span class="line">    magic    = [4]byte&#123;&#x27;I&#x27;, &#x27;W&#x27;, &#x27;A&#x27;, &#x27;D&#x27;&#125;</span><br><span class="line">    primes   = []int&#123;2, 3, 5, 7, 11&#125;</span><br><span class="line">    captains = map[string]string&#123;&quot;Kirk&quot;: &quot;James Tiberius&quot;, &quot;Picard&quot;: &quot;Jean-Luc&quot;&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>当你知道变量的初始元素或成员时，可以使用复合字面量来声明变量。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>指向零值的指针</strong>：</p>
+<ul>
+<li>当你需要指向零值的指针时，可以使用空的复合字面量或<code>new</code>关键字。两者都可以，但是<code>new</code>关键字可以提醒读者，如果需要非零值，复合字面量将无法使用。</li>
+</ul>
+</li>
+<li><p><strong>大小提示</strong>：</p>
+<ul>
+<li><p>在某些情况下，可以使用大小提示来预先分配切片（slice）或映射（map）的容量。例如：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var (</span><br><span class="line">    buf = make([]byte, 131072) // 预分配大小为131072的字节切片</span><br><span class="line">    q = make([]Node, 0, 16)    // 预分配切片的容量为16，初始长度为0</span><br><span class="line">    seen = make(map[string]bool, shardSize) // 预分配map的容量为shardSize</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>使用大小提示和经验性的代码分析结合起来，可以创建性能敏感和资源高效的代码。然而，在大多数情况下，不需要使用大小提示或预分配，可以让运行时根据需要动态增长切片或映射。</p>
+</li>
+<li><p><strong>警告</strong>：预分配比实际需要的内存更多的内存可能会浪费内存，甚至可能影响性能。在不确定的情况下，可以参考GoTip #3: Benchmarking Go Code，通常可以默认使用零值初始化或复合字面量声明。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>通道方向</strong>：</p>
+<ul>
+<li><p>在函数签名中指定通道的方向是一种良好的做法。例如：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// sum计算所有值的和。它从通道中读取值直到通道被关闭。</span><br><span class="line">func sum(values &lt;-chan int) int &#123;</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>指定通道的方向可以防止一些可能的编程错误。如果没有指定方向，程序员可能会意外地在不应该关闭通道的时候关闭它，导致错误。通过指定方向，编译器可以捕获到这类简单错误，同时也有助于传达类型的所有权信息</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="可变参数类型"><a href="#可变参数类型" class="headerlink" title="可变参数类型"></a>可变参数类型</h3><ol>
+<li><strong>选项结构（Option Structure）</strong>：<ul>
+<li>选项结构是一个结构体类型，它包含函数或方法的所有或部分参数，并作为函数或方法的最后一个参数传递。</li>
+<li>选项结构的优势包括结构体字面量中包含字段和值，使其易于自我描述，不相关或默认的字段可以省略，调用者可以共享选项结构，结构体提供了更清晰的字段文档，选项结构可以随时间增长而不影响调用点。</li>
+<li>通过选项结构，可以提高函数的可读性和可维护性，特别是当函数需要大量参数时。</li>
+<li>选项结构不包括上下文（Context）参数。</li>
+</ul>
+</li>
+<li><strong>可变参数选项（Variadic Options）</strong>：<ul>
+<li>可变参数选项允许创建返回闭包的导出函数，这些闭包可以传递给函数的可变参数部分。这些函数的参数是选项的值，返回的闭包接受一个可变参数的引用（通常是指向结构体类型的指针），并根据输入更新它。</li>
+<li>可变参数选项的优势包括：当不需要配置时，选项不占用调用点的空间，选项仍然是值，因此调用者可以共享它们，编写帮助函数并积累它们，选项可以接受多个参数（例如<code>cartesian.Translate(dx, dy int) TransformOption</code>），选项函数可以返回一个命名类型以在godoc中将选项组合在一起。</li>
+<li>使用可变参数选项需要编写大量的额外代码，因此只有在优势超过开销时才应该使用。</li>
+</ul>
+</li>
+</ol>
+<h3 id="复杂命令行界面"><a href="#复杂命令行界面" class="headerlink" title="复杂命令行界面"></a>复杂命令行界面</h3><ol>
+<li>**<code>cobra</code>**：<ul>
+<li><strong>Flag Convention：</strong> 使用 getopt 约定。</li>
+<li><strong>特点：</strong> 在Google codebase之外比较常见，提供了许多额外的功能。</li>
+<li><strong>使用注意：</strong> 使用 <code>cmd.Context()</code> 获取上下文（Context），而不是创建自己的根上下文（root context）。</li>
+<li><strong>建议：</strong> 如果你需要较多的功能，并且不介意复杂性，可以选择 <code>cobra</code>。</li>
+</ul>
+</li>
+<li>**<code>subcommands</code>**：<ul>
+<li><strong>Flag Convention：</strong> 使用Go语言的约定。</li>
+<li><strong>特点：</strong> 简单易用，提供基本功能，适合不需要太多额外功能的情况。</li>
+<li><strong>使用注意：</strong> <code>subcommands</code> 包的命令函数（command functions）应该使用 <code>cmd.Context()</code> 获取上下文，而不是创建自己的根上下文。</li>
+<li><strong>建议：</strong> 如果你不需要太多额外功能，可以选择 <code>subcommands</code>，因为它简单易用。</li>
+</ul>
+</li>
+</ol>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ol>
+<li><strong>测试辅助函数和断言辅助函数的区分：</strong><ul>
+<li><strong>测试辅助函数（Test helpers）：</strong> 用于进行设置或清理任务的函数。这些函数中发生的任何失败都被视为环境失败，而不是被测试的代码的失败。通常在测试辅助函数中调用 <code>t.Helper</code> 是合适的，用于标记它们是测试辅助函数。</li>
+<li><strong>断言辅助函数（Assertion helpers）：</strong> 用于检查系统的正确性，如果不符合预期，则使测试失败。在Go中，不鼓励使用断言辅助函数。</li>
+</ul>
+</li>
+<li><strong>测试的目的：</strong><ul>
+<li>测试的目的是报告被测试代码的通过&#x2F;失败情况。最好的地方来使测试失败是在Test函数本身，以确保失败消息和测试逻辑清晰可见。</li>
+</ul>
+</li>
+<li><strong>测试中的代码复用：</strong><ul>
+<li>如果多个独立的测试用例需要相同的验证逻辑，可以选择以下方法之一，而不是使用断言辅助函数或复杂的验证函数：<ul>
+<li>将逻辑（验证和失败）内联到Test函数中，即使它很重复。这在简单情况下效果最好。</li>
+<li>如果输入相似，考虑将它们统一到一个表驱动的测试中，同时在循环中将逻辑内联。这有助于避免重复，并保持验证和失败在Test函数中的内联。</li>
+<li>如果多个调用方需要相同的验证函数但表驱动测试不合适（通常是因为输入不够简单或验证需要作为一系列操作的一部分），可以将验证函数设计为返回一个值（通常是错误），而不是将testing.T参数作为输入并用它来使测试失败。在Test中使用逻辑来决定是否失败，并提供有用的测试失败信息。也可以创建测试辅助函数来复用常见的样板设置代码。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>设计可扩展的验证API：</strong><ul>
+<li>文本中介绍了如何提供用于其他人测试其代码的设施，以确保其符合你的库的要求。这种类型的测试被称为“验收测试”（Acceptance testing），主要是验证用户实现的接口是否正确，而不是具体的实现细节。</li>
+</ul>
+</li>
+<li><strong>使用真实传输方式：</strong><ul>
+<li>在测试组件集成时，特别是在组件之间使用HTTP或RPC作为底层传输时，推荐使用真实的底层传输与后端的测试版本进行连接。这比手动实现客户端更可靠，因为模拟客户端行为的复杂性较高。使用生产环境的客户端与测试特定的服务器，确保测试尽可能地使用真实代码。</li>
+</ul>
+</li>
+<li><strong>t.Error vs. t.Fatal：</strong><ul>
+<li>在测试中，通常不应该在遇到问题时立即中止测试。然而，在某些情况下，测试不能继续进行。当测试设置失败时，特别是在测试设置帮助函数中，调用t.Fatal是适当的。如果测试表中的某个入口无法继续，应该报告相应的错误。</li>
+</ul>
+</li>
+<li><strong>测试辅助函数中的错误处理：</strong><ul>
+<li>测试辅助函数可能会失败，例如设置目录和文件。当测试辅助函数失败时，通常表示测试无法继续，因此最好在辅助函数中调用t.Fatal或t.Fatalf，将失败信息包含在错误消息中。这有助于在测试失败时确定失败发生的位置和原因。</li>
+</ul>
+</li>
+<li><strong>避免从独立的goroutine中调用t.Fatal：</strong><ul>
+<li>在测试中，不应该从任何goroutine（除了运行Test函数或子测试的goroutine）中调用t.FailNow、t.Fatal等函数。如果测试启动新的goroutine，它们不应该从这些goroutine内部调用这些函数。</li>
+</ul>
+</li>
+<li><strong>使用结构体字面量的字段标签：</strong><ul>
+<li>在表驱动测试中，最好为每个测试用例指定字段标签。这在测试用例涉及大量垂直空间（例如超过20-30行）、相邻字段具有相同类型、以及希望省略具有零值的字段时非常有帮助。</li>
+</ul>
+</li>
+<li><strong>将设置代码限定在特定测试范围内：</strong><ul>
+<li>尽可能将资源和依赖项的设置限制在特定测试用例的范围内。确保每个测试用例在修改任何全局状态后都进行恢复，以确保测试用例之间和测试用例内部的隔离性。</li>
+</ul>
+</li>
+<li><strong>摊销常见测试设置：</strong><ul>
+<li>如果常见的测试设置具有以下特点，可以考虑使用sync.Once：它昂贵、仅适用于某些测试，并且不需要拆卸。使用sync.Once可以确保设置函数只会被调用一次，以便摊销设置的成本。</li>
+</ul>
+</li>
+</ol>
+<h3 id="字符串连接"><a href="#字符串连接" class="headerlink" title="字符串连接"></a>字符串连接</h3><ol>
+<li><p><strong>使用“+”进行简单拼接：</strong></p>
+<ul>
+<li><p>在拼接少量字符串时，可以使用“+”操作符。这种方法在语法上最简单，无需引入其他包。</p>
+</li>
+<li><p>示例：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">key := &quot;projectid: &quot; + p</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+<li><p><strong>使用<code>fmt.Sprintf</code>进行格式化：</strong></p>
+<ul>
+<li><p>在构建带有格式的复杂字符串时，推荐使用<code>fmt.Sprintf</code>。使用多个“+”操作符可能会使结果不太清晰。</p>
+</li>
+<li><p>示例：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str := fmt.Sprintf(&quot;%s [%s:%d]-&gt; %s&quot;, src, qos, mtu, dst)</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>避免在构建字符串操作的输出是<code>io.Writer</code>时，构造临时字符串再将其发送到<code>Writer</code>。相反，可以使用<code>fmt.Fprintf</code>直接将格式化内容发送到<code>Writer</code>。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>使用<code>strings.Builder</code>逐步构建字符串：</strong></p>
+<ul>
+<li><p>当需要逐步构建字符串时，推荐使用<code>strings.Builder</code>。与连续调用“+”和<code>fmt.Sprintf</code>形成更大字符串时，<code>strings.Builder</code>具有均摊线性时间复杂度，性能更好。</p>
+</li>
+<li><p>示例：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">b := new(strings.Builder)</span><br><span class="line">for i, d := range digitsOfPi &#123;</span><br><span class="line">    fmt.Fprintf(b, &quot;the %d digit of pi is: %d\n&quot;, i, d)</span><br><span class="line">&#125;</span><br><span class="line">str := b.String()</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+<li><p><strong>常量字符串使用反引号（&#96;）：</strong></p>
+<ul>
+<li><p>在构建常量的多行字符串文字时，建议使用反引号（&#96;）。这种方式更清晰和简洁。</p>
+</li>
+<li><p>示例：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">usage := `Usage:</span><br><span class="line">custom_tool [args]`</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+</ol>
+<h3 id="全局状态和石蕊测试"><a href="#全局状态和石蕊测试" class="headerlink" title="全局状态和石蕊测试"></a>全局状态和石蕊测试</h3><ol>
+<li><strong>不要强制客户端使用依赖于全局状态的API：</strong><ul>
+<li>库不应该暴露依赖于全局状态的API或导出包级别的变量来控制所有客户端的行为。相反，应该允许客户端创建和使用实例值。</li>
+</ul>
+</li>
+<li><strong>推荐使用显式依赖传递：</strong><ul>
+<li>当功能需要维护状态时，应该允许客户端通过构造函数、函数、方法或结构字段的参数将依赖关系传递给库。这种显式依赖传递的方式更加灵活、可维护和可测试。</li>
+</ul>
+</li>
+<li><strong>避免使用全局状态：</strong><ul>
+<li>不要使用全局变量、服务定位器模式、回调注册表等形式的全局状态。这样的设计会导致测试不可靠，并且在多客户端情况下可能产生混乱。</li>
+</ul>
+</li>
+<li><strong>全局状态的问题：</strong><ul>
+<li>使用全局状态会引发一系列问题，例如无法在测试中使用不同的插件集、无法替换注册的插件实现、无法确保插件实例之间的隔离性、可能出现插件名称冲突等。此外，全局状态还可能导致测试无法并行运行，影响程序的健壮性和可维护性。</li>
+</ul>
+</li>
+<li><strong>全局状态的形式：</strong><ul>
+<li>常见的全局状态形式包括顶级变量、服务定位器模式、回调注册表和厚客户端单例。这些形式都会引发问题，因此应该避免使用它们。</li>
+</ul>
+</li>
+<li><strong>不安全的情况：</strong><ul>
+<li>当多个函数在同一程序中通过全局状态进行交互，尽管它们本质上是相互独立的（例如，由不同作者在不同目录中编写的函数）时，使用全局状态是不安全的。</li>
+<li>当独立的测试用例之间通过全局状态进行交互时，使用全局状态是不安全的。</li>
+<li>当用户试图为测试目的替换或替代全局状态，特别是替换状态的任何部分为测试替身（如stub、fake、spy或mock）时，使用全局状态是不安全的。</li>
+<li>当用户在与全局状态进行交互时必须考虑特殊的顺序要求，例如<code>func init</code>函数的执行顺序，标志（flags）是否已解析等时，使用全局状态是不安全的。</li>
+</ul>
+</li>
+<li><strong>安全的情况：</strong><ul>
+<li>当全局状态在逻辑上是常量时，使用全局状态可能是安全的。</li>
+<li>当包的可观察行为是无状态的时，使用全局状态可能是安全的。例如，公共函数可能使用私有全局变量作为缓存，但只要调用者无法区分缓存的命中与未命中，该函数就是无状态的。</li>
+<li>当全局状态不会泄露到外部实体，比如辅助进程或共享文件系统中时，使用全局状态可能是安全的。</li>
+<li>当不需要可预测的行为时，使用全局状态可能是安全的。</li>
+</ul>
+</li>
+<li><strong>提供默认实例：</strong><ul>
+<li>虽然不推荐使用，但在某些情况下，如果需要为用户最大程度地提供便利性，可以提供使用包级别状态的简化API。</li>
+<li>在这种情况下，包必须允许客户端创建隔离的包类型实例。</li>
+<li>使用全局状态的公共API必须是对以前API的简单代理。例如，<code>http.Handle</code>在内部调用<code>(*http.ServeMux).Handle</code>，后者使用包级别变量<code>http.DefaultServeMux</code>。</li>
+<li>除非库正在进行重构以支持依赖传递，否则这种包级别的API只能由二进制构建目标使用，而不能由库使用。可以被其他包导入的基础设施库不能依赖导入包的包级别状态。</li>
+</ul>
+</li>
+</ol>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a class="link"   target="_blank" rel="noopener" href="https://google.github.io/styleguide/go/best-practices.html" >Go Style Best Practices <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> Golang编码规范1</li>
+        <li><strong>作者:</strong> Olivia的小跟班</li>
+        <li><strong>创建于
+                :</strong> 2023-11-06 13:55:10</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2023-11-06 17:34:30
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://www.youandgentleness.cn/2023/11/06/Golang编码规范1/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Go/">#Go</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2023/11/06/RDB%E8%AE%BE%E8%AE%A1%E8%A7%84%E7%BA%A6/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">RDB设计规约</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2023/10/23/%E9%A1%B9%E7%9B%AEGeeCache%E9%9D%A2%E8%AF%95%E9%A2%98/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">项目GeeCache面试题</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '782748daccf6cb467d2c',
+                    clientSecret: '2a18a038c753ac1ae59de258d979feb2e04ee274',
+                    repo: 'gitalk',
+                    owner: 'zhouxing9454',
+                    admin: ['zhouxing9454'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">Golang编码规范1</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%A3%E6%96%87"><span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95%E5%91%BD%E5%90%8D"><span class="nav-text">函数和方法命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E7%BA%A6%E5%AE%9A"><span class="nav-text">命名约定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E5%8F%8C%E5%B0%81%E8%A3%85%E5%92%8C%E7%B1%BB%E5%9E%8B"><span class="nav-text">测试双封装和类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B4%E5%BD%B1"><span class="nav-text">阴影</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Util%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="nav-text">Util软件包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Imports"><span class="nav-text">Imports</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="nav-text">错误处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F"><span class="nav-text">程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%A1%A3"><span class="nav-text">文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E8%A7%88"><span class="nav-text">预览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">变量初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="nav-text">可变参数类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%95%8C%E9%9D%A2"><span class="nav-text">复杂命令行界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-text">测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5"><span class="nav-text">字符串连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E7%8A%B6%E6%80%81%E5%92%8C%E7%9F%B3%E8%95%8A%E6%B5%8B%E8%AF%95"><span class="nav-text">全局状态和石蕊测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-text">参考文章</span></a></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin"></i>&nbsp;&nbsp;<a href="/">Olivia的小跟班</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共 27 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.1</a></span>
+        </div>
+        
+            <div class="icp-info my-1"><a target="_blank" rel="nofollow" href="
+                
+                    https://beian.miit.gov.cn/
+                
+                ">浙ICP备2022034029号</a></div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+    <div id="aplayer"></div>
+
+<script src="/js/libs/APlayer.min.js"></script>
+
+
+<script src="/js/plugins/aplayer.js"></script>
+
+
+</body>
+</html>
+
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/love.js"></script>
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/FunnyTitle.js"></script>

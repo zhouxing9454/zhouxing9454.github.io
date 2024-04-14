@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Olivia的小跟班">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+            <link rel="preconnect" href="https://cdn.staticfile.org" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://www.youandgentleness.cn/2023/03/30/雪花算法/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="题记当我们需要生成不重复的ID，通常有以下几种做法：  UUID（通用唯一标识符）：使用算法生成的通用唯一标识符，可以保证在同一台机器上生成的ID不会重复，也可以在多台机器之间生成全局唯一ID。 雪花算法（Snowflake）：Twitter开发的一种生成不重复ID的算法，可以在分布式系统中生成不重复的ID。使用时间戳、数据中心ID和工作节点ID等信息进行位运算和组合生成ID。 数据库自增列：对于">
+<meta property="og:type" content="article">
+<meta property="og:title" content="雪花算法">
+<meta property="og:url" content="https://www.youandgentleness.cn/2023/03/30/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="Olivia的小跟班">
+<meta property="og:description" content="题记当我们需要生成不重复的ID，通常有以下几种做法：  UUID（通用唯一标识符）：使用算法生成的通用唯一标识符，可以保证在同一台机器上生成的ID不会重复，也可以在多台机器之间生成全局唯一ID。 雪花算法（Snowflake）：Twitter开发的一种生成不重复ID的算法，可以在分布式系统中生成不重复的ID。使用时间戳、数据中心ID和工作节点ID等信息进行位运算和组合生成ID。 数据库自增列：对于">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-30T04:16:32.000Z">
+<meta property="article:modified_time" content="2023-06-29T08:11:58.000Z">
+<meta property="article:author" content="Olivia的小跟班">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <meta name="theme-color" content="#1890ff">
+    <link rel="shortcut icon" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            雪花算法 -
+        
+        Olivia的小跟班
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+
+    
+        <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    
+<script src="/js/libs/anime.min.js"></script>
+
+    <h1 class="ml13">
+        Olivia的小跟班
+    </h1>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+
+        anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [100,0],
+                translateZ: 0,
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: '.ml13 .letter',
+            translateY: [0,-100],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+        });
+
+        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
+        hidePreloaderAfterTimeout(5000);
+
+        function hidePreloaderAfterTimeout(delay) {
+            setTimeout(function () {
+                var preloader = document.querySelector('.preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 200);
+            }, delay);
+        }
+    </script>
+</div>
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"www.youandgentleness.cn","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":null,"skip_dirs":[]}},"colors":{"primary":"#1890ff","secondary":"#1890ff","default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/light.jpg","dark":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/darkness.jpg"},"title":"Talk is cheap,Show me the code.","subtitle":{"text":["他们以为击败我就是终结，而我必归来将之改写。"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#D27D2D","dark":"#191970"},"text_style":{"title_size":"2.1rem","subtitle_size":"1.2rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"email":"zhouxing9454@gmail.com","weixin":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/wechat.jpg","github":"https://github.com/zhouxing9454","qq":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/QQ.jpg","bilibili":"https://space.bilibili.com/475346328"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"最后的旅行","artist":"Rainton桐","url":"http://music.163.com/song/media/outer/url?id=30512539.mp3","cover":"https://p1.music.126.net/XWUdXb46hIdIecRihPCV_A==/109951168667887853.jpg"},{"name":"陪我长大","artist":"段奥娟","url":"http://music.163.com/song/media/outer/url?id=1299550093.mp3","cover":"http://p2.music.126.net/YxUbVoHngGMY8gZMjbEJkg==/109951163446151536.jpg"}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.1","navbar":{"auto_hide":false,"color":{"left":"#FAF9F6","right":"#FAF9F6","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"Friends":{"icon":"fa-solid fa-link","path":"/links/"},"Essays":{"icon":"fa-solid fa-paper-plane","path":"/essays/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","typography":{"line_height":1.6}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/7/4 9:30:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Olivia的小跟班
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/links/"
+                                        >
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/essays/"
+                                        >
+                                    <i class="fa-solid fa-paper-plane fa-fw"></i>
+                                    ESSAYS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/links/"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-solid fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/essays/"
+                        >
+                            <span>
+                                ESSAYS
+                            </span>
+                            
+                                <i class="fa-solid fa-paper-plane fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">雪花算法</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/avatar.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Olivia的小跟班</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-03-30 12:16:32</span>
+        <span class="mobile">2023-03-30 12:16:32</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-06-29 16:11:58</span>
+            <span class="mobile">2023-06-29 16:11:58</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h1><p>当我们需要生成不重复的ID，通常有以下几种做法：</p>
+<ol>
+<li>UUID（通用唯一标识符）：使用算法生成的通用唯一标识符，可以保证在同一台机器上生成的ID不会重复，也可以在多台机器之间生成全局唯一ID。</li>
+<li>雪花算法（Snowflake）：Twitter开发的一种生成不重复ID的算法，可以在分布式系统中生成不重复的ID。使用时间戳、数据中心ID和工作节点ID等信息进行位运算和组合生成ID。</li>
+<li>数据库自增列：对于单机或者主从架构的系统，可以使用数据库的自增列功能来生成不重复的ID。每次插入一条新记录时，自增列的值就会加1，生成一个新的ID。</li>
+</ol>
+<p>本文将重点讲述雪花算法。</p>
+<h2 id="1-数据库自增序列"><a href="#1-数据库自增序列" class="headerlink" title="1.数据库自增序列"></a>1.数据库自增序列</h2><p>在关系型数据库中，每个表需要有一个主键来唯一标识每条记录，在插入新记录时需要为其分配一个唯一的标识值。</p>
+<p>数据库自增列的优点包括：</p>
+<ol>
+<li><strong>保证唯一性：</strong>自增列可以保证主键的唯一性，避免了数据冲突和错误。</li>
+<li><strong>简单易用</strong>：系统会自动为新记录分配下一个可用的值，无需手动指定。</li>
+<li><strong>性能好</strong>：数据库自增列使用内部计数器实现，比其他生成ID的方法效率更高，且不容易出错。</li>
+<li><strong>支持事务</strong>：自增列操作通常是原子性的，支持事务回滚，避免了数据不一致的问题。</li>
+</ol>
+<p>数据库自增列的缺点包括：</p>
+<ol>
+<li><strong>不适用于分布式系统</strong>：在分布式系统中，多个节点之间无法共享自增列的值，可能会导致ID冲突。</li>
+<li><strong>不能重复利用已删除的ID</strong>：如果删除了某个记录，对应的ID仍然会被保留，不能再次分配给新记录使用，可能会浪费一些ID值。</li>
+<li><strong>限制较多</strong>：某些数据库的自增列还存在一些限制，例如不能使用负数、不能跨越INT或BIGINT等类型的边界等。</li>
+</ol>
+<p>需要根据具体的场景和需求选择适合的ID生成方法。对于单机或主从架构的系统，数据库自增列是一种简单、高效、可靠的生成ID的方法。但在分布式系统中，需要使用其他方法来保证ID的唯一性并避免冲突。</p>
+<h2 id="2-UUID"><a href="#2-UUID" class="headerlink" title="2.UUID"></a>2.UUID</h2><p>UUID（通用唯一标识符）是一种生成不重复ID的方法，它的背景是在分布式系统中需要生成全局唯一的ID。</p>
+<p>UUID的优点包括：</p>
+<ol>
+<li><strong>唯一性</strong>：UUID可以保证在同一台机器上生成的ID不会重复，也可以在多台机器之间生成全局唯一ID。</li>
+<li><strong>无序性</strong>：UUID是随机生成的，没有顺序或者规律可言，可以有效提高数据安全性和防止伪造。</li>
+<li><strong>可扩展性</strong>：UUID的长度为128位，可以通过不同的算法和版本来扩展其功能和应用。</li>
+<li><strong>独立于数据库</strong>：UUID生成独立于数据库，不需要额外的查询操作，减轻了数据库的负担。</li>
+</ol>
+<p>UUID的缺点主要有两个：</p>
+<ol>
+<li><strong>长度较长</strong>：UUID的长度为128位，存储空间相对于其他ID生成方法较大，可能会占用更多的存储空间。</li>
+<li><strong>不易读懂</strong>：由于UUID是随机生成的，没有规律可言，不如自增列等ID生成方法直观易读。</li>
+</ol>
+<p>总的来说，UUID适合在分布式系统中生成全局唯一的ID，可以避免ID冲突问题，但需要注意存储空间和可读性方面的影响。</p>
+<h2 id="3-雪花算法"><a href="#3-雪花算法" class="headerlink" title="3.雪花算法"></a>3.雪花算法</h2><p>雪花算法（Snowflake）是Twitter开发的一种生成不重复ID的算法，背景是在分布式系统中需要生成全局唯一的ID。</p>
+<p>在分布式系统中，使用自增列作为主键可能会存在多个节点之间冲突的问题，而UUID虽然可以保证全局唯一性，但其长度较长、无序性和不易读懂等特点也带来了一些不方便的问题。因此，Twitter开发了雪花算法来解决这些问题。</p>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><p>雪花算法（Snowflake）生成ID的结构组成如下：</p>
+<ol>
+<li>第一个部分是符号位，占用1个bit，始终为0。</li>
+<li>第二个部分是时间戳，占用41个bit，精确到毫秒级别。可以支持约69年的时间范围。</li>
+<li>第三个部分是数据中心ID，占用5个bit，可以支持32个不同的数据中心。</li>
+<li>第四个部分是工作节点ID，占用5个bit，可以支持32个不同的工作节点。</li>
+<li>第五个部分是序列号，占用12个bit，可以支持同一毫秒内生成4096个不同的ID。</li>
+</ol>
+<p>在雪花算法中，时间戳、数据中心ID和工作节点ID等信息通过位运算进行组合，生成全局唯一的ID。其中，时间戳部分采用了41个bit来表示，可以支持约69年的时间范围，而序列号部分则采用了12个bit来表示，可以支持同一毫秒内生成4096个不同的ID，从而保证了其唯一性。</p>
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>雪花算法的优点包括：</p>
+<ol>
+<li><strong>唯一性</strong>：雪花算法可以保证全局唯一性，避免了冲突问题。</li>
+<li><strong>有序性</strong>：雪花算法生成的ID具有趋势递增的特点，有利于提高数据库的性能和查询效率。</li>
+<li><strong>简单易用</strong>：雪花算法的实现比较简单，只需要基于时间戳和数据中心ID以及工作节点ID等信息进行位运算和组合即可。</li>
+<li><strong>可定制性</strong>：雪花算法支持根据业务需求调整位数分配和ID版本等参数，具有较强的定制性和扩展性。</li>
+</ol>
+<p>雪花算法的缺点包括：</p>
+<ol>
+<li><strong>依赖于时钟回拨</strong>：雪花算法使用时间戳作为其中一部分，如果系统时间发生了回拨，可能会导致生成的ID不唯一或者无序。</li>
+<li><strong>限制较多</strong>：雪花算法需要为每个节点分配一个唯一的数据中心ID和工作节点ID，这些ID的分配需要进行规划和管理，避免出现重复或者误用情况。</li>
+</ol>
+<p>总体来说，雪花算法是一种适用于分布式系统中的高效、简单、可扩展的生成全局唯一ID的方法。</p>
+<h3 id="在Go中的应用"><a href="#在Go中的应用" class="headerlink" title="在Go中的应用"></a>在Go中的应用</h3><div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Snowflake <span class="keyword">struct</span> &#123;</span><br><span class="line">    mutex       sync.Mutex <span class="comment">// 互斥锁，保证并发安全</span></span><br><span class="line">    lastTime    <span class="type">int64</span>      <span class="comment">// 上一次生成ID的时间戳</span></span><br><span class="line">    datacenterId <span class="type">int64</span>     <span class="comment">// 数据中心ID</span></span><br><span class="line">    workerId    <span class="type">int64</span>      <span class="comment">// 工作节点ID</span></span><br><span class="line">    sequence    <span class="type">int64</span>      <span class="comment">// 序列号</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    datacenterBits = <span class="number">5</span>   <span class="comment">// 数据中心ID所占位数</span></span><br><span class="line">    workerBits     = <span class="number">5</span>   <span class="comment">// 工作节点ID所占位数</span></span><br><span class="line">    sequenceBits   = <span class="number">12</span>  <span class="comment">// 序列号所占位数</span></span><br><span class="line">    maxDatacenterId = <span class="number">-1</span> ^ (<span class="number">-1</span> &lt;&lt; datacenterBits) <span class="comment">// 最大数据中心ID，这里假设最多支持32个数据中心</span></span><br><span class="line">    maxWorkerId    = <span class="number">-1</span> ^ (<span class="number">-1</span> &lt;&lt; workerBits)     <span class="comment">// 最大工作节点ID，这里假设每个数据中心最多支持32个工作节点</span></span><br><span class="line">    maxSequence    = <span class="number">-1</span> ^ (<span class="number">-1</span> &lt;&lt; sequenceBits)   <span class="comment">// 最大序列号，这里假设同一毫秒内最多生成4096个ID</span></span><br><span class="line">    timeShift      = datacenterBits + workerBits + sequenceBits <span class="comment">// 时间戳左移位数</span></span><br><span class="line">    datacenterShift = workerBits + sequenceBits                <span class="comment">// 数据中心ID左移位数</span></span><br><span class="line">    workerShift    = sequenceBits                            <span class="comment">// 工作节点ID左移位数</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewSnowflake</span><span class="params">(datacenterId, workerId <span class="type">int64</span>)</span></span> (*Snowflake, <span class="type">error</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> datacenterId &lt; <span class="number">0</span> || datacenterId &gt; maxDatacenterId &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(<span class="string">&quot;datacenter ID must be between 0 and %d&quot;</span>, maxDatacenterId)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> workerId &lt; <span class="number">0</span> || workerId &gt; maxWorkerId &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(<span class="string">&quot;worker ID must be between 0 and %d&quot;</span>, maxWorkerId)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &amp;Snowflake&#123;</span><br><span class="line">        lastTime:    <span class="number">-1</span>,</span><br><span class="line">        datacenterId: datacenterId,</span><br><span class="line">        workerId:    workerId,</span><br><span class="line">        sequence:    <span class="number">0</span>,</span><br><span class="line">    &#125;, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(sf *Snowflake)</span></span> NextId() (<span class="type">int64</span>, <span class="type">error</span>) &#123;</span><br><span class="line">    sf.mutex.Lock()</span><br><span class="line">    <span class="keyword">defer</span> sf.mutex.Unlock()</span><br><span class="line"></span><br><span class="line">    now := time.Now().UnixNano() / <span class="number">1000000</span> <span class="comment">// 转换为毫秒级时间戳</span></span><br><span class="line">    <span class="keyword">if</span> now == sf.lastTime &#123;</span><br><span class="line">        sf.sequence = (sf.sequence + <span class="number">1</span>) &amp; maxSequence</span><br><span class="line">        <span class="keyword">if</span> sf.sequence == <span class="number">0</span> &#123;</span><br><span class="line">            now = sf.getNextMillis(now)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        sf.sequence = <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> now &lt; sf.lastTime &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>, fmt.Errorf(<span class="string">&quot;clock moved backwards&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    sf.lastTime = now</span><br><span class="line"></span><br><span class="line">    id := (now &lt;&lt; timeShift) | (sf.datacenterId &lt;&lt; datacenterShift) | (sf.workerId &lt;&lt; workerShift) | sf.sequence</span><br><span class="line">    <span class="keyword">return</span> id, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(sf *Snowflake)</span></span> getNextMillis(last <span class="type">int64</span>) <span class="type">int64</span> &#123;</span><br><span class="line">    timestamp := time.Now().UnixNano() / <span class="number">1000000</span></span><br><span class="line">    <span class="keyword">for</span> timestamp &lt;= last &#123;</span><br><span class="line">        timestamp = time.Now().UnixNano() / <span class="number">1000000</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> timestamp</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="雪花算法生成-ID-重复问题"><a href="#雪花算法生成-ID-重复问题" class="headerlink" title="雪花算法生成 ID 重复问题"></a>雪花算法生成 ID 重复问题</h3><p><strong>假设</strong>：</p>
+<p>​		一个订单微服务，通过雪花算法生成 ID，共部署三个节点，标识位一致。此时有 200 并发，均匀散布三个节点，三个节点同一毫秒同一序列号下生成 ID，那么就会产生重复 ID。</p>
+<p><strong>解决：</strong></p>
+<ol>
+<li>增加并发控制：通过对Snowflake结构体中的mutex字段进行加锁，可以保证在同一时间只有一个goroutine可以调用NextId函数，从而避免了多个节点同时生成相同的ID的情况。但是这样会降低性能，并且不适合高并发场景。</li>
+<li>增加随机数：可以将序列号部分替换为一个随机数，这样即使在同一毫秒内也很难生成相同的ID。但是这种方法会降低ID的有序性，可能会对某些应用造成影响。</li>
+<li>采用更高精度的时间戳：可以采用更高精度的时间戳来代替毫秒级别的时间戳，在同一毫秒内生成更多的ID，从而减少重复的概率。例如使用纳秒级别的时间戳，或者通过NTP协议同步时钟。</li>
+<li>增加节点标识位的区分：可以增加节点标识位的区分，即让不同的节点具有不同的标识位，这样即使在同一毫秒内也可以生成不同的ID。但是需要注意的是，标识位的数量是有限制的，需要根据实际情况进行调整。</li>
+<li>增加重试机制：如果出现了生成重复ID的情况，可以增加重试机制，在下一毫秒再次尝试生成新的ID。但是这会降低系统性能，并且如果重试次数过多可能会对应用造成影响。</li>
+</ol>
+<p><strong>第四种方式是增加节点标识位的区分。在雪花算法中，数据中心ID和工作节点ID一般都是固定不变的，如果多个节点共享相同的数据中心ID和工作节点ID，那么可能会出现同一毫秒内序列号相同的情况，进而导致生成重复的ID。为了避免这个问题，我们可以通过增加节点标识位的区分来让不同的节点具有不同的标识位。例如，可以将数据中心ID和工作节点ID合并成一个节点标识位，然后根据节点标识位的不同来区分不同的节点。假设我们有3个节点，它们的节点标识位分别为0、1和2。此时，即使在同一毫秒内序列号相同，由于节点标识位不同，生成的ID也会不同，从而避免了重复ID的问题。具体实现时，我们可以将节点标识位放到高位，例如占用5个bit，那么就可以支持32个节点。然后，根据节点标识位、时间戳和序列号进行位运算，生成全局唯一的ID。这样，即使在同一毫秒内生成相同的序列号，由于不同的节点标识位，也能够生成不同的ID。需要注意的是，增加节点标识位区分的方法需要在节点之间进行规划和管理，以确保每个节点的标识位不同。如果节点的数量超过了标识位所能表示的最大值，那么就需要扩展节点标识位的位数。</strong></p>
+<p><strong>雪花算法流程</strong></p>
+<ol>
+<li>获取当前时间，转换为毫秒级的时间戳。</li>
+<li>检查当前时间戳是否小于上一次生成ID的时间戳，如果是，则表示系统时钟回拨，需要等待时钟追上上一次生成ID的时间戳。</li>
+<li>如果当前时间戳等于上一次生成ID的时间戳，则需要通过递增序列号的方式生成唯一ID。递增序列号的初始值为0，最大值为4095。如果序列号超过最大值，需要等待下一毫秒再生成ID。</li>
+<li>如果当前时间戳大于上一次生成ID的时间戳，则将序列号重置为0，并更新上一次生成ID的时间戳为当前时间戳。</li>
+<li>将当前时间戳左移22位，工作机器ID左移12位，序列号左移0位，然后进行按位或运算，将它们合并成一个64位的唯一ID。</li>
+<li>返回生成的唯一ID作为结果。</li>
+</ol>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 雪花算法</li>
+        <li><strong>作者:</strong> Olivia的小跟班</li>
+        <li><strong>创建于
+                :</strong> 2023-03-30 12:16:32</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2023-06-29 16:11:58
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://www.youandgentleness.cn/2023/03/30/雪花算法/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2023/04/09/SHA-1%E7%AE%97%E6%B3%95/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">SHA-1算法</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2023/03/29/JWT%E8%AF%A6%E8%A7%A3/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">JWT详解</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '782748daccf6cb467d2c',
+                    clientSecret: '2a18a038c753ac1ae59de258d979feb2e04ee274',
+                    repo: 'gitalk',
+                    owner: 'zhouxing9454',
+                    admin: ['zhouxing9454'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">雪花算法</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%87%AA%E5%A2%9E%E5%BA%8F%E5%88%97"><span class="nav-text">1.数据库自增序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-UUID"><span class="nav-text">2.UUID</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95"><span class="nav-text">3.雪花算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9E%84"><span class="nav-text">结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-text">优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8Go%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-text">在Go中的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%E7%94%9F%E6%88%90-ID-%E9%87%8D%E5%A4%8D%E9%97%AE%E9%A2%98"><span class="nav-text">雪花算法生成 ID 重复问题</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin"></i>&nbsp;&nbsp;<a href="/">Olivia的小跟班</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共 27 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.1</a></span>
+        </div>
+        
+            <div class="icp-info my-1"><a target="_blank" rel="nofollow" href="
+                
+                    https://beian.miit.gov.cn/
+                
+                ">浙ICP备2022034029号</a></div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+    <div id="aplayer"></div>
+
+<script src="/js/libs/APlayer.min.js"></script>
+
+
+<script src="/js/plugins/aplayer.js"></script>
+
+
+</body>
+</html>
+
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/love.js"></script>
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/FunnyTitle.js"></script>

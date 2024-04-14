@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Olivia的小跟班">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+            <link rel="preconnect" href="https://cdn.staticfile.org" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://www.youandgentleness.cn/2024/02/26/go-micro插件学习/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="题记本文主要记录例如etcd，Hystrix，Jaeger等一系列组件的使用，当然还有一些非组件用法的介绍。 Heartbeat分布式系统架构中会有多个节点（node），有的是多个不同的节点服务，有的是多个一样的服务节点。这些节点分担着任务的运行、计算、或者程序逻辑的处理，如果一个节点出现了故障有时将使整个系统无法工作。 心跳机制就应运而生，心跳检测类似于ICU患者的心跳检测仪，对被检测者起到一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go-micro插件学习">
+<meta property="og:url" content="https://www.youandgentleness.cn/2024/02/26/go-micro%E6%8F%92%E4%BB%B6%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Olivia的小跟班">
+<meta property="og:description" content="题记本文主要记录例如etcd，Hystrix，Jaeger等一系列组件的使用，当然还有一些非组件用法的介绍。 Heartbeat分布式系统架构中会有多个节点（node），有的是多个不同的节点服务，有的是多个一样的服务节点。这些节点分担着任务的运行、计算、或者程序逻辑的处理，如果一个节点出现了故障有时将使整个系统无法工作。 心跳机制就应运而生，心跳检测类似于ICU患者的心跳检测仪，对被检测者起到一个">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/v2-b15f961abf99b3be82ae3f5387daaa35_1440w.webp">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20240227013134562.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20240227013336072.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20240302195134548.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/101623H11-0.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/OTOV_0.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/OTOV_2-20240308013241291.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/OTOV_1.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/OTOV_2.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/OTOV_3.png">
+<meta property="article:published_time" content="2024-02-26T00:54:59.000Z">
+<meta property="article:modified_time" content="2024-03-07T17:55:59.350Z">
+<meta property="article:author" content="Olivia的小跟班">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="go-micro">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/v2-b15f961abf99b3be82ae3f5387daaa35_1440w.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <meta name="theme-color" content="#1890ff">
+    <link rel="shortcut icon" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            go-micro插件学习 -
+        
+        Olivia的小跟班
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+
+    
+        <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    
+<script src="/js/libs/anime.min.js"></script>
+
+    <h1 class="ml13">
+        Olivia的小跟班
+    </h1>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+
+        anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [100,0],
+                translateZ: 0,
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: '.ml13 .letter',
+            translateY: [0,-100],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+        });
+
+        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
+        hidePreloaderAfterTimeout(5000);
+
+        function hidePreloaderAfterTimeout(delay) {
+            setTimeout(function () {
+                var preloader = document.querySelector('.preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 200);
+            }, delay);
+        }
+    </script>
+</div>
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"www.youandgentleness.cn","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":null,"skip_dirs":[]}},"colors":{"primary":"#1890ff","secondary":"#1890ff","default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/light.jpg","dark":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/darkness.jpg"},"title":"Talk is cheap,Show me the code.","subtitle":{"text":["他们以为击败我就是终结，而我必归来将之改写。"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#D27D2D","dark":"#191970"},"text_style":{"title_size":"2.1rem","subtitle_size":"1.2rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"email":"zhouxing9454@gmail.com","weixin":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/wechat.jpg","github":"https://github.com/zhouxing9454","qq":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/QQ.jpg","bilibili":"https://space.bilibili.com/475346328"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"最后的旅行","artist":"Rainton桐","url":"http://music.163.com/song/media/outer/url?id=30512539.mp3","cover":"https://p1.music.126.net/XWUdXb46hIdIecRihPCV_A==/109951168667887853.jpg"},{"name":"陪我长大","artist":"段奥娟","url":"http://music.163.com/song/media/outer/url?id=1299550093.mp3","cover":"http://p2.music.126.net/YxUbVoHngGMY8gZMjbEJkg==/109951163446151536.jpg"}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.1","navbar":{"auto_hide":false,"color":{"left":"#FAF9F6","right":"#FAF9F6","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"Friends":{"icon":"fa-solid fa-link","path":"/links/"},"Essays":{"icon":"fa-solid fa-paper-plane","path":"/essays/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","typography":{"line_height":1.6}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/7/4 9:30:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Olivia的小跟班
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/links/"
+                                        >
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/essays/"
+                                        >
+                                    <i class="fa-solid fa-paper-plane fa-fw"></i>
+                                    ESSAYS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/links/"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-solid fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/essays/"
+                        >
+                            <span>
+                                ESSAYS
+                            </span>
+                            
+                                <i class="fa-solid fa-paper-plane fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">go-micro插件学习</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/avatar.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Olivia的小跟班</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-02-26 08:54:59</span>
+        <span class="mobile">2024-02-26 08:54:59</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-03-08 01:55:59</span>
+            <span class="mobile">2024-03-08 01:55:59</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/go/">go</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/go/go-micro/">go-micro</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/go/">go</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/go-micro/">go-micro</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h1><p>本文主要记录例如etcd，Hystrix，Jaeger等一系列组件的使用，当然还有一些非组件用法的介绍。</p>
+<h2 id="Heartbeat"><a href="#Heartbeat" class="headerlink" title="Heartbeat"></a>Heartbeat</h2><p>分布式系统架构中会有多个节点（node），有的是多个不同的节点服务，有的是多个一样的服务节点。这些节点分担着任务的运行、计算、或者程序逻辑的处理，如果一个节点出现了故障有时将使整个系统无法工作。</p>
+<p>心跳机制就应运而生，心跳检测类似于ICU患者的心跳检测仪，对被检测者起到一个检测的作用。</p>
+<p>以固定的频率向其他节点汇报当前节点状态的方式，收到心跳后一般认为当前节点和网络拓扑是良好的。在进行汇报时也携带上元数据等信息，方便管理中心进行管理</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/v2-b15f961abf99b3be82ae3f5387daaa35_1440w.webp"
+                      alt="img"
+                ></p>
+<p>如上图所示，当客户端请求server（个人感觉这里这个server应该叫配置中心，比如etcd）中某个数据时，server需要到具体的node节点上进行请求，假设当前某个请求需要使用node1节点参与执行，那么就需要确保node1 节点是正常的。</p>
+<p><strong>单方面传递心跳的弊端</strong></p>
+<p>若server收不到node1的心跳，则说明node1失去了联系，但是并不一定是出现故障，也有可能出现node1服务处于繁忙状态，导致心跳传输超时。也有可能是server于node1之间的网络链路出现故障或者闪断，所以这种单方面传递的心跳不是万能的。</p>
+<p><strong>解决方案</strong></p>
+<ol>
+<li>使用周期性检测心跳机制：server每隔s秒向各个node发送检测请求，设定一个超时时间，如果超过超时时间，则进入死亡列表。</li>
+<li>累计失效检测机制：在1 的基础之上，统计一定周期内节点的返回情况，以此来计算节点的死亡概率（超过超时次数&#x2F;总检测次数）。对于死亡列表中的节点发起有限次数的重试，来做进一步判断。</li>
+<li>对于设定的概率进行比对如果达到设定的概率可以进行一个真实踢出局的操作</li>
+</ol>
+<p><strong>go-micro使用示例</strong></p>
+<p>go-micro是重新注册服务和服务注册超时来保证的服务节点是否时可用的。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">service := micro.NewService(</span><br><span class="line">    micro.Name(<span class="string">&quot;com.example.srv.foo&quot;</span>),          <span class="comment">// 设置服务名</span></span><br><span class="line">    micro.RegisterTTL(time.Second*<span class="number">30</span>),          <span class="comment">// 设置注册超时时间</span></span><br><span class="line">    micro.RegisterInterval(time.Second*<span class="number">15</span>),     <span class="comment">// 设置重新注册时间间隔</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h2 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h2><p><strong>什么是etcd</strong></p>
+<p>Etcd 是一个开源的分布式键值存储系统，它被设计用来在分布式系统中存储配置信息、元数据和其他类型的键值数据。Etcd 是由 CoreOS 开发并维护的，它使用 Raft 一致性算法来保证数据的一致性和可靠性。Etcd 提供了简单的 HTTP API 来访问和管理存储的数据。</p>
+<p><strong>服务注册和发现</strong></p>
+<p>在微服务架构中，服务注册和服务发现是非常重要的一部分。服务注册是指将微服务的实例信息（例如 IP 地址、端口号等）注册到一个中心化的服务注册表中，而服务发现则是指客户端根据服务的名称或其他标识从注册表中获取服务实例的信息，以便能够与之通信。</p>
+<p><strong>为什么使用etcd做服务注册和服务发现</strong></p>
+<p>使用 Etcd 作为服务注册和服务发现的中心化存储有以下好处：</p>
+<ol>
+<li><p><strong>分布式一致性</strong>: Etcd 使用 Raft 算法来保证数据的一致性，这意味着即使在面临网络分区或节点故障的情况下，系统仍然能够保持稳定的状态。</p>
+</li>
+<li><p><strong>高可用性</strong>: Etcd 支持数据的复制和故障转移，可以配置多个节点来提高系统的可用性，即使某些节点发生故障，系统仍然可以继续运行。</p>
+</li>
+<li><p><strong>动态更新</strong>: 微服务架构中的服务实例通常会动态地启动、停止或扩展，Etcd 提供了对服务注册表的动态更新支持，可以及时地反映出服务实例的变化。</p>
+</li>
+<li><p><strong>简单的API</strong>: Etcd 提供了简单易用的 HTTP API，使得开发者可以轻松地与之交互，进行服务注册和服务发现的操作。</p>
+</li>
+</ol>
+<p>综上所述，使用 Etcd 作为服务注册和服务发现的中心化存储可以帮助构建可靠、高可用的微服务架构，并简化了服务之间的通信和管理。</p>
+<p><strong>go-micro使用示例</strong></p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">etcdReg := etcd.NewRegistry(</span><br><span class="line">		registry.Addrs(fmt.Sprintf(<span class="string">&quot;%s:%s&quot;</span>, config.EtcdHost, config.EtcdPort)),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">microService := micro.NewService(</span><br><span class="line">		micro.Name(<span class="string">&quot;CommentService&quot;</span>), <span class="comment">// 微服务名字</span></span><br><span class="line">		micro.Registry(etcdReg),      <span class="comment">// etcd注册件</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h2 id="MetaData"><a href="#MetaData" class="headerlink" title="MetaData"></a>MetaData</h2><p><strong>Metadata</strong></p>
+<p>This is an example of sending metadata&#x2F;headers.</p>
+<p>HTTP headers sent to the micro api will be converted to metadata and forwarded on.</p>
+<p><strong>Contents</strong></p>
+<ul>
+<li><strong>srv</strong> - an RPC service which extracts metadata</li>
+<li><strong>cli</strong> - an RPC client that calls the service once</li>
+</ul>
+<p><strong>go-micro使用示例</strong></p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Say <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Say)</span></span> Hello(ctx context.Context, req *hello.Request, rsp *hello.Response) <span class="type">error</span> &#123;</span><br><span class="line">	md, ok := metadata.FromContext(ctx)<span class="comment">//metadata receive</span></span><br><span class="line">	<span class="keyword">if</span> !ok &#123;</span><br><span class="line">		rsp.Msg = <span class="string">&quot;No metadata received&quot;</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">	log.Printf(<span class="string">&quot;Received metadata %v\n&quot;</span>, md)</span><br><span class="line">	rsp.Msg = fmt.Sprintf(<span class="string">&quot;Hello %s thanks for this %v&quot;</span>, req.Name, md)</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	service := micro.NewService(</span><br><span class="line">		micro.Name(<span class="string">&quot;go.micro.srv.greeter&quot;</span>),</span><br><span class="line">		micro.RegisterTTL(time.Second*<span class="number">30</span>),</span><br><span class="line">		micro.RegisterInterval(time.Second*<span class="number">10</span>),</span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">	service.Init()</span><br><span class="line"></span><br><span class="line">	hello.RegisterSayHandler(service.Server(), <span class="built_in">new</span>(Say))</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err := service.Run(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	service := micro.NewService()</span><br><span class="line">	service.Init()</span><br><span class="line"></span><br><span class="line">	cl := hello.NewSayService(<span class="string">&quot;go.micro.srv.greeter&quot;</span>, service.Client())</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	ctx := metadata.NewContext(context.Background(), <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span>&#123;<span class="comment">// Set arbitrary headers in context</span></span><br><span class="line">		<span class="string">&quot;User&quot;</span>: <span class="string">&quot;john&quot;</span>,</span><br><span class="line">		<span class="string">&quot;ID&quot;</span>:   <span class="string">&quot;1&quot;</span>,</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	rsp, err := cl.Hello(ctx, &amp;hello.Request&#123;</span><br><span class="line">		Name: <span class="string">&quot;John&quot;</span>,</span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(rsp.Msg)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>这个示例展示了如何在微服务之间传递元数据或头部信息。<code>srv</code> 是一个服务端程序，它会提取传入请求的元数据信息，而 <code>cli</code> 是一个客户端程序，它会调用 <code>srv</code> 并发送一些元数据。元数据可以包含一些关于请求的额外信息，<strong>比如认证凭证、请求来源等</strong>。这些元数据可以在服务端用于识别请求或执行一些特定的逻辑。</p>
+<h2 id="Mocking"><a href="#Mocking" class="headerlink" title="Mocking"></a>Mocking</h2><p><strong>什么是mock</strong></p>
+<p>mock是在测试过程中，对于一些不容易构造&#x2F;获取的对象，创建一个mock对象来模拟对象的行为。比如说你需要调用B服务，可是B服务还没有开发完成，那么你就可以将调用B服务的那部分给Mock掉，并编写你想要的返回结果。</p>
+<p><strong>go-micro使用示例</strong></p>
+<p>编写一个mock结构体来实现helloservcie以便于mock测试</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> mock</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;context&quot;</span></span><br><span class="line">	<span class="string">&quot;go-micro.dev/v4/client&quot;</span></span><br><span class="line">	proto <span class="string">&quot;micro_example_project/idl/hello&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> mockGreeterService <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *mockGreeterService)</span></span> Hello(ctx context.Context, req *proto.Request, opts ...client.CallOption) (*proto.Response, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;proto.Response&#123;</span><br><span class="line">		Greeting: <span class="string">&quot;Hello &quot;</span> + req.Name,</span><br><span class="line">	&#125;, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewGreeterService</span><span class="params">()</span></span> proto.GreeterService &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">new</span>(mockGreeterService)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<ol>
+<li>首先，你初始化了配置和 RPC。</li>
+<li>然后，你创建了一个 Etcd 注册中心实例，并用它来初始化了一个 Web 服务实例。</li>
+<li>在初始化 Web 服务的过程中，你使用了一个 <code>web.Action</code>，它会在服务启动时执行。在这个 Action 中，你获取了环境变量并检查了当前环境是否为 “testing”。</li>
+<li>如果环境是 “testing”，则创建了一个名为 <code>c</code> 的 <code>proto.GreeterService</code> 实例，使用 <code>mock.NewGreeterService()</code> 创建了一个模拟的服务（本地函数调用）。</li>
+<li>接着，调用模拟服务的 <code>Hello</code> 方法，并传入一个请求，请求中的 <code>Name</code> 设置为 “John”。然后输出返回的问候语。</li>
+<li>最后，服务使用 <code>_ = webService.Run()</code> 启动，开始监听 HTTP 请求。</li>
+</ol>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;context&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/go-micro/plugins/v4/registry/etcd&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/urfave/cli/v2&quot;</span></span><br><span class="line">	<span class="string">&quot;go-micro.dev/v4/registry&quot;</span></span><br><span class="line">	<span class="string">&quot;go-micro.dev/v4/web&quot;</span></span><br><span class="line">	<span class="string">&quot;micro_example_project/app/gateway/router&quot;</span></span><br><span class="line">	<span class="string">&quot;micro_example_project/app/gateway/rpc&quot;</span></span><br><span class="line">	<span class="string">&quot;micro_example_project/app/hello/mock&quot;</span></span><br><span class="line">	<span class="string">&quot;micro_example_project/config&quot;</span></span><br><span class="line">	proto <span class="string">&quot;micro_example_project/idl/hello&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> c proto.GreeterService</span><br><span class="line">	config.Init()</span><br><span class="line">	rpc.InitRPC()</span><br><span class="line"></span><br><span class="line">	etcdReg := etcd.NewRegistry(</span><br><span class="line">		registry.Addrs(fmt.Sprintf(<span class="string">&quot;%s:%s&quot;</span>, config.EtcdHost, config.EtcdPort)),</span><br><span class="line">	)</span><br><span class="line">	<span class="comment">// 得到一个微服务实例</span></span><br><span class="line">	webService := web.NewService(</span><br><span class="line">		web.Flags(&amp;cli.StringFlag&#123;</span><br><span class="line">			Name:  <span class="string">&quot;environment&quot;</span>,</span><br><span class="line">			Value: <span class="string">&quot;testing&quot;</span>,</span><br><span class="line">		&#125;),</span><br><span class="line">		web.Name(<span class="string">&quot;HttpService&quot;</span>), <span class="comment">// 微服务名字</span></span><br><span class="line">		web.Address(fmt.Sprintf(<span class="string">&quot;%s:%s&quot;</span>, config.HttpHost, config.HttpPort)),</span><br><span class="line">		web.Registry(etcdReg),           <span class="comment">// etcd注册件</span></span><br><span class="line">		web.Handler(router.NewRouter()), <span class="comment">// 路由</span></span><br><span class="line">		web.RegisterTTL(time.Second*<span class="number">30</span>), <span class="comment">// 服务注册时间</span></span><br><span class="line">		web.Metadata(<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span>&#123;<span class="string">&quot;protocol&quot;</span>: <span class="string">&quot;http&quot;</span>&#125;),</span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">	_ = webService.Init(</span><br><span class="line">		web.Action(<span class="function"><span class="keyword">func</span><span class="params">(ctx *cli.Context)</span></span> &#123;</span><br><span class="line">			env := ctx.String(<span class="string">&quot;environment&quot;</span>)</span><br><span class="line">			<span class="comment">// use the mock when in testing environment</span></span><br><span class="line">			<span class="keyword">if</span> env == <span class="string">&quot;testing&quot;</span> &#123;</span><br><span class="line">				c = mock.NewGreeterService()</span><br><span class="line">				rsp, err := c.Hello(context.TODO(), &amp;proto.Request&#123;</span><br><span class="line">					Name: <span class="string">&quot;John&quot;</span>,</span><br><span class="line">				&#125;)</span><br><span class="line">				<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">					fmt.Println(err)</span><br><span class="line">				&#125;</span><br><span class="line">				fmt.Println(rsp.Greeting)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;),</span><br><span class="line">	)</span><br><span class="line">	_ = webService.Run()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20240227013134562.png"
+                      alt="image-20240227013134562"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20240227013336072.png"
+                      alt="image-20240227013336072"
+                ></p>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>首先Go-Micro框架提供给我们关于Redis相关的插件，供我们在项目中使用Redis，但是由于它提供的插件代码十分的简陋不足以满足我们实际项目开发的需求，这里我们更倾向使用Go-Redis来帮助我们在项目中使用Redis。</p>
+<p>Go-Micro框架的Redis插件项目地址：<a class="link"   target="_blank" rel="noopener" href="https://github.com/go-micro/plugins/tree/main/v4/cache/redis" >Plugins  cache&#x2F;redis <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>Go-Redis项目地址：<a class="link"   target="_blank" rel="noopener" href="https://github.com/redis/go-redis" >Go Redis <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>这里我们就提供一个简单连接，并获取缓存值的示例：</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;context&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/redis/go-redis/v9&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	ctx := context.Background()</span><br><span class="line"></span><br><span class="line">	rdb := redis.NewClient(&amp;redis.Options&#123;</span><br><span class="line">		Addr:     <span class="string">&quot;localhost:6379&quot;</span>,</span><br><span class="line">		Password: <span class="string">&quot;&quot;</span>, <span class="comment">// no password set</span></span><br><span class="line">		DB:       <span class="number">0</span>,  <span class="comment">// use default DB</span></span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	err := rdb.Set(ctx, <span class="string">&quot;key&quot;</span>, <span class="string">&quot;value&quot;</span>, <span class="number">0</span>).Err()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	val, err := rdb.Get(ctx, <span class="string">&quot;key&quot;</span>).Result()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(<span class="string">&quot;key&quot;</span>, val)</span><br><span class="line"></span><br><span class="line">	val2, err := rdb.Get(ctx, <span class="string">&quot;key2&quot;</span>).Result()</span><br><span class="line">	<span class="keyword">if</span> err == redis.Nil &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;key2 does not exist&quot;</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;key2&quot;</span>, val2)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// Output: key value</span></span><br><span class="line">	<span class="comment">// key2 does not exist</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>具体其他的示例请访问对应的文档：<a class="link"   target="_blank" rel="noopener" href="https://redis.uptrace.dev/zh/" >Go-Redis文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="Logrus"><a href="#Logrus" class="headerlink" title="Logrus"></a>Logrus</h2><p>Go-Micro确实提供了一些日志包，但是它提供的太过于简单了，不足以够我们使用。我们这里使用<a class="link"   target="_blank" rel="noopener" href="https://github.com/sirupsen/logrus" >Structured, pluggable logging for Go <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，这个方便我们使用，接下来我们重点介绍一下它的使用。</p>
+<p>先安装对应的第三方库：</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> get github.com/sirupsen/logrus </span><br></pre></td></tr></table></figure></div>
+
+<p>简单的使用方法</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;github.com/sirupsen/logrus&quot;</span></span><br><span class="line">	<span class="string">&quot;io&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 创建不同级别日志的输出文件</span></span><br><span class="line">	fileDebug, err := os.OpenFile(<span class="string">&quot;debug.log&quot;</span>, os.O_CREATE|os.O_WRONLY|os.O_APPEND, <span class="number">0666</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(<span class="string">&quot;Failed to open debug log file: &quot;</span> + err.Error())</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> fileDebug.Close()</span><br><span class="line"></span><br><span class="line">	fileInfo, err := os.OpenFile(<span class="string">&quot;info.log&quot;</span>, os.O_CREATE|os.O_WRONLY|os.O_APPEND, <span class="number">0666</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(<span class="string">&quot;Failed to open info log file: &quot;</span> + err.Error())</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> fileInfo.Close()</span><br><span class="line"></span><br><span class="line">	fileError, err := os.OpenFile(<span class="string">&quot;error.log&quot;</span>, os.O_CREATE|os.O_WRONLY|os.O_APPEND, <span class="number">0666</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(<span class="string">&quot;Failed to open error log file: &quot;</span> + err.Error())</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> fileError.Close()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 创建Logger实例</span></span><br><span class="line">	logger := logrus.New()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 设置日志级别为Debug</span></span><br><span class="line">	logger.SetLevel(logrus.DebugLevel)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 设置日志格式为JSON</span></span><br><span class="line">	logger.SetFormatter(&amp;logrus.JSONFormatter&#123;&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 设置日志输出到文件</span></span><br><span class="line">	logger.SetOutput(io.Discard) <span class="comment">// 禁止输出到默认输出,os.Stdout设置日志输出到标准输出</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 创建不同级别的日志钩子，将不同级别的日志输出到不同的文件中</span></span><br><span class="line">	logger.AddHook(NewFileHook(fileDebug, logrus.DebugLevel, logrus.DebugLevel))</span><br><span class="line">	logger.AddHook(NewFileHook(fileInfo, logrus.InfoLevel, logrus.InfoLevel))</span><br><span class="line">	logger.AddHook(NewFileHook(fileError, logrus.ErrorLevel, logrus.ErrorLevel))</span><br><span class="line"></span><br><span class="line">	logger.WithFields(logrus.Fields&#123;</span><br><span class="line">		<span class="string">&quot;key&quot;</span>: <span class="number">1</span>,</span><br><span class="line">	&#125;).Info(<span class="string">&quot;1&quot;</span>)</span><br><span class="line"></span><br><span class="line">	logger.WithFields(logrus.Fields&#123;</span><br><span class="line">		<span class="string">&quot;key&quot;</span>: <span class="string">&quot;value&quot;</span>,</span><br><span class="line">	&#125;).Error(<span class="string">&quot;2&quot;</span>)</span><br><span class="line"></span><br><span class="line">	logger.WithFields(logrus.Fields&#123;</span><br><span class="line">		<span class="string">&quot;key&quot;</span>: []<span class="type">byte</span>&#123;&#125;,</span><br><span class="line">	&#125;).Debug(<span class="string">&quot;3&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 记录不同级别的日志</span></span><br><span class="line">	logger.Debug(<span class="string">&quot;This is a debug message&quot;</span>)</span><br><span class="line">	logger.Info(<span class="string">&quot;This is an info message&quot;</span>)</span><br><span class="line">	logger.Error(<span class="string">&quot;This is an error message&quot;</span>)</span><br><span class="line"></span><br><span class="line">	logger.Println(<span class="string">&quot;4&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// FileHook 是一个实现了 logrus.Hook 接口的结构体，用于将日志写入到文件中</span></span><br><span class="line"><span class="keyword">type</span> FileHook <span class="keyword">struct</span> &#123;</span><br><span class="line">	file     *os.File</span><br><span class="line">	minLevel logrus.Level</span><br><span class="line">	maxLevel logrus.Level</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// NewFileHook 创建一个新的 FileHook 实例</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewFileHook</span><span class="params">(file *os.File, minLevel logrus.Level, maxLevel logrus.Level)</span></span> *FileHook &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;FileHook&#123;</span><br><span class="line">		file:     file,</span><br><span class="line">		minLevel: minLevel,</span><br><span class="line">		maxLevel: maxLevel,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Fire 实现了 logrus.Hook 接口中的 Fire 方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(hook *FileHook)</span></span> Fire(entry *logrus.Entry) <span class="type">error</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> entry.Level &gt;= hook.minLevel &amp;&amp; entry.Level &lt;= hook.maxLevel &#123;</span><br><span class="line">		line, err := entry.String()</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> err</span><br><span class="line">		&#125;</span><br><span class="line">		_, err = hook.file.WriteString(line + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Levels 实现了 logrus.Hook 接口中的 Levels 方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(hook *FileHook)</span></span> Levels() []logrus.Level &#123;</span><br><span class="line">	<span class="keyword">return</span> logrus.AllLevels</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20240302195134548.png"
+                      alt="image-20240302195134548"
+                ></p>
+<p>你可以输出到不同的日志文件中，方便你查询对应的问题。想要在整个项目使用它，可以<code>var Logrus = logrus.New()</code>在包开头声明，然后初始化不同级别的日志，请勿关闭日志，然后正常调用这个包的全局变量Logrus就可以。</p>
+<h2 id="Roundrobin"><a href="#Roundrobin" class="headerlink" title="Roundrobin"></a>Roundrobin</h2><p>讲这个roundrobin之前，我先和大家介绍一下什么是负载均衡，什么是负载均衡算法？然后再讲这个roundrobin。</p>
+<p><strong>什么是负载均衡？</strong></p>
+<p>负载均衡就是一种计算机网络技术，用来在多个计算机（计算机集群）、网络连接、CPU、磁碟驱动器或其他资源中分配负载，以达到最佳化资源使用、最大化吞吐率、最小化响应时间、同时避免过载的目的。</p>
+<p><strong>负载均衡算法？</strong></p>
+<ul>
+<li>简单轮询：将请求按顺序分发给后端服务器上，不关心服务器当前的状态，比如后端服务器的性能、当前的负载。</li>
+<li>加权轮询：根据服务器自身的性能给服务器设置不同的权重，将请求按顺序和权重分发给后端服务器，可以让性能高的机器处理更多的请求</li>
+<li>简单随机：将请求随机分发给后端服务器上，请求越多，各个服务器接收到的请求越平均</li>
+<li>加权随机：根据服务器自身的性能给服务器设置不同的权重，将请求按各个服务器的权重随机分发给后端服务器</li>
+<li>一致性哈希：根据请求的客户端 ip、或请求参数通过哈希算法得到一个数值，利用该数值取模映射出对应的后端服务器，这样能保证同一个客户端或相同参数的请求每次都使用同一台服务器</li>
+<li>最小活跃数：统计每台服务器上当前正在处理的请求数，也就是请求活跃数，将请求分发给活跃数最少的后台服务器</li>
+</ul>
+<p><strong>什么是roundrobin？</strong></p>
+<p>nginx的负载均衡调度算法默认就是 round robin，也就是轮询调度算法。算法本身很简单，轮着一个一个来，非常简单高效公平的调度算法。</p>
+<p><strong>go-micro中怎么使用roundrobin算法做负载均衡的？</strong></p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">microService := micro.NewService(</span><br><span class="line">		micro.WrapClient(roundrobin.NewClientWrapper()),          <span class="comment">// 负载均衡</span></span><br><span class="line">	)</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p><strong>go-micro底层如何实现roundrobin？</strong></p>
+<p>底层代码如下：</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Package roundrobin implements a roundrobin call strategy</span></span><br><span class="line"><span class="keyword">package</span> roundrobin</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;sync&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;go-micro.dev/v4/client&quot;</span></span><br><span class="line">	<span class="string">&quot;go-micro.dev/v4/registry&quot;</span></span><br><span class="line">	<span class="string">&quot;go-micro.dev/v4/selector&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;context&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> roundrobin <span class="keyword">struct</span> &#123;</span><br><span class="line">	sync.Mutex</span><br><span class="line">	rr <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span></span><br><span class="line">	client.Client</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *roundrobin)</span></span> Call(ctx context.Context, req client.Request, rsp <span class="keyword">interface</span>&#123;&#125;, opts ...client.CallOption) <span class="type">error</span> &#123;</span><br><span class="line">	nOpts := <span class="built_in">append</span>(opts, client.WithSelectOption(</span><br><span class="line">		<span class="comment">// create a selector strategy</span></span><br><span class="line">		selector.WithStrategy(<span class="function"><span class="keyword">func</span><span class="params">(services []*registry.Service)</span></span> selector.Next &#123;</span><br><span class="line">			<span class="comment">// flatten</span></span><br><span class="line">			<span class="keyword">var</span> nodes []*registry.Node</span><br><span class="line">			<span class="keyword">for</span> _, service := <span class="keyword">range</span> services &#123;</span><br><span class="line">				nodes = <span class="built_in">append</span>(nodes, service.Nodes...)</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// create the next func that always returns our node</span></span><br><span class="line">			<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> (*registry.Node, <span class="type">error</span>) &#123;</span><br><span class="line">				<span class="keyword">if</span> <span class="built_in">len</span>(nodes) == <span class="number">0</span> &#123;</span><br><span class="line">					<span class="keyword">return</span> <span class="literal">nil</span>, selector.ErrNoneAvailable</span><br><span class="line">				&#125;</span><br><span class="line">				s.Lock()</span><br><span class="line">				<span class="comment">// get counter</span></span><br><span class="line">				rr := s.rr[req.Service()]</span><br><span class="line">				<span class="comment">// get node</span></span><br><span class="line">				node := nodes[rr%<span class="built_in">len</span>(nodes)]</span><br><span class="line">				<span class="comment">// increment</span></span><br><span class="line">				rr++</span><br><span class="line">				<span class="comment">// save</span></span><br><span class="line">				s.rr[req.Service()] = rr</span><br><span class="line">				s.Unlock()</span><br><span class="line"></span><br><span class="line">				<span class="keyword">return</span> node, <span class="literal">nil</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;),</span><br><span class="line">	))</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> s.Client.Call(ctx, req, rsp, nOpts...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// NewClientWrapper is a wrapper which roundrobins requests.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewClientWrapper</span><span class="params">()</span></span> client.Wrapper &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c client.Client)</span></span> client.Client &#123;</span><br><span class="line">		<span class="keyword">return</span> &amp;roundrobin&#123;</span><br><span class="line">			rr:     <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>),</span><br><span class="line">			Client: c,</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>这段代码实现了一个基于轮询（round-robin）调用策略的客户端包装器（wrapper），用于微服务调用。</p>
+<p>让我们逐步解释：</p>
+<ol>
+<li><p><strong>roundrobin 结构体</strong>：</p>
+<ul>
+<li>它包含一个 <code>sync.Mutex</code> 来确保并发安全，以及一个 <code>rr map[string]int</code> 来跟踪每个服务的调用计数器。</li>
+<li>实现了 <code>client.Client</code> 接口，因此它本身可以被视为一个客户端。</li>
+</ul>
+</li>
+<li><p><strong>Call 方法</strong>：</p>
+<ul>
+<li>实现了 <code>client.Call</code> 方法，用于实际的服务调用。</li>
+<li>它使用了 <code>WithSelectOption</code> 来设置一个选择器策略，这个策略会在每次调用时选择下一个要调用的节点。</li>
+<li>选择器策略的实现逻辑如下：<ul>
+<li>将所有服务的节点汇总到一个 nodes 列表中。</li>
+<li>创建一个返回下一个节点的函数。</li>
+<li>函数首先检查节点列表是否为空，如果是则返回错误 <code>ErrNoneAvailable</code>。</li>
+<li>否则，它根据轮询计数器（<code>rr</code>）选择节点列表中的一个节点。</li>
+<li>然后递增轮询计数器，确保下一次调用选择的是下一个节点。</li>
+<li>最后，返回选定的节点。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>NewClientWrapper 函数</strong>：</p>
+<ul>
+<li>返回一个 <code>client.Wrapper</code> 函数，这个函数会接收一个客户端并返回一个包装后的客户端。</li>
+<li>包装后的客户端是 <code>roundrobin</code> 结构体的实例，初始化了调用计数器和原始客户端。</li>
+</ul>
+</li>
+</ol>
+<p>总的来说，这个包装器在每次调用微服务时都会基于轮询选择下一个节点，从而实现了轮询调用策略。</p>
+<h2 id="RateLimiter"><a href="#RateLimiter" class="headerlink" title="RateLimiter"></a>RateLimiter</h2><p><strong>什么是限流处理？</strong></p>
+<p>限流处理是一种控制系统资源使用率的策略，用于限制系统在一定时间内处理请求的数量或速率。这种策略可以在服务端或者客户端实施，以确保系统在高负载情况下仍能保持稳定运行。</p>
+<p><strong>限流处理的好处？</strong></p>
+<p>好处包括：</p>
+<ol>
+<li><p><strong>保护系统稳定性</strong>：限流可以防止系统在高负载情况下被过多的请求压垮，从而保护系统免受过载而导致的崩溃或性能下降。</p>
+</li>
+<li><p><strong>提高可用性</strong>：通过限制请求的数量或速率，可以确保系统能够继续提供服务，即使在高负载情况下也能够保持可用。</p>
+</li>
+<li><p><strong>资源保护</strong>：限流可以确保系统的关键资源，如数据库连接、内存、CPU 等，不被过度占用，从而保护系统的稳定性和性能。</p>
+</li>
+<li><p><strong>平滑流量控制</strong>：通过限制请求的数量或速率，可以实现平滑的流量控制，避免突发性的请求导致系统不稳定。</p>
+</li>
+<li><p><strong>预防恶意攻击</strong>：限流可以防止恶意攻击通过大量请求来消耗系统资源，从而提高系统的安全性。</p>
+</li>
+</ol>
+<p><strong>go-micro使用示例</strong></p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">microService := micro.NewService(</span><br><span class="line">    micro.WrapHandler(ratelimit.NewHandlerWrapper(<span class="number">50000</span>)),    <span class="comment">//限流处理，每秒允许的最大请求次数50000</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p><strong>go-micro底层实现</strong></p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ratelimit</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;go-micro.dev/v4/client&quot;</span></span><br><span class="line">	<span class="string">&quot;go-micro.dev/v4/server&quot;</span></span><br><span class="line">	<span class="string">&quot;go.uber.org/ratelimit&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;context&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> clientWrapper <span class="keyword">struct</span> &#123;</span><br><span class="line">	r ratelimit.Limiter</span><br><span class="line">	client.Client</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *clientWrapper)</span></span> Call(ctx context.Context, req client.Request, rsp <span class="keyword">interface</span>&#123;&#125;, opts ...client.CallOption) <span class="type">error</span> &#123;</span><br><span class="line">	c.r.Take()</span><br><span class="line">	<span class="keyword">return</span> c.Client.Call(ctx, req, rsp, opts...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// NewClientWrapper creates a blocking side rate limiter.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewClientWrapper</span><span class="params">(rate <span class="type">int</span>, opts ...ratelimit.Option)</span></span> client.Wrapper &#123;</span><br><span class="line">	r := ratelimit.New(rate, opts...)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c client.Client)</span></span> client.Client &#123;</span><br><span class="line">		<span class="keyword">return</span> &amp;clientWrapper&#123;r, c&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// NewHandlerWrapper creates a blocking server side rate limiter.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewHandlerWrapper</span><span class="params">(rate <span class="type">int</span>, opts ...ratelimit.Option)</span></span> server.HandlerWrapper &#123;</span><br><span class="line">	r := ratelimit.New(rate, opts...)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(h server.HandlerFunc)</span></span> server.HandlerFunc &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Context, req server.Request, rsp <span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">			r.Take()</span><br><span class="line">			<span class="keyword">return</span> h(ctx, req, rsp)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>这段代码实现了一个基于令牌桶算法的限流处理器，用于限制客户端和服务器端处理请求的速率。</p>
+<p>主要组成部分包括：</p>
+<ol>
+<li><p><strong>clientWrapper 结构体</strong>：</p>
+<ul>
+<li>它包含了一个 <code>ratelimit.Limiter</code>，用于限制请求的速率。</li>
+<li>实现了 <code>client.Client</code> 接口，因此它本身可以被视为一个客户端。</li>
+<li>在 <code>Call</code> 方法中，每次调用 <code>Call</code> 时都会先通过限流器 (<code>r</code>) 获取令牌，如果令牌不足则会进行阻塞，直到获取到足够的令牌后才会执行实际的请求调用。</li>
+</ul>
+</li>
+<li><p><strong>NewClientWrapper 函数</strong>：</p>
+<ul>
+<li>它接受一个 <code>rate</code> 参数，表示每秒允许的最大请求数量。</li>
+<li>使用 <code>ratelimit.New</code> 函数创建一个令牌桶限流器，用于控制请求速率。</li>
+<li>返回一个 <code>client.Wrapper</code> 函数，这个函数接受一个客户端，然后返回一个包装后的客户端。</li>
+<li>包装后的客户端是 <code>clientWrapper</code> 结构体的实例，它将限流器和原始客户端结合起来，实现了限流功能。</li>
+</ul>
+</li>
+<li><p><strong>NewHandlerWrapper 函数</strong>：</p>
+<ul>
+<li>类似于 <code>NewClientWrapper</code>，但是用于服务端。</li>
+<li>它接受一个 <code>rate</code> 参数，表示每秒允许的最大请求数量。</li>
+<li>返回一个 <code>server.HandlerWrapper</code> 函数，用于包装服务端的处理器函数。</li>
+<li>包装后的处理器函数会在每次处理请求之前先通过限流器获取令牌，如果令牌不足则会进行阻塞，直到获取到足够的令牌后才会执行实际的处理逻辑。</li>
+</ul>
+</li>
+</ol>
+<p>总的来说，这段代码实现了基于令牌桶算法的限流处理器，可以在客户端和服务器端分别对请求的速率进行限制，以保护系统免受过载的影响。</p>
+<p><strong>什么是令牌桶算法？</strong></p>
+<p>令牌桶算法是一种用于限制请求速率的算法，它维护了一个固定容量的令牌桶，令牌以固定的速率往桶里填充。每当有一个请求到达时，需要从令牌桶中获取一个令牌，只有当令牌桶中有足够的令牌时，请求才会被允许通过，否则请求将被限制或延迟处理。</p>
+<p><strong>好处：</strong></p>
+<ol>
+<li><p><strong>平滑控制请求速率：</strong> 令牌桶算法可以平滑地控制请求的速率，因为令牌是以固定的速率生成的，所以可以很好地适应系统的处理能力。</p>
+</li>
+<li><p><strong>允许突发流量：</strong> 令牌桶算法允许短时间内的突发流量，只要令牌桶中有足够的令牌，就可以处理突发的请求。</p>
+</li>
+<li><p><strong>简单有效：</strong> 令牌桶算法相对简单，容易实现和理解，并且在实际应用中表现良好。</p>
+</li>
+</ol>
+<p><strong>缺点：</strong></p>
+<ol>
+<li><p><strong>难以应对长时间的突发流量：</strong> 令牌桶算法难以应对长时间的大量请求，因为它的令牌生成速率是固定的，无法适应长时间的高峰请求。</p>
+</li>
+<li><p><strong>对于短时间突发流量的处理不够灵活：</strong> 尽管令牌桶算法允许短时间内的突发流量，但令牌桶的容量有限，如果突发流量持续时间较长，可能会导致令牌桶耗尽，进而影响请求的处理速率。</p>
+</li>
+<li><p><strong>需要定期维护令牌桶状态：</strong> 令牌桶算法需要定期维护令牌桶的状态，包括生成令牌和处理请求等，如果状态维护不及时，可能会影响算法的效果。</p>
+</li>
+</ol>
+<p><strong>简单实现</strong></p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> TokenBucket <span class="keyword">struct</span> &#123;</span><br><span class="line">	capacity <span class="type">int</span>           <span class="comment">// 桶的容量</span></span><br><span class="line">	tokens   <span class="type">int</span>           <span class="comment">// 当前桶中的令牌数</span></span><br><span class="line">	rate     <span class="type">int</span>           <span class="comment">// 令牌放入速度，单位：令牌/秒</span></span><br><span class="line">	lastTime time.Time     <span class="comment">// 上一次放入令牌的时间</span></span><br><span class="line">	interval time.Duration <span class="comment">// 令牌放入间隔</span></span><br><span class="line">	mutex    sync.Mutex    <span class="comment">// 互斥锁，保证并发安全</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// NewTokenBucket 创建一个新的令牌桶</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewTokenBucket</span><span class="params">(capacity, rate <span class="type">int</span>)</span></span> *TokenBucket &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;TokenBucket&#123;</span><br><span class="line">		capacity: capacity,</span><br><span class="line">		tokens:   capacity,</span><br><span class="line">		rate:     rate,</span><br><span class="line">		lastTime: time.Now(),</span><br><span class="line">		interval: time.Second / time.Duration(rate),</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Take 尝试从令牌桶中获取一个令牌，如果获取成功返回 true，否则返回 false</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(tb *TokenBucket)</span></span> Take() <span class="type">bool</span> &#123;</span><br><span class="line">	tb.mutex.Lock()</span><br><span class="line">	<span class="keyword">defer</span> tb.mutex.Unlock()</span><br><span class="line"></span><br><span class="line">	now := time.Now()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 计算应该放入的令牌数</span></span><br><span class="line">	delta := <span class="type">int</span>(now.Sub(tb.lastTime) / tb.interval)</span><br><span class="line">	tb.tokens = tb.tokens + delta</span><br><span class="line">	<span class="keyword">if</span> tb.tokens &gt; tb.capacity &#123;</span><br><span class="line">		tb.tokens = tb.capacity</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 更新上一次放入令牌的时间</span></span><br><span class="line">	tb.lastTime = tb.lastTime.Add(time.Duration(delta) * tb.interval)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 尝试获取令牌</span></span><br><span class="line">	<span class="keyword">if</span> tb.tokens &gt; <span class="number">0</span> &#123;</span><br><span class="line">		tb.tokens--</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h2 id="Hystrix"><a href="#Hystrix" class="headerlink" title="Hystrix"></a>Hystrix</h2><p>在微服务架构中，一个应用往往由多个服务组成，这些服务之间相互依赖，依赖关系错综复杂。</p>
+<p>例如一个微服务系统中存在 A、B、C、D、E、F 等多个服务，它们的依赖关系如下图。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/101623H11-0.png"
+                      alt="img"
+                ></p>
+<p>通常情况下，一个用户请求往往需要多个服务配合才能完成。如图所示，在所有服务都处于可用状态时，请求 1 需要调用 A、D、E、F 四个服务才能完成，请求 2 需要调用 B、E、D 三个服务才能完成，请求 3 需要调用服务 C、F、E、D 四个服务才能完成。</p>
+<p>当服务 E 发生故障或网络延迟时，会出现以下情况：</p>
+<ol>
+<li>即使其他所有服务都可用，由于服务 E 的不可用，那么用户请求 1、2、3 都会处于阻塞状态，等待服务 E 的响应。在高并发的场景下，会导致整个服务器的线程资源在短时间内迅速消耗殆尽。</li>
+<li>所有依赖于服务 E 的其他服务，例如服务 B、D 以及 F 也都会处于线程阻塞状态，等待服务 E 的响应，导致这些服务的不可用。</li>
+<li>所有依赖服务B、D 和 F 的服务，例如服务 A 和服务 C 也会处于线程阻塞状态，以等待服务 D 和服务 F 的响应，导致服务 A 和服务 C 也不可用。</li>
+</ol>
+<p>从以上过程可以看出，当微服务系统的一个服务出现故障时，故障会沿着服务的调用链路在系统中疯狂蔓延，最终导致整个微服务系统的瘫痪，这就是“雪崩效应”。为了防止此类事件的发生，微服务架构引入了“熔断器”的一系列服务容错和保护机制。</p>
+<p><strong>熔断器</strong></p>
+<p>熔断器（Circuit Breaker）一词来源物理学中的电路知识，它的作用是当线路出现故障时，迅速切断电源以保护电路的安全。</p>
+<p>在微服务领域，熔断器最早是由 Martin Fowler 在他发表的 《<a class="link"   target="_blank" rel="noopener" href="https://martinfowler.com/bliki/CircuitBreaker.html" >Circuit Breake <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>r》一文中提出。与物理学中的熔断器作用相似，微服务架构中的熔断器能够在某个服务发生故障后，向服务调用方返回一个符合预期的、可处理的降级响应（FallBack），而不是长时间的等待或者抛出调用方无法处理的异常。这样就保证了服务调用方的线程不会被长时间、不必要地占用，避免故障在微服务系统中的蔓延，防止系统雪崩效应的发生。</p>
+<p><strong>Spring Cloud Hystrix</strong></p>
+<p>Spring Cloud Hystrix 是一款优秀的服务容错与保护组件，也是 Spring Cloud 中最重要的组件之一。</p>
+<p>Spring Cloud Hystrix 是基于 Netflix 公司的开源组件 Hystrix 实现的，它提供了熔断器功能，能够有效地阻止分布式微服务系统中出现联动故障，以提高微服务系统的弹性。Spring Cloud Hystrix 具有服务降级、服务熔断、线程隔离、请求缓存、请求合并以及实时故障监控等强大功能。</p>
+<blockquote>
+<p>Hystrix [hɪst’rɪks]，中文含义是豪猪，豪猪的背上长满了棘刺，使它拥有了强大的自我保护能力。而 Spring Cloud Hystrix 作为一个服务容错与保护组件，也可以让服务拥有自我保护的能力，因此也有人将其戏称为“豪猪哥”。</p>
+</blockquote>
+<p>在微服务系统中，Hystrix 能够帮助我们实现以下目标：</p>
+<ul>
+<li><strong>保护线程资源</strong>：防止单个服务的故障耗尽系统中的所有线程资源。</li>
+<li><strong>快速失败机制</strong>：当某个服务发生了故障，不让服务调用方一直等待，而是直接返回请求失败。</li>
+<li><strong>提供降级（FallBack）方案</strong>：在请求失败后，提供一个设计好的降级方案，通常是一个兜底方法，当请求失败后即调用该方法。</li>
+<li><strong>防止故障扩散</strong>：使用熔断机制，防止故障扩散到其他服务。</li>
+<li><strong>监控功能</strong>：提供熔断器故障监控组件 Hystrix Dashboard，随时监控熔断器的状态。</li>
+</ul>
+<p><strong>Hystrix 服务降级</strong></p>
+<p>Hystrix 提供了服务降级功能，能够保证当前服务不受其他服务故障的影响，提高服务的健壮性。</p>
+<p>服务降级的使用场景有以下 2 种：</p>
+<ul>
+<li>在服务器压力剧增时，根据实际业务情况及流量，对一些不重要、不紧急的服务进行有策略地不处理或简单处理，从而释放服务器资源以保证核心服务正常运作。</li>
+<li>当某些服务不可用时，为了避免长时间等待造成服务卡顿或雪崩效应，而主动执行备用的降级逻辑立刻返回一个友好的提示，以保障主体业务不受影响。</li>
+</ul>
+<p>我们可以通过重写 HystrixCommand 的 getFallBack() 方法或 HystrixObservableCommand 的 resumeWithFallback() 方法，使服务支持服务降级。</p>
+<p>Hystrix 服务降级 FallBack 既可以放在服务端进行，也可以放在客户端进行。</p>
+<p>Hystrix 会在以下场景下进行服务降级处理：</p>
+<ul>
+<li>程序运行异常</li>
+<li>服务超时</li>
+<li>熔断器处于打开状态</li>
+<li>线程池资源耗尽</li>
+</ul>
+<p><strong>Go-micro使用示例</strong></p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Config = hystrix.CommandConfig&#123;</span><br><span class="line">	Timeout:                <span class="number">1000</span>,  <span class="comment">//指定命令执行的超时时间（单位：毫秒）。在此时间内，如果命令未能执行完成，则会触发熔断器。</span></span><br><span class="line">	RequestVolumeThreshold: <span class="number">5000</span>,  <span class="comment">// 10秒内的请求量，默认值是20，如果超过20那么就判断是否熔断</span></span><br><span class="line">	ErrorPercentThreshold:  <span class="number">50</span>,    <span class="comment">// 错误百分比，当错误超过百分比时，直接进行降级处理，直至熔断器再次 开启，默认50%</span></span><br><span class="line">	SleepWindow:            <span class="number">5000</span>,  <span class="comment">// 过多长时间，熔断器再次检测是否开启，单位毫秒ms（默认5秒）</span></span><br><span class="line">	MaxConcurrentRequests:  <span class="number">50000</span>, <span class="comment">//设置命令的最大并发请求数。超过这个数量的请求将被拒绝，而不会执行命令逻辑。</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hystrix.ConfigureCommand(<span class="string">&quot;CommentList&quot;</span>, Config)</span><br><span class="line">	err := hystrix.Do(<span class="string">&quot;CommentList&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> (err <span class="type">error</span>) &#123;</span><br><span class="line">		res, err = rpc.CommentList(ctx, &amp;req)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> err</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;, <span class="function"><span class="keyword">func</span><span class="params">(err <span class="type">error</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这段代码是使用Hystrix库来执行一个命令（Command），在这里命令的名称是&quot;CommentList&quot;，并且应用了之前定义的名为Config的配置。</span></span><br><span class="line"><span class="comment">该命令执行的主体逻辑是通过rpc.CommentList函数调用来获取评论列表。</span></span><br><span class="line"><span class="comment">这个命令还指定了两个函数，一个用于执行主体逻辑的匿名函数，另一个用于处理命令执行失败的情况。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<p><strong>Go-micro底层解释</strong></p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Do runs your function in a synchronous manner, blocking until either your function succeeds</span></span><br><span class="line"><span class="comment">// or an error is returned, including hystrix circuit errors</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Do</span><span class="params">(name <span class="type">string</span>, run runFunc, fallback fallbackFunc)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">	runC := <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Context)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> run()</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> fallbackC fallbackFuncC</span><br><span class="line">	<span class="keyword">if</span> fallback != <span class="literal">nil</span> &#123;</span><br><span class="line">		fallbackC = <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Context, err <span class="type">error</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> fallback(err)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> DoC(context.Background(), name, runC, fallbackC)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// DoC runs your function in a synchronous manner, blocking until either your function succeeds</span></span><br><span class="line"><span class="comment">// or an error is returned, including hystrix circuit errors</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DoC</span><span class="params">(ctx context.Context, name <span class="type">string</span>, run runFuncC, fallback fallbackFuncC)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">	done := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">	r := <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Context)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">		err := run(ctx)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> err</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		done &lt;- <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	f := <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Context, e <span class="type">error</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">		err := fallback(ctx, e)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> err</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		done &lt;- <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> errChan <span class="keyword">chan</span> <span class="type">error</span></span><br><span class="line">	<span class="keyword">if</span> fallback == <span class="literal">nil</span> &#123;</span><br><span class="line">		errChan = GoC(ctx, name, r, <span class="literal">nil</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		errChan = GoC(ctx, name, r, f)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">select</span> &#123;</span><br><span class="line">	<span class="keyword">case</span> &lt;-done:</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">	<span class="keyword">case</span> err := &lt;-errChan:</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p>Kafka操作建议参考这个库：<a class="link"   target="_blank" rel="noopener" href="https://github.com/IBM/sarama" >IBM&#x2F;Sarama <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，Go Document：<a class="link"   target="_blank" rel="noopener" href="https://pkg.go.dev/github.com/IBM/sarama" >IBM&#x2F;sarama - Go Packages <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
+<p>关于Kafka的安装参考我之前的文章：<a href="https://www.youandgentleness.cn/2023/06/27/Kafka%D1%A7%CF%B0/#Kafka%E5%AE%89%E8%A3%85">Kafka学习 - Olivia的小跟班</a></p>
+<p><strong>生产者示例：</strong></p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/IBM/sarama&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 基于sarama第三方库开发的kafka client</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    config := sarama.NewConfig()</span><br><span class="line">    config.Producer.RequiredAcks = sarama.WaitForAll          <span class="comment">// 发送完数据需要leader和follow都确认</span></span><br><span class="line">    config.Producer.Partitioner = sarama.NewRandomPartitioner <span class="comment">// 新选出一个partition</span></span><br><span class="line">    config.Producer.Return.Successes = <span class="literal">true</span>                   <span class="comment">// 成功交付的消息将在success channel返回</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造一个消息</span></span><br><span class="line">    msg := &amp;sarama.ProducerMessage&#123;&#125;</span><br><span class="line">    msg.Topic = <span class="string">&quot;web_log&quot;</span></span><br><span class="line">    msg.Value = sarama.StringEncoder(<span class="string">&quot;this is a test log2&quot;</span>)</span><br><span class="line">    <span class="comment">// 连接kafka</span></span><br><span class="line">    client, err := sarama.NewSyncProducer([]<span class="type">string</span>&#123;<span class="string">&quot;127.0.0.1:9092&quot;</span>&#125;, config)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">       fmt.Println(<span class="string">&quot;producer closed, err:&quot;</span>, err)</span><br><span class="line">       <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> client.Close()</span><br><span class="line">    <span class="comment">// 发送消息</span></span><br><span class="line">    pid, offset, err := client.SendMessage(msg)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">       fmt.Println(<span class="string">&quot;send msg failed, err:&quot;</span>, err)</span><br><span class="line">       <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Printf(<span class="string">&quot;pid:%v offset:%v\n&quot;</span>, pid, offset)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p><strong>消费者示例：</strong></p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;github.com/IBM/sarama&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// kafka consumer</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	consumer, err := sarama.NewConsumer([]<span class="type">string</span>&#123;<span class="string">&quot;localhost:9092&quot;</span>&#125;, <span class="literal">nil</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;fail to start consumer, err:%v\n&quot;</span>, err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	partitionList, err := consumer.Partitions(<span class="string">&quot;web_log&quot;</span>) <span class="comment">// 根据topic取到所有的分区</span></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;fail to get list of partition:err%v\n&quot;</span>, err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(partitionList)</span><br><span class="line">	<span class="keyword">for</span> partition := <span class="keyword">range</span> partitionList &#123; <span class="comment">// 遍历所有的分区</span></span><br><span class="line">		<span class="comment">// 针对每个分区创建一个对应的分区消费者</span></span><br><span class="line">		pc, err := consumer.ConsumePartition(<span class="string">&quot;web_log&quot;</span>, <span class="type">int32</span>(partition), sarama.OffsetNewest)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			fmt.Printf(<span class="string">&quot;failed to start consumer for partition %d,err:%v\n&quot;</span>, partition, err)</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">defer</span> pc.AsyncClose()</span><br><span class="line">		<span class="comment">// 异步从每个分区消费信息</span></span><br><span class="line">		<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(sarama.PartitionConsumer)</span></span> &#123;</span><br><span class="line">			<span class="keyword">for</span> msg := <span class="keyword">range</span> pc.Messages() &#123;</span><br><span class="line">				fmt.Printf(<span class="string">&quot;Partition:%d Offset:%d Key:%v Value:%v&quot;</span>, msg.Partition, msg.Offset, msg.Key, <span class="type">string</span>(msg.Value))</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;(pc)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//演示时使用</span></span><br><span class="line">	<span class="keyword">select</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h2 id="OpenTracing和Jaeger"><a href="#OpenTracing和Jaeger" class="headerlink" title="OpenTracing和Jaeger"></a>OpenTracing和Jaeger</h2><p><strong>为什么需要Tracing？</strong></p>
+<p>开发和工程团队因为系统组件水平扩展、开发团队小型化、敏捷开发、CD（持续集成）、解耦等各种需求，正在使用现代的微服务架构替换老旧的单片机系统。 也就是说，当一个生产系统面对真正的高并发，或者解耦成大量微服务时，以前很容易实现的重点任务变得困难了。过程中需要面临一系列问题：用户体验优化、后台真是错误原因分析，分布式系统内各组件的调用情况等。 当代分布式跟踪系统（例如，Zipkin, Dapper, HTrace, X-Trace等）旨在解决这些问题，但是他们使用不兼容的API来实现各自的应用需求。尽管这些分布式追踪系统有着相似的API语法，但各种语言的开发人员依然很难将他们各自的系统（使用不同的语言和技术）和特定的分布式追踪系统进行整合。</p>
+<p> <strong>为什么需要OpenTracing？</strong></p>
+<p>OpenTracing通过提供平台无关、厂商无关的API，使得开发人员能够方便的添加（或更换）追踪系统的实现。 OpenTracing提供了用于运营支撑系统的和针对特定平台的辅助程序库。程序库的具体信息请参考详细的规范。</p>
+<p><strong>什么是一个Trace?</strong></p>
+<p>在广义上，一个trace代表了一个事务或者流程在（分布式）系统中的执行过程。在OpenTracing标准中，trace是多个span组成的一个有向无环图（DAG），每一个span代表trace中被命名并计时的连续性的执行片段。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/OTOV_0.png"
+                      alt="img"
+                ></p>
+<p>分布式追踪中的每个组件都包含自己的一个或者多个span。例如，在一个常规的RPC调用过程中，OpenTracing推荐在RPC的客户端和服务端，至少各有一个span，用于记<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/OTOV_2-20240308013241291.png"
+                     
+                >录RPC调用的客户端和服务端信息。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/OTOV_1.png"
+                      alt="img"
+                ></p>
+<p>一个父级的span会显示的并行或者串行启动多个子span。在OpenTracing标准中，甚至允许一个子span有个多父span（例如：并行写入的缓存，可能通过一次刷新操作写入动作）。</p>
+<p> <strong>一个典型的Trace案例</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/OTOV_2.png"
+                      alt="img"
+                ></p>
+<p>在一个分布式系统中，追踪一个事务或者调用流一般如上图所示。虽然这种图对于看清各组件的组合关系是很有用的，但是，它不能很好显示组件的调用时间，是串行调用还是并行调用，如果展现更复杂的调用关系，会更加复杂，甚至无法画出这样的图。另外，这种图也无法显示调用间的时间间隔以及是否通过定时调用来启动调用。一种更有效的展现一个典型的trace过程，如下图所示：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/OTOV_3.png"
+                      alt="img"
+                ></p>
+<p>这种展现方式增加显示了执行时间的上下文，相关服务间的层次关系，进程或者任务的串行或并行调用关系。这样的视图有助于发现系统调用的关键路径。通过关注关键路径的执行过程，项目团队可能专注于优化路径中的关键位置，最大幅度的提升系统性能。例如：可以通过追踪一个资源定位的调用情况，明确底层的调用情况，发现哪些操作有阻塞的情况。</p>
+<p><strong>概念和术语</strong></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://wu-sheng.gitbooks.io/opentracing-io/content/pages/spec.html" >概念与术语 Opentracing文档中文版 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><strong>什么是jaeger？</strong></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/sc_lilei/article/details/107834597" >链路追踪之Jaeger安装&amp;使用入门-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><strong>go-micro使用</strong></p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;io&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;github.com/opentracing/opentracing-go&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/uber/jaeger-client-go&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/uber/jaeger-client-go/config&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Tracer opentracing.Tracer</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">InitJaeger</span><span class="params">(serviceName <span class="type">string</span>, jaegerHostPort <span class="type">string</span>)</span></span> (opentracing.Tracer, io.Closer, <span class="type">error</span>) &#123;</span><br><span class="line">	cfg := config.Configuration&#123;</span><br><span class="line">		ServiceName: serviceName,</span><br><span class="line">		Sampler: &amp;config.SamplerConfig&#123;</span><br><span class="line">			Type:  jaeger.SamplerTypeConst,</span><br><span class="line">			Param: <span class="number">1</span>,</span><br><span class="line">		&#125;,</span><br><span class="line">		Reporter: &amp;config.ReporterConfig&#123;</span><br><span class="line">			LogSpans:            <span class="literal">true</span>,</span><br><span class="line">			BufferFlushInterval: <span class="number">1</span> * time.Second,</span><br><span class="line">			LocalAgentHostPort:  jaegerHostPort,</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> closer io.Closer</span><br><span class="line">	<span class="keyword">var</span> err <span class="type">error</span></span><br><span class="line">	Tracer, closer, err = cfg.NewTracer(</span><br><span class="line">		config.Logger(jaeger.StdLogger),</span><br><span class="line">	)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(fmt.Sprintf(<span class="string">&quot;ERROR: cannot init Jaeger: %v\n&quot;</span>, err))</span><br><span class="line">	&#125;</span><br><span class="line">	opentracing.SetGlobalTracer(Tracer)</span><br><span class="line">	<span class="keyword">return</span> Tracer, closer, err</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 链路追踪</span></span><br><span class="line">tracer, closer, err := wrapper.InitJaeger(<span class="string">&quot;CommentService&quot;</span>, fmt.Sprintf(<span class="string">&quot;%s:%s&quot;</span>, config.JaegerHost, config.JaegerPort))</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    fmt.Printf(<span class="string">&quot;new tracer err: %+v\n&quot;</span>, err)</span><br><span class="line">    os.Exit(<span class="number">-1</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">defer</span> closer.Close()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 得到一个微服务实例</span></span><br><span class="line">microService := micro.NewService(</span><br><span class="line">    micro.WrapHandler(opentracing.NewHandlerWrapper(tracer)), <span class="comment">// 链路追踪</span></span><br><span class="line">    micro.WrapClient(opentracing.NewClientWrapper(tracer)),   <span class="comment">// 链路追踪</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> go-micro插件学习</li>
+        <li><strong>作者:</strong> Olivia的小跟班</li>
+        <li><strong>创建于
+                :</strong> 2024-02-26 08:54:59</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2024-03-08 01:55:59
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://www.youandgentleness.cn/2024/02/26/go-micro插件学习/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/go/">#go</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/go-micro/">#go-micro</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/02/22/go-micro%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AD%A6%E4%B9%A0/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">go-micro命令行学习</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '782748daccf6cb467d2c',
+                    clientSecret: '2a18a038c753ac1ae59de258d979feb2e04ee274',
+                    repo: 'gitalk',
+                    owner: 'zhouxing9454',
+                    admin: ['zhouxing9454'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">go-micro插件学习</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Heartbeat"><span class="nav-text">Heartbeat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcd"><span class="nav-text">etcd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MetaData"><span class="nav-text">MetaData</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mocking"><span class="nav-text">Mocking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis"><span class="nav-text">Redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Logrus"><span class="nav-text">Logrus</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Roundrobin"><span class="nav-text">Roundrobin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RateLimiter"><span class="nav-text">RateLimiter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hystrix"><span class="nav-text">Hystrix</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka"><span class="nav-text">Kafka</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenTracing%E5%92%8CJaeger"><span class="nav-text">OpenTracing和Jaeger</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin"></i>&nbsp;&nbsp;<a href="/">Olivia的小跟班</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共 27 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.1</a></span>
+        </div>
+        
+            <div class="icp-info my-1"><a target="_blank" rel="nofollow" href="
+                
+                    https://beian.miit.gov.cn/
+                
+                ">浙ICP备2022034029号</a></div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+    <div id="aplayer"></div>
+
+<script src="/js/libs/APlayer.min.js"></script>
+
+
+<script src="/js/plugins/aplayer.js"></script>
+
+
+</body>
+</html>
+
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/love.js"></script>
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/FunnyTitle.js"></script>

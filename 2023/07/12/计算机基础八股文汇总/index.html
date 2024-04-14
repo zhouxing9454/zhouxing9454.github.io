@@ -1,0 +1,1996 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Olivia的小跟班">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+            <link rel="preconnect" href="https://cdn.staticfile.org" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://www.youandgentleness.cn/2023/07/12/计算机基础八股文汇总/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="题记记录操作系统+计算机网络+MySQL+Redis的八股文，主要是小林coding网站的文章。 小林coding操作系统Linux 内核 vs Windows 内核什么是内核？——应用连接硬件设备的桥梁 内核的功能？——  管理进程、线程，决定哪个进程、线程使用 CPU，也就是进程调度的能力； 管理内存，决定内存的分配和回收，也就是内存管理的能力； 管理硬件设备，为进程与硬件设备之间提供通信能力">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机基础八股文汇总">
+<meta property="og:url" content="https://www.youandgentleness.cn/2023/07/12/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1%E6%96%87%E6%B1%87%E6%80%BB/index.html">
+<meta property="og:site_name" content="Olivia的小跟班">
+<meta property="og:description" content="题记记录操作系统+计算机网络+MySQL+Redis的八股文，主要是小林coding网站的文章。 小林coding操作系统Linux 内核 vs Windows 内核什么是内核？——应用连接硬件设备的桥梁 内核的功能？——  管理进程、线程，决定哪个进程、线程使用 CPU，也就是进程调度的能力； 管理内存，决定内存的分配和回收，也就是内存管理的能力； 管理硬件设备，为进程与硬件设备之间提供通信能力">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202308021723170.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202308070250150.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307191502473.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307202008025.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307211600257.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202308041533845.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307142050177.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307271546649.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307271546398.png">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202308071943684.png">
+<meta property="article:published_time" content="2023-07-12T11:47:45.000Z">
+<meta property="article:modified_time" content="2023-09-03T10:55:02.000Z">
+<meta property="article:author" content="Olivia的小跟班">
+<meta property="article:tag" content="八股文">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202308021723170.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <meta name="theme-color" content="#1890ff">
+    <link rel="shortcut icon" href="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/fluid.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            计算机基础八股文汇总 -
+        
+        Olivia的小跟班
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+
+    
+        <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    
+<script src="/js/libs/anime.min.js"></script>
+
+    <h1 class="ml13">
+        Olivia的小跟班
+    </h1>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+
+        anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [100,0],
+                translateZ: 0,
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: '.ml13 .letter',
+            translateY: [0,-100],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+        });
+
+        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
+        hidePreloaderAfterTimeout(5000);
+
+        function hidePreloaderAfterTimeout(delay) {
+            setTimeout(function () {
+                var preloader = document.querySelector('.preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 200);
+            }, delay);
+        }
+    </script>
+</div>
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"www.youandgentleness.cn","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":null,"skip_dirs":[]}},"colors":{"primary":"#1890ff","secondary":"#1890ff","default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/light.jpg","dark":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/darkness.jpg"},"title":"Talk is cheap,Show me the code.","subtitle":{"text":["他们以为击败我就是终结，而我必归来将之改写。"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#D27D2D","dark":"#191970"},"text_style":{"title_size":"2.1rem","subtitle_size":"1.2rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"email":"zhouxing9454@gmail.com","weixin":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/wechat.jpg","github":"https://github.com/zhouxing9454","qq":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/QQ.jpg","bilibili":"https://space.bilibili.com/475346328"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"最后的旅行","artist":"Rainton桐","url":"http://music.163.com/song/media/outer/url?id=30512539.mp3","cover":"https://p1.music.126.net/XWUdXb46hIdIecRihPCV_A==/109951168667887853.jpg"},{"name":"陪我长大","artist":"段奥娟","url":"http://music.163.com/song/media/outer/url?id=1299550093.mp3","cover":"http://p2.music.126.net/YxUbVoHngGMY8gZMjbEJkg==/109951163446151536.jpg"}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.1","navbar":{"auto_hide":false,"color":{"left":"#FAF9F6","right":"#FAF9F6","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"Friends":{"icon":"fa-solid fa-link","path":"/links/"},"Essays":{"icon":"fa-solid fa-paper-plane","path":"/essays/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","typography":{"line_height":1.6}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/7/4 9:30:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Olivia的小跟班
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/links/"
+                                        >
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/essays/"
+                                        >
+                                    <i class="fa-solid fa-paper-plane fa-fw"></i>
+                                    ESSAYS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/links/"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-solid fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/essays/"
+                        >
+                            <span>
+                                ESSAYS
+                            </span>
+                            
+                                <i class="fa-solid fa-paper-plane fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">计算机基础八股文汇总</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/avatar.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Olivia的小跟班</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-07-12 19:47:45</span>
+        <span class="mobile">2023-07-12 19:47:45</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-09-03 18:55:02</span>
+            <span class="mobile">2023-09-03 18:55:02</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%85%AB%E8%82%A1%E6%96%87/">八股文</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%85%AB%E8%82%A1%E6%96%87/">八股文</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h1><p>记录操作系统+计算机网络+MySQL+Redis的八股文，主要是小林coding网站的文章。</p>
+<h1 id="小林coding"><a href="#小林coding" class="headerlink" title="小林coding"></a>小林coding</h1><h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h3 id="Linux-内核-vs-Windows-内核"><a href="#Linux-内核-vs-Windows-内核" class="headerlink" title="Linux 内核 vs Windows 内核"></a>Linux 内核 vs Windows 内核</h3><p>什么是内核？——<strong>应用连接硬件设备的桥梁</strong></p>
+<p>内核的功能？——</p>
+<ul>
+<li>管理进程、线程，决定哪个进程、线程使用 CPU，也就是进程调度的能力；</li>
+<li>管理内存，决定内存的分配和回收，也就是内存管理的能力；</li>
+<li>管理硬件设备，为进程与硬件设备之间提供通信能力，也就是硬件通信能力；</li>
+<li>提供系统调用，如果应用程序要运行更高权限运行的服务，那么就需要有系统调用，它是用户程序与操作系统之间的接口。</li>
+</ul>
+<p>内核空间，这个内存空间只有内核程序可以访问；</p>
+<p>用户空间，这个内存空间专门给应用程序使用；</p>
+<p>内核程序执行在内核态，用户程序执行在用户态。当应用程序使用系统调用时，会产生一个中断。发生中断后， CPU 会中断当前在执行的用户程序，转而跳转到中断处理程序，也就是开始执行内核程序。内核处理完后，主动触发中断，把 CPU 执行权限交回给用户程序，回到用户态继续工作。</p>
+<p>Liunx ，windows区别：宏内核，混合内核，都有多任务，对称多处理，可执行文件一个是ELF，一个是PE。</p>
+<h3 id="什么是一致性哈希？"><a href="#什么是一致性哈希？" class="headerlink" title="什么是一致性哈希？"></a>什么是一致性哈希？</h3><p>不同的负载均衡算法适用的业务场景也不同的。</p>
+<p>轮询这类的策略只能适用与每个节点的数据都是相同的场景，访问任意节点都能请求到数据。但是不适用分布式系统，因为分布式系统意味着数据水平切分到了不同的节点上，访问数据的时候，一定要寻址存储该数据的节点。</p>
+<p>哈希算法虽然能建立数据和节点的映射关系，但是每次在节点数量发生变化的时候，最坏情况下所有数据都需要迁移，这样太麻烦了，所以不适用节点数量变化的场景。</p>
+<p>为了减少迁移的数据量，就出现了一致性哈希算法。</p>
+<p>一致性哈希是指将「存储节点」和「数据」都映射到一个首尾相连的哈希环上，如果增加或者移除一个节点，仅影响该节点在哈希环上顺时针相邻的后继节点，其它数据也不会受到影响。</p>
+<p>但是一致性哈希算法不能够均匀的分布节点，会出现大量请求都集中在一个节点的情况，在这种情况下进行容灾与扩容时，容易出现雪崩的连锁反应。</p>
+<p>为了解决一致性哈希算法不能够均匀的分布节点的问题，就需要引入虚拟节点，对一个真实节点做多个副本。不再将真实节点映射到哈希环上，而是将虚拟节点映射到哈希环上，并将虚拟节点映射到实际节点，所以这里有「两层」映射关系。</p>
+<p>引入虚拟节点后，可以会提高节点的均衡度，还会提高系统的稳定性。所以，带虚拟节点的一致性哈希方法不仅适合硬件配置不同的节点的场景，而且适合节点规模会发生变化的场景。</p>
+<h3 id="怎么避免死锁"><a href="#怎么避免死锁" class="headerlink" title="怎么避免死锁?"></a>怎么避免死锁?</h3><p>简单来说，死锁问题的产生是由两个或者以上线程并行执行的时候，争夺资源而互相等待造成的。</p>
+<p>死锁只有同时满足互斥、持有并等待、不可剥夺、环路等待这四个条件的时候才会发生。</p>
+<p>所以要避免死锁问题，就是要破坏其中一个条件即可，最常用的方法就是使用资源有序分配法来破坏环路等待条件。</p>
+<h3 id="什么是悲观锁、乐观锁？"><a href="#什么是悲观锁、乐观锁？" class="headerlink" title="什么是悲观锁、乐观锁？"></a>什么是悲观锁、乐观锁？</h3><p>开发过程中，最常见的就是互斥锁的了，互斥锁加锁失败时，会用「线程切换」来应对，当加锁失败的线程再次加锁成功后的这一过程，会有两次线程上下文切换的成本，性能损耗比较大。</p>
+<p>如果我们明确知道被锁住的代码的执行时间很短，那我们应该选择开销比较小的自旋锁，因为自旋锁加锁失败时，并不会主动产生线程切换，而是一直忙等待，直到获取到锁，那么如果被锁住的代码执行时间很短，那这个忙等待的时间相对应也很短。</p>
+<p>如果能区分读操作和写操作的场景，那读写锁就更合适了，它允许多个读线程可以同时持有读锁，提高了读的并发性。根据偏袒读方还是写方，可以分为读优先锁和写优先锁，读优先锁并发性很强，但是写线程会被饿死，而写优先锁会优先服务写线程，读线程也可能会被饿死，那为了避免饥饿的问题，于是就有了公平读写锁，它是用队列把请求锁的线程排队，并保证先入先出的原则来对线程加锁，这样便保证了某种线程不会被饿死，通用性也更好点。</p>
+<p>互斥锁和自旋锁都是最基本的锁，读写锁可以根据场景来选择这两种锁其中的一个进行实现。</p>
+<p>另外，互斥锁、自旋锁、读写锁都属于悲观锁，悲观锁认为并发访问共享资源时，冲突概率可能非常高，所以在访问共享资源前，都需要先加锁。</p>
+<p>相反的，如果并发访问共享资源时，冲突概率非常低的话，就可以使用乐观锁，它的工作方式是，在访问共享资源时，不用先加锁，修改完共享资源后，再验证这段时间内有没有发生冲突，如果没有其他线程在修改资源，那么操作完成，如果发现有其他线程已经修改过这个资源，就放弃本次操作。</p>
+<p>但是，一旦冲突概率上升，就不适合使用乐观锁了，因为它解决冲突的重试成本非常高。</p>
+<p>不管使用的哪种锁，我们的加锁的代码范围应该尽可能的小，也就是加锁的粒度要小，这样执行速度会比较快。再来，使用上了合适的锁，就会快上加快了。</p>
+<h3 id="一个进程最多可以创建多少个线程？"><a href="#一个进程最多可以创建多少个线程？" class="headerlink" title="一个进程最多可以创建多少个线程？"></a>一个进程最多可以创建多少个线程？</h3><ul>
+<li>32 位系统，用户态的虚拟空间只有 3G，如果创建线程时分配的栈空间是 10M，那么一个进程最多只能创建 300 个左右的线程。</li>
+<li>64 位系统，用户态的虚拟空间大到有 128T，理论上不会受虚拟内存大小的限制，而会受系统的参数或性能限制。</li>
+</ul>
+<h3 id="线程崩溃了，进程也会崩溃吗"><a href="#线程崩溃了，进程也会崩溃吗" class="headerlink" title="线程崩溃了，进程也会崩溃吗?"></a>线程崩溃了，进程也会崩溃吗?</h3><p>正常情况下，操作系统为了保证系统安全，所以针对非法内存访问会发送一个 SIGSEGV 信号，而操作系统一般会调用默认的信号处理函数（一般会让相关的进程崩溃）。</p>
+<p>但如果进程觉得”罪不致死”，那么它也可以选择自定义一个信号处理函数，这样的话它就可以做一些自定义的逻辑，比如记录 crash 信息等有意义的事。</p>
+<p>回过头来看为什么虚拟机会针对 StackoverflowError 和 NullPointerException 做额外处理让线程恢复呢，针对 stackoverflow 其实它采用了一种栈回溯的方法保证线程可以一直执行下去，而捕获空指针错误主要是这个错误实在太普遍了。</p>
+<p>为了这一个很常见的错误而让 JVM 崩溃那线上的 JVM 要宕机多少次，所以出于工程健壮性的考虑，与其直接让 JVM 崩溃倒不如让线程起死回生，并且将这两个错误&#x2F;异常抛给用户来处理。</p>
+<h3 id="什么是软中断"><a href="#什么是软中断" class="headerlink" title="什么是软中断?"></a>什么是软中断?</h3><p>为了避免由于中断处理程序执行时间过长，而影响正常进程的调度，Linux 将中断处理程序分为上半部和下半部：</p>
+<ul>
+<li>上半部，对应硬中断，由硬件触发中断，用来快速处理中断；</li>
+<li>下半部，对应软中断，由内核触发中断，用来异步处理上半部未完成的工作；</li>
+</ul>
+<p>Linux 中的软中断包括网络收发、定时、调度、RCU 锁等各种类型，可以通过查看 &#x2F;proc&#x2F;softirqs 来观察软中断的累计中断次数情况，如果要实时查看中断次数的变化率，可以使用 watch -d cat &#x2F;proc&#x2F;softirqs 命令。</p>
+<p>每一个 CPU 都有各自的软中断内核线程，我们还可以用 ps 命令来查看内核线程，一般名字在中括号里面到，都认为是内核线程。</p>
+<p>如果在 top 命令发现，CPU 在软中断上的使用率比较高，而且 CPU 使用率最高的进程也是软中断 ksoftirqd 的时候，这种一般可以认为系统的开销被软中断占据了。</p>
+<p>这时我们就可以分析是哪种软中断类型导致的，一般来说都是因为网络接收软中断导致的，如果是的话，可以用 sar 命令查看是哪个网卡的有大量的网络包接收，再用 tcpdump 抓网络包，做进一步分析该网络包的源头是不是非法地址，如果是就需要考虑防火墙增加规则，如果不是，则考虑硬件升级等。</p>
+<h3 id="为什么0-1-0-2不等于0-3？"><a href="#为什么0-1-0-2不等于0-3？" class="headerlink" title="为什么0.1+0.2不等于0.3？"></a>为什么0.1+0.2不等于0.3？</h3><blockquote>
+<p>为什么负数要用补码表示？</p>
+</blockquote>
+<p>负数之所以用补码的方式来表示，主要是为了统一和正数的加减法操作一样，毕竟数字的加减法是很常用的一个操作，就不要搞特殊化，尽量以统一的方式来运算。</p>
+<blockquote>
+<p>十进制小数怎么转成二进制？</p>
+</blockquote>
+<p>十进制整数转二进制使用的是「除 2 取余法」，十进制小数使用的是「乘 2 取整法」。</p>
+<blockquote>
+<p>计算机是怎么存小数的？</p>
+</blockquote>
+<p>计算机是以浮点数的形式存储小数的，大多数计算机都是 IEEE 754 标准定义的浮点数格式，包含三个部分：</p>
+<ul>
+<li>符号位：表示数字是正数还是负数，为 0 表示正数，为 1 表示负数；</li>
+<li>指数位：指定了小数点在数据中的位置，指数可以是负数，也可以是正数，指数位的长度越长则数值的表达范围就越大；</li>
+<li>尾数位：小数点右侧的数字，也就是小数部分，比如二进制 1.0011 x 2^(-2)，尾数部分就是 0011，而且尾数的长度决定了这个数的精度，因此如果要表示精度更高的小数，则就要提高尾数位的长度；</li>
+</ul>
+<p>用 32 位来表示的浮点数，则称为单精度浮点数，也就是我们编程语言中的 float 变量，而用 64 位来表示的浮点数，称为双精度浮点数，也就是 double 变量。</p>
+<blockquote>
+<p>0.1 + 0.2 &#x3D;&#x3D; 0.3 吗？</p>
+</blockquote>
+<p>不是的，0.1 和 0.2 这两个数字用二进制表达会是一个一直循环的二进制数，比如 0.1 的二进制表示为 0.0 0011 0011 0011… （0011 无限循环)，对于计算机而言，0.1 无法精确表达，这是浮点数计算造成精度损失的根源。</p>
+<p>因此，IEEE 754 标准定义的浮点数只能根据精度舍入，然后用「近似值」来表示该二进制，那么意味着计算机存放的小数可能不是一个真实值。</p>
+<p>0.1 + 0.2 并不等于完整的 0.3，这主要是因为这两个小数无法用「完整」的二进制来表示，只能根据精度舍入，所以计算机里只能采用近似数的方式来保存，那两个近似数相加，得到的必然也是一个近似数。</p>
+<h3 id="进程调度-页面置换-磁盘调度算法"><a href="#进程调度-页面置换-磁盘调度算法" class="headerlink" title="进程调度&#x2F;页面置换&#x2F;磁盘调度算法"></a>进程调度&#x2F;页面置换&#x2F;磁盘调度算法</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202308021723170.png"
+                      alt="本文提纲"
+                ></p>
+<h3 id="进程、线程基础知识"><a href="#进程、线程基础知识" class="headerlink" title="进程、线程基础知识"></a>进程、线程基础知识</h3><p>进程</p>
+<ul>
+<li>进程的状态</li>
+<li>进程的控制结构</li>
+<li>进程的控制</li>
+<li>进程的上下文切换</li>
+</ul>
+<p>线程</p>
+<ul>
+<li>为什么使用线程</li>
+<li>什么是线程</li>
+<li>线程与进程的比较</li>
+<li>线程的上下文切换</li>
+<li>线程的实现</li>
+</ul>
+<p>调度</p>
+<ul>
+<li>调度时机</li>
+<li>调度原则</li>
+<li>调度算法</li>
+</ul>
+<h3 id="进程间有哪些通信方式？"><a href="#进程间有哪些通信方式？" class="headerlink" title="进程间有哪些通信方式？"></a>进程间有哪些通信方式？</h3><p>由于每个进程的用户空间都是独立的，不能相互访问，这时就需要借助内核空间来实现进程间通信，原因很简单，每个进程都是共享一个内核空间。</p>
+<p>Linux 内核提供了不少进程间通信的方式，其中最简单的方式就是管道，管道分为「匿名管道」和「命名管道」。</p>
+<p><strong>匿名管道</strong>顾名思义，它没有名字标识，匿名管道是特殊文件只存在于内存，没有存在于文件系统中，shell 命令中的「<code>|</code>」竖线就是匿名管道，通信的数据是<strong>无格式的流并且大小受限</strong>，通信的方式是<strong>单向</strong>的，数据只能在一个方向上流动，如果要双向通信，需要创建两个管道，再来<strong>匿名管道是只能用于存在父子关系的进程间通信</strong>，匿名管道的生命周期随着进程创建而建立，随着进程终止而消失。</p>
+<p><strong>命名管道</strong>突破了匿名管道只能在亲缘关系进程间的通信限制，因为使用命名管道的前提，需要在文件系统创建一个类型为 p 的设备文件，那么毫无关系的进程就可以通过这个设备文件进行通信。另外，不管是匿名管道还是命名管道，进程写入的数据都是<strong>缓存在内核</strong>中，另一个进程读取数据时候自然也是从内核中获取，同时通信数据都遵循<strong>先进先出</strong>原则，不支持 lseek 之类的文件定位操作。</p>
+<p><strong>消息队列</strong>克服了管道通信的数据是无格式的字节流的问题，消息队列实际上是保存在内核的「消息链表」，消息队列的消息体是可以用户自定义的数据类型，发送数据时，会被分成一个一个独立的消息体，当然接收数据时，也要与发送方发送的消息体的数据类型保持一致，这样才能保证读取的数据是正确的。消息队列通信的速度不是最及时的，毕竟<strong>每次数据的写入和读取都需要经过用户态与内核态之间的拷贝过程。</strong></p>
+<p><strong>共享内存</strong>可以解决消息队列通信中用户态与内核态之间数据拷贝过程带来的开销，<strong>它直接分配一个共享空间，每个进程都可以直接访问</strong>，就像访问进程自己的空间一样快捷方便，不需要陷入内核态或者系统调用，大大提高了通信的速度，享有<strong>最快</strong>的进程间通信方式之名。但是便捷高效的共享内存通信，<strong>带来新的问题，多进程竞争同个共享资源会造成数据的错乱。</strong></p>
+<p>那么，就需要<strong>信号量</strong>来保护共享资源，以确保任何时刻只能有一个进程访问共享资源，这种方式就是互斥访问。<strong>信号量不仅可以实现访问的互斥性，还可以实现进程间的同步</strong>，信号量其实是一个计数器，表示的是资源个数，其值可以通过两个原子操作来控制，分别是 <strong>P 操作和 V 操作</strong>。</p>
+<p>与信号量名字很相似的叫<strong>信号</strong>，它俩名字虽然相似，但功能一点儿都不一样。信号是<strong>异步通信机制</strong>，信号可以在应用进程和内核之间直接交互，内核也可以利用信号来通知用户空间的进程发生了哪些系统事件，信号事件的来源主要有硬件来源（如键盘 Cltr+C ）和软件来源（如 kill 命令），一旦有信号发生，<strong>进程有三种方式响应信号 1. 执行默认操作、2. 捕捉信号、3. 忽略信号</strong>。有两个信号是应用进程无法捕捉和忽略的，即 <code>SIGKILL</code> 和 <code>SIGSTOP</code>，这是为了方便我们能在任何时候结束或停止某个进程。</p>
+<p>前面说到的通信机制，都是工作于同一台主机，如果<strong>要与不同主机的进程间通信，那么就需要 Socket 通信了</strong>。Socket 实际上不仅用于不同的主机进程间通信，还可以用于本地主机进程间通信，可根据创建 Socket 的类型不同，分为三种常见的通信方式，一个是基于 TCP 协议的通信方式，一个是基于 UDP 协议的通信方式，一个是本地进程间通信方式。</p>
+<p>以上，就是进程间通信的主要机制了。你可能会问了，那线程通信间的方式呢？</p>
+<p>同个进程下的线程之间都是共享进程的资源，只要是共享变量都可以做到线程间通信，比如全局变量，所以对于线程间关注的不是通信方式，而是关注多线程竞争共享资源的问题，信号量也同样可以在线程间实现互斥与同步：</p>
+<ul>
+<li>互斥的方式，可保证任意时刻只有一个线程访问共享资源；</li>
+<li>同步的方式，可保证线程 A 应在线程 B 之前执行；</li>
+</ul>
+<h3 id="多线程冲突了怎么办？"><a href="#多线程冲突了怎么办？" class="headerlink" title="多线程冲突了怎么办？"></a>多线程冲突了怎么办？</h3><ul>
+<li>竞争与协作<ul>
+<li>互斥的概念</li>
+<li>同步的概念</li>
+</ul>
+</li>
+<li>互斥与同步的实现和使用<ul>
+<li>锁</li>
+<li>信号量</li>
+<li>生产者-消费者问题</li>
+</ul>
+</li>
+<li>经典同步问题<ul>
+<li>哲学家就餐问题</li>
+<li>读者-写者问题</li>
+</ul>
+</li>
+</ul>
+<h3 id="键盘敲入-A-字母时，操作系统期间发生了什么"><a href="#键盘敲入-A-字母时，操作系统期间发生了什么" class="headerlink" title="键盘敲入 A 字母时，操作系统期间发生了什么"></a>键盘敲入 A 字母时，操作系统期间发生了什么</h3><p>那当用户输入了键盘字符，<strong>键盘控制器</strong>就会产生扫描码数据，并将其缓冲在键盘控制器的寄存器中，紧接着键盘控制器通过总线给 CPU 发送<strong>中断请求</strong>。</p>
+<p>CPU 收到中断请求后，操作系统会<strong>保存被中断进程的 CPU 上下文</strong>，然后调用键盘的<strong>中断处理程序</strong>。</p>
+<p>键盘的中断处理程序是在<strong>键盘驱动程序</strong>初始化时注册的，那键盘<strong>中断处理函数</strong>的功能就是从键盘控制器的寄存器的缓冲区读取扫描码，再根据扫描码找到用户在键盘输入的字符，如果输入的字符是显示字符，那就会把扫描码翻译成对应显示字符的 ASCII 码，比如用户在键盘输入的是字母 A，是显示字符，于是就会把扫描码翻译成 A 字符的 ASCII 码。</p>
+<p>得到了显示字符的 ASCII 码后，就会把 ASCII 码放到「读缓冲区队列」，接下来就是要把显示字符显示屏幕了，显示设备的驱动程序会定时从「读缓冲区队列」读取数据放到「写缓冲区队列」，最后把「写缓冲区队列」的数据一个一个写入到显示设备的控制器的寄存器中的数据缓冲区，最后将这些数据显示在屏幕里。</p>
+<p>显示出结果后，<strong>恢复被中断进程的上下文</strong>。</p>
+<h3 id="文件系统全家桶"><a href="#文件系统全家桶" class="headerlink" title="文件系统全家桶"></a>文件系统全家桶</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202308070250150.png"
+                      alt="img"
+                ></p>
+<h3 id="如何避免预读失效和缓存污染的问题？"><a href="#如何避免预读失效和缓存污染的问题？" class="headerlink" title="如何避免预读失效和缓存污染的问题？"></a>如何避免预读失效和缓存污染的问题？</h3><p>传统的 LRU 算法法无法避免下面这两个问题：</p>
+<ul>
+<li>预读失效导致缓存命中率下降；</li>
+<li>缓存污染导致缓存命中率下降；</li>
+</ul>
+<p>为了避免「预读失效」造成的影响，Linux 和 MySQL 对传统的 LRU 链表做了改进：</p>
+<ul>
+<li>Linux 操作系统实现两个了 LRU 链表：<strong>活跃 LRU 链表（active list）和非活跃 LRU 链表（inactive list）</strong>。</li>
+<li>MySQL Innodb 存储引擎是在一个 LRU 链表上划分来 2 个区域：<strong>young 区域 和 old 区域</strong>。</li>
+</ul>
+<p>但是如果还是使用「只要数据被访问一次，就将数据加入到活跃 LRU 链表头部（或者 young 区域）」这种方式的话，那么<strong>还存在缓存污染的问题</strong>。</p>
+<p>为了避免「缓存污染」造成的影响，Linux 操作系统和 MySQL Innodb 存储引擎分别提高了升级为热点数据的门槛：</p>
+<ul>
+<li><p>Linux 操作系统：在内存页被访问<strong>第二次</strong>的时候，才将页从 inactive list 升级到 active list 里。</p>
+</li>
+<li><p>MySQL Innodb：在内存页被访问</p>
+<p>第二次</p>
+<p>的时候，并不会马上将该页从 old 区域升级到 young 区域，因为还要进行</p>
+<p>停留在 old 区域的时间判断</p>
+<p>：</p>
+<ul>
+<li>如果第二次的访问时间与第一次访问的时间<strong>在 1 秒内</strong>（默认值），那么该页就<strong>不会</strong>被从 old 区域升级到 young 区域；</li>
+<li>如果第二次的访问时间与第一次访问的时间<strong>超过 1 秒</strong>，那么该页就<strong>会</strong>从 old 区域升级到 young 区域；</li>
+</ul>
+</li>
+</ul>
+<p>通过提高了进入 active list （或者 young 区域）的门槛后，就很好了避免缓存污染带来的影响。</p>
+<h3 id="在-4GB-物理内存的机器上，申请-8G-内存会怎么样？"><a href="#在-4GB-物理内存的机器上，申请-8G-内存会怎么样？" class="headerlink" title="在 4GB 物理内存的机器上，申请 8G 内存会怎么样？"></a>在 4GB 物理内存的机器上，申请 8G 内存会怎么样？</h3><ul>
+<li>在 32 位操作系统，因为进程理论上最大能申请 3 GB 大小的虚拟内存，所以直接申请 8G 内存，会申请失败。</li>
+<li>在 64位 位操作系统，因为进程理论上最大能申请 128 TB 大小的虚拟内存，即使物理内存只有 4GB，申请 8G 内存也是没问题，因为申请的内存是虚拟内存。如果这块虚拟内存被访问了，要看系统有没有 Swap 分区：<ul>
+<li>如果没有 Swap 分区，因为物理空间不够，进程会被操作系统杀掉，原因是 OOM（内存溢出）；</li>
+<li>如果有 Swap 分区，即使物理内存只有 4GB，程序也能正常使用 8GB 的内存，进程可以正常运行；</li>
+</ul>
+</li>
+</ul>
+<h3 id="malloc-是如何分配内存的？"><a href="#malloc-是如何分配内存的？" class="headerlink" title="malloc 是如何分配内存的？"></a>malloc 是如何分配内存的？</h3><ul>
+<li>malloc 是如何分配内存的？</li>
+<li>malloc 分配的是物理内存吗？</li>
+<li>malloc(1) 会分配多大的内存？</li>
+<li>free 释放内存，会归还给操作系统吗？</li>
+<li>free() 函数只传入一个内存地址，为什么能知道要释放多大的内存？</li>
+</ul>
+<h3 id="内存满了，会发生什么？"><a href="#内存满了，会发生什么？" class="headerlink" title="内存满了，会发生什么？"></a>内存满了，会发生什么？</h3><p>内核在给应用程序分配物理内存的时候，如果空闲物理内存不够，那么就会进行内存回收的工作，主要有两种方式：</p>
+<ul>
+<li>后台内存回收：在物理内存紧张的时候，会唤醒 kswapd 内核线程来回收内存，这个回收内存的过程异步的，不会阻塞进程的执行。</li>
+<li>直接内存回收：如果后台异步回收跟不上进程内存申请的速度，就会开始直接回收，这个回收内存的过程是同步的，会阻塞进程的执行。</li>
+</ul>
+<p>可被回收的内存类型有文件页和匿名页：</p>
+<ul>
+<li>文件页的回收：对于干净页是直接释放内存，这个操作不会影响性能，而对于脏页会先写回到磁盘再释放内存，这个操作会发生磁盘 I&#x2F;O 的，这个操作是会影响系统性能的。</li>
+<li>匿名页的回收：如果开启了 Swap 机制，那么 Swap 机制会将不常访问的匿名页换出到磁盘中，下次访问时，再从磁盘换入到内存中，这个操作是会影响系统性能的。</li>
+</ul>
+<p>文件页和匿名页的回收都是基于 LRU 算法，也就是优先回收不常访问的内存。回收内存的操作基本都会发生磁盘 I&#x2F;O 的，如果回收内存的操作很频繁，意味着磁盘 I&#x2F;O 次数会很多，这个过程势必会影响系统的性能。</p>
+<p>针对回收内存导致的性能影响，常见的解决方式。</p>
+<ul>
+<li>设置 &#x2F;proc&#x2F;sys&#x2F;vm&#x2F;swappiness，调整文件页和匿名页的回收倾向，尽量倾向于回收文件页；</li>
+<li>设置 &#x2F;proc&#x2F;sys&#x2F;vm&#x2F;min_free_kbytes，调整 kswapd 内核线程异步回收内存的时机；</li>
+<li>设置 &#x2F;proc&#x2F;sys&#x2F;vm&#x2F;zone_reclaim_mode，调整 NUMA 架构下内存回收策略，建议设置为 0，这样在回收本地内存之前，会在其他 Node 寻找空闲内存，从而避免在系统还有很多空闲内存的情况下，因本地 Node 的本地内存不足，发生频繁直接内存回收导致性能下降的问题；</li>
+</ul>
+<p>在经历完直接内存回收后，空闲的物理内存大小依然不够，那么就会触发 OOM 机制，OOM killer 就会根据每个进程的内存占用情况和 oom_score_adj 的值进行打分，得分最高的进程就会被首先杀掉。</p>
+<p>我们可以通过调整进程的 &#x2F;proc&#x2F;[pid]&#x2F;oom_score_adj 值，来降低被 OOM killer 杀掉的概率。</p>
+<h3 id="CPU-是如何执行程序的？"><a href="#CPU-是如何执行程序的？" class="headerlink" title="CPU 是如何执行程序的？"></a>CPU 是如何执行程序的？</h3><blockquote>
+<p>64 位相比 32 位 CPU 的优势在哪吗？64 位 CPU 的计算性能一定比 32 位 CPU 高很多吗？</p>
+</blockquote>
+<p>64 位相比 32 位 CPU 的优势主要体现在两个方面：</p>
+<ul>
+<li>64 位 CPU 可以一次计算超过 32 位的数字，而 32 位 CPU 如果要计算超过 32 位的数字，要分多步骤进行计算，效率就没那么高，但是大部分应用程序很少会计算那么大的数字，所以<strong>只有运算大数字的时候，64 位 CPU 的优势才能体现出来，否则和 32 位 CPU 的计算性能相差不大</strong>。</li>
+<li>通常来说 64 位 CPU 的地址总线是 48 位，而 32 位 CPU 的地址总线是 32 位，所以 64 位 CPU 可以<strong>寻址更大的物理内存空间</strong>。如果一个 32 位 CPU 的地址总线是 32 位，那么该 CPU 最大寻址能力是 4G，即使你加了 8G 大小的物理内存，也还是只能寻址到 4G 大小的地址，而如果一个 64 位 CPU 的地址总线是 48 位，那么该 CPU 最大寻址能力是 <code>2^48</code>，远超于 32 位 CPU 最大寻址能力。</li>
+</ul>
+<blockquote>
+<p>你知道软件的 32 位和 64 位之间的区别吗？再来 32 位的操作系统可以运行在 64 位的电脑上吗？64 位的操作系统可以运行在 32 位的电脑上吗？如果不行，原因是什么？</p>
+</blockquote>
+<p>64 位和 32 位软件，实际上代表指令是 64 位还是 32 位的：</p>
+<ul>
+<li>如果 32 位指令在 64 位机器上执行，需要一套兼容机制，就可以做到兼容运行了。但是<strong>如果 64 位指令在 32 位机器上执行，就比较困难了，因为 32 位的寄存器存不下 64 位的指令</strong>；</li>
+<li>操作系统其实也是一种程序，我们也会看到操作系统会分成 32 位操作系统、64 位操作系统，其代表意义就是操作系统中程序的指令是多少位，比如 64 位操作系统，指令也就是 64 位，因此不能装在 32 位机器上。</li>
+</ul>
+<p>总之，硬件的 64 位和 32 位指的是 CPU 的位宽，软件的 64 位和 32 位指的是指令的位宽。</p>
+<h3 id="磁盘比内存慢几万倍？"><a href="#磁盘比内存慢几万倍？" class="headerlink" title="磁盘比内存慢几万倍？"></a>磁盘比内存慢几万倍？</h3><p>各种存储器之间的关系，可以用我们在图书馆学习这个场景来理解。</p>
+<p>CPU 可以比喻成我们的大脑，我们当前正在思考和处理的知识的过程，就好比 CPU 中的<strong>寄存器</strong>处理数据的过程，速度极快，但是容量很小。而 CPU 中的 <strong>L1-L3 Cache</strong> 好比我们大脑中的短期记忆和长期记忆，需要小小花费点时间来调取数据并处理。</p>
+<p>我们面前的桌子就相当于<strong>内存</strong>，能放下更多的书（数据），但是找起来和看起来就要花费一些时间，相比 CPU Cache 慢不少。而图书馆的书架相当于<strong>硬盘</strong>，能放下比内存更多的数据，但找起来就更费时间了，可以说是最慢的存储器设备了。</p>
+<p>从 寄存器、CPU Cache，到内存、硬盘，这样一层层下来的存储器，访问速度越来越慢，存储容量越来越大，价格也越来越便宜，而且每个存储器只和相邻的一层存储器设备打交道，于是这样就形成了存储器的层次结构。</p>
+<p>再来回答，开头的问题：那机械硬盘、固态硬盘、内存这三个存储器，到底和 <code>CPU L1 Cache</code> 相比速度差多少倍呢？</p>
+<p>CPU L1 Cache 随机访问延时是 1 纳秒，内存则是 100 纳秒，所以 <strong>CPU L1 Cache 比内存快 <code>100</code> 倍左右</strong>。</p>
+<p>SSD 随机访问延时是 150 微秒，所以 <strong>CPU L1 Cache 比 SSD 快 <code>150000</code> 倍左右</strong>。</p>
+<p>最慢的机械硬盘随机访问延时已经高达 10 毫秒，我们来看看机械硬盘到底有多「龟速」：</p>
+<ul>
+<li><strong>SSD 比机械硬盘快 70 倍左右；</strong></li>
+<li><strong>内存比机械硬盘快 100000 倍左右；</strong></li>
+<li><strong>CPU L1 Cache 比机械硬盘快 10000000 倍左右；</strong></li>
+</ul>
+<p>我们把上述的时间比例差异放大后，就能非常直观感受到它们的性能差异了。如果 CPU 访问 L1 Cache 的缓存时间是 1 秒，那访问内存则需要大约 2 分钟，随机访问 SSD 里的数据则需要 1.7 天，访问机械硬盘那更久，长达近 4 个月。</p>
+<p>可以发现，不同的存储器之间性能差距很大，构造存储器分级很有意义，分级的目的是要构造<strong>缓存</strong>体系。</p>
+<h3 id="如何写出让-CPU-跑得更快的代码？"><a href="#如何写出让-CPU-跑得更快的代码？" class="headerlink" title="如何写出让 CPU 跑得更快的代码？"></a>如何写出让 CPU 跑得更快的代码？</h3><p>由于随着计算机技术的发展，CPU 与 内存的访问速度相差越来越多，如今差距已经高达好几百倍了，所以 CPU 内部嵌入了 CPU Cache 组件，作为内存与 CPU 之间的缓存层，CPU Cache 由于离 CPU 核心很近，所以访问速度也是非常快的，但由于所需材料成本比较高，它不像内存动辄几个 GB 大小，而是仅有几十 KB 到 MB 大小。</p>
+<p>当 CPU 访问数据的时候，先是访问 CPU Cache，如果缓存命中的话，则直接返回数据，就不用每次都从内存读取数据了。因此，缓存命中率越高，代码的性能越好。</p>
+<p>但需要注意的是，当 CPU 访问数据时，如果 CPU Cache 没有缓存该数据，则会从内存读取数据，但是并不是只读一个数据，而是一次性读取一块一块的数据存放到 CPU Cache 中，之后才会被 CPU 读取。</p>
+<p>内存地址映射到 CPU Cache 地址里的策略有很多种，其中比较简单是直接映射 Cache，它巧妙的把内存地址拆分成「索引 + 组标记 + 偏移量」的方式，使得我们可以将很大的内存地址，映射到很小的 CPU Cache 地址里。</p>
+<p>要想写出让 CPU 跑得更快的代码，就需要写出缓存命中率高的代码，CPU L1 Cache 分为数据缓存和指令缓存，因而需要分别提高它们的缓存命中率：</p>
+<ul>
+<li>对于数据缓存，我们在遍历数据的时候，应该按照内存布局的顺序操作，这是因为 CPU Cache 是根据 CPU Cache Line 批量操作数据的，所以顺序地操作连续内存数据时，性能能得到有效的提升；</li>
+<li>对于指令缓存，有规律的条件分支语句能够让 CPU 的分支预测器发挥作用，进一步提高执行的效率；</li>
+</ul>
+<p>另外，对于多核 CPU 系统，线程可能在不同 CPU 核心来回切换，这样各个核心的缓存命中率就会受到影响，于是要想提高线程的缓存命中率，可以考虑把线程绑定 CPU 到某一个 CPU 核心。</p>
+<h3 id="CPU-是如何执行任务的？"><a href="#CPU-是如何执行任务的？" class="headerlink" title="CPU 是如何执行任务的？"></a>CPU 是如何执行任务的？</h3><p>理解 CPU 是如何读写数据的前提，是要理解 CPU 的架构，CPU 内部的多个 Cache + 外部的内存和磁盘都就构成了金字塔的存储器结构，在这个金字塔中，越往下，存储器的容量就越大，但访问速度就会小。</p>
+<p>CPU 读写数据的时候，并不是按一个一个字节为单位来进行读写，而是以 CPU Cache Line 大小为单位，CPU Cache Line 大小一般是 64 个字节，也就意味着 CPU 读写数据的时候，每一次都是以 64 字节大小为一块进行操作。</p>
+<p>因此，如果我们操作的数据是数组，那么访问数组元素的时候，按内存分布的地址顺序进行访问，这样能充分利用到 Cache，程序的性能得到提升。但如果操作的数据不是数组，而是普通的变量，并在多核 CPU 的情况下，我们还需要避免 Cache Line 伪共享的问题。</p>
+<p>所谓的 Cache Line 伪共享问题就是，多个线程同时读写同一个 Cache Line 的不同变量时，而导致 CPU Cache 失效的现象。那么对于多个线程共享的热点数据，即经常会修改的数据，应该避免这些数据刚好在同一个 Cache Line 中，避免的方式一般有 Cache Line 大小字节对齐，以及字节填充等方法。</p>
+<p>系统中需要运行的多线程数一般都会大于 CPU 核心，这样就会导致线程排队等待 CPU，这可能会产生一定的延时，如果我们的任务对延时容忍度很低，则可以通过一些人为手段干预 Linux 的默认调度策略和优先级。</p>
+<h3 id="CPU-缓存一致性"><a href="#CPU-缓存一致性" class="headerlink" title="CPU 缓存一致性"></a>CPU 缓存一致性</h3><p>CPU 在读写数据的时候，都是在 CPU Cache 读写数据的，原因是 Cache 离 CPU 很近，读写性能相比内存高出很多。对于 Cache 里没有缓存 CPU 所需要读取的数据的这种情况，CPU 则会从内存读取数据，并将数据缓存到 Cache 里面，最后 CPU 再从 Cache 读取数据。</p>
+<p>而对于数据的写入，CPU 都会先写入到 Cache 里面，然后再在找个合适的时机写入到内存，那就有「写直达」和「写回」这两种策略来保证 Cache 与内存的数据一致性：</p>
+<ul>
+<li>写直达，只要有数据写入，都会直接把数据写入到内存里面，这种方式简单直观，但是性能就会受限于内存的访问速度；</li>
+<li>写回，对于已经缓存在 Cache 的数据的写入，只需要更新其数据就可以，不用写入到内存，只有在需要把缓存里面的脏数据交换出去的时候，才把数据同步到内存里，这种方式在缓存命中率高的情况，性能会更好；</li>
+</ul>
+<p>当今 CPU 都是多核的，每个核心都有各自独立的 L1&#x2F;L2 Cache，只有 L3 Cache 是多个核心之间共享的。所以，我们要确保多核缓存是一致性的，否则会出现错误的结果。</p>
+<p>要想实现缓存一致性，关键是要满足 2 点：</p>
+<ul>
+<li>第一点是写传播，也就是当某个 CPU 核心发生写入操作时，需要把该事件广播通知给其他核心；</li>
+<li>第二点是事物的串行化，这个很重要，只有保证了这个，才能保障我们的数据是真正一致的，我们的程序在各个不同的核心上运行的结果也是一致的；</li>
+</ul>
+<p>基于总线嗅探机制的 MESI 协议，就满足上面了这两点，因此它是保障缓存一致性的协议。</p>
+<p>MESI 协议，是已修改、独占、共享、已失效这四个状态的英文缩写的组合。整个 MSI 状态的变更，则是根据来自本地 CPU 核心的请求，或者来自其他 CPU 核心通过总线传输过来的请求，从而构成一个流动的状态机。另外，对于在「已修改」或者「独占」状态的 Cache Line，修改更新其数据不需要发送广播给其他 CPU 核心。</p>
+<h3 id="什么是零拷贝？"><a href="#什么是零拷贝？" class="headerlink" title="什么是零拷贝？"></a>什么是零拷贝？</h3><p>早期 I&#x2F;O 操作，内存与磁盘的数据传输的工作都是由 CPU 完成的，而此时 CPU 不能执行其他任务，会特别浪费 CPU 资源。</p>
+<p>于是，为了解决这一问题，DMA 技术就出现了，每个 I&#x2F;O 设备都有自己的 DMA 控制器，通过这个 DMA 控制器，CPU 只需要告诉 DMA 控制器，我们要传输什么数据，从哪里来，到哪里去，就可以放心离开了。后续的实际数据传输工作，都会由 DMA 控制器来完成，CPU 不需要参与数据传输的工作。</p>
+<p>传统 IO 的工作方式，从硬盘读取数据，然后再通过网卡向外发送，我们需要进行 4 上下文切换，和 4 次数据拷贝，其中 2 次数据拷贝发生在内存里的缓冲区和对应的硬件设备之间，这个是由 DMA 完成，另外 2 次则发生在内核态和用户态之间，这个数据搬移工作是由 CPU 完成的。</p>
+<p>为了提高文件传输的性能，于是就出现了零拷贝技术，它通过一次系统调用（<code>sendfile</code> 方法）合并了磁盘读取与网络发送两个操作，降低了上下文切换次数。另外，拷贝数据都是发生在内核中的，天然就降低了数据拷贝的次数。</p>
+<p>Kafka 和 Nginx 都有实现零拷贝技术，这将大大提高文件传输的性能。</p>
+<p>零拷贝技术是基于 PageCache 的，PageCache 会缓存最近访问的数据，提升了访问缓存数据的性能，同时，为了解决机械硬盘寻址慢的问题，它还协助 I&#x2F;O 调度算法实现了 IO 合并与预读，这也是顺序读比随机读性能好的原因。这些优势，进一步提升了零拷贝的性能。</p>
+<p>需要注意的是，零拷贝技术是不允许进程对文件内容作进一步的加工的，比如压缩数据再发送。</p>
+<p>另外，当传输大文件时，不能使用零拷贝，因为可能由于 PageCache 被大文件占据，而导致「热点」小文件无法利用到 PageCache，并且大文件的缓存命中率不高，这时就需要使用「异步 IO + 直接 IO 」的方式。</p>
+<p>在 Nginx 里，可以通过配置，设定一个文件大小阈值，针对大文件使用异步 IO 和直接 IO，而对小文件使用零拷贝</p>
+<h3 id="I-O-多路复用：select-poll-epoll"><a href="#I-O-多路复用：select-poll-epoll" class="headerlink" title="I&#x2F;O 多路复用：select&#x2F;poll&#x2F;epoll"></a>I&#x2F;O 多路复用：select&#x2F;poll&#x2F;epoll</h3><p>最基础的 TCP 的 Socket 编程，它是阻塞 I&#x2F;O 模型，基本上只能一对一通信，那为了服务更多的客户端，我们需要改进网络 I&#x2F;O 模型。</p>
+<p>比较传统的方式是使用多进程&#x2F;线程模型，每来一个客户端连接，就分配一个进程&#x2F;线程，然后后续的读写都在对应的进程&#x2F;线程，这种方式处理 100 个客户端没问题，但是当客户端增大到 10000 个时，10000 个进程&#x2F;线程的调度、上下文切换以及它们占用的内存，都会成为瓶颈。</p>
+<p>为了解决上面这个问题，就出现了 I&#x2F;O 的多路复用，可以只在一个进程里处理多个文件的 I&#x2F;O，Linux 下有三种提供 I&#x2F;O 多路复用的 API，分别是：select、poll、epoll。</p>
+<p>select 和 poll 并没有本质区别，它们内部都是使用「线性结构」来存储进程关注的 Socket 集合。</p>
+<p>在使用的时候，首先需要把关注的 Socket 集合通过 select&#x2F;poll 系统调用从用户态拷贝到内核态，然后由内核检测事件，当有网络事件产生时，内核需要遍历进程关注 Socket 集合，找到对应的 Socket，并设置其状态为可读&#x2F;可写，然后把整个 Socket 集合从内核态拷贝到用户态，用户态还要继续遍历整个 Socket 集合找到可读&#x2F;可写的 Socket，然后对其处理。</p>
+<p>很明显发现，select 和 poll 的缺陷在于，当客户端越多，也就是 Socket 集合越大，Socket 集合的遍历和拷贝会带来很大的开销，因此也很难应对 C10K。</p>
+<p>epoll 是解决 C10K 问题的利器，通过两个方面解决了 select&#x2F;poll 的问题。</p>
+<ul>
+<li>epoll 在内核里使用「红黑树」来关注进程所有待检测的 Socket，红黑树是个高效的数据结构，增删改一般时间复杂度是 O(logn)，通过对这棵黑红树的管理，不需要像 select&#x2F;poll 在每次操作时都传入整个 Socket 集合，减少了内核和用户空间大量的数据拷贝和内存分配。</li>
+<li>epoll 使用事件驱动的机制，内核里维护了一个「链表」来记录就绪事件，只将有事件发生的 Socket 集合传递给应用程序，不需要像 select&#x2F;poll 那样轮询扫描整个集合（包含有和无事件的 Socket ），大大提高了检测的效率。</li>
+</ul>
+<p>而且，epoll 支持边缘触发和水平触发的方式，而 select&#x2F;poll 只支持水平触发，一般而言，边缘触发的方式会比水平触发的效率高。</p>
+<h3 id="高性能网络模式：Reactor-和-Proactor"><a href="#高性能网络模式：Reactor-和-Proactor" class="headerlink" title="高性能网络模式：Reactor 和 Proactor"></a>高性能网络模式：Reactor 和 Proactor</h3><p>常见的 Reactor 实现方案有三种。</p>
+<p>第一种方案单 Reactor 单进程 &#x2F; 线程，不用考虑进程间通信以及数据同步的问题，因此实现起来比较简单，这种方案的缺陷在于无法充分利用多核 CPU，而且处理业务逻辑的时间不能太长，否则会延迟响应，所以不适用于计算机密集型的场景，适用于业务处理快速的场景，比如 Redis（6.0之前 ） 采用的是单 Reactor 单进程的方案。</p>
+<p>第二种方案单 Reactor 多线程，通过多线程的方式解决了方案一的缺陷，但它离高并发还差一点距离，差在只有一个 Reactor 对象来承担所有事件的监听和响应，而且只在主线程中运行，在面对瞬间高并发的场景时，容易成为性能的瓶颈的地方。</p>
+<p>第三种方案多 Reactor 多进程 &#x2F; 线程，通过多个 Reactor 来解决了方案二的缺陷，主 Reactor 只负责监听事件，响应事件的工作交给了从 Reactor，Netty 和 Memcache 都采用了「多 Reactor 多线程」的方案，Nginx 则采用了类似于 「多 Reactor 多进程」的方案。</p>
+<p>Reactor 可以理解为「来了事件操作系统通知应用进程，让应用进程来处理」，而 Proactor 可以理解为「来了事件操作系统来处理，处理完再通知应用进程」。</p>
+<p>因此，真正的大杀器还是 Proactor，它是采用异步 I&#x2F;O 实现的异步网络模型，感知的是已完成的读写事件，而不需要像 Reactor 感知到事件后，还需要调用 read 来从内核中获取数据。</p>
+<p>不过，无论是 Reactor，还是 Proactor，都是一种基于「事件分发」的网络编程模式，区别在于 Reactor 模式是基于「待完成」的 I&#x2F;O 事件，而 Proactor 模式则是基于「已完成」的 I&#x2F;O 事件。</p>
+<h3 id="为什么要有虚拟内存？"><a href="#为什么要有虚拟内存？" class="headerlink" title="为什么要有虚拟内存？"></a>为什么要有虚拟内存？</h3><p>为了在多进程环境下，使得进程之间的内存地址不受影响，相互隔离，于是操作系统就为每个进程独立分配一套<strong>虚拟地址空间</strong>，每个程序只关心自己的虚拟地址就可以，实际上大家的虚拟地址都是一样的，但分布到物理地址内存是不一样的。作为程序，也不用关心物理地址的事情。</p>
+<p>每个进程都有自己的虚拟空间，而物理内存只有一个，所以当启用了大量的进程，物理内存必然会很紧张，于是操作系统会通过<strong>内存交换</strong>技术，把不常使用的内存暂时存放到硬盘（换出），在需要的时候再装载回物理内存（换入）。</p>
+<p>那既然有了虚拟地址空间，那必然要把虚拟地址「映射」到物理地址，这个事情通常由操作系统来维护。</p>
+<p>那么对于虚拟地址与物理地址的映射关系，可以有<strong>分段</strong>和<strong>分页</strong>的方式，同时两者结合都是可以的。</p>
+<p>内存分段是根据程序的逻辑角度，分成了栈段、堆段、数据段、代码段等，这样可以分离出不同属性的段，同时是一块连续的空间。但是每个段的大小都不是统一的，这就会导致外部内存碎片和内存交换效率低的问题。</p>
+<p>于是，就出现了内存分页，把虚拟空间和物理空间分成大小固定的页，如在 Linux 系统中，每一页的大小为 <code>4KB</code>。由于分了页后，就不会产生细小的内存碎片，解决了内存分段的外部内存碎片问题。同时在内存交换的时候，写入硬盘也就一个页或几个页，这就大大提高了内存交换的效率。</p>
+<p>再来，为了解决简单分页产生的页表过大的问题，就有了<strong>多级页表</strong>，它解决了空间上的问题，但这就会导致 CPU 在寻址的过程中，需要有很多层表参与，加大了时间上的开销。于是根据程序的<strong>局部性原理</strong>，在 CPU 芯片中加入了 <strong>TLB</strong>，负责缓存最近常被访问的页表项，大大提高了地址的转换速度。</p>
+<p><strong>Linux 系统主要采用了分页管理，但是由于 Intel 处理器的发展史，Linux 系统无法避免分段管理</strong>。于是 Linux 就把所有段的基地址设为 <code>0</code>，也就意味着所有程序的地址空间都是线性地址空间（虚拟地址），相当于屏蔽了 CPU 逻辑地址的概念，所以段只被用于访问控制和内存保护。</p>
+<p>另外，Linux 系统中虚拟空间分布可分为<strong>用户态</strong>和<strong>内核态</strong>两部分，其中用户态的分布：代码段、全局变量、BSS、函数栈、堆内存、映射区。</p>
+<blockquote>
+<p>最后，说下虚拟内存有什么作用？</p>
+</blockquote>
+<ul>
+<li>第一，虚拟内存可以使得进程对运行内存超过物理内存大小，因为程序运行符合局部性原理，CPU 访问内存会有很明显的重复访问的倾向性，对于那些没有被经常使用到的内存，我们可以把它换出到物理内存之外，比如硬盘上的 swap 区域。</li>
+<li>第二，由于每个进程都有自己的页表，所以每个进程的虚拟内存空间就是相互独立的。进程也没有办法访问其他进程的页表，所以这些页表是私有的，这就解决了多进程之间地址冲突的问题。</li>
+<li>第三，页表里的页表项中除了物理地址之外，还有一些标记属性的比特，比如控制一个页的读写权限，标记该页是否存在等。在内存访问方面，操作系统提供了更好的安全性。</li>
+</ul>
+<h3 id="进程写文件时，进程发生了崩溃，已写入的数据会丢失吗？"><a href="#进程写文件时，进程发生了崩溃，已写入的数据会丢失吗？" class="headerlink" title="进程写文件时，进程发生了崩溃，已写入的数据会丢失吗？"></a>进程写文件时，进程发生了崩溃，已写入的数据会丢失吗？</h3><ul>
+<li><p>Page Cache</p>
+<ul>
+<li><p>Page Cache 是什么？</p>
+</li>
+<li><p>如何查看系统的 Page Cache？</p>
+</li>
+<li><p>page 与 Page Cache</p>
+</li>
+<li><p>Swap 与缺页中断</p>
+</li>
+<li><p>Page Cache 与 buffer cache</p>
+</li>
+<li><p>Page Cache 与预读</p>
+</li>
+</ul>
+</li>
+<li><p>Page Cache 与文件持久化的一致性&amp;可靠性</p>
+</li>
+<li><p>Page Cache 的优劣势</p>
+<ul>
+<li>Page Cache 的优势</li>
+<li>Page Cache 的劣势</li>
+</ul>
+</li>
+</ul>
+<h2 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h2><h3 id="既然有HTTP协议，为什么还要有RPC"><a href="#既然有HTTP协议，为什么还要有RPC" class="headerlink" title="既然有HTTP协议，为什么还要有RPC?"></a>既然有HTTP协议，为什么还要有RPC?</h3><ul>
+<li>纯裸 TCP 是能收发数据，但它是个<strong>无边界</strong>的数据流，上层需要定义<strong>消息格式</strong>用于定义<strong>消息边界</strong>。于是就有了各种协议，HTTP 和各类 RPC 协议就是在 TCP 之上定义的应用层协议。</li>
+<li><strong>RPC 本质上不算是协议，而是一种调用方式</strong>，而像 gRPC 和 Thrift 这样的具体实现，才是协议，它们是实现了 RPC 调用的协议。目的是希望程序员能像调用本地方法那样去调用远端的服务方法。同时 RPC 有很多种实现方式，<strong>不一定非得基于 TCP 协议</strong>。</li>
+<li>从发展历史来说，<strong>HTTP 主要用于 B&#x2F;S 架构，而 RPC 更多用于 C&#x2F;S 架构。但现在其实已经没分那么清了，B&#x2F;S 和 C&#x2F;S 在慢慢融合</strong>。很多软件同时支持多端，所以对外一般用 HTTP 协议，而内部集群的微服务之间则采用 RPC 协议进行通讯。</li>
+<li>RPC 其实比 HTTP 出现的要早，且比目前主流的 HTTP&#x2F;1.1 <strong>性能</strong>要更好，所以大部分公司内部都还在使用 RPC。</li>
+<li><strong>HTTP&#x2F;2.0</strong> 在 <strong>HTTP&#x2F;1.1</strong> 的基础上做了优化，性能可能比很多 RPC 协议都要好，但由于是这几年才出来的，所以也不太可能取代掉 RPC。</li>
+</ul>
+<h3 id="既然有-HTTP-协议，为什么还要有-WebSocket？"><a href="#既然有-HTTP-协议，为什么还要有-WebSocket？" class="headerlink" title="既然有 HTTP 协议，为什么还要有 WebSocket？"></a>既然有 HTTP 协议，为什么还要有 WebSocket？</h3><ul>
+<li>TCP 协议本身是<strong>全双工</strong>的，但我们最常用的 HTTP&#x2F;1.1，虽然是基于 TCP 的协议，但它是<strong>半双工</strong>的，对于大部分需要服务器主动推送数据到客户端的场景，都不太友好，因此我们需要使用支持全双工的 WebSocket 协议。</li>
+<li>在 HTTP&#x2F;1.1 里，只要客户端不问，服务端就不答。基于这样的特点，对于登录页面这样的简单场景，可以使用<strong>定时轮询或者长轮询</strong>的方式实现<strong>服务器推送</strong>(comet)的效果。</li>
+<li>对于客户端和服务端之间需要频繁交互的复杂场景，比如网页游戏，都可以考虑使用 WebSocket 协议。</li>
+<li>WebSocket 和 socket 几乎没有任何关系，只是叫法相似。</li>
+<li>正因为各个浏览器都支持 HTTP协 议，所以 WebSocket 会先利用HTTP协议加上一些特殊的 header 头进行握手升级操作，升级成功后就跟 HTTP 没有任何关系了，之后就用 WebSocket 的数据格式进行收发数据。</li>
+</ul>
+<h3 id="TCP-IP-网络模型有哪几层？"><a href="#TCP-IP-网络模型有哪几层？" class="headerlink" title="TCP&#x2F;IP 网络模型有哪几层？"></a>TCP&#x2F;IP 网络模型有哪几层？</h3><p>应用层，传输层，网络层，网络接口层。</p>
+<h3 id="TCP-Keepalive和HTTPKeep-Alive是一个东西吗"><a href="#TCP-Keepalive和HTTPKeep-Alive是一个东西吗" class="headerlink" title="TCP Keepalive和HTTPKeep-Alive是一个东西吗?"></a>TCP Keepalive和HTTPKeep-Alive是一个东西吗?</h3><p>HTTP 的 Keep-Alive 也叫 HTTP 长连接，该功能是由「应用程序」实现的，可以使得用同一个 TCP 连接来发送和接收多个 HTTP 请求&#x2F;应答，减少了 HTTP 短连接带来的多次 TCP 连接建立和释放的开销。</p>
+<p>TCP 的 Keepalive 也叫 TCP 保活机制，该功能是由「内核」实现的，当客户端和服务端长达一定时间没有进行数据交互时，内核为了确保该连接是否还有效，就会发送探测报文，来检测对方是否还在线，然后来决定是否要关闭该连接。</p>
+<h3 id="TCP-协议有什么缺陷？"><a href="#TCP-协议有什么缺陷？" class="headerlink" title="TCP 协议有什么缺陷？"></a>TCP 协议有什么缺陷？</h3><ul>
+<li>升级 TCP 的工作很困难；</li>
+<li>TCP 建立连接的延迟；</li>
+<li>TCP 存在队头阻塞问题；</li>
+<li>网络迁移需要重新建立 TCP 连接；</li>
+</ul>
+<h3 id="如何理解是-TCP-面向字节流协议？"><a href="#如何理解是-TCP-面向字节流协议？" class="headerlink" title="如何理解是 TCP 面向字节流协议？"></a>如何理解是 TCP 面向字节流协议？</h3><p>TCP 是面向字节流的协议，UDP 是面向报文的协议，是因为操作系统对 TCP 和 UDP 协议的<strong>发送方的机制不同</strong>，也就是问题原因在发送方。</p>
+<h3 id="拔掉网线后，-原本的-TCP-连接还存在吗？"><a href="#拔掉网线后，-原本的-TCP-连接还存在吗？" class="headerlink" title="拔掉网线后， 原本的 TCP 连接还存在吗？"></a>拔掉网线后， 原本的 TCP 连接还存在吗？</h3><p>客户端拔掉网线后，并不会直接影响 TCP 连接状态。所以，拔掉网线后，TCP 连接是否还会存在，关键要看拔掉网线之后，有没有进行数据传输。</p>
+<p>有数据传输的情况：</p>
+<ul>
+<li>在客户端拔掉网线后，如果服务端发送了数据报文，那么在服务端重传次数没有达到最大值之前，客户端就插回了网线，那么双方原本的 TCP 连接还是能正常存在，就好像什么事情都没有发生。</li>
+<li>在客户端拔掉网线后，如果服务端发送了数据报文，在客户端插回网线之前，服务端重传次数达到了最大值时，服务端就会断开 TCP 连接。等到客户端插回网线后，向服务端发送了数据，因为服务端已经断开了与客户端相同四元组的 TCP 连接，所以就会回 RST 报文，客户端收到后就会断开 TCP 连接。至此， 双方的 TCP 连接都断开了。</li>
+</ul>
+<p>没有数据传输的情况：</p>
+<ul>
+<li>如果双方都没有开启 TCP keepalive 机制，那么在客户端拔掉网线后，如果客户端一直不插回网线，那么客户端和服务端的 TCP 连接状态将会一直保持存在。</li>
+<li>如果双方都开启了 TCP keepalive 机制，那么在客户端拔掉网线后，如果客户端一直不插回网线，TCP keepalive 机制会探测到对方的 TCP 连接没有存活，于是就会断开 TCP 连接。而如果在 TCP 探测期间，客户端插回了网线，那么双方原本的 TCP 连接还是能正常存在。</li>
+</ul>
+<p>除了客户端拔掉网线的场景，还有客户端主机宕机和进程崩溃的两种场景。</p>
+<p>第一个场景，客户端宕机这件事跟拔掉网线是一样无法被服务端的感知的，所以如果在没有数据传输，并且没有开启 TCP keepalive 机制时，，<strong>服务端的 TCP 连接将会一直处于 ESTABLISHED 连接状态</strong>，直到服务端重启进程。</p>
+<p>所以，我们可以得知一个点。在没有使用 TCP 保活机制，且双方不传输数据的情况下，一方的 TCP 连接处在 ESTABLISHED 状态时，并不代表另一方的 TCP 连接还一定是正常的。</p>
+<p>第二个场景，客户端的进程崩溃后，客户端的内核就会向服务端发送 FIN 报文，<strong>与服务端进行四次挥手</strong>。</p>
+<p>所以，即使没有开启 TCP keepalive，且双方也没有数据交互的情况下，如果其中一方的进程发生了崩溃，这个过程操作系统是可以感知的到的，于是就会发送 FIN 报文给对方，然后与对方进行 TCP 四次挥手。</p>
+<h3 id="TCP连接，一端断电和进程崩溃有什么区别"><a href="#TCP连接，一端断电和进程崩溃有什么区别" class="headerlink" title="TCP连接，一端断电和进程崩溃有什么区别"></a>TCP连接，一端断电和进程崩溃有什么区别</h3><p>如果「<strong>客户端进程崩溃</strong>」，客户端的进程在发生崩溃的时候，内核会发送 FIN 报文，与服务端进行四次挥手。</p>
+<p>但是，「<strong>客户端主机宕机</strong>」，那么是不会发生四次挥手的，具体后续会发生什么？还要看服务端会不会发送数据？</p>
+<ul>
+<li>如果服务端会发送数据，由于客户端已经不存在，收不到数据报文的响应报文，服务端的数据报文会超时重传，当重传总间隔时长达到一定阈值（内核会根据 tcp_retries2 设置的值计算出一个阈值）后，会断开 TCP 连接；</li>
+<li>如果服务端一直不会发送数据，再看服务端有没有开启 TCP keepalive 机制？<ul>
+<li>如果有开启，服务端在一段时间没有进行数据交互时，会触发 TCP keepalive 机制，探测对方是否存在，如果探测到对方已经消亡，则会断开自身的 TCP 连接；</li>
+<li>如果没有开启，服务端的 TCP 连接会一直存在，并且一直保持在 ESTABLISHED 状态。</li>
+</ul>
+</li>
+</ul>
+<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><h3 id="执行一条-select-语句，期间发生了什么？"><a href="#执行一条-select-语句，期间发生了什么？" class="headerlink" title="执行一条 select 语句，期间发生了什么？"></a>执行一条 select 语句，期间发生了什么？</h3><p>执行一条 SQL 查询语句，期间发生了什么？</p>
+<ul>
+<li>连接器：建立连接，管理连接、校验用户身份；</li>
+<li>查询缓存：查询语句如果命中查询缓存则直接返回，否则继续往下执行。MySQL 8.0 已删除该模块；</li>
+<li>解析 SQL，通过解析器对 SQL 查询语句进行词法分析、语法分析，然后构建语法树，方便后续模块读取表名、字段、语句类型；</li>
+<li>执行 SQL：执行 SQL 共有三个阶段：<ul>
+<li>预处理阶段：检查表或字段是否存在；将 <code>select *</code> 中的 <code>*</code> 符号扩展为表上的所有列。</li>
+<li>优化阶段：基于查询成本的考虑， 选择查询成本最小的执行计划；</li>
+<li>执行阶段：根据执行计划执行 SQL 查询语句，从存储引擎读取记录，返回给客户端；</li>
+</ul>
+</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307191502473.png"
+                      alt="查询语句执行流程"
+                ></p>
+<h3 id="count-和-count-1-有什么区别？哪个性能最好？"><a href="#count-和-count-1-有什么区别？哪个性能最好？" class="headerlink" title="count(*) 和 count(1) 有什么区别？哪个性能最好？"></a>count(*) 和 count(1) 有什么区别？哪个性能最好？</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307202008025.png"
+                      alt="图片"
+                ></p>
+<p><strong>为什么要通过遍历的方式来计数？</strong>——myisam的数据表有个row_count字段，可以直接返回count函数的结果，但innodb支持事务，同一个时刻的多个查询，由于多版本并发控制（MVCC）的原因，InnoDB 表“应该返回多少行”也是不确定的，所以无法像 MyISAM一样，只维护一个 row_count 变量。所以需要遍历。</p>
+<p><strong>如何优化 count(*)？</strong>——近似值，额外表保存计数值</p>
+<h3 id="MySQL-使用-like-“-x“，索引一定会失效吗？"><a href="#MySQL-使用-like-“-x“，索引一定会失效吗？" class="headerlink" title="MySQL 使用 like “%x“，索引一定会失效吗？"></a>MySQL 使用 like “%x“，索引一定会失效吗？</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307211600257.png"
+                      alt="图片"
+                ></p>
+<h3 id="MySQL-单表不要超过-2000W-行，靠谱吗？"><a href="#MySQL-单表不要超过-2000W-行，靠谱吗？" class="headerlink" title="MySQL 单表不要超过 2000W 行，靠谱吗？"></a>MySQL 单表不要超过 2000W 行，靠谱吗？</h3><ul>
+<li>MySQL 的表数据是以页的形式存放的，页在磁盘中不一定是连续的。</li>
+<li>页的空间是 16K, 并不是所有的空间都是用来存放数据的，会有一些固定的信息，如，页头，页尾，页码，校验码等等。</li>
+<li>在 B+ 树中，叶子节点和非叶子节点的数据结构是一样的，区别在于，叶子节点存放的是实际的行数据，而非叶子节点存放的是主键和页号。</li>
+<li>索引结构不会影响单表最大行数，2000W 也只是推荐值，超过了这个值可能会导致 B + 树层级更高，影响查询性能。</li>
+</ul>
+<h3 id="MySQL-有哪些锁？"><a href="#MySQL-有哪些锁？" class="headerlink" title="MySQL 有哪些锁？"></a>MySQL 有哪些锁？</h3><p>全局锁</p>
+<p>表级锁：</p>
+<ul>
+<li>表锁</li>
+<li>元数据锁（MDL）</li>
+<li>意向锁</li>
+<li>AUTO-INC 锁</li>
+</ul>
+<p>行级锁：</p>
+<ul>
+<li>Record Lock，记录锁，也就是仅仅把一条记录锁上</li>
+<li>Gap Lock，间隙锁，锁定一个范围，但是不包含记录本身</li>
+<li>Next-Key Lock：Record Lock + Gap Lock 的组合，锁定一个范围，并且锁定记录本身</li>
+</ul>
+<h3 id="MySQL记录锁-间隙锁可以防止删除操作而导致的幻读吗"><a href="#MySQL记录锁-间隙锁可以防止删除操作而导致的幻读吗" class="headerlink" title="MySQL记录锁+间隙锁可以防止删除操作而导致的幻读吗"></a>MySQL记录锁+间隙锁可以防止删除操作而导致的幻读吗</h3><p>在 MySQL 的可重复读隔离级别下，针对当前读的语句会对<strong>索引</strong>加记录锁+间隙锁，这样可以避免其他事务执行增、删、改时导致幻读的问题。</p>
+<p>有一点要注意的是，在执行 update、delete、select … for update 等具有加锁性质的语句，一定要检查语句是否走了索引，如果是全表扫描的话，会对每一个索引加 next-key 锁，相当于把整个表锁住了，这是挺严重的问题。</p>
+<h3 id="字节面试-加了什么锁，导致死锁的"><a href="#字节面试-加了什么锁，导致死锁的" class="headerlink" title="字节面试:加了什么锁，导致死锁的"></a>字节面试:加了什么锁，导致死锁的</h3><p>两个事务即使生成的间隙锁的范围是一样的，也不会发生冲突，因为间隙锁目的是为了防止其他事务插入数据，因此间隙锁与间隙锁之间是相互兼容的。</p>
+<p>在执行插入语句时，如果插入的记录在其他事务持有间隙锁范围内，插入语句就会被阻塞，因为插入语句在碰到间隙锁时，会生成一个插入意向锁，然后插入意向锁和间隙锁之间是互斥的关系。</p>
+<p>如果两个事务分别向对方持有的间隙锁范围内插入一条记录，而插入操作为了获取到插入意向锁，都在等待对方事务的间隙锁释放，于是就造成了循环等待，满足了死锁的四个条件：<strong>互斥、占有且等待、不可强占用、循环等待</strong>，因此发生了死锁。</p>
+<h3 id="update没加索引会锁全表"><a href="#update没加索引会锁全表" class="headerlink" title="update没加索引会锁全表"></a>update没加索引会锁全表</h3><p>不要小看一条 update 语句，在生产机上使用不当可能会导致业务停滞，甚至崩溃。</p>
+<p>当我们要执行 update 语句的时候，确保 where 条件中带上了索引列，并且在测试机确认该语句是否走的是索引扫描，防止因为扫描全表，而对表中的所有记录加上锁。</p>
+<p>我们可以打开 MySQL sql_safe_updates 参数，这样可以预防 update 操作时 where 条件没有带上索引列。</p>
+<p>如果发现即使在 where 条件中带上了列索引列，优化器走的还是全标扫描，这时我们就要使用 <code>force index([index_name])</code> 可以告诉优化器使用哪个索引。</p>
+<h3 id="MySQL-死锁了，怎么办"><a href="#MySQL-死锁了，怎么办" class="headerlink" title="MySQL 死锁了，怎么办"></a>MySQL 死锁了，怎么办</h3><p>什么是隐式锁，两个场景转显示锁。</p>
+<p>如何避免死锁。</p>
+<h3 id="为什么-MySQL-采用-B-树作为索引？"><a href="#为什么-MySQL-采用-B-树作为索引？" class="headerlink" title="为什么 MySQL 采用 B+ 树作为索引？"></a>为什么 MySQL 采用 B+ 树作为索引？</h3><p>MySQL 是会将数据持久化在硬盘，而存储功能是由 MySQL 存储引擎实现的，所以讨论 MySQL 使用哪种数据结构作为索引，实际上是在讨论存储引使用哪种数据结构作为索引，InnoDB 是 MySQL 默认的存储引擎，它就是采用了 B+ 树作为索引的数据结构。</p>
+<p>要设计一个 MySQL 的索引数据结构，不仅仅考虑数据结构增删改的时间复杂度，更重要的是要考虑磁盘 I&#x2F;0 的操作次数。因为索引和记录都是存放在硬盘，硬盘是一个非常慢的存储设备，我们在查询数据的时候，最好能在尽可能少的磁盘 I&#x2F;0 的操作次数内完成。</p>
+<p>二分查找树虽然是一个天然的二分结构，能很好的利用二分查找快速定位数据，但是它存在一种极端的情况，每当插入的元素都是树内最大的元素，就会导致二分查找树退化成一个链表，此时查询复杂度就会从 O(logn)降低为 O(n)。</p>
+<p>为了解决二分查找树退化成链表的问题，就出现了自平衡二叉树，保证了查询操作的时间复杂度就会一直维持在 O(logn) 。但是它本质上还是一个二叉树，每个节点只能有 2 个子节点，随着元素的增多，树的高度会越来越高。</p>
+<p>而树的高度决定于磁盘 I&#x2F;O 操作的次数，因为树是存储在磁盘中的，访问每个节点，都对应一次磁盘 I&#x2F;O 操作，也就是说树的高度就等于每次查询数据时磁盘 IO 操作的次数，所以树的高度越高，就会影响查询性能。</p>
+<p>B 树和 B+ 都是通过多叉树的方式，会将树的高度变矮，所以这两个数据结构非常适合检索存于磁盘中的数据。</p>
+<p>但是 MySQL 默认的存储引擎 InnoDB 采用的是 B+ 作为索引的数据结构，原因有：</p>
+<ul>
+<li>B+ 树的非叶子节点不存放实际的记录数据，仅存放索引，因此数据量相同的情况下，相比存储即存索引又存记录的 B 树，B+树的非叶子节点可以存放更多的索引，因此 B+ 树可以比 B 树更「矮胖」，查询底层节点的磁盘 I&#x2F;O次数会更少。</li>
+<li>B+ 树有大量的冗余节点（所有非叶子节点都是冗余索引），这些冗余索引让 B+ 树在插入、删除的效率都更高，比如删除根节点的时候，不会像 B 树那样会发生复杂的树的变化；</li>
+<li>B+ 树叶子节点之间用链表连接了起来，有利于范围查询，而 B 树要实现范围查询，因此只能通过树的遍历来完成范围查询，这会涉及多个节点的磁盘 I&#x2F;O 操作，范围查询效率不如 B+ 树。</li>
+</ul>
+<h3 id="索引失效有哪些？"><a href="#索引失效有哪些？" class="headerlink" title="索引失效有哪些？"></a>索引失效有哪些？</h3><p>今天给大家介绍了 6 种会发生索引失效的情况：</p>
+<ul>
+<li>当我们使用左或者左右模糊匹配的时候，也就是 <code>like %xx</code> 或者 <code>like %xx%</code>这两种方式都会造成索引失效；</li>
+<li>当我们在查询条件中对索引列使用函数，就会导致索引失效。</li>
+<li>当我们在查询条件中对索引列进行表达式计算，也是无法走索引的。</li>
+<li>MySQL 在遇到字符串和数字比较的时候，会自动把字符串转为数字，然后再进行比较。如果字符串是索引列，而条件语句中的输入参数是数字的话，那么索引列会发生隐式类型转换，由于隐式类型转换是通过 CAST 函数实现的，等同于对索引列使用了函数，所以就会导致索引失效。</li>
+<li>联合索引要能正确使用需要遵循最左匹配原则，也就是按照最左优先的方式进行索引的匹配，否则就会导致索引失效。</li>
+<li>在 WHERE 子句中，如果在 OR 前的条件列是索引列，而在 OR 后的条件列不是索引列，那么索引会失效。</li>
+</ul>
+<h3 id="索引常见面试题"><a href="#索引常见面试题" class="headerlink" title="索引常见面试题"></a>索引常见面试题</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202308041533845.png"
+                      alt="img"
+                ></p>
+<h3 id="MySQL可重复读隔离级别，完全解决幻读了吗"><a href="#MySQL可重复读隔离级别，完全解决幻读了吗" class="headerlink" title="MySQL可重复读隔离级别，完全解决幻读了吗"></a>MySQL可重复读隔离级别，完全解决幻读了吗</h3><p>MySQL InnoDB 引擎的可重复读隔离级别（默认隔离级），根据不同的查询方式，分别提出了避免幻读的方案：</p>
+<ul>
+<li>针对<strong>快照读</strong>（普通 select 语句），是通过 MVCC 方式解决了幻读。</li>
+<li>针对<strong>当前读</strong>（select … for update 等语句），是通过 next-key lock（记录锁+间隙锁）方式解决了幻读。</li>
+</ul>
+<p>我举例了两个发生幻读场景的例子。</p>
+<p>第一个例子：对于快照读， MVCC 并不能完全避免幻读现象。因为当事务 A 更新了一条事务 B 插入的记录，那么事务 A 前后两次查询的记录条目就不一样了，所以就发生幻读。</p>
+<p>第二个例子：对于当前读，如果事务开启后，并没有执行当前读，而是先快照读，然后这期间如果其他事务插入了一条记录，那么事务后续使用当前读进行查询的时候，就会发现两次查询的记录条目就不一样了，所以就发生幻读。</p>
+<p>所以，<strong>MySQL 可重复读隔离级别并没有彻底解决幻读，只是很大程度上避免了幻读现象的发生。</strong></p>
+<p>要避免这类特殊场景下发生幻读的现象的话，就是尽量在开启事务之后，马上执行 select … for update 这类当前读的语句，因为它会对记录加 next-key lock，从而避免其他事务插入一条新记录。</p>
+<h3 id="事务隔离级别是怎么实现的"><a href="#事务隔离级别是怎么实现的" class="headerlink" title="事务隔离级别是怎么实现的"></a>事务隔离级别是怎么实现的</h3><p>事务是在 MySQL 引擎层实现的，我们常见的 InnoDB 引擎是支持事务的，事务的四大特性是原子性、一致性、隔离性、持久性，我们这次主要讲的是隔离性。</p>
+<p>当多个事务并发执行的时候，会引发脏读、不可重复读、幻读这些问题，那为了避免这些问题，SQL 提出了四种隔离级别，分别是读未提交、读已提交、可重复读、串行化，从左往右隔离级别顺序递增，隔离级别越高，意味着性能越差，InnoDB 引擎的默认隔离级别是可重复读。</p>
+<p>要解决脏读现象，就要将隔离级别升级到读已提交以上的隔离级别，要解决不可重复读现象，就要将隔离级别升级到可重复读以上的隔离级别。</p>
+<p>而对于幻读现象，不建议将隔离级别升级为串行化，因为这会导致数据库并发时性能很差。MySQL InnoDB 引擎的默认隔离级别虽然是「可重复读」，但是它很大程度上避免幻读现象（并不是完全解决了，解决的方案有两种：</p>
+<ul>
+<li>针对<strong>快照读</strong>（普通 select 语句），是<strong>通过 MVCC 方式解决了幻读</strong>，因为可重复读隔离级别下，事务执行过程中看到的数据，一直跟这个事务启动时看到的数据是一致的，即使中途有其他事务插入了一条数据，是查询不出来这条数据的，所以就很好了避免幻读问题。</li>
+<li>针对<strong>当前读</strong>（select … for update 等语句），是<strong>通过 next-key lock（记录锁+间隙锁）方式解决了幻读</strong>，因为当执行 select … for update 语句的时候，会加上 next-key lock，如果有其他事务在 next-key lock 锁范围内插入了一条记录，那么这个插入语句就会被阻塞，无法成功插入，所以就很好了避免幻读问题。</li>
+</ul>
+<p>对于「读提交」和「可重复读」隔离级别的事务来说，它们是通过 Read View 来实现的，它们的区别在于创建 Read View 的时机不同：</p>
+<ul>
+<li>「读提交」隔离级别是在每个 select 都会生成一个新的 Read View，也意味着，事务期间的多次读取同一条数据，前后两次读的数据可能会出现不一致，因为可能这期间另外一个事务修改了该记录，并提交了事务。</li>
+<li>「可重复读」隔离级别是启动事务时生成一个 Read View，然后整个事务期间都在用这个 Read View，这样就保证了在事务期间读到的数据都是事务启动前的记录。</li>
+</ul>
+<p>这两个隔离级别实现是通过「事务的 Read View 里的字段」和「记录中的两个隐藏列」的比对，来控制并发事务访问同一个记录时的行为，这就叫 MVCC（多版本并发控制）。</p>
+<p>在可重复读隔离级别中，普通的 select 语句就是基于 MVCC 实现的快照读，也就是不会加锁的。而 select .. for update 语句就不是快照读了，而是当前读了，也就是每次读都是拿到最新版本的数据，但是它会对读到的记录加上 next-key lock 锁。</p>
+<h3 id="揭开Buffer-Pool的面纱"><a href="#揭开Buffer-Pool的面纱" class="headerlink" title="揭开Buffer Pool的面纱"></a>揭开Buffer Pool的面纱</h3><p>Innodb 存储引擎设计了一个<strong>缓冲池（*Buffer Pool*）</strong>，来提高数据库的读写性能。</p>
+<p>Buffer Pool 以页为单位缓冲数据，可以通过 <code>innodb_buffer_pool_size</code> 参数调整缓冲池的大小，默认是 128 M。</p>
+<p>Innodb 通过三种链表来管理缓页：</p>
+<ul>
+<li>Free List （空闲页链表），管理空闲页；</li>
+<li>Flush List （脏页链表），管理脏页；</li>
+<li>LRU List，管理脏页+干净页，将最近且经常查询的数据缓存在其中，而不常查询的数据就淘汰出去。；</li>
+</ul>
+<p>InnoDB 对 LRU 做了一些优化，我们熟悉的 LRU 算法通常是将最近查询的数据放到 LRU 链表的头部，而 InnoDB 做 2 点优化：</p>
+<ul>
+<li>将 LRU 链表 分为<strong>young 和 old 两个区域</strong>，加入缓冲池的页，优先插入 old 区域；页被访问时，才进入 young 区域，目的是为了解决预读失效的问题。</li>
+<li>当<strong>「页被访问」且「 old 区域停留时间超过 <code>innodb_old_blocks_time</code> 阈值（默认为1秒）」</strong>时，才会将页插入到 young 区域，否则还是插入到 old 区域，目的是为了解决批量数据访问，大量热数据淘汰的问题。</li>
+</ul>
+<p>可以通过调整 <code>innodb_old_blocks_pct</code> 参数，设置 young 区域和 old 区域比例。</p>
+<p>在开启了慢 SQL 监控后，如果你发现「偶尔」会出现一些用时稍长的 SQL，这可因为脏页在刷新到磁盘时导致数据库性能抖动。如果在很短的时间出现这种现象，就需要调大 Buffer Pool 空间或 redo log 日志的大小。</p>
+<h3 id="MySQL-是怎么加锁的？"><a href="#MySQL-是怎么加锁的？" class="headerlink" title="MySQL 是怎么加锁的？"></a>MySQL 是怎么加锁的？</h3><p>MySQL 行级锁的加锁规则。</p>
+<p>唯一索引等值查询：</p>
+<ul>
+<li>当查询的记录是「存在」的，在索引树上定位到这一条记录后，将该记录的索引中的 next-key lock 会<strong>退化成「记录锁」</strong>。</li>
+<li>当查询的记录是「不存在」的，在索引树找到第一条大于该查询记录的记录后，将该记录的索引中的 next-key lock 会<strong>退化成「间隙锁」</strong>。</li>
+</ul>
+<p>非唯一索引等值查询：</p>
+<ul>
+<li>当查询的记录「存在」时，由于不是唯一索引，所以肯定存在索引值相同的记录，于是非唯一索引等值查询的过程是一个扫描的过程，直到扫描到第一个不符合条件的二级索引记录就停止扫描，然后<strong>在扫描的过程中，对扫描到的二级索引记录加的是 next-key 锁，而对于第一个不符合条件的二级索引记录，该二级索引的 next-key 锁会退化成间隙锁。同时，在符合查询条件的记录的主键索引上加记录锁</strong>。</li>
+<li>当查询的记录「不存在」时，<strong>扫描到第一条不符合条件的二级索引记录，该二级索引的 next-key 锁会退化成间隙锁。因为不存在满足查询条件的记录，所以不会对主键索引加锁</strong>。</li>
+</ul>
+<p>非唯一索引和主键索引的范围查询的加锁规则不同之处在于：</p>
+<ul>
+<li>唯一索引在满足一些条件的时候，索引的 next-key lock 退化为间隙锁或者记录锁。</li>
+<li>非唯一索引范围查询，索引的 next-key lock 不会退化为间隙锁和记录锁。</li>
+</ul>
+<p>其实理解 MySQL 为什么要这样加锁，主要要以避免幻读角度去分析，这样就很容易理解这些加锁的规则了。</p>
+<p>还有一件很重要的事情，在线上在执行 update、delete、select … for update 等具有加锁性质的语句，一定要检查语句是否走了索引，<strong>如果是全表扫描的话，会对每一个索引加 next-key 锁，相当于把整个表锁住了</strong>，这是挺严重的问题。</p>
+<h3 id="MySQL一行记录是怎么存储的"><a href="#MySQL一行记录是怎么存储的" class="headerlink" title="MySQL一行记录是怎么存储的"></a>MySQL一行记录是怎么存储的</h3><blockquote>
+<p>MySQL 的 NULL 值是怎么存放的？</p>
+</blockquote>
+<p>MySQL 的 Compact 行格式中会用「NULL值列表」来标记值为 NULL 的列，NULL 值并不会存储在行格式中的真实数据部分。</p>
+<p>NULL值列表会占用 1 字节空间，当表中所有字段都定义成 NOT NULL，行格式中就不会有 NULL值列表，这样可节省 1 字节的空间。</p>
+<blockquote>
+<p>MySQL 怎么知道 varchar(n) 实际占用数据的大小？</p>
+</blockquote>
+<p>MySQL 的 Compact 行格式中会用「变长字段长度列表」存储变长字段实际占用的数据大小。</p>
+<blockquote>
+<p>varchar(n) 中 n 最大取值为多少？</p>
+</blockquote>
+<p>一行记录最大能存储 65535 字节的数据，但是这个是包含「变长字段字节数列表所占用的字节数」和「NULL值列表所占用的字节数」。所以， 我们在算 varchar(n) 中 n 最大值时，需要减去这两个列表所占用的字节数。</p>
+<p>如果一张表只有一个 varchar(n) 字段，且允许为 NULL，字符集为 ascii。varchar(n) 中 n 最大取值为 65532。</p>
+<p>计算公式：65535 - 变长字段字节数列表所占用的字节数 - NULL值列表所占用的字节数 &#x3D; 65535 - 2 - 1 &#x3D; 65532。</p>
+<p>如果有多个字段的话，要保证所有字段的长度 + 变长字段字节数列表所占用的字节数 + NULL值列表所占用的字节数 &lt;&#x3D; 65535。</p>
+<blockquote>
+<p>行溢出后，MySQL 是怎么处理的？</p>
+</blockquote>
+<p>如果一个数据页存不了一条记录，InnoDB 存储引擎会自动将溢出的数据存放到「溢出页」中。</p>
+<p>Compact 行格式针对行溢出的处理是这样的：当发生行溢出时，在记录的真实数据处只会保存该列的一部分数据，而把剩余的数据放在「溢出页」中，然后真实数据处用 20 字节存储指向溢出页的地址，从而可以找到剩余数据所在的页。</p>
+<p>Compressed 和 Dynamic 这两种格式采用完全的行溢出方式，记录的真实数据处不会存储该列的一部分数据，只存储 20 个字节的指针来指向溢出页。而实际的数据都存储在溢出页中。</p>
+<h3 id="MySQL日志：undo-log、redo-log、binlog-有什么用？"><a href="#MySQL日志：undo-log、redo-log、binlog-有什么用？" class="headerlink" title="MySQL日志：undo log、redo log、binlog 有什么用？"></a>MySQL日志：undo log、redo log、binlog 有什么用？</h3><p>具体更新一条记录 <code>UPDATE t_user SET name = &#39;xiaolin&#39; WHERE id = 1;</code> 的流程如下:</p>
+<ol>
+<li>执行器负责具体执行，会调用存储引擎的接口，通过主键索引树搜索获取 id &#x3D; 1 这一行记录：<ul>
+<li>如果 id&#x3D;1 这一行所在的数据页本来就在 buffer pool 中，就直接返回给执行器更新；</li>
+<li>如果记录不在 buffer pool，将数据页从磁盘读入到 buffer pool，返回记录给执行器。</li>
+</ul>
+</li>
+<li>执行器得到聚簇索引记录后，会看一下更新前的记录和更新后的记录是否一样：<ul>
+<li>如果一样的话就不进行后续更新流程；</li>
+<li>如果不一样的话就把更新前的记录和更新后的记录都当作参数传给 InnoDB 层，让 InnoDB 真正的执行更新记录的操作；</li>
+</ul>
+</li>
+<li>开启事务， InnoDB 层更新记录前，首先要记录相应的 undo log，因为这是更新操作，需要把被更新的列的旧值记下来，也就是要生成一条 undo log，undo log 会写入 Buffer Pool 中的 Undo 页面，不过在内存修改该 Undo 页面后，需要记录对应的 redo log。</li>
+<li>InnoDB 层开始更新记录，会先更新内存（同时标记为脏页），然后将记录写到 redo log 里面，这个时候更新就算完成了。为了减少磁盘I&#x2F;O，不会立即将脏页写入磁盘，后续由后台线程选择一个合适的时机将脏页写入到磁盘。这就是 <strong>WAL 技术</strong>，MySQL 的写操作并不是立刻写到磁盘上，而是先写 redo 日志，然后在合适的时间再将修改的行数据写到磁盘上。</li>
+<li>至此，一条记录更新完了。</li>
+<li>在一条更新语句执行完成后，然后开始记录该语句对应的 binlog，此时记录的 binlog 会被保存到 binlog cache，并没有刷新到硬盘上的 binlog 文件，在事务提交时才会统一将该事务运行过程中的所有 binlog 刷新到硬盘。</li>
+<li>事务提交（为了方便说明，这里不说组提交的过程，只说两阶段提交）：<ul>
+<li><strong>prepare 阶段</strong>：将 redo log 对应的事务状态设置为 prepare，然后将 redo log 刷新到硬盘；</li>
+<li><strong>commit 阶段</strong>：将 binlog 刷新到磁盘，接着调用引擎的提交事务接口，将 redo log 状态设置为 commit（将事务设置为 commit 状态后，刷入到磁盘 redo log 文件）；</li>
+</ul>
+</li>
+<li>至此，一条更新语句执行完成。</li>
+</ol>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><h3 id="什么是缓存雪崩、击穿、穿透？"><a href="#什么是缓存雪崩、击穿、穿透？" class="headerlink" title="什么是缓存雪崩、击穿、穿透？"></a>什么是缓存雪崩、击穿、穿透？</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307142050177.png"
+                      alt="图片"
+                ></p>
+<h3 id="数据库和缓存如何保证一致性？"><a href="#数据库和缓存如何保证一致性？" class="headerlink" title="数据库和缓存如何保证一致性？"></a>数据库和缓存如何保证一致性？</h3><p>先更新数据库，再更新缓存（×）</p>
+<p>先更新缓存，再更新数据库（×)</p>
+<p>先更新数据库，再删除缓存</p>
+<ul>
+<li>消息队列重试机制删除缓存。</li>
+<li>订阅mysql binlog，再操作缓存。</li>
+</ul>
+<p>先删除缓存，再更新数据库</p>
+<ul>
+<li>延迟双删</li>
+</ul>
+<h3 id="RDB快照是怎么实现的"><a href="#RDB快照是怎么实现的" class="headerlink" title="RDB快照是怎么实现的"></a>RDB快照是怎么实现的</h3><p>什么是RDB？——RDB 快照就是记录某一个瞬间的内存数据，记录的是实际数据，而 AOF 文件记录的是命令操作的日志，而不是实际的数据。</p>
+<p>Redis 提供了两个命令来生成 RDB 文件，分别是 <code>save</code> 和 <code>bgsave</code>，他们的区别就在于是否在「主线程」里执行：</p>
+<ul>
+<li>执行了 save 命令，就会在主线程生成 RDB 文件，由于和执行操作命令在同一个线程，所以如果写入 RDB 文件的时间太长，<strong>会阻塞主线程</strong>；</li>
+<li>执行了 bgsave 命令，会创建一个子进程来生成 RDB 文件，这样可以<strong>避免主线程的阻塞</strong>；</li>
+</ul>
+<p><strong>写时复制技术</strong>：执行 bgsave 命令的时候，会通过 <code>fork()</code> 创建子进程，此时子进程和父进程是共享同一片内存数据的，因为创建子进程的时候，会复制父进程的页表，但是页表指向的物理内存还是一个。只有在发生修改内存数据的情况时，物理内存才会被复制一份。</p>
+<p><strong>混合持久化</strong>：当开启了混合持久化时，在 AOF 重写日志时，<code>fork</code> 出来的重写子进程会先将与主线程共享的内存数据以 RDB 方式写入到 AOF 文件，然后主线程处理的操作命令会被记录在重写缓冲区里，重写缓冲区里的增量命令会以 AOF 方式写入到 AOF 文件，写入完成后通知主进程将新的含有 RDB 格式和 AOF 格式的 AOF 文件替换旧的的 AOF 文件。也就是说，使用了混合持久化，AOF 文件的<strong>前半部分是 RDB 格式的全量数据，后半部分是 AOF 格式的增量数据</strong>。</p>
+<h3 id="AOF-持久化是怎么实现的？"><a href="#AOF-持久化是怎么实现的？" class="headerlink" title="AOF 持久化是怎么实现的？"></a>AOF 持久化是怎么实现的？</h3><p>这次小林给大家介绍了 Redis 持久化技术中的 AOF 方法，这个方法是每执行一条写操作命令，就将该命令以追加的方式写入到 AOF 文件，然后在恢复时，以逐一执行命令的方式来进行数据恢复。</p>
+<p>Redis 提供了三种将 AOF 日志写回硬盘的策略，分别是 Always、Everysec 和 No，这三种策略在可靠性上是从高到低，而在性能上则是从低到高。</p>
+<p>随着执行的命令越多，AOF 文件的体积自然也会越来越大，为了避免日志文件过大， Redis 提供了 AOF 重写机制，它会直接扫描数据中所有的键值对数据，然后为每一个键值对生成一条写操作命令，接着将该命令写入到新的 AOF 文件，重写完成后，就替换掉现有的 AOF 日志。重写的过程是由后台子进程完成的，这样可以使得主进程可以继续正常处理命令。</p>
+<p>用 AOF 日志的方式来恢复数据其实是很慢的，因为 Redis 执行命令由单线程负责的，而 AOF 日志恢复数据的方式是顺序执行日志里的每一条命令，如果 AOF 日志很大，这个「重放」的过程就会很慢了。</p>
+<h3 id="Redis-大-Key-对持久化有什么影响？"><a href="#Redis-大-Key-对持久化有什么影响？" class="headerlink" title="Redis 大 Key 对持久化有什么影响？"></a>Redis 大 Key 对持久化有什么影响？</h3><p>当 AOF 写回策略配置了 Always 策略，如果写入是一个大 Key，主线程在执行 fsync() 函数的时候，阻塞的时间会比较久，因为当写入的数据量很大的时候，数据同步到硬盘这个过程是很耗时的。</p>
+<p>AOF 重写机制和 RDB 快照（bgsave 命令）的过程，都会分别通过 <code>fork()</code> 函数创建一个子进程来处理任务。会有两个阶段会导致阻塞父进程（主线程）：</p>
+<ul>
+<li>创建子进程的途中，由于要复制父进程的页表等数据结构，阻塞的时间跟页表的大小有关，页表越大，阻塞的时间也越长；</li>
+<li>创建完子进程后，如果父进程修改了共享数据中的大 Key，就会发生写时复制，这期间会拷贝物理内存，由于大 Key 占用的物理内存会很大，那么在复制物理内存这一过程，就会比较耗时，所以有可能会阻塞父进程。</li>
+</ul>
+<p>大 key 除了会影响持久化之外，还会有以下的影响。</p>
+<ul>
+<li>客户端超时阻塞。由于 Redis 执行命令是单线程处理，然后在操作大 key 时会比较耗时，那么就会阻塞 Redis，从客户端这一视角看，就是很久很久都没有响应。</li>
+<li>引发网络阻塞。每次获取大 key 产生的网络流量较大，如果一个 key 的大小是 1 MB，每秒访问量为 1000，那么每秒会产生 1000MB 的流量，这对于普通千兆网卡的服务器来说是灾难性的。</li>
+<li>阻塞工作线程。如果使用 del 删除大 key 时，会阻塞工作线程，这样就没办法处理后续的命令。</li>
+<li>内存分布不均。集群模型在 slot 分片均匀情况下，会出现数据和查询倾斜情况，部分有大 key 的 Redis 节点占用内存多，QPS 也会比较大。</li>
+</ul>
+<p>如何避免大 Key 呢？</p>
+<p>最好在设计阶段，就把大 key 拆分成一个一个小 key。或者，定时检查 Redis 是否存在大 key ，如果该大 key 是可以删除的，不要使用 DEL 命令删除，因为该命令删除过程会阻塞主线程，而是用 unlink 命令（Redis 4.0+）删除大 key，因为该命令的删除过程是异步的，不会阻塞主线程。</p>
+<h3 id="Redis-过期删除策略和内存淘汰策略有什么区别？"><a href="#Redis-过期删除策略和内存淘汰策略有什么区别？" class="headerlink" title="Redis 过期删除策略和内存淘汰策略有什么区别？"></a>Redis 过期删除策略和内存淘汰策略有什么区别？</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307271546649.png"
+                      alt="img"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307271546398.png"
+                      alt="img"
+                ></p>
+<h3 id="Redis-常见数据类型和应用场景"><a href="#Redis-常见数据类型和应用场景" class="headerlink" title="Redis 常见数据类型和应用场景"></a>Redis 常见数据类型和应用场景</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202308071943684.png"
+                      alt="img"
+                ></p>
+<h3 id="主从复制是怎么实现的？"><a href="#主从复制是怎么实现的？" class="headerlink" title="主从复制是怎么实现的？"></a>主从复制是怎么实现的？</h3><p>主从复制共有三种模式：<strong>全量复制、基于长连接的命令传播、增量复制</strong>。</p>
+<p>主从服务器第一次同步的时候，就是采用全量复制，此时主服务器会两个耗时的地方，分别是生成 RDB 文件和传输 RDB 文件。为了避免过多的从服务器和主服务器进行全量复制，可以把一部分从服务器升级为「经理角色」，让它也有自己的从服务器，通过这样可以分摊主服务器的压力。</p>
+<p>第一次同步完成后，主从服务器都会维护着一个长连接，主服务器在接收到写操作命令后，就会通过这个连接将写命令传播给从服务器，来保证主从服务器的数据一致性。</p>
+<p>如果遇到网络断开，增量复制就可以上场了，不过这个还跟 repl_backlog_size 这个大小有关系。</p>
+<p>如果它配置的过小，主从服务器网络恢复时，可能发生「从服务器」想读的数据已经被覆盖了，那么这时就会导致主服务器采用全量复制的方式。所以为了避免这种情况的频繁发生，要调大这个参数的值，以降低主从服务器断开后全量同步的概率</p>
+<h3 id="为什么要有哨兵？"><a href="#为什么要有哨兵？" class="headerlink" title="为什么要有哨兵？"></a>为什么要有哨兵？</h3><p>Redis 在 2.8 版本以后提供的<strong>哨兵（*Sentinel*）机制</strong>，它的作用是实现<strong>主从节点故障转移</strong>。它会监测主节点是否存活，如果发现主节点挂了，它就会选举一个从节点切换为主节点，并且把新主节点的相关信息通知给从节点和客户端。</p>
+<p>哨兵一般是以集群的方式部署，至少需要 3 个哨兵节点，哨兵集群主要负责三件事情：<strong>监控、选主、通知</strong>。</p>
+<p>哨兵节点通过 Redis 的发布者&#x2F;订阅者机制，哨兵之间可以相互感知，相互连接，然后组成哨兵集群，同时哨兵又通过 INFO 命令，在主节点里获得了所有从节点连接信息，于是就能和从节点建立连接，并进行监控了。</p>
+<p><em>1、第一轮投票：判断主节点下线</em></p>
+<p>当哨兵集群中的某个哨兵判定主节点下线（主观下线）后，就会向其他哨兵发起命令，其他哨兵收到这个命令后，就会根据自身和主节点的网络状况，做出赞成投票或者拒绝投票的响应。</p>
+<p>当这个哨兵的赞同票数达到哨兵配置文件中的 quorum 配置项设定的值后，这时主节点就会被该哨兵标记为「客观下线」。</p>
+<p><em>2、第二轮投票：选出哨兵leader</em></p>
+<p>某个哨兵判定主节点客观下线后，该哨兵就会发起投票，告诉其他哨兵，它想成为 leader，想成为 leader 的哨兵节点，要满足两个条件：</p>
+<ul>
+<li>第一，拿到半数以上的赞成票；</li>
+<li>第二，拿到的票数同时还需要大于等于哨兵配置文件中的 quorum 值。</li>
+</ul>
+<p><em>3、由哨兵 leader 进行主从故障转移</em></p>
+<p>选举出了哨兵 leader 后，就可以进行主从故障转移的过程了。该操作包含以下四个步骤：</p>
+<ul>
+<li>第一步：在已下线主节点（旧主节点）属下的所有「从节点」里面，挑选出一个从节点，并将其转换为主节点，选择的规则：<ul>
+<li>过滤掉已经离线的从节点；</li>
+<li>过滤掉历史网络连接状态不好的从节点；</li>
+<li>将剩下的从节点，进行三轮考察：优先级、复制进度、ID 号。在每一轮考察过程中，如果找到了一个胜出的从节点，就将其作为新主节点。</li>
+</ul>
+</li>
+<li>第二步：让已下线主节点属下的所有「从节点」修改复制目标，修改为复制「新主节点」；</li>
+<li>第三步：将新主节点的 IP 地址和信息，通过「发布者&#x2F;订阅者机制」通知给客户端；</li>
+<li>第四步：继续监视旧主节点，当这个旧主节点重新上线时，将它设置为新主节点的从节点；</li>
+</ul>
+<h1 id="阿秀的学习笔记"><a href="#阿秀的学习笔记" class="headerlink" title="阿秀的学习笔记"></a>阿秀的学习笔记</h1><h2 id="操作系统-1"><a href="#操作系统-1" class="headerlink" title="操作系统"></a>操作系统</h2><h3 id="线程与进程的比较"><a href="#线程与进程的比较" class="headerlink" title="线程与进程的比较"></a>线程与进程的比较</h3><p>1、线程启动速度快，轻量级</p>
+<p>2、线程的系统开销小</p>
+<p>3、线程使用有一定难度，需要处理数据一致性问题</p>
+<p>4、同一线程共享的有堆、全局变量、静态变量、指针，引用、文件等，而独自占有栈</p>
+<h3 id="逻辑地址VS物理地址"><a href="#逻辑地址VS物理地址" class="headerlink" title="逻辑地址VS物理地址"></a>逻辑地址VS物理地址</h3><p>Eg:编译时只需确定变量x存放的相对地址是100 ( 也就是说相对于进程在内存中的起始地址而言的地址)。CPU想要找到x在内存中的实际存放位置，只需要用进程的起始地址+100即可。 相对地址又称逻辑地址，绝对地址又称物理地址。</p>
+<h3 id="一个进程可以创建多少线程，和什么有关？"><a href="#一个进程可以创建多少线程，和什么有关？" class="headerlink" title="一个进程可以创建多少线程，和什么有关？"></a>一个进程可以创建多少线程，和什么有关？</h3><p>这个要分不同系统去看：</p>
+<ul>
+<li>如果是32 位系统，用户态的虚拟空间只有 3G，如果创建线程时分配的栈空间是 10M，那么一个进程最多只能创建 300 个左右的线程。</li>
+<li>如果是64 位系统，用户态的虚拟空间大到有 128T，理论上不会受虚拟内存大小的限制，而会受系统的参数或性能限制。</li>
+</ul>
+<p>顺便多说一句，过多的线程将会导致大量的时间浪费在线程切换上，给程序运行效率带来负面影响，无用线程要及时销毁。</p>
+<h3 id="外中断和异常有什么区别？"><a href="#外中断和异常有什么区别？" class="headerlink" title="外中断和异常有什么区别？"></a>外中断和异常有什么区别？</h3><p>外中断是指由 CPU 执行指令以外的事件引起，如 I&#x2F;O 完成中断，表示设备输入&#x2F;输出处理已经完成，处理器能够发送下一个输入&#x2F;输出请求。此外还有时钟中断、控制台中断等。</p>
+<p>而异常时由 CPU 执行指令的内部事件引起，如非法操作码、地址越界、算术溢出等。</p>
+<h2 id="计算机网络-1"><a href="#计算机网络-1" class="headerlink" title="计算机网络"></a>计算机网络</h2><h2 id="MySQL-1"><a href="#MySQL-1" class="headerlink" title="MySQL"></a>MySQL</h2><h3 id="关系型和非关系型数据库的区别你了解多少？"><a href="#关系型和非关系型数据库的区别你了解多少？" class="headerlink" title="关系型和非关系型数据库的区别你了解多少？"></a>关系型和非关系型数据库的区别你了解多少？</h3><ul>
+<li>关系型数据库的优点<ul>
+<li>容易理解。因为它采用了关系模型来组织数据。</li>
+<li>可以保持数据的一致性。</li>
+<li>数据更新的开销比较小。</li>
+<li>支持复杂查询（带where子句的查询）</li>
+</ul>
+</li>
+<li>非关系型数据库的优点<ul>
+<li>不需要经过SQL层的解析，读写效率高。</li>
+<li>基于键值对，数据的扩展性很好。</li>
+<li>可以支持多种类型数据的存储，如图片，文档等等。</li>
+</ul>
+</li>
+</ul>
+<h3 id="什么是非关系型数据库？"><a href="#什么是非关系型数据库？" class="headerlink" title="什么是非关系型数据库？"></a>什么是非关系型数据库？</h3><p>非关系型数据库也叫NOSQL，采用键值对的形式进行存储。</p>
+<p>它的读写性能很高，易于扩展，可分为内存性数据库以及文档型数据库，比如 Redis，Mongodb，HBase等等。</p>
+<p>适合使用非关系型数据库的场景：</p>
+<ul>
+<li>日志系统</li>
+<li>地理位置存储</li>
+<li>数据量巨大</li>
+<li>高可用</li>
+</ul>
+<h3 id="为什么使用索引？"><a href="#为什么使用索引？" class="headerlink" title="为什么使用索引？"></a>为什么使用索引？</h3><ul>
+<li>通过创建唯一性索引，可以保证数据库表中每一行数据的唯一性。</li>
+<li>可以大大加快数据的检索速度，这也是创建索引的最主要的原因。</li>
+<li>帮助服务器避免排序和临时表</li>
+<li>将随机IO变为顺序IO。</li>
+<li>可以加速表和表之间的连接，特别是在实现数据的参考完整性方面特别有意义。</li>
+</ul>
+<h3 id="你了解MySQL的内部构造吗？一般可以分为哪两个部分？"><a href="#你了解MySQL的内部构造吗？一般可以分为哪两个部分？" class="headerlink" title="你了解MySQL的内部构造吗？一般可以分为哪两个部分？"></a>你了解MySQL的内部构造吗？一般可以分为哪两个部分？</h3><p>可以分为服务层和存储引擎层两部分，其中：</p>
+<p><strong>服务层包括连接器、查询缓存、分析器、优化器、执行器等</strong>，涵盖MySQL的大多数核心服务功能，以及所有的内置函数（如日期、时间、数学和加密函数等），所有跨存储引擎的功能都在这一层实现，比如存储过程、触发器、视图等。</p>
+<p><strong>存储引擎层负责数据的存储和提取</strong>。其架构模式是插件式的，支持InnoDB、MyISAM、Memory等多个存储引擎。现在最常用的存储引擎是InnoDB，它从MySQL 5.5.5版本开始成为了默认的存储引擎。</p>
+<h3 id="说一说Drop、Delete与Truncate的共同点和区别"><a href="#说一说Drop、Delete与Truncate的共同点和区别" class="headerlink" title="说一说Drop、Delete与Truncate的共同点和区别"></a>说一说Drop、Delete与Truncate的共同点和区别</h3><ul>
+<li>Drop直接删掉表;</li>
+<li>Truncate删除表中数据，再插入时自增长id又从1开始 ;</li>
+<li>Delete删除表中数据，可以加where字句。</li>
+</ul>
+<h3 id="Innodb为什么要用自增id作为主键？"><a href="#Innodb为什么要用自增id作为主键？" class="headerlink" title="Innodb为什么要用自增id作为主键？"></a>Innodb为什么要用自增id作为主键？</h3><p>如果表使用自增主键，那么每次插入新的记录，记录就会顺序添加到当前索引节点的后续位置，当一页写满，就会自动开辟一个新的页。 如果使用非自增主键（如果身份证号或学号等），由于每次插入主键的值近似于随机，因此每次新纪录都要被插到现有索引页得中间某个位置， 频繁的移动、分页操作造成了大量的碎片，得到了不够紧凑的索引结构，后续不得不通过OPTIMIZE TABLE（optimize table）来重建表并优化填充页面。</p>
+<h3 id="都知道数据库索引采用B-树而不是B树，原因也有很多，主要原因是什么？"><a href="#都知道数据库索引采用B-树而不是B树，原因也有很多，主要原因是什么？" class="headerlink" title="都知道数据库索引采用B+树而不是B树，原因也有很多，主要原因是什么？"></a>都知道数据库索引采用B+树而不是B树，原因也有很多，主要原因是什么？</h3><p>主要原因：B+树只要遍历叶子节点就可以实现整棵树的遍历，而且在数据库中基于范围的查询是非常频繁的，而B树只能中序遍历所有节点，效率太低。</p>
+<h3 id="MySQL优化了解吗？说一下从哪些方面可以做到性能优化？"><a href="#MySQL优化了解吗？说一下从哪些方面可以做到性能优化？" class="headerlink" title="MySQL优化了解吗？说一下从哪些方面可以做到性能优化？"></a>MySQL优化了解吗？说一下从哪些方面可以做到性能优化？</h3><ul>
+<li>为搜索字段创建索引</li>
+<li>避免使用 Select *，列出需要查询的字段</li>
+<li>垂直分割分表</li>
+<li>选择正确的存储引擎</li>
+</ul>
+<h3 id="覆盖索引是什么？"><a href="#覆盖索引是什么？" class="headerlink" title="覆盖索引是什么？"></a>覆盖索引是什么？</h3><p>如果一个索&#x3D;引包含（或者说覆盖）所有需要查询的字段的值，我们就称 之为“覆盖索引”。</p>
+<p>我们知道在InnoDB存储引 擎中，如果不是主键索引，叶子节点存储的是主键+列值。最终还是要“回表”，也就是要通过主键再查找一次,这样就 会比较慢。覆盖索引就是把要查询出的列和索引是对应的，不做回表操作！</p>
+<h3 id="不可重复读和幻读区别是什么？可以举个例子吗？"><a href="#不可重复读和幻读区别是什么？可以举个例子吗？" class="headerlink" title="不可重复读和幻读区别是什么？可以举个例子吗？"></a>不可重复读和幻读区别是什么？可以举个例子吗？</h3><p><strong>不可重复读的重点是修改，幻读的重点在于新增或者删除。</strong></p>
+<ul>
+<li>例1（同样的条件, 你读取过的数据, 再次读取出来发现值不一样了 ）：事务1中的A先生读取自己的工资为 1000的操作还没完成，事务2中的B先生就修改了A的工资为2000，导致A再读自己的工资时工资变为 2000；这就是不可重复读。</li>
+<li>例2（同样的条件, 第1次和第2次读出来的记录数不一样 ）：假某工资单表中工资大于3000的有4人，事务1读取了所有工资大于3000的人，共查到4条记录，这时事务2 又插入了一条工资大于3000的记录，事务1再次读取时查到的记 录就变为了5条，这样就导致了幻读。</li>
+</ul>
+<h3 id="数据库并发事务会带来哪些问题？"><a href="#数据库并发事务会带来哪些问题？" class="headerlink" title="数据库并发事务会带来哪些问题？"></a>数据库并发事务会带来哪些问题？</h3><p>数据库并发会带来脏读、幻读、不可重复读这四个常见问题，其中：</p>
+<p><strong>脏读</strong>：在第一个修改事务和读取事务进行的时候，读取事务读到的数据为100，这是修改之后的数据，但是之后该事务满足一致性等特性而做了回滚操作，那么读取事务得到的结果就是脏数据了。</p>
+<p><strong>幻读</strong>：一般是T1在某个范围内进行修改操作（增加或者删除），而T2读取该范围导致读到的数据是修改之间的了，强调范围。</p>
+<p><strong>不可重复读</strong>：T2 读取一个数据，然后T1 对该数据做了修改。如果 T2 再次读取这个数据，此时读取的结果和第一次读取的结果不同。</p>
+<h3 id="数据库隔离级别"><a href="#数据库隔离级别" class="headerlink" title="数据库隔离级别"></a>数据库隔离级别</h3><ul>
+<li><strong>未提交读</strong>，事务中发生了修改，即使没有提交，其他事务也是可见的，比如对于一个数A原来50修改为100，但是我还没有提交修改，另一个事务看到这个修改，而这个时候原事务发生了回滚，这时候A还是50，但是另一个事务看到的A是100.<strong>可能会导致脏读、幻读或不可重复读</strong></li>
+<li><strong>提交读</strong>，对于一个事务从开始直到提交之前，所做的任何修改是其他事务不可见的，举例就是对于一个数A原来是50，然后提交修改成100，这个时候另一个事务在A提交修改之前，读取的A是50，刚读取完，A就被修改成100，这个时候另一个事务再进行读取发现A就突然变成100了；<strong>可以阻止脏读，但是幻读或不可重复读仍有可能发生</strong></li>
+<li><strong>重复读</strong>，就是对一个记录读取多次的记录是相同的，比如对于一个数A读取的话一直是A，前后两次读取的A是一致的；<strong>可以阻止脏读和不可重复读，但幻读仍有可能发生</strong></li>
+<li><strong>可串行化读</strong>，在并发情况下，和串行化的读取的结果是一致的，没有什么不同，比如不会发生脏读和幻读；<strong>该级别可以防止脏读、不可重复读以及幻读</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻影读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>READ-UNCOMMITTED 未提交读</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>READ-COMMITTED 提交读</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>REPEATABLE-READ 重复读</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr>
+<td>SERIALIZABLE 可串行化读</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+</tbody></table>
+<p>MySQL InnoDB 存储引擎的默认支持的隔离级别是 <strong>REPEATABLE-READ</strong>（可重读）</p>
+<p><strong>这里需要注意的是</strong>：与 SQL 标准不同的地方在于InnoDB 存储引擎在 REPEATABLE-READ（可重读）事务隔离级别 下使用的是<strong>Next-Key Lock 锁</strong>算法，因此可以避免幻读的产生，这与其他数据库系统(如 SQL Server)是不同的。所以 说InnoDB 存储引擎的默认支持的隔离级别是 REPEATABLE-READ（可重读） 已经可以完全保证事务的隔离性要 求，即达到了 SQL标准的SERIALIZABLE(可串行化)隔离级别。</p>
+<p>因为隔离级别越低，事务请求的锁越少，所以大部分数据库系统的隔离级别都是READ-COMMITTED(读取提交内 容):，但是你要知道的是InnoDB 存储引擎默认使用 <strong>REPEATABLE-READ（可重读）并不会有任何性能损失</strong>。</p>
+<p>InnoDB 存储引擎在分布式事务 的情况下一般会用到SERIALIZABLE(可串行化)隔离级别。</p>
+<h3 id="什么时候需要建立数据库索引呢？"><a href="#什么时候需要建立数据库索引呢？" class="headerlink" title="什么时候需要建立数据库索引呢？"></a>什么时候需要建立数据库索引呢？</h3><p>在最频繁使用的、用以缩小查询范围的字段,需要排序的字段上建立索引。 不宜： 1）对于查询中很少涉及的列或者重复值比较多的列 2）对于一些特殊的数据类型，不宜建立索引，比如文本字段（text）等。</p>
+<h3 id="事务四大特性（ACID）原子性、一致性、隔离性、持久性？"><a href="#事务四大特性（ACID）原子性、一致性、隔离性、持久性？" class="headerlink" title="事务四大特性（ACID）原子性、一致性、隔离性、持久性？"></a>事务四大特性（ACID）原子性、一致性、隔离性、持久性？</h3><p><strong>原子性</strong>：一个事务（transaction）中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。 。事务在执行过程中发生错误，会被恢复（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。</p>
+<p><strong>一致性</strong>：在事务开始之前和事务结束以后，数据库的完整性没有被破坏。这表示写入的资料必须完全符合所有的预设规则，这包含资料的精确度、串联性以及后续数据库可以自发性地完成预定的工作。</p>
+<p><strong>隔离性</strong>：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。</p>
+<p><strong>持久性</strong>：事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。</p>
+<h3 id="SQL中的NOW-和CURRENT-DATE-两个函数有什么区别？"><a href="#SQL中的NOW-和CURRENT-DATE-两个函数有什么区别？" class="headerlink" title="SQL中的NOW()和CURRENT_DATE()两个函数有什么区别？"></a>SQL中的NOW()和CURRENT_DATE()两个函数有什么区别？</h3><p>NOW（）命令用于显示当前年份，月份，日期，小时，分钟和秒。 CURRENT_DATE（）仅显示当前年份，月份和日期。</p>
+<h3 id="MySQL中CHAR和VARCHAR的区别有哪些？"><a href="#MySQL中CHAR和VARCHAR的区别有哪些？" class="headerlink" title="MySQL中CHAR和VARCHAR的区别有哪些？"></a>MySQL中CHAR和VARCHAR的区别有哪些？</h3><ul>
+<li>char的长度是不可变的，用空格填充到指定长度大小，而varchar的长度是可变的。</li>
+<li>char的存取数度还是要比varchar要快得多</li>
+<li>char的存储方式是：对英文字符（ASCII）占用1个字节，对一个汉字占用两个字节。varchar的存储方式是：对每个英文字符占用2个字节，汉字也占用2个字节。</li>
+</ul>
+<h3 id="既然索引有那么多优点，为什么不对表总的每一列创建一个索引呢？"><a href="#既然索引有那么多优点，为什么不对表总的每一列创建一个索引呢？" class="headerlink" title="既然索引有那么多优点，为什么不对表总的每一列创建一个索引呢？"></a>既然索引有那么多优点，为什么不对表总的每一列创建一个索引呢？</h3><ul>
+<li>当对表中的数据进行增加、删除和修改的时候，<strong>索引也要动态的维护</strong>，这样就降低了数据的维护速度。</li>
+<li><strong>索引需要占物理空间</strong>，除了数据表占数据空间之外，每一个索引还要占一定的物理空间，如果要建立簇索引，那么需要的空间就会更大。</li>
+<li><strong>创建索引和维护索引要耗费时间</strong>，这种时间随着数据量的增加而增加</li>
+</ul>
+<h3 id="索引如何提高查询速度的"><a href="#索引如何提高查询速度的" class="headerlink" title="索引如何提高查询速度的"></a>索引如何提高查询速度的</h3><p>将无序的数据变成相对有序的数据（就像查有目的一样）</p>
+<h2 id="Redis-1"><a href="#Redis-1" class="headerlink" title="Redis"></a>Redis</h2><h3 id="有MySQL不就够用了吗？为什么要用Redis这种新的数据库？"><a href="#有MySQL不就够用了吗？为什么要用Redis这种新的数据库？" class="headerlink" title="有MySQL不就够用了吗？为什么要用Redis这种新的数据库？"></a>有MySQL不就够用了吗？为什么要用Redis这种新的数据库？</h3><p>主要是因为 Redis 具备高性能和高并发两种特性。</p>
+<ul>
+<li><strong>高性能</strong>：假如用户第一次访问数据库中的某些数据。这个过程会比较慢，因为是从硬盘上读取的。将该用户访问的数据存在缓存中，这样下一次再访问这些数据的时候就可以直接从缓存中获取了。操作缓存就是直接操作内存，所以速度相当快。如果数据库中的对应数据改变的之后，同步改变缓存中相应的数据即可！</li>
+<li><strong>高并发</strong>：直接操作缓存能够承受的请求是远远大于直接访问数据库的，所以我们可以考虑把数据库中的部分数据转移到缓存中去，这样用户的一部分请求会直接到缓存这里而不用经过数据库。</li>
+</ul>
+<h3 id="C-中的Map也是一种缓存型数据结构，为什么不用Map，而选择Redis做缓存？"><a href="#C-中的Map也是一种缓存型数据结构，为什么不用Map，而选择Redis做缓存？" class="headerlink" title="C++中的Map也是一种缓存型数据结构，为什么不用Map，而选择Redis做缓存？"></a>C++中的Map也是一种缓存型数据结构，为什么不用Map，而选择Redis做缓存？</h3><p>严格意义上来说缓存分为<strong>本地缓存</strong>和<strong>分布式缓存</strong>。</p>
+<p>那以 C++ 语言为例，我们可以使用 STL 下自带的容器 map 来实现缓存，但只能实现本地缓存，它最主要的特点是轻量以及快速，但是其生命周期随着程序的销毁而结束，并且在多实例的情况下，每个实例都需要各自保存一份缓存，缓存不具有一致性。</p>
+<p>使用 Redis 或 Memcached 之类的称为分布式缓存，在多实例的情况下，各实例共享一份缓存数据，缓存具有一致性。这是Redis或者Memcached的优点所在，但它也有缺点，那就是需要保持 Redis 或 Memcached服务的高可用，整个程序架构上较为复杂。</p>
+<h3 id="使用Redis的好处有哪些？"><a href="#使用Redis的好处有哪些？" class="headerlink" title="使用Redis的好处有哪些？"></a>使用Redis的好处有哪些？</h3><p>1、访问速度快，因为数据存在内存中，类似于Java中的HashMap或者C++中的哈希表（如unordered_map&#x2F;unordered_set），这两者的优势就是查找和操作的时间复杂度都是O(1)</p>
+<p>2、数据类型丰富，支持String，list，set，sorted set，hash这五种数据结构</p>
+<p>3、支持事务，Redis中的操作都是原子性，换句话说就是对数据的更改要么全部执行，要么全部不执行，这就是原子性的定义</p>
+<p>4、特性丰富：Redis可用于缓存，消息，按key设置过期时间，过期后将会自动删除</p>
+<h3 id="Redis对于大量的请求，是怎样处理的？"><a href="#Redis对于大量的请求，是怎样处理的？" class="headerlink" title="Redis对于大量的请求，是怎样处理的？"></a>Redis对于大量的请求，是怎样处理的？</h3><p>1、Redis是一个单线程程序，也就说同一时刻它只能处理一个客户端请求； 2、Redis是通过IO多路复用（select，epoll，kqueue，依据不同的平台，采取不同的实现）来处理多个客户端请求。</p>
+<h3 id="Redis-为什么是单线程的而不采用多线程方案？"><a href="#Redis-为什么是单线程的而不采用多线程方案？" class="headerlink" title="Redis 为什么是单线程的而不采用多线程方案？"></a>Redis 为什么是单线程的而不采用多线程方案？</h3><p>这主要是基于一种客观原因来考虑的。因为Redis是基于内存的操作，CPU不是Redis的瓶颈，Redis的瓶颈最有可能是机器内存的大小或者网络带宽。既然单线程容易实现，而且CPU不会成为瓶颈，那就顺理成章地采用单线程的方案了（毕竟采用多线程会有很多麻烦！）</p>
+<h3 id="单线程的Redis为什么这么快？"><a href="#单线程的Redis为什么这么快？" class="headerlink" title="单线程的Redis为什么这么快？"></a>单线程的Redis为什么这么快？</h3><p>主要是有三个原因：1、Redis的全部操作都是纯内存的操作；2、Redis采用单线程，有效避免了频繁的上下文切换；3，采用了非阻塞I&#x2F;O多路复用机制。</p>
+<h3 id="Redis比Memcached的优势在哪里？"><a href="#Redis比Memcached的优势在哪里？" class="headerlink" title="Redis比Memcached的优势在哪里？"></a>Redis比Memcached的优势在哪里？</h3><p>1、Memcached所有的值均是简单字符串，Redis作为其替代者，支持更为丰富的数据类型</p>
+<p>2、Redis 的速度比 Memcached 快很多</p>
+<p>3、Redis可以做到持久化数据</p>
+<h3 id="缓存中常说的热点数据和冷数据是什么？"><a href="#缓存中常说的热点数据和冷数据是什么？" class="headerlink" title="缓存中常说的热点数据和冷数据是什么？"></a>缓存中常说的热点数据和冷数据是什么？</h3><p>其实就是名字上的意思，热数据就是访问次数较多的数据，冷数据就是访问很少或者从不访问的数据。</p>
+<p>需要注意的是只有热点数据，缓存才有价值 对于冷数据而言，大部分数据可能还没有再次访问到就已经被挤出内存，不仅占用内存，而且价值不大。</p>
+<p><strong>数据更新前至少读取两次</strong>，缓存才有意义。这个是最基本的策略，如果缓存还没有起作用就失效了，那就没有太大价值了。</p>
+<h3 id="Redis持久化机制可以说一说吗？"><a href="#Redis持久化机制可以说一说吗？" class="headerlink" title="Redis持久化机制可以说一说吗？"></a>Redis持久化机制可以说一说吗？</h3><p>Redis是一个支持持久化的内存数据库，通过持久化机制把内存中的数据同步到硬盘文件来保证数据持久化。当Redis重启后通过把硬盘文件重新加载到内存，就能达到恢复数据的目的。</p>
+<p>很多时候我们需要持久化数据也就是将内存中的数据写入到硬盘里面，大部分原因是为了之后重用数据（比如重启机 器、机器故障之后回复数据），或者是为了防止系统故障而将数据备份到一个远程位置。</p>
+<p>实现：单独创建fork()一个子进程，将当前父进程的数据库数据复制到子进程的内存中，然后由子进程写入到临时文件中，持久化的过程结束了，再用这个临时文件替换上次的快照文件，然后子进程退出，内存释放。</p>
+<p><strong>以下有两种持久化机制</strong></p>
+<h4 id="快照（snapshotting）持久化（RDB持久化）"><a href="#快照（snapshotting）持久化（RDB持久化）" class="headerlink" title="快照（snapshotting）持久化（RDB持久化）"></a><strong>快照（snapshotting）持久化（RDB持久化）</strong></h4><p>Redis可以通过创建快照来获得存储在内存里面的数据在某个时间点上的副本。Redis创建快照之后，可以对快照进行 备份，可以将快照复制到其他服务器从而创建具有相同数据的服务器副本（Redis主从结构，主要用来提高Redis性能），还可以将快照留在原地以便重启服务器的时候使用。</p>
+<p>快照持久化是Redis默认采用的持久化方式，在Redis.conf配置文件中默认有此下配置：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">save 900 1 #在900秒(15分钟)之后，如果至少有1个key发生变化，Redis就会自动触发BGSAVE命令</span><br><span class="line">创建快照。</span><br><span class="line"></span><br><span class="line">save 300 10 #在300秒(5分钟)之后，如果至少有10个key发生变化，Redis就会自动触发BGSAVE命令创建快照。</span><br><span class="line"></span><br><span class="line">save 60 10000 #在60秒(1分钟)之后，如果至少有10000个key发生变化，Redis就会自动触发BGSAVE命令创建快照。    </span><br></pre></td></tr></table></figure></div>
+
+<h4 id="AOF（append-only-file）持久化"><a href="#AOF（append-only-file）持久化" class="headerlink" title="AOF（append-only file）持久化"></a><strong>AOF（append-only file）持久化</strong></h4><p>与快照持久化相比，AOF<strong>持久化的实时性更好</strong>，因此已成为主流的持久化方案。默认情况下Redis没有开启 AOF（append only ﬁle）方式的持久化，可以通过appendonly参数开启：<code>appendonly yes</code></p>
+<p>开启AOF持久化后每执行一条会更改Redis中的数据的命令，Redis就会将该命令写入硬盘中的AOF文件。AOF文件的 保存位置和RDB文件的位置相同，都是通过dir参数设置的，默认的文件名是appendonly.aof。</p>
+<p>在Redis的配置文件中存在三种不同的 AOF 持久化方式，它们分别是：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">appendfsync always #每次有数据修改发生时都会写入AOF文件,这样会严重降低Redis的速度</span><br><span class="line">appendfsync everysec  #每秒钟同步一次，显示地将多个写命令同步到硬盘</span><br><span class="line">appendfsync no  #让操作系统决定何时进行同步</span><br></pre></td></tr></table></figure></div>
+
+<p>为了兼顾数据和写入性能，用户可以考虑 appendfsync everysec选项 ，让Redis每秒同步一次AOF文件，Redis性能 几乎没受到任何影响。而且这样即使出现系统崩溃，用户最多只会丢失一秒之内产生的数据。当硬盘忙于执行写入操作的时候，Redis还会优雅的放慢自己的速度以便适应硬盘的最大写入速度。</p>
+<p><strong>Redis 4.0 对于持久化机制的优化</strong></p>
+<p>Redis 4.0 开始支持 RDB 和 AOF 的混合持久化（默认关闭，可以通过配置项 aof-use-rdb-preamble 开启）。</p>
+<p>如果把混合持久化打开，AOF 重写的时候就直接把 RDB 的内容写到 AOF 文件开头。这样做的好处是可以结合 RDB 和 AOF 的优点, 快速加载同时避免丢失过多的数据。当然缺点也是有的， AOF 里面的 RDB 部分是压缩格式不再是 AOF 格式，可读性较差。</p>
+<h3 id="AOF重写了解吗？可以简单说说吗？"><a href="#AOF重写了解吗？可以简单说说吗？" class="headerlink" title="AOF重写了解吗？可以简单说说吗？"></a>AOF重写了解吗？可以简单说说吗？</h3><p>AOF重写可以产生一个新的AOF文件，这个新的AOF文件和原有的AOF文件所保存的数据库状态一样，<strong>但体积更小</strong>。</p>
+<p>AOF重写是一个有歧义的名字，该功能是通过读取数据库中的<strong>键值</strong>对来实现的，程序无须对现有AOF文件进行任伺读 入、分析或者写入操作。</p>
+<p>在执行 BGREWRITEAOF 命令时，Redis 服务器会维护一个 AOF <strong>重写缓冲区</strong>，该缓冲区会在子进程创建新AOF文件期间，记录服务器执行的所有写命令。<strong>当子进程完成创建新AOF文件的工作之后，服务器会将重写缓冲区中的所有内容 追加到新AOF文件的末尾，使得新旧两个AOF文件所保存的数据库状态一致</strong>。最后，服务器用新的AOF文件替换旧的 AOF文件，以此来完成AOF文件重写操作。</p>
+<h3 id="如何保证缓存与数据库双写时的数据一致性"><a href="#如何保证缓存与数据库双写时的数据一致性" class="headerlink" title="如何保证缓存与数据库双写时的数据一致性"></a>如何保证缓存与数据库双写时的数据一致性</h3><p>首先说一句，你只要用缓存，就可能会涉及到缓存与数据库双存储双写，你只要是双写，就一定会有数据一致性的问题，那么你如 何解决一致性问题？</p>
+<p>一般来说，就是如果你的系统不是严格要求缓存+数据库必须一致性的话，缓存可以稍微的跟数据库偶尔有不一致的 情况，最好不要做这个方案，最好将<strong>读请求和写请求串行化</strong>，串到一个内存队列里去，这样就可以保证一定不会出现不一致的情况。</p>
+<p>串行化之后，就会导致系统的吞吐量会大幅度的降低，用比正常情况下多几倍的机器去支撑线上的一个请求。</p>
+<p>最经典的缓存+数据库读写的模式，就是 <strong>预留缓存模式</strong>Cache Aside Pattern。</p>
+<ul>
+<li>读的时候，先读缓存，缓存没有的话，就读数据库，然后取出数据后放入缓存，同时返回响应。</li>
+<li>更新的时候，<strong>先删除缓存，然后再更新数据库，这样读的时候就会发现缓存中没有数据而直接去数据库中拿数据了</strong>。（因为要删除，狗日的编辑器可能会背着你做一些优化，要彻底将缓存中的数据进行删除才行）</li>
+</ul>
+<p>互联网公司非常喜欢问这道面试题因为缓存在互联网公司使用非常频繁</p>
+<p>在高并发的业务场景下，数据库的性能瓶颈往往都是用户并发访问过大。所以，一般都使用Redis做一个缓冲操作，让请求先访问到Redis，而不是直接去访问MySQL等数据库，从而减少网络请求的延迟响应。</p>
+<h3 id="假如MySQL有1000万数据，采用Redis作为中间缓存，取其中的10万，如何保证Redis中的数据都是热点数据？"><a href="#假如MySQL有1000万数据，采用Redis作为中间缓存，取其中的10万，如何保证Redis中的数据都是热点数据？" class="headerlink" title="假如MySQL有1000万数据，采用Redis作为中间缓存，取其中的10万，如何保证Redis中的数据都是热点数据？"></a>假如MySQL有1000万数据，采用Redis作为中间缓存，取其中的10万，如何保证Redis中的数据都是热点数据？</h3><p>可以使用Redis的<strong>数据淘汰策略</strong>，Redis 内存数据集大小上升到一定大小的时候，就会施行这种策略。具体说来，主要有 6种内存淘汰策略：</p>
+<ul>
+<li>voltile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰</li>
+<li>volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰</li>
+<li>volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰</li>
+<li>allkeys-lru：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰</li>
+<li>allkeys-random：从数据集（server.db[i].dict）中任意选择数据淘汰</li>
+<li>no-enviction（驱逐）：禁止驱逐数据</li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 计算机基础八股文汇总</li>
+        <li><strong>作者:</strong> Olivia的小跟班</li>
+        <li><strong>创建于
+                :</strong> 2023-07-12 19:47:45</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2023-09-03 18:55:02
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://www.youandgentleness.cn/2023/07/12/计算机基础八股文汇总/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/%E5%85%AB%E8%82%A1%E6%96%87/">#八股文</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2023/08/28/Go%E8%AF%AD%E8%A8%80%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E8%AE%B2/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Go语言面试题精讲</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2023/06/27/Kafka%D1%A7%CF%B0/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Kafka学习</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '782748daccf6cb467d2c',
+                    clientSecret: '2a18a038c753ac1ae59de258d979feb2e04ee274',
+                    repo: 'gitalk',
+                    owner: 'zhouxing9454',
+                    admin: ['zhouxing9454'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">计算机基础八股文汇总</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E6%9E%97coding"><span class="nav-text">小林coding</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-%E5%86%85%E6%A0%B8-vs-Windows-%E5%86%85%E6%A0%B8"><span class="nav-text">Linux 内核 vs Windows 内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%EF%BC%9F"><span class="nav-text">什么是一致性哈希？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81"><span class="nav-text">怎么避免死锁?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%82%B2%E8%A7%82%E9%94%81%E3%80%81%E4%B9%90%E8%A7%82%E9%94%81%EF%BC%9F"><span class="nav-text">什么是悲观锁、乐观锁？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E8%BF%9B%E7%A8%8B%E6%9C%80%E5%A4%9A%E5%8F%AF%E4%BB%A5%E5%88%9B%E5%BB%BA%E5%A4%9A%E5%B0%91%E4%B8%AA%E7%BA%BF%E7%A8%8B%EF%BC%9F"><span class="nav-text">一个进程最多可以创建多少个线程？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%B4%A9%E6%BA%83%E4%BA%86%EF%BC%8C%E8%BF%9B%E7%A8%8B%E4%B9%9F%E4%BC%9A%E5%B4%A9%E6%BA%83%E5%90%97"><span class="nav-text">线程崩溃了，进程也会崩溃吗?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%BD%AF%E4%B8%AD%E6%96%AD"><span class="nav-text">什么是软中断?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%880-1-0-2%E4%B8%8D%E7%AD%89%E4%BA%8E0-3%EF%BC%9F"><span class="nav-text">为什么0.1+0.2不等于0.3？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6-%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2-%E7%A3%81%E7%9B%98%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-text">进程调度&#x2F;页面置换&#x2F;磁盘调度算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-text">进程、线程基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E6%9C%89%E5%93%AA%E4%BA%9B%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F%EF%BC%9F"><span class="nav-text">进程间有哪些通信方式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%86%B2%E7%AA%81%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="nav-text">多线程冲突了怎么办？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%AE%E7%9B%98%E6%95%B2%E5%85%A5-A-%E5%AD%97%E6%AF%8D%E6%97%B6%EF%BC%8C%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E9%97%B4%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-text">键盘敲入 A 字母时，操作系统期间发生了什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%85%A8%E5%AE%B6%E6%A1%B6"><span class="nav-text">文件系统全家桶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%A2%84%E8%AF%BB%E5%A4%B1%E6%95%88%E5%92%8C%E7%BC%93%E5%AD%98%E6%B1%A1%E6%9F%93%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-text">如何避免预读失效和缓存污染的问题？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-4GB-%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98%E7%9A%84%E6%9C%BA%E5%99%A8%E4%B8%8A%EF%BC%8C%E7%94%B3%E8%AF%B7-8G-%E5%86%85%E5%AD%98%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7%EF%BC%9F"><span class="nav-text">在 4GB 物理内存的机器上，申请 8G 内存会怎么样？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#malloc-%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98%E7%9A%84%EF%BC%9F"><span class="nav-text">malloc 是如何分配内存的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%BB%A1%E4%BA%86%EF%BC%8C%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">内存满了，会发生什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%A8%8B%E5%BA%8F%E7%9A%84%EF%BC%9F"><span class="nav-text">CPU 是如何执行程序的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E6%AF%94%E5%86%85%E5%AD%98%E6%85%A2%E5%87%A0%E4%B8%87%E5%80%8D%EF%BC%9F"><span class="nav-text">磁盘比内存慢几万倍？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E8%AE%A9-CPU-%E8%B7%91%E5%BE%97%E6%9B%B4%E5%BF%AB%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%9F"><span class="nav-text">如何写出让 CPU 跑得更快的代码？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E4%BB%BB%E5%8A%A1%E7%9A%84%EF%BC%9F"><span class="nav-text">CPU 是如何执行任务的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-text">CPU 缓存一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%9B%B6%E6%8B%B7%E8%B4%9D%EF%BC%9F"><span class="nav-text">什么是零拷贝？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-O-%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%EF%BC%9Aselect-poll-epoll"><span class="nav-text">I&#x2F;O 多路复用：select&#x2F;poll&#x2F;epoll</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F%EF%BC%9AReactor-%E5%92%8C-Proactor"><span class="nav-text">高性能网络模式：Reactor 和 Proactor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%EF%BC%9F"><span class="nav-text">为什么要有虚拟内存？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%86%99%E6%96%87%E4%BB%B6%E6%97%B6%EF%BC%8C%E8%BF%9B%E7%A8%8B%E5%8F%91%E7%94%9F%E4%BA%86%E5%B4%A9%E6%BA%83%EF%BC%8C%E5%B7%B2%E5%86%99%E5%85%A5%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BC%9A%E4%B8%A2%E5%A4%B1%E5%90%97%EF%BC%9F"><span class="nav-text">进程写文件时，进程发生了崩溃，已写入的数据会丢失吗？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C"><span class="nav-text">计算机网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A2%E7%84%B6%E6%9C%89HTTP%E5%8D%8F%E8%AE%AE%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E8%A6%81%E6%9C%89RPC"><span class="nav-text">既然有HTTP协议，为什么还要有RPC?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A2%E7%84%B6%E6%9C%89-HTTP-%E5%8D%8F%E8%AE%AE%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E8%A6%81%E6%9C%89-WebSocket%EF%BC%9F"><span class="nav-text">既然有 HTTP 协议，为什么还要有 WebSocket？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP-%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E6%9C%89%E5%93%AA%E5%87%A0%E5%B1%82%EF%BC%9F"><span class="nav-text">TCP&#x2F;IP 网络模型有哪几层？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-Keepalive%E5%92%8CHTTPKeep-Alive%E6%98%AF%E4%B8%80%E4%B8%AA%E4%B8%9C%E8%A5%BF%E5%90%97"><span class="nav-text">TCP Keepalive和HTTPKeep-Alive是一个东西吗?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-%E5%8D%8F%E8%AE%AE%E6%9C%89%E4%BB%80%E4%B9%88%E7%BC%BA%E9%99%B7%EF%BC%9F"><span class="nav-text">TCP 协议有什么缺陷？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%98%AF-TCP-%E9%9D%A2%E5%90%91%E5%AD%97%E8%8A%82%E6%B5%81%E5%8D%8F%E8%AE%AE%EF%BC%9F"><span class="nav-text">如何理解是 TCP 面向字节流协议？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%94%E6%8E%89%E7%BD%91%E7%BA%BF%E5%90%8E%EF%BC%8C-%E5%8E%9F%E6%9C%AC%E7%9A%84-TCP-%E8%BF%9E%E6%8E%A5%E8%BF%98%E5%AD%98%E5%9C%A8%E5%90%97%EF%BC%9F"><span class="nav-text">拔掉网线后， 原本的 TCP 连接还存在吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP%E8%BF%9E%E6%8E%A5%EF%BC%8C%E4%B8%80%E7%AB%AF%E6%96%AD%E7%94%B5%E5%92%8C%E8%BF%9B%E7%A8%8B%E5%B4%A9%E6%BA%83%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="nav-text">TCP连接，一端断电和进程崩溃有什么区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL"><span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%80%E6%9D%A1-select-%E8%AF%AD%E5%8F%A5%EF%BC%8C%E6%9C%9F%E9%97%B4%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">执行一条 select 语句，期间发生了什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#count-%E5%92%8C-count-1-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F%E5%93%AA%E4%B8%AA%E6%80%A7%E8%83%BD%E6%9C%80%E5%A5%BD%EF%BC%9F"><span class="nav-text">count(*) 和 count(1) 有什么区别？哪个性能最好？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-%E4%BD%BF%E7%94%A8-like-%E2%80%9C-x%E2%80%9C%EF%BC%8C%E7%B4%A2%E5%BC%95%E4%B8%80%E5%AE%9A%E4%BC%9A%E5%A4%B1%E6%95%88%E5%90%97%EF%BC%9F"><span class="nav-text">MySQL 使用 like “%x“，索引一定会失效吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-%E5%8D%95%E8%A1%A8%E4%B8%8D%E8%A6%81%E8%B6%85%E8%BF%87-2000W-%E8%A1%8C%EF%BC%8C%E9%9D%A0%E8%B0%B1%E5%90%97%EF%BC%9F"><span class="nav-text">MySQL 单表不要超过 2000W 行，靠谱吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-%E6%9C%89%E5%93%AA%E4%BA%9B%E9%94%81%EF%BC%9F"><span class="nav-text">MySQL 有哪些锁？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E8%AE%B0%E5%BD%95%E9%94%81-%E9%97%B4%E9%9A%99%E9%94%81%E5%8F%AF%E4%BB%A5%E9%98%B2%E6%AD%A2%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C%E8%80%8C%E5%AF%BC%E8%87%B4%E7%9A%84%E5%B9%BB%E8%AF%BB%E5%90%97"><span class="nav-text">MySQL记录锁+间隙锁可以防止删除操作而导致的幻读吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E8%8A%82%E9%9D%A2%E8%AF%95-%E5%8A%A0%E4%BA%86%E4%BB%80%E4%B9%88%E9%94%81%EF%BC%8C%E5%AF%BC%E8%87%B4%E6%AD%BB%E9%94%81%E7%9A%84"><span class="nav-text">字节面试:加了什么锁，导致死锁的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#update%E6%B2%A1%E5%8A%A0%E7%B4%A2%E5%BC%95%E4%BC%9A%E9%94%81%E5%85%A8%E8%A1%A8"><span class="nav-text">update没加索引会锁全表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-%E6%AD%BB%E9%94%81%E4%BA%86%EF%BC%8C%E6%80%8E%E4%B9%88%E5%8A%9E"><span class="nav-text">MySQL 死锁了，怎么办</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-MySQL-%E9%87%87%E7%94%A8-B-%E6%A0%91%E4%BD%9C%E4%B8%BA%E7%B4%A2%E5%BC%95%EF%BC%9F"><span class="nav-text">为什么 MySQL 采用 B+ 树作为索引？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-text">索引失效有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-text">索引常见面试题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%EF%BC%8C%E5%AE%8C%E5%85%A8%E8%A7%A3%E5%86%B3%E5%B9%BB%E8%AF%BB%E4%BA%86%E5%90%97"><span class="nav-text">MySQL可重复读隔离级别，完全解决幻读了吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84"><span class="nav-text">事务隔离级别是怎么实现的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%AD%E5%BC%80Buffer-Pool%E7%9A%84%E9%9D%A2%E7%BA%B1"><span class="nav-text">揭开Buffer Pool的面纱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-%E6%98%AF%E6%80%8E%E4%B9%88%E5%8A%A0%E9%94%81%E7%9A%84%EF%BC%9F"><span class="nav-text">MySQL 是怎么加锁的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E4%B8%80%E8%A1%8C%E8%AE%B0%E5%BD%95%E6%98%AF%E6%80%8E%E4%B9%88%E5%AD%98%E5%82%A8%E7%9A%84"><span class="nav-text">MySQL一行记录是怎么存储的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E6%97%A5%E5%BF%97%EF%BC%9Aundo-log%E3%80%81redo-log%E3%80%81binlog-%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8%EF%BC%9F"><span class="nav-text">MySQL日志：undo log、redo log、binlog 有什么用？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis"><span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E3%80%81%E5%87%BB%E7%A9%BF%E3%80%81%E7%A9%BF%E9%80%8F%EF%BC%9F"><span class="nav-text">什么是缓存雪崩、击穿、穿透？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E7%BC%93%E5%AD%98%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F"><span class="nav-text">数据库和缓存如何保证一致性？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDB%E5%BF%AB%E7%85%A7%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84"><span class="nav-text">RDB快照是怎么实现的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF-%E6%8C%81%E4%B9%85%E5%8C%96%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F"><span class="nav-text">AOF 持久化是怎么实现的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%A4%A7-Key-%E5%AF%B9%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%89%E4%BB%80%E4%B9%88%E5%BD%B1%E5%93%8D%EF%BC%9F"><span class="nav-text">Redis 大 Key 对持久化有什么影响？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E8%BF%87%E6%9C%9F%E5%88%A0%E9%99%A4%E7%AD%96%E7%95%A5%E5%92%8C%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-text">Redis 过期删除策略和内存淘汰策略有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">Redis 常见数据类型和应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F"><span class="nav-text">主从复制是怎么实现的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89%E5%93%A8%E5%85%B5%EF%BC%9F"><span class="nav-text">为什么要有哨兵？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%BF%E7%A7%80%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-text">阿秀的学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-1"><span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E4%B8%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-text">线程与进程的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80VS%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80"><span class="nav-text">逻辑地址VS物理地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E8%BF%9B%E7%A8%8B%E5%8F%AF%E4%BB%A5%E5%88%9B%E5%BB%BA%E5%A4%9A%E5%B0%91%E7%BA%BF%E7%A8%8B%EF%BC%8C%E5%92%8C%E4%BB%80%E4%B9%88%E6%9C%89%E5%85%B3%EF%BC%9F"><span class="nav-text">一个进程可以创建多少线程，和什么有关？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-text">外中断和异常有什么区别？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-1"><span class="nav-text">计算机网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-1"><span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E5%92%8C%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB%E4%BD%A0%E4%BA%86%E8%A7%A3%E5%A4%9A%E5%B0%91%EF%BC%9F"><span class="nav-text">关系型和非关系型数据库的区别你了解多少？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F"><span class="nav-text">什么是非关系型数据库？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F"><span class="nav-text">为什么使用索引？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%A0%E4%BA%86%E8%A7%A3MySQL%E7%9A%84%E5%86%85%E9%83%A8%E6%9E%84%E9%80%A0%E5%90%97%EF%BC%9F%E4%B8%80%E8%88%AC%E5%8F%AF%E4%BB%A5%E5%88%86%E4%B8%BA%E5%93%AA%E4%B8%A4%E4%B8%AA%E9%83%A8%E5%88%86%EF%BC%9F"><span class="nav-text">你了解MySQL的内部构造吗？一般可以分为哪两个部分？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B4%E4%B8%80%E8%AF%B4Drop%E3%80%81Delete%E4%B8%8ETruncate%E7%9A%84%E5%85%B1%E5%90%8C%E7%82%B9%E5%92%8C%E5%8C%BA%E5%88%AB"><span class="nav-text">说一说Drop、Delete与Truncate的共同点和区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Innodb%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E8%87%AA%E5%A2%9Eid%E4%BD%9C%E4%B8%BA%E4%B8%BB%E9%94%AE%EF%BC%9F"><span class="nav-text">Innodb为什么要用自增id作为主键？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%BD%E7%9F%A5%E9%81%93%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E9%87%87%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E6%98%AFB%E6%A0%91%EF%BC%8C%E5%8E%9F%E5%9B%A0%E4%B9%9F%E6%9C%89%E5%BE%88%E5%A4%9A%EF%BC%8C%E4%B8%BB%E8%A6%81%E5%8E%9F%E5%9B%A0%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">都知道数据库索引采用B+树而不是B树，原因也有很多，主要原因是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E4%BC%98%E5%8C%96%E4%BA%86%E8%A7%A3%E5%90%97%EF%BC%9F%E8%AF%B4%E4%B8%80%E4%B8%8B%E4%BB%8E%E5%93%AA%E4%BA%9B%E6%96%B9%E9%9D%A2%E5%8F%AF%E4%BB%A5%E5%81%9A%E5%88%B0%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9F"><span class="nav-text">MySQL优化了解吗？说一下从哪些方面可以做到性能优化？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">覆盖索引是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%92%8C%E5%B9%BB%E8%AF%BB%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%8F%AF%E4%BB%A5%E4%B8%BE%E4%B8%AA%E4%BE%8B%E5%AD%90%E5%90%97%EF%BC%9F"><span class="nav-text">不可重复读和幻读区别是什么？可以举个例子吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B9%B6%E5%8F%91%E4%BA%8B%E5%8A%A1%E4%BC%9A%E5%B8%A6%E6%9D%A5%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-text">数据库并发事务会带来哪些问题？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-text">数据库隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%9C%80%E8%A6%81%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E5%91%A2%EF%BC%9F"><span class="nav-text">什么时候需要建立数据库索引呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E5%9B%9B%E5%A4%A7%E7%89%B9%E6%80%A7%EF%BC%88ACID%EF%BC%89%E5%8E%9F%E5%AD%90%E6%80%A7%E3%80%81%E4%B8%80%E8%87%B4%E6%80%A7%E3%80%81%E9%9A%94%E7%A6%BB%E6%80%A7%E3%80%81%E6%8C%81%E4%B9%85%E6%80%A7%EF%BC%9F"><span class="nav-text">事务四大特性（ACID）原子性、一致性、隔离性、持久性？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E4%B8%AD%E7%9A%84NOW-%E5%92%8CCURRENT-DATE-%E4%B8%A4%E4%B8%AA%E5%87%BD%E6%95%B0%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-text">SQL中的NOW()和CURRENT_DATE()两个函数有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E4%B8%ADCHAR%E5%92%8CVARCHAR%E7%9A%84%E5%8C%BA%E5%88%AB%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-text">MySQL中CHAR和VARCHAR的区别有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A2%E7%84%B6%E7%B4%A2%E5%BC%95%E6%9C%89%E9%82%A3%E4%B9%88%E5%A4%9A%E4%BC%98%E7%82%B9%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%AF%B9%E8%A1%A8%E6%80%BB%E7%9A%84%E6%AF%8F%E4%B8%80%E5%88%97%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%B4%A2%E5%BC%95%E5%91%A2%EF%BC%9F"><span class="nav-text">既然索引有那么多优点，为什么不对表总的每一列创建一个索引呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E6%9F%A5%E8%AF%A2%E9%80%9F%E5%BA%A6%E7%9A%84"><span class="nav-text">索引如何提高查询速度的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-1"><span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89MySQL%E4%B8%8D%E5%B0%B1%E5%A4%9F%E7%94%A8%E4%BA%86%E5%90%97%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8Redis%E8%BF%99%E7%A7%8D%E6%96%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F"><span class="nav-text">有MySQL不就够用了吗？为什么要用Redis这种新的数据库？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-%E4%B8%AD%E7%9A%84Map%E4%B9%9F%E6%98%AF%E4%B8%80%E7%A7%8D%E7%BC%93%E5%AD%98%E5%9E%8B%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8Map%EF%BC%8C%E8%80%8C%E9%80%89%E6%8B%A9Redis%E5%81%9A%E7%BC%93%E5%AD%98%EF%BC%9F"><span class="nav-text">C++中的Map也是一种缓存型数据结构，为什么不用Map，而选择Redis做缓存？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Redis%E7%9A%84%E5%A5%BD%E5%A4%84%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-text">使用Redis的好处有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis%E5%AF%B9%E4%BA%8E%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AF%B7%E6%B1%82%EF%BC%8C%E6%98%AF%E6%80%8E%E6%A0%B7%E5%A4%84%E7%90%86%E7%9A%84%EF%BC%9F"><span class="nav-text">Redis对于大量的请求，是怎样处理的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%E8%80%8C%E4%B8%8D%E9%87%87%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%96%B9%E6%A1%88%EF%BC%9F"><span class="nav-text">Redis 为什么是单线程的而不采用多线程方案？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E5%BF%AB%EF%BC%9F"><span class="nav-text">单线程的Redis为什么这么快？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis%E6%AF%94Memcached%E7%9A%84%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E9%87%8C%EF%BC%9F"><span class="nav-text">Redis比Memcached的优势在哪里？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E4%B8%AD%E5%B8%B8%E8%AF%B4%E7%9A%84%E7%83%AD%E7%82%B9%E6%95%B0%E6%8D%AE%E5%92%8C%E5%86%B7%E6%95%B0%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">缓存中常说的热点数据和冷数据是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B6%E5%8F%AF%E4%BB%A5%E8%AF%B4%E4%B8%80%E8%AF%B4%E5%90%97%EF%BC%9F"><span class="nav-text">Redis持久化机制可以说一说吗？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%AB%E7%85%A7%EF%BC%88snapshotting%EF%BC%89%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88RDB%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%89"><span class="nav-text">快照（snapshotting）持久化（RDB持久化）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AOF%EF%BC%88append-only-file%EF%BC%89%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-text">AOF（append-only file）持久化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF%E9%87%8D%E5%86%99%E4%BA%86%E8%A7%A3%E5%90%97%EF%BC%9F%E5%8F%AF%E4%BB%A5%E7%AE%80%E5%8D%95%E8%AF%B4%E8%AF%B4%E5%90%97%EF%BC%9F"><span class="nav-text">AOF重写了解吗？可以简单说说吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%8C%E5%86%99%E6%97%B6%E7%9A%84%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-text">如何保证缓存与数据库双写时的数据一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%87%E5%A6%82MySQL%E6%9C%891000%E4%B8%87%E6%95%B0%E6%8D%AE%EF%BC%8C%E9%87%87%E7%94%A8Redis%E4%BD%9C%E4%B8%BA%E4%B8%AD%E9%97%B4%E7%BC%93%E5%AD%98%EF%BC%8C%E5%8F%96%E5%85%B6%E4%B8%AD%E7%9A%8410%E4%B8%87%EF%BC%8C%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81Redis%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E9%83%BD%E6%98%AF%E7%83%AD%E7%82%B9%E6%95%B0%E6%8D%AE%EF%BC%9F"><span class="nav-text">假如MySQL有1000万数据，采用Redis作为中间缓存，取其中的10万，如何保证Redis中的数据都是热点数据？</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin"></i>&nbsp;&nbsp;<a href="/">Olivia的小跟班</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共 27 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.1</a></span>
+        </div>
+        
+            <div class="icp-info my-1"><a target="_blank" rel="nofollow" href="
+                
+                    https://beian.miit.gov.cn/
+                
+                ">浙ICP备2022034029号</a></div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+    <div id="aplayer"></div>
+
+<script src="/js/libs/APlayer.min.js"></script>
+
+
+<script src="/js/plugins/aplayer.js"></script>
+
+
+</body>
+</html>
+
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/love.js"></script>
+<script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/FunnyTitle.js"></script>
