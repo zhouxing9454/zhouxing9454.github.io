@@ -19,42 +19,23 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://zhouxing9454.github.io/2023/02/28/git多人协作/"/>
+    <link rel="canonical" href="https://zhouxing9454.github.io/2024/07/15/go-mod遇见的一个问题/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="题记本文是用来记录git多人协作的流程（Gitflow）。 1.创建项目 2.连接GitHub     3.develop分支develop 分支用于日常开发，保存了开发过程中最新的代码。当 develop 分支上的代码达到稳定，并且具备发版状态时，需要将 develop 的代码合并到 master，并且打一个带有发布版本号的 tag。 12345# 从 master 分支上创建 develop">
+        <meta name="description" content="题记记录今天工作的时候遇见的一个问题，准确来说是一个学习，因为我不会😄 前提公司一个项目A更新了代码提交到gitlab，打了对应tag。另一个项目B有引用项目A，目前项目B需要项目A的最新代码，所以需要更新go.mod文件中的版本。 遇见问题一直404 NOT FOUND 原因和解决流程没有配置git的Personal Access Token，没有Export GOPRIVATE（引用私有仓库">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git多人协作">
-<meta property="og:url" content="https://zhouxing9454.github.io/2023/02/28/Git%E5%A4%9A%E4%BA%BA%E5%8D%8F%E4%BD%9C/index.html">
+<meta property="og:title" content="Go_MOD遇见的一个问题">
+<meta property="og:url" content="https://zhouxing9454.github.io/2024/07/15/Go-MOD%E9%81%87%E8%A7%81%E7%9A%84%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Olivia的小跟班">
-<meta property="og:description" content="题记本文是用来记录git多人协作的流程（Gitflow）。 1.创建项目 2.连接GitHub     3.develop分支develop 分支用于日常开发，保存了开发过程中最新的代码。当 develop 分支上的代码达到稳定，并且具备发版状态时，需要将 develop 的代码合并到 master，并且打一个带有发布版本号的 tag。 12345# 从 master 分支上创建 develop">
+<meta property="og:description" content="题记记录今天工作的时候遇见的一个问题，准确来说是一个学习，因为我不会😄 前提公司一个项目A更新了代码提交到gitlab，打了对应tag。另一个项目B有引用项目A，目前项目B需要项目A的最新代码，所以需要更新go.mod文件中的版本。 遇见问题一直404 NOT FOUND 原因和解决流程没有配置git的Personal Access Token，没有Export GOPRIVATE（引用私有仓库">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143231961.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143357534.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143406302.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143420380.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143502060.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143533637.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143729960.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143834294.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228144212290.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228145014269.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228145030274.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228175934130.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228222458369.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228223307478.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228145254837.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202304160008478.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202304160008035.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202304160007776.png">
-<meta property="article:published_time" content="2023-02-28T06:26:42.000Z">
-<meta property="article:modified_time" content="2024-01-01T11:10:04.000Z">
+<meta property="article:published_time" content="2024-07-15T10:31:31.000Z">
+<meta property="article:modified_time" content="2024-07-15T10:41:05.756Z">
 <meta property="article:author" content="Olivia的小跟班">
-<meta property="article:tag" content="git">
+<meta property="article:tag" content="GO">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143231961.png">
     
     
     <!--- Icon Part-->
@@ -66,7 +47,7 @@
     
     <title>
         
-            Git多人协作 -
+            Go_MOD遇见的一个问题 -
         
         Olivia的小跟班
     </title>
@@ -574,7 +555,7 @@
         <div class="article-title relative w-full">
             
                 <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">Git多人协作</h1>
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">Go_MOD遇见的一个问题</h1>
                 </div>
             
             </div>
@@ -595,15 +576,15 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2023-02-28 14:26:42</span>
-        <span class="mobile">2023-02-28 14:26:42</span>
+        <span class="desktop">2024-07-15 18:31:31</span>
+        <span class="mobile">2024-07-15 18:31:31</span>
         <span class="hover-info">创建</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-01-01 19:10:04</span>
-            <span class="mobile">2024-01-01 19:10:04</span>
+            <span class="desktop">2024-07-15 18:41:05</span>
+            <span class="mobile">2024-07-15 18:41:05</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -617,7 +598,7 @@
                     
                         
                         <li>
-                            <a href="/categories/git/">git</a>&nbsp;
+                            <a href="/categories/GO/">GO</a>&nbsp;
                         </li>
                     
                     
@@ -631,7 +612,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/git/">git</a>&nbsp;
+                        <a href="/tags/GO/">GO</a>&nbsp;
                     </li>
                 
             </ul>
@@ -657,200 +638,11 @@
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h1 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h1><p>本文是用来记录git多人协作的流程（Gitflow）。</p>
-<h3 id="1-创建项目"><a href="#1-创建项目" class="headerlink" title="1.创建项目"></a>1.创建项目</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143231961.png"
-                      alt="image-20230228143231961"
-                ></p>
-<h3 id="2-连接GitHub"><a href="#2-连接GitHub" class="headerlink" title="2.连接GitHub"></a>2.连接GitHub</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143357534.png"
-                      alt="image-20230228143357534"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143406302.png"
-                      alt="image-20230228143406302"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143420380.png"
-                      alt="image-20230228143420380"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143502060.png"
-                      alt="image-20230228143502060"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143533637.png"
-                      alt="image-20230228143533637"
-                ></p>
-<h3 id="3-develop分支"><a href="#3-develop分支" class="headerlink" title="3.develop分支"></a>3.develop分支</h3><p>develop 分支用于日常开发，保存了开发过程中最新的代码。当 develop 分支上的代码达到稳定，并且具备发版状态时，需要将 develop 的代码合并到 master，<strong>并且打一个带有发布版本号的 tag。</strong></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 从 master 分支上创建 develop 分支</span><br><span class="line">git checkout –b develop master</span><br><span class="line"></span><br><span class="line"># 推送 develop 分支</span><br><span class="line">git push origin develop</span><br></pre></td></tr></table></figure></div>
-
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143729960.png"
-                      alt="image-20230228143729960"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143834294.png"
-                      alt="image-20230228143834294"
-                ></p>
-<p>在GitHub仓库里面将master分支设置为<strong>Protected分支</strong>，不允许developer推送代码，master可以推送代码。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228144212290.png"
-                      alt="image-20230228144212290"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228145014269.png"
-                      alt="image-20230228145014269"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228145030274.png"
-                      alt="image-20230228145030274"
-                ></p>
-<h3 id="4-feature分支"><a href="#4-feature分支" class="headerlink" title="4.feature分支"></a>4.feature分支</h3><ul>
-<li>分支来源：develop</li>
-<li>合并到分支：develop</li>
-<li>分支命名约定：feature-…</li>
-</ul>
-<p>功能分支，在开发某一个新功能时，从 develop 分支分出来，开发完之后，再合并回 develop 分支。功能分支通常只存在于开发者的本地仓库中，并不包含在远程库中。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#创建一个feature分支，新分支不是基于master分支，而是应该基于develop分支</span><br><span class="line">git checkout -b feature-v1.0 develop</span><br><span class="line"></span><br><span class="line">#开发新特性，这时候开始开发功能</span><br><span class="line"></span><br><span class="line">#拉取：在合并功能前确保develop分支是最新的</span><br><span class="line">git pull origin develop</span><br><span class="line"></span><br><span class="line">#提交，开发的文件（git commit)</span><br><span class="line"></span><br><span class="line">#切换分支</span><br><span class="line">git checkout develop</span><br><span class="line"></span><br><span class="line">#合并分支</span><br><span class="line">git merge feature-v1.0</span><br><span class="line"></span><br><span class="line">#提交到origin/develop</span><br><span class="line">git push origin develop</span><br><span class="line"></span><br><span class="line">#删除指定的feature分支</span><br><span class="line">git branch -d feature-v1.0</span><br></pre></td></tr></table></figure></div>
-
-
-
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228175934130.png"
-                      alt="image-20230228175934130"
-                ></p>
-<h3 id="5-release分支"><a href="#5-release分支" class="headerlink" title="5.release分支"></a>5.release分支</h3><ul>
-<li>分支来源：develop</li>
-<li>合并到分支：develop，master</li>
-<li>分支命名约定：release-…</li>
-</ul>
-<p>预发布分支，它是指发布正式版本之前，我们可能需要有一个预发布的版本测试，并且可以在上面做一些较小 bug 的修复。预发布分支是从 develop 分支上分出来的，预发布结束以后，必须合并进 develop 和 master 分支。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228222458369.png"
-                      alt="image-20230228222458369"
-                ></p>
-<p>合并出现问题 <code>:wq</code> 强制退出。</p>
-<p>记得删除分支。</p>
-<h3 id="6-hotfix分支"><a href="#6-hotfix分支" class="headerlink" title="6.hotfix分支"></a>6.hotfix分支</h3><ul>
-<li>分支来源：master</li>
-<li>合并到分支：develop，master</li>
-<li>分支命名约定：hotfix-…</li>
-</ul>
-<p>最后一种是修复 bug 分支。软件正式发布以后，难免会出现 bug。这时就需要创建一个分支，进行 bug 修复。</p>
-<p>修复 bug 分支是从 master 分支上分出来的。修复结束以后，再合并进 master 和 develop 分支。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228223307478.png"
-                      alt="image-20230228223307478"
-                ></p>
-<h3 id="7-tag标签"><a href="#7-tag标签" class="headerlink" title="7.tag标签"></a>7.tag标签</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#打标签</span><br><span class="line">git tag ...(tagname)</span><br><span class="line"></span><br><span class="line">#列出所有标签</span><br><span class="line">git tag -n</span><br><span class="line"></span><br><span class="line">#删除指定标签</span><br><span class="line">git tag -d ...(tagname)</span><br><span class="line"></span><br><span class="line">#上传标签</span><br><span class="line">git push --tags</span><br></pre></td></tr></table></figure></div>
-
-
-
-
-
-<h3 id="8-邀请他人协作开发"><a href="#8-邀请他人协作开发" class="headerlink" title="8.邀请他人协作开发"></a>8.邀请他人协作开发</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228145254837.png"
-                      alt="image-20230228145254837"
-                ></p>
-<h3 id="9-回退版本"><a href="#9-回退版本" class="headerlink" title="9.回退版本"></a>9.回退版本</h3><p><strong>本地仓（Local Repository）：</strong>本地仓指的是在开发者本地计算机上保存项目版本历史记录的地方。它通常是一个包含了完整项目历史记录的目录，包括所有的版本和分支信息。在Git中，本地仓是通过在项目目录下初始化Git仓库（使用”git init”命令）或者通过克隆远程仓库到本地（使用”git clone”命令）来创建的。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202304160008478.png"
-                      alt="image-20230416000848430"
-                ></p>
-<p><strong>暂存区（Staging Area）：</strong>暂存区是Git中用于暂时存储将要提交的文件或者修改的地方。它相当于一个缓冲区，可以让开发者选择性地将文件添加到其中，然后在一次性提交（commit）时，将暂存区中的所有文件一并提交到本地仓。暂存区的作用是为了控制提交的粒度，允许开发者对提交的内容进行精细的控制，可以将不同逻辑上的修改分别暂存，然后一次性提交。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202304160008035.png"
-                      alt="image-20230416000824987"
-                ></p>
-<p><strong>工作区（Working Directory）：</strong>工作区是开发者在本地计算机上实际进行开发工作的目录，包含了项目的源代码、文件和文件夹等。当开发者对工作区中的文件进行修改后，这些修改会被记录到暂存区，然后再通过提交（commit）操作将修改保存到本地仓。工作区中的文件可以通过Git命令进行添加、修改、删除等操作，然后通过将修改保存到暂存区和本地仓来管理项目的版本历史记录。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202304160007776.png"
-                      alt="image-20230416000751679"
-                ></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">git reset：回退版本，可指定某一次提交的版本。</span><br><span class="line">1、--soft参数</span><br><span class="line">回滚本地仓库</span><br><span class="line"></span><br><span class="line">2、--mixed参数</span><br><span class="line">这是默认参数。表示本地仓和暂存区，都回滚到Y版本号。工作区代码不受影响。</span><br><span class="line"></span><br><span class="line">3、--hard参数</span><br><span class="line">本地仓、暂存区、工作区，三区都回滚。</span><br><span class="line"></span><br><span class="line">4.使用 ～数字表示</span><br><span class="line">HEAD~0 表示当前版本</span><br><span class="line">HEAD~~1 上一个版本</span><br><span class="line">HEAD~~2 上上一个版本</span><br><span class="line">HEAD~3 上上上一个版本</span><br></pre></td></tr></table></figure></div>
-
-
-
-
-
-<h3 id="10-开发流程"><a href="#10-开发流程" class="headerlink" title="10.开发流程"></a>10.开发流程</h3><p>每天只要干活先从远程仓库pull(拉取)下来，结束工作先pull，再commite整个项目，再push到远程仓库（自己创建feature分支实现功能）</p>
-<h3 id="11-补充"><a href="#11-补充" class="headerlink" title="11.补充"></a>11.补充</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">git init	//该命令执行完后会在当前目录生成一个 .git 目录。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git init newrepo	//初始化后，会在 newrepo 目录下会出现一个名为 .git 的目录，所有 Git 需要的数据和资源都存放在这个目录中。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git add *.c</span><br><span class="line">git add README</span><br><span class="line">git commit -m &quot;初始化项目版本&quot;</span><br><span class="line">//以上命令将目录下以 .c 结尾及 README 文件提交到仓库中。 -m:提交信息</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git clone &lt;repository&gt;  &lt;directory&gt;	//从Git仓库中拷贝项目到指定目录，目录可选</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git config --list	//显示当前的 git 配置信息：</span><br><span class="line">git config -e	//针对当前仓库 </span><br><span class="line">git config -e --global	//针对系统上所有仓库</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//设置提交代码时的用户信息</span><br><span class="line">git config --global user.name &quot;runoob&quot;</span><br><span class="line">git config --global user.email test@runoob.com</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git status	//查看仓库当前的状态，显示有变更的文件</span><br><span class="line">git --version	//获取Git版本号的命令</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git rm &lt;file&gt;	//将文件从暂存区和工作区中删除，加上-f就是强制删除，加上--cached是指从暂存区删除</span><br><span class="line">git rm –r *		//进入某个目录中，执行此语句，会删除该目录下的所有文件和子目录。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git mv		//命令用于移动或重命名一个文件、目录或软连接。</span><br><span class="line">git mv [file] [newfile]		//如果新文件名已经存在，但还是要重命名它，可以使用 -f 参数：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">显示暂存区和工作区的差异:git diff [file]</span><br><span class="line">显示暂存区和上一次提交(commit)的差异:git diff --cached [file]</span><br><span class="line">显示两次提交之间的差异:git diff [first-branch]...[second-branch]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git log		//查看历史提交记录。</span><br><span class="line">--oneline	查看历史记录的简洁的版本。</span><br><span class="line">--graph		查看历史中什么时候出现了分支、合并。</span><br><span class="line">--reverse	逆向显示所有日志。</span><br><span class="line">--author	查找指定用户的提交日志可以使用命令</span><br><span class="line">--since和--before	指定日期</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git blame &lt;file&gt; 	//查看指定文件的修改记录</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git remote -v	//显示所有远程仓库</span><br><span class="line">git remote show [remote]显示某个远程仓库的信息：</span><br><span class="line">git remote add [shortname] [url] 添加远程版本库,shortname 为本地的版本库</span><br><span class="line">git remote rm name		//删除远程仓库</span><br><span class="line">git remote rename old_name new_name		//修改仓库名</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git fetch &lt;远程主机名&gt;		//将某个远程主机的更新，全部取回本地。git fetch命令通常用来查看其他人的进程，因为它取回的代码对你本地的开发代码没有影响。默认情况下，git fetch取回所有分支（branch）的更新。如果只想取回特定分支的更新，可以指定分支名。</span><br><span class="line">git fetch &lt;远程主机名&gt; &lt;分支名&gt;		//比如，取回origin主机的master分支(git fetch origin master),所取回的更新，在本地主机上要用&quot;远程主机名/分支名&quot;的形式读取。比如origin主机的master，就要用origin/master读取。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git branch命令的-r选项，可以用来查看远程分支，-a选项查看所有分支。git branch -r、git branch -a</span><br></pre></td></tr></table></figure></div>
-
-
-
-
-
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a class="link"   target="_blank" rel="noopener" href="https://ypbg9olvt2.feishu.cn/docs/doccnTMRmh7YgMwL2PgZ5moWUsd" >Git分支管理规范 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://www.runoob.com/git/git-tutorial.html" >Git 教程 | 菜鸟教程  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://juejin.cn/post/7164740289922334727#heading-3" >Git分支管理策略汇总 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/SOFTPOWER1991/my-git/blob/master/git-workflow-tutorial.md" >Git-workflow-tutorial <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://www.liuxing.io/blog/git-workflow/" >Git分支管理策略和工作流程 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h3 id="工作之后学习的Git"><a href="#工作之后学习的Git" class="headerlink" title="工作之后学习的Git"></a>工作之后学习的Git</h3><p>git clone *** 克隆远程版本库</p>
-<p>git init 初始化本地版仓库</p>
-<p>git status 查看文件状态</p>
-<p>git diff 查看变更内容</p>
-<p>git add [file1] [file2]…. 添加文件到暂存区</p>
-<p>git add . 这个命令将一次性添加所有的文件</p>
-<p>git commit -a 这个选项只考虑Git中已经添加的文件。它不会提交新创建的文件  </p>
-<p>git commit -m “XXXX” 提交更新的文件</p>
-<p>git pull –rebase 拉取    <a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/yao_hou/article/details/108178717" >Git pull –rebase的作用 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</p>
-<p>git checkout (branchName) 切到指定分支</p>
-<p>git checkout -b (branchName)  用于创建一个新分支branchName并立即切换到新创建的分支</p>
-<p>git branch -d  (branchName)  删除指定分支·</p>
-<p>git branch -a 列出所有本地分支</p>
-<p>git merge  (branchName) 合并指定分支到当前分支</p>
-<p>git log 查看历史提交记录</p>
-<p>git cherry-pick “复制”一个提交节点并在当前分支做一次完全一样的新提交。</p>
-<p>git reset –hard HEAD 本地暂存区退回</p>
-<p>git revert 线上已提交&#x2F;合并分支退回</p>
-<p>git stash 、git stash pop <a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/117553180" >Git stash 命令 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>git config –add core.filemode false 忽略filemode变更</p>
-<p>git branch –set-upstream-to origin  remoteBranchName 设置默认的远程分支</p>
-<p>git branch -vv 显示默认的远程分支</p>
-<p>git fetch –all 用于从远程仓库中获取所有分支的更新</p>
-<p>git tag 列出存储在仓库中的标签</p>
-<p>git tag   tagname 创建一个新的标签</p>
-<p>git tag -d  tagname 要删除现有的标签</p>
-<p>git push origin tagname  将标签推送到远程仓库</p>
-<p>git checkout tagname  检出特定的标签</p>
+            <h3 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h3><p>记录今天工作的时候遇见的一个问题，准确来说是一个学习，因为我不会😄</p>
+<h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><p>公司一个项目A更新了代码提交到gitlab，打了对应tag。另一个项目B有引用项目A，目前项目B需要项目A的最新代码，所以需要更新go.mod文件中的版本。</p>
+<h3 id="遇见问题"><a href="#遇见问题" class="headerlink" title="遇见问题"></a>遇见问题</h3><p>一直404 NOT FOUND</p>
+<h3 id="原因和解决流程"><a href="#原因和解决流程" class="headerlink" title="原因和解决流程"></a>原因和解决流程</h3><p>没有配置git的Personal Access Token，没有Export GOPRIVATE（引用私有仓库），明明之前run起来项目了，逆天了😌。</p>
+<p>解决就是配置上述环境，然后就是go get 私有仓库地址@commitHASH，commitHASH可以从从gitlab对应tag点进去右边就有可以复制，这样就可以获取这个提交哈希的对应版本。go.mod中require对应版本就好了。</p>
 
         </div>
 
@@ -858,18 +650,18 @@
             <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
                 <div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> Git多人协作</li>
+        <li><strong>标题:</strong> Go_MOD遇见的一个问题</li>
         <li><strong>作者:</strong> Olivia的小跟班</li>
         <li><strong>创建于
-                :</strong> 2023-02-28 14:26:42</li>
+                :</strong> 2024-07-15 18:31:31</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-01-01 19:10:04
+                    :</strong> 2024-07-15 18:41:05
             </li>
         
         <li>
-            <strong>链接:</strong> https://www.youandgentleness.cn/2023/02/28/Git多人协作/
+            <strong>链接:</strong> https://www.youandgentleness.cn/2024/07/15/Go-MOD遇见的一个问题/
         </li>
         <li>
             <strong>
@@ -891,7 +683,7 @@
             <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
                 
                     <li class="tag-item mx-0.5">
-                        <a href="/tags/git/">#git</a>&nbsp;
+                        <a href="/tags/GO/">#GO</a>&nbsp;
                     </li>
                 
             </ul>
@@ -902,29 +694,14 @@
         
             <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
                 
-                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2023/03/06/go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%9550%E9%97%AE/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">go基础语法50问</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="next"
                         rel="next"
-                        href="/2023/01/02/Go%E5%AE%9E%E7%8E%B0%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"
+                        href="/2024/02/26/go-micro%E6%8F%92%E4%BB%B6%E5%AD%A6%E4%B9%A0/"
                         >
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">Go实现十大排序算法</span>
+                                <span class="post-nav-title-item">go-micro插件学习</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex justify-center items-center">
@@ -1003,8 +780,8 @@
             <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">此页目录</div>
-        <div class="page-title">Git多人协作</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-text">1.创建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%BF%9E%E6%8E%A5GitHub"><span class="nav-text">2.连接GitHub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-develop%E5%88%86%E6%94%AF"><span class="nav-text">3.develop分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-feature%E5%88%86%E6%94%AF"><span class="nav-text">4.feature分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-release%E5%88%86%E6%94%AF"><span class="nav-text">5.release分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-hotfix%E5%88%86%E6%94%AF"><span class="nav-text">6.hotfix分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-tag%E6%A0%87%E7%AD%BE"><span class="nav-text">7.tag标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E9%82%80%E8%AF%B7%E4%BB%96%E4%BA%BA%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91"><span class="nav-text">8.邀请他人协作开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E5%9B%9E%E9%80%80%E7%89%88%E6%9C%AC"><span class="nav-text">9.回退版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="nav-text">10.开发流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E8%A1%A5%E5%85%85"><span class="nav-text">11.补充</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E4%B9%8B%E5%90%8E%E5%AD%A6%E4%B9%A0%E7%9A%84Git"><span class="nav-text">工作之后学习的Git</span></a></li></ol></li></ol></li></ol>
+        <div class="page-title">Go_MOD遇见的一个问题</div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E6%8F%90"><span class="nav-text">前提</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%87%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-text">遇见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E6%B5%81%E7%A8%8B"><span class="nav-text">原因和解决流程</span></a></li></ol>
 
     </div>
 </div>
