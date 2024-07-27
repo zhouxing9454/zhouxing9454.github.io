@@ -533,15 +533,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">18</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">18</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">28</div>
         <div class="label text-third-text-color text-sm">文章</div>
     </a>
 </div>
@@ -976,7 +976,7 @@
 
 
 <h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p>Kafka操作建议参考这个库：<a class="link"   target="_blank" rel="noopener" href="https://github.com/IBM/sarama" >IBM&#x2F;Sarama <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，Go Document：<a class="link"   target="_blank" rel="noopener" href="https://pkg.go.dev/github.com/IBM/sarama" >IBM&#x2F;sarama - Go Packages <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
-<p>关于Kafka的安装参考我之前的文章：<a target="_blank" rel="noopener" href="https://www.youandgentleness.cn/2023/06/27/Kafka%D1%A7%CF%B0/#Kafka%E5%AE%89%E8%A3%85">Kafka学习 - Olivia的小跟班</a></p>
+<p>关于Kafka的安装参考我之前的文章：<a class="link"   target="_blank" rel="noopener" href="https://www.youandgentleness.cn/2023/06/27/Kafka%D1%A7%CF%B0/#Kafka%E5%AE%89%E8%A3%85" >Kafka学习 - Olivia的小跟班 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <p><strong>生产者示例：</strong></p>
 <div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/IBM/sarama&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 基于sarama第三方库开发的kafka client</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    config := sarama.NewConfig()</span><br><span class="line">    config.Producer.RequiredAcks = sarama.WaitForAll          <span class="comment">// 发送完数据需要leader和follow都确认</span></span><br><span class="line">    config.Producer.Partitioner = sarama.NewRandomPartitioner <span class="comment">// 新选出一个partition</span></span><br><span class="line">    config.Producer.Return.Successes = <span class="literal">true</span>                   <span class="comment">// 成功交付的消息将在success channel返回</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造一个消息</span></span><br><span class="line">    msg := &amp;sarama.ProducerMessage&#123;&#125;</span><br><span class="line">    msg.Topic = <span class="string">&quot;web_log&quot;</span></span><br><span class="line">    msg.Value = sarama.StringEncoder(<span class="string">&quot;this is a test log2&quot;</span>)</span><br><span class="line">    <span class="comment">// 连接kafka</span></span><br><span class="line">    client, err := sarama.NewSyncProducer([]<span class="type">string</span>&#123;<span class="string">&quot;127.0.0.1:9092&quot;</span>&#125;, config)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">       fmt.Println(<span class="string">&quot;producer closed, err:&quot;</span>, err)</span><br><span class="line">       <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> client.Close()</span><br><span class="line">    <span class="comment">// 发送消息</span></span><br><span class="line">    pid, offset, err := client.SendMessage(msg)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">       fmt.Println(<span class="string">&quot;send msg failed, err:&quot;</span>, err)</span><br><span class="line">       <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Printf(<span class="string">&quot;pid:%v offset:%v\n&quot;</span>, pid, offset)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
@@ -1227,7 +1227,7 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        共 27 篇文章
+                        共 28 篇文章
                     </span>
                     
                 </p>
