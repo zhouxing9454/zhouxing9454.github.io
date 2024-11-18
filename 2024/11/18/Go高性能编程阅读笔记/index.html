@@ -19,27 +19,23 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://zhouxing9454.github.io/2024/07/16/未来云计算会是什么样子/"/>
+    <link rel="canonical" href="https://zhouxing9454.github.io/2024/11/18/go高性能编程阅读笔记/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="本文是一篇转载文 原文链接：未来云计算会是什么样子？Sealos 或将给出答案 ， 原文作者：魏鹏宇，来自哈尔滨工业大学，Sealos 社区贡献者，目前从事 Kubernetes 相关研发工作 作者博客：友链第三个  本文以时间顺序，结合历史与时代背景，介绍 Sealos 的发展历程与设计理念。并预测未来的发展。 1. 回首往事：操作系统与应用程序的发展操作系统的产生与发展从1945年第一台电子计">
+        <meta name="description" content="题记​	本文主要记录Go语言高性能编程 的一书中的笔记（有些笔记也是抄别人的）。 benchmark 进行性能测试时，尽可能保持测试环境的稳定 实现 benchmark 测试• 位于 _test.go 文件中• 函数名以 Benchmark 开头• 参数为 b *testing.B• b.ResetTimer() 可重置定时器• b.StopTimer() 暂停计时• b.StartTimer()">
 <meta property="og:type" content="article">
-<meta property="og:title" content="未来云计算会是什么样子">
-<meta property="og:url" content="https://zhouxing9454.github.io/2024/07/16/%E6%9C%AA%E6%9D%A5%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BC%9A%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E5%AD%90/index.html">
+<meta property="og:title" content="Go高性能编程阅读笔记">
+<meta property="og:url" content="https://zhouxing9454.github.io/2024/11/18/Go%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Olivia的小跟班">
-<meta property="og:description" content="本文是一篇转载文 原文链接：未来云计算会是什么样子？Sealos 或将给出答案 ， 原文作者：魏鹏宇，来自哈尔滨工业大学，Sealos 社区贡献者，目前从事 Kubernetes 相关研发工作 作者博客：友链第三个  本文以时间顺序，结合历史与时代背景，介绍 Sealos 的发展历程与设计理念。并预测未来的发展。 1. 回首往事：操作系统与应用程序的发展操作系统的产生与发展从1945年第一台电子计">
+<meta property="og:description" content="题记​	本文主要记录Go语言高性能编程 的一书中的笔记（有些笔记也是抄别人的）。 benchmark 进行性能测试时，尽可能保持测试环境的稳定 实现 benchmark 测试• 位于 _test.go 文件中• 函数名以 Benchmark 开头• 参数为 b *testing.B• b.ResetTimer() 可重置定时器• b.StopTimer() 暂停计时• b.StartTimer()">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/640.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/640-20240716220030102.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/640-20240716220030141.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/640-20240716220030157.png">
-<meta property="article:published_time" content="2024-07-16T13:54:52.000Z">
-<meta property="article:modified_time" content="2024-07-16T14:06:57.685Z">
+<meta property="article:published_time" content="2024-11-18T13:13:52.000Z">
+<meta property="article:modified_time" content="2024-11-18T20:42:47.526Z">
 <meta property="article:author" content="Olivia的小跟班">
+<meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/640.png">
     
     
     <!--- Icon Part-->
@@ -51,7 +47,7 @@
     
     <title>
         
-            未来云计算会是什么样子 -
+            Go高性能编程阅读笔记 -
         
         Olivia的小跟班
     </title>
@@ -559,7 +555,7 @@
         <div class="article-title relative w-full">
             
                 <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">未来云计算会是什么样子</h1>
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">Go高性能编程阅读笔记</h1>
                 </div>
             
             </div>
@@ -580,20 +576,47 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2024-07-16 21:54:52</span>
-        <span class="mobile">2024-07-16 21:54:52</span>
+        <span class="desktop">2024-11-18 21:13:52</span>
+        <span class="mobile">2024-11-18 21:13:52</span>
         <span class="hover-info">创建</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-07-16 22:06:57</span>
-            <span class="mobile">2024-07-16 22:06:57</span>
+            <span class="desktop">2024-11-19 04:42:47</span>
+            <span class="mobile">2024-11-19 04:42:47</span>
             <span class="hover-info">更新</span>
         </span>
     
 
     
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Go/">Go</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Go/">Go</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -615,131 +638,162 @@
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h1 id="本文是一篇转载文"><a href="#本文是一篇转载文" class="headerlink" title="本文是一篇转载文"></a>本文是一篇转载文</h1><ul>
-<li><strong>原文链接：<a class="link"   target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/SJiKSa4FBdL6BOE6vP7ePg" >未来云计算会是什么样子？Sealos 或将给出答案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，</strong></li>
-<li><strong>原文作者：魏鹏宇，来自哈尔滨工业大学，Sealos 社区贡献者，目前从事 Kubernetes 相关研发工作</strong></li>
-<li><strong>作者博客：友链第三个</strong></li>
-</ul>
-<p>本文以时间顺序，结合历史与时代背景，介绍 Sealos 的发展历程与设计理念。并预测未来的发展。</p>
-<h2 id="1-回首往事：操作系统与应用程序的发展"><a href="#1-回首往事：操作系统与应用程序的发展" class="headerlink" title="1. 回首往事：操作系统与应用程序的发展"></a>1. 回首往事：操作系统与应用程序的发展</h2><h3 id="操作系统的产生与发展"><a href="#操作系统的产生与发展" class="headerlink" title="操作系统的产生与发展"></a>操作系统的产生与发展</h3><p>从1945年第一台电子计算机出现开始，到 20 世纪50年代中期，并没有操作系统的概念，彼时计算机的工作方式是由操作员带着记录有程序和数据的卡片或打孔纸带去操作机器，装好卡片&#x2F;纸带后，启动卡片&#x2F;纸带阅读器，让计算机把程序和数据读入计算机机的内存中后，计算机就开始工作，并把结果也输出到卡片&#x2F;纸带或显示屏上。</p>
-<p>而由于人的操作与计算机处理不匹配，为了更好的发挥计算机的性能，出现了早期的批处理操作系统，它们可以更好的调用计算机的各项资源，以满足人们给出的不同任务。</p>
-<p>随着计算机的发展，计算机所包含的硬件也越来越多，比如内存、cpu、硬盘等，而人们分配给计算机的任务也越来越动态而复杂，最终可以使用 ‘“应用程序” 来进行抽象。而这些应用程序与计算机各项设备之间的交互也越来越复杂，复杂到这些应用程序的开发者完全无法理解。</p>
-<p><strong>而计算机领域中，屏蔽复杂性最好的方法就是分层，没有之一。</strong>于是操作系统承担了在应用程序与计算机硬件之间充当中间层的工作，他们高效而安全的调度着计算机的各种资源给不同的应用程序使用，尽力发挥出他们的全部作用以满足应用程序的需要。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/640.png"
-                      alt="图片"
-                ></p>
-<h3 id="操作系统的基本功能"><a href="#操作系统的基本功能" class="headerlink" title="操作系统的基本功能"></a>操作系统的基本功能</h3><p>一台现代计算机的基本组成如下：</p>
-<ul>
-<li>CPU</li>
-<li>内存</li>
-<li>存储</li>
-<li>I&#x2F;O 设备</li>
-</ul>
-<p>而操作系统要调度这些资源，同时还要和应用程序进行交互，由此，我们可以分析出操作系统的基本组成：</p>
-<ul>
-<li>进程管理：分配 CPU 资源</li>
-<li>内存管理：分配内存资源</li>
-<li>文件系统：分配存储资源</li>
-<li>设备管理：分配 I&#x2F;O 资源</li>
-<li>应用程序接口：与应用程序进行交互</li>
-</ul>
-<h3 id="应用容器化"><a href="#应用容器化" class="headerlink" title="应用容器化"></a>应用容器化</h3><h4 id="物理机资源隔离"><a href="#物理机资源隔离" class="headerlink" title="物理机资源隔离"></a>物理机资源隔离</h4><p>1979年，为了实现资源的隔离，按照 UNIX “一切皆文件” 的设计理念，第七版 UNIX 操作系统中提供了 chroot 命令。该命令是 “change root” 的缩写，能是当某个进程经过 chroot 操作之后，它的根目录就会被锁定在命令参数所指定的位置，以后它或者它的子进程将不能再访问和操作该目录之外的其他文件。</p>
-<p>2002年，Linux Kernel 2.4.19 引入了名为 “命名空间” 的隔离机制，在不同的命名空间中，不仅仅是文件，进程，用户，网络等等信息都实现了彻底的隔离。</p>
-<p>但是一台物理计算机的资源毕竟是有限的，各种资源都不能无限制的增加，于是还需要做资源的隔离。</p>
-<p>2008年，Linux Kernel 2.6.24 引入了 cgroups，用于限制某个进程组能够使用的处理器时间、内存大小、磁盘 I&#x2F;O 速度等资源配额。这样不同空间内的进行就不会相互影响，实现了几乎完美的隔离。</p>
-<h4 id="隔离技术的应用：封装系统-or-封装应用？"><a href="#隔离技术的应用：封装系统-or-封装应用？" class="headerlink" title="隔离技术的应用：封装系统 or 封装应用？"></a>隔离技术的应用：封装系统 or 封装应用？</h4><p>2008 年 Linux Kernel 2.6.24 内核刚刚开始提供 <code>cgroups</code> 的同一时间，就马上发布了名为 Linux 容器 (LinuX Containers，LXC) 的系统级虚拟化功能。用来为用户提供虚拟化的操作系统服务。</p>
-<p>而在 linux 设计者所设计的用来封装系统的技术，却被 docker 的设计者设计成了封装应用的工具。Docker 定义了一种将应用及其所有的环境依赖都打包到一起的格式，并利用 Linux 所提供的这些技术实现了应用的无依赖部署。</p>
-<p>Docker 封装应用而非封装机器的优秀理念贯穿了它的设计、API、界面、文档等多个方面。相比之下，LXC 将容器视为对系统的封装，这局限了容器的发展。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/640-20240716220030102.png"
-                      alt="图片"
-                ></p>
-<p>正是 Docker 这种优秀的设计理念，使他在使用与 LXC 几乎相同的技术的基础上获得了巨大的成功，成为软件开发、测试、分发、部署等各个环节都难以或缺的基础支撑。</p>
-<h4 id="容器编排：Kubernetes"><a href="#容器编排：Kubernetes" class="headerlink" title="容器编排：Kubernetes"></a>容器编排：Kubernetes</h4><p>随着时代的发展，分布式系统代替了传统的单体应用，应用程序的设计变得越来越复杂，部署，运维等各个环节的成本和难度都指数级别提高。</p>
-<p>Docker 的设计天生没有考虑由众多机器组成的集群环境，所以无法胜任调度大型集群的任务。</p>
-<p>但是它”以应用为中心 “的理念和让应用无依赖部署的能力，却让 “在集群维度上自动调度应用程序” 成为可能。这种工作，我们称之为容器编排。</p>
-<p>2014 年 6 月，Google 使用 Golang 重写其内部已运行多年的集群管理系统 Borg 后，更名为 Kubernetes 并开源，正式开启了容器安排的时代。2015 年 7 月，Kubernetes 发布了第一个正式版本 1.0 版，随后以摧枯拉朽之势覆灭了容器编排领域的其他竞争对手，成为现代服务编排调度的事实标准平台。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/640-20240716220030141.png"
-                      alt="图片"
-                ></p>
-<h4 id="Kubernetes-的问题"><a href="#Kubernetes-的问题" class="headerlink" title="Kubernetes 的问题"></a>Kubernetes 的问题</h4><p>然而，“No Silver Bullet。”，Kubernetes 也并不是完美的。</p>
-<p>基于分布式系统本身的复杂性，Kubernetes 被诟病得最多的就是复杂，自诞生之日起就以陡峭的学习曲线和浩如烟海的概念而闻名。</p>
-<p>而云原生基础设施的其中一个重要目标是接管掉业务系统复杂的非功能特性，让业务研发与运维工作变得足够简单，不受分布式的牵绊。</p>
-<p>所以，Kubernetes 并不是云原生发展的终极形态，想达到这个目标，还有很远的路要走。</p>
-<h2 id="2-Sealos-的产生与发展"><a href="#2-Sealos-的产生与发展" class="headerlink" title="2. Sealos 的产生与发展"></a>2. Sealos 的产生与发展</h2><h3 id="初始设计：集群安装工具"><a href="#初始设计：集群安装工具" class="headerlink" title="初始设计：集群安装工具"></a>初始设计：集群安装工具</h3><p>Kubernetes 的复杂性体现在很多方面，而安装是其中一个非常重要的方面。</p>
-<p>使用 kubeadm 工具安装集群的基本流程如下：</p>
-<ol>
-<li>配置机器：包括主机名解析，ssh 免密登陆，禁用交换分区等。</li>
-<li>所有节点上安装 docker</li>
-<li>在所有节点上安装 kubeadm，kubelet 和 kubectl</li>
-<li>使用 kubeadm 在 master 节点上初始化控制平面</li>
-<li>配置 kubectl 非 root 访问权限</li>
-<li>安装 pod 网络插件</li>
-<li>使用 kubeadm 将 worker 节点加入集群中</li>
+            <h2 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h2><p>​	本文主要记录<a class="link"   target="_blank" rel="noopener" href="https://geektutu.com/post/high-performance-go.html" >Go语言高性能编程 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>的一书中的笔记（有些笔记也是抄别人的）。</p>
+<h3 id="benchmark"><a href="#benchmark" class="headerlink" title="benchmark"></a>benchmark</h3><ol>
+<li>进行性能测试时，尽可能保持测试环境的稳定</li>
+<li>实现 benchmark 测试<br>• 位于 <code>_test.go</code> 文件中<br>• 函数名以 <code>Benchmark</code> 开头<br>• 参数为 <code>b *testing.B</code><br>• <code>b.ResetTimer()</code> 可重置定时器<br>• <code>b.StopTimer()</code> 暂停计时<br>• <code>b.StartTimer()</code> 开始计时</li>
+<li>执行 benchmark 测试<br>• <code>go test -bench .</code> 执行当前测试<br>• <code>b.N</code> 决定用例需要执行的次数<br>• <code>-bench</code> 可传入正则，匹配用例<br>• <code>-cpu</code> 可改变 CPU 核数<br>• <code>-benchtime</code> 可指定执行时间或具体次数<br>• <code>-count</code> 可设置 benchmark 轮数<br>• <code>-benchmem</code> 可查看内存分配量和分配次数</li>
 </ol>
-<p>…….</p>
-<p>在这个过程中的每一步都可能会遇到各种各样的问题。非常的复杂和繁琐，足以劝退很多希望学习和使用 Kubernetes 的人员和企业。</p>
-<p>而 Sealos 最初是为了解决该问题编写的命令行工具 (一开始它还叫 KubeInit)，它通过引入集群镜像的概念 (把整个集群视作一个镜像，像 docker 镜像那样处理) 与对安装集群中的每一步做的并发&#x2F;容错的细致配置，达到了一键，快速，安全安装集群的功能。</p>
-<p>使用 Sealos，用户只需要一条命令就可以完成整个集群的安装。而且大大缩短了安装的时间。(安装 6 个节点的集群只需要 3min 左右)，</p>
-<p><strong>通过在用户与 Kubernetes 之间充当中间层的方式，降低了其安装的复杂性。</strong></p>
-<p><strong>那么我们不禁要进一步思考：既然 Kubernetes 安装的复杂性可以通过这种方式被降低，那么它的其他功能是否可以同样通过这种方式降低呢？</strong></p>
-<h3 id="视角转变：将-Kubernetes-视为云内核"><a href="#视角转变：将-Kubernetes-视为云内核" class="headerlink" title="视角转变：将 Kubernetes 视为云内核"></a>视角转变：将 Kubernetes 视为云内核</h3><p>Kubernetes 出现的时候，很多人都将其视为云原生时代的操作系统，这种说法并不是空穴来风。</p>
-<p>通过上文我们可以知道，操作系统的基本功能有：进程管理，内存管理，文件管理等等，说 Kubernetes 是操作系统，那么它首先要实现这些操作系统的基本功能，那么它实现的如何呢？</p>
+<h3 id="pprof"><a href="#pprof" class="headerlink" title="pprof"></a>pprof</h3><ol>
+<li><p>性能分析类型</p>
 <ul>
-<li>进程管理：Kubernetes 使用 Pod (容器组) 为单位调度应用程序，并可以通过 HPA 等技术实现动态扩缩容。</li>
-<li>内存管理：与进程管理类似，在容器层面对应用程序的内存进行限制。</li>
-<li>文件系统：Kubernetes 名为存储卷的集群全局资源管理持久化文件，并通过 PVCS,PVS 等应用程序”租赁 “的概念限制其使用。</li>
-<li>设备管理：存储 I&#x2F;O 主要与文件系统绑定实现，而网络 I&#x2F;O 则通过 Service.Ingress 等概念进行分配和限制。</li>
-<li>应用程序接口：应用程序不直接与 Kubernetes 进行交互，而是与各自节点上的 Linux 系统进行交互实现系统调用等功能。</li>
+<li>CPU 性能分析，runtime 每隔 10 ms 中断一次，记录此时正在运行的 goroutines 的堆栈信息</li>
+<li>内存性能分析，记录堆内存分配时的堆栈信息，忽略栈内存分配信息，默认每 1000 次采样 1 次</li>
+<li>阻塞性能分析，GO 中独有的，记录一个协程等待一个共享资源花费的时间</li>
+<li>锁性能分析，记录因为锁竞争导致的等待或延时</li>
 </ul>
-<p>由此可见，Kubernetes 确实有被称之为操作系统的资格。</p>
-<p>但是让我们回想一下当前主流的操作系统：Linux，Macos，Windows，Android….</p>
-<p>这些操作系统出了能完成基本功能外，不仅使用起来特别简单，而且几乎都带有图形化界面 (使用 Linux 桌面的人也越来越多)，学习成本很低甚至完全不需要学习。从这个维度上说，Kubernetes 无法被称之为一个优秀的操作系统，只能被视为 “云内核”，即优秀的操作系统内核。</p>
-<p><strong>根据之前的经验，隔离复杂性的最好方式就是分层，那么我们为什么不通过封装 Kubernetes 各种操作，编写各种功能强大的 CRD 与控制器，以更加用户友好的方式提供服务，成为 Kubernetes 中间层的方式，以 Kubernetes 优秀的能力为内核，打造出功能更加强大，用户更加友好的操作系统呢？</strong></p>
-<p>于是 Sealos 出现了。</p>
-<p>Sealos 是一款以 Kubernetes 为云内核的云操作系统，无论是安装，还是部署或者运维应用程序，它使用起来都像 Linux 等单机操作系统一样方便而快捷。甚至完全不懂 Kubernetes 的人也可以使用它快速的部署和运维分布式应用程序。可以说，<strong>Sealos 补齐了用户使用 Kubernetes 作为操作系统的最后一块拼图，极大的降低了使用的门槛。</strong></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/640-20240716220030157.png"
-                      alt="图片"
-                ></p>
-<p><strong>简单，是 Sealos 的第一个核心优势。</strong></p>
-<h3 id="公有云服务：弹性计算"><a href="#公有云服务：弹性计算" class="headerlink" title="公有云服务：弹性计算"></a>公有云服务：弹性计算</h3><p>公有云是一种云计算服务模式，它允许多个用户通过互联网访问和使用云服务提供商提供的整套计算资源。</p>
-<p>随着云原生技术的发展，公有云的市场规模不断增长，其按需付费，弹性计算的优势逐渐体现。</p>
-<p>但是当前的主流公有云存在如下几个问题：</p>
+</li>
+<li><p>CPU 性能分析</p>
 <ul>
-<li>以虚拟机为主，系统资源占用过多</li>
-<li>使用和配置比较繁琐，用户界面不太友好</li>
-<li>弹性计算能力相对较差</li>
+<li><p>使用原生 <code>runtime/pprof</code> 包，通过在 main 函数中添加代码运行可生成性能分析报告：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pprof.StartCPUProfile(os.Stdout)</span><br><span class="line">defer pprof.StopCPUProfile()</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>可通过 <code>go tool pprof -http=:9999 cpu.pprof</code> 在 web 页面查看分析数据</p>
+</li>
+<li><p>可通过 <code>go tool pprof cpu.prof</code> 交互模式查看分析数据，可使用 <code>help</code> 查看支持的命令和选项</p>
+</li>
 </ul>
-<p><strong>那么为什么不让公有云用户共用同一个 Kubernetes 集群呢？用户仅需要为正在运行的容器付费，而不需要额外支付其他的费用。</strong></p>
-<p>这样做的优势是显而易见的：</p>
+</li>
+<li><p>内存性能分析</p>
 <ul>
-<li>使用容器可以避免虚拟机消耗的费用，避免不必要的操作系统消耗</li>
-<li>基于 Kubernetes 强大的调度能力与 HPA 等功能，可以实现更加快速的应用弹性部署</li>
+<li><p>使用 <code>pkg/profile</code> 库，通过在 main 函数中添加代码运行可生成性能分析报告：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defer profile.Start(profile.MemProfile, profile.MemProfileRate(1)).Stop()</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>同样可通过 web 页面或交互模式查看分析数据</p>
+</li>
 </ul>
-<p>但是众多的云厂商并不会选择这么做，主要也有两个原因：</p>
+</li>
+<li><p>benchmark 生成 profile</p>
+</li>
+</ol>
 <ul>
-<li>多租户体系风险：在公有云不可信网络中使用多租户架构，存在隔离，鉴权，计费等各个问题。</li>
-<li>用户操作难度高：原本使用虚拟机层级的服务配置已经足够复杂，而如果使用 Kubernetes 原生的相关概念去面向用户提供服务，繁多的 Pod,Deployment,Service,Ingress……等必须要用到的概念就足已劝退用户。</li>
+<li>可通过在 <code>go test </code> 中添加参数 <code>-cpuprofile=$FILE,-memprofile=$FILE,-blockprofile=$FILE</code> 生成相应的 profile 文件</li>
+<li>生成的 profile 文件同样可通过 web 页面或交互模式查看分析数据</li>
 </ul>
-<p><strong>而对 Sealos 来说，其简单优秀的操作体验天然就可以可以解决操作难度的问题。所以 Sealos 的设计理念天然的就有提供公有云服务的优势</strong>。</p>
-<p>而其又使用独特的用户体系设计在很大程度上解决了多租户体系风险。所以其可以为用户提供优质的公有云服务。在提供极简。可视化操作的同时，又借助 Kubernetes 强大的调度能力提供了比其他云服务更强的弹性能力，可以使应用程序自动在业务高峰期新增实例，低谷期削减实例，大大节省用户的部署成本。</p>
-<p><strong>弹性，是 Sealos 的第二个核心优势。</strong></p>
-<h2 id="3-展望未来：云原生的终极形态"><a href="#3-展望未来：云原生的终极形态" class="headerlink" title="3. 展望未来：云原生的终极形态"></a>3. 展望未来：云原生的终极形态</h2><p>随着技术的进步与 Sealos 这种云操作系统的出现，未来的云原生服务，一定会变得更加的简单，更加的弹性，更加的安全。</p>
-<p>从软件制造角度上看，软件让我们的生活变得更加的简单，这意味着需要软件服务商提供更多的功能。</p>
-<p>同理，从云服务的角度上看，云服务则让软件的设计，开发，运维变得更加的简单，这意味着需要云原生服务商提供更多的功能。</p>
-<p>所以未来，我们会不断拓展 Sealos 的功能，不断优化用户的使用体验，提升服务的稳定性与安全性。以期达到云原生的终极形态。</p>
-<p>在人类发展的历程中，世界需要的是核心业务和核心技术的改造与创新，而云原生，最终会极大程度的削减用户的心智负担，让软件的设计，开发，运维变得越来越简单而值得信赖，从而催生出更加优秀的设计，并变为现实，提供更加优秀的产品。</p>
+<h3 id="字符串拼接"><a href="#字符串拼接" class="headerlink" title="字符串拼接"></a>字符串拼接</h3><ol>
+<li>字符串最高效的拼接方式是结合预分配内存方式 <code>Grow</code> 使用 <code>string.Builder</code></li>
+<li>当使用 <code>+</code> 拼接字符串时，生成新字符串，需要开辟新的空间</li>
+<li>当使用 <code>strings.Builder</code>，<code>bytes.Buffer</code> 或 <code>[]byte</code> 的内存是按倍数申请的，在原基础上不断增加</li>
+<li><code>strings.Builder</code> 比 <code>bytes.Buffer</code> 性能更快，一个重要区别在于 <code>bytes.Buffer</code> 转化为字符串重新申请了一块空间存放生成的字符串变量；而 <code>strings.Builder</code> 直接将底层的 <code>[]byte</code> 转换成字符串类型返回</li>
+</ol>
+<h3 id="切片性能及陷阱"><a href="#切片性能及陷阱" class="headerlink" title="切片性能及陷阱"></a>切片性能及陷阱</h3><ol>
+<li><p>GO 中的数组变量属于值类型，当数组变量被赋值或传递时，实际上会复制整个数组</p>
+</li>
+<li><p>切片本质是数组片段的描述，包括数组的指针，片段的长度和容量，切片操作并不复制切片指向的元素，而是复用原来切片的底层数组</p>
+<ul>
+<li><p>长度是切片实际拥有的元素，使用 <code>len</code> 可得到切片长度</p>
+</li>
+<li><p>容量是切片预分配的内存能够容纳的元素个数，使用</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cap</span><br></pre></td></tr></table></figure></div>
+
+<p>可得到切片容量</p>
+<ul>
+<li>当 append 之后的元素小于等于 cap，将会直接利用底层元素剩余的空间</li>
+<li>当 append 后的元素大于 cap，将会分配一块更大的区域来容纳新的底层数组，在容量较小的时候，通常是以 2 的倍数扩大</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>可能存在只使用了一小段切片，但是底层数组仍被占用，得不到使用，推荐使用 <code>copy</code> 替代默认的 <code>re-slice</code></p>
+</li>
+</ol>
+<h3 id="for-和-range-的性能比较"><a href="#for-和-range-的性能比较" class="headerlink" title="for 和 range 的性能比较"></a>for 和 range 的性能比较</h3><ol>
+<li>range的数据是slice，仅会计算一次，如果在循环中修改切片的长度不会改变本次循环的次数。</li>
+<li>和切片不同的是，迭代过程中，删除还未迭代到的键值对，则该键值对不会被迭代。</li>
+<li>range 在迭代过程中返回的是迭代值的拷贝，如果每次迭代的元素的内存占用很低，那么 for 和 range 的性能几乎是一样，例如 <code>[]int</code>。但是如果迭代的元素内存占用较高，例如一个包含很多属性的 struct 结构体，那么 for 的性能将显著地高于 range，有时候甚至会有上千倍的性能差异。</li>
+</ol>
+<h3 id="Go-Reflect-提高反射性能"><a href="#Go-Reflect-提高反射性能" class="headerlink" title="Go Reflect 提高反射性能"></a>Go Reflect 提高反射性能</h3><p>避免使用反射</p>
+<h3 id="Go-空结构体-struct-的使用"><a href="#Go-空结构体-struct-的使用" class="headerlink" title="Go 空结构体 struct{} 的使用"></a>Go 空结构体 struct{} 的使用</h3><ol>
+<li><p>空结构体占用空间吗？</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unsafe.Sizeof(<span class="keyword">struct</span>&#123;&#125;&#123;&#125;) <span class="comment">//结果为0</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>空结构体的作用</p>
+<ul>
+<li>实现集合(Set)</li>
+<li>不发送数据的信道(channel)</li>
+<li>仅包含方法的结构体</li>
+</ul>
+</li>
+</ol>
+<h3 id="Go-struct-内存对齐"><a href="#Go-struct-内存对齐" class="headerlink" title="Go struct 内存对齐"></a>Go struct 内存对齐</h3><div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Args <span class="keyword">struct</span> &#123;</span><br><span class="line">    num1 <span class="type">int</span></span><br><span class="line">    num2 <span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Flag <span class="keyword">struct</span> &#123;</span><br><span class="line">    num1 <span class="type">int16</span></span><br><span class="line">    num2 <span class="type">int32</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(unsafe.Sizeof(Args&#123;&#125;))</span><br><span class="line">    fmt.Println(unsafe.Sizeof(Flag&#123;&#125;))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Args 由 2 个 int 类型的字段构成，在 64位机器上，一个 int 占 8 字节，因此存储一个 Args 实例需要 16 字节。Flag 由一个 int32 和 一个 int16 的字段构成，成员变量占据的字节数为 4+2 = 6，但是 unsafe.Sizeof 返回的结果为 8 字节，多出来的 2 字节是内存对齐的结果。因此，一个结构体实例所占据的空间等于各字段占据空间之和，再加上内存对齐的空间大小。</span></span><br></pre></td></tr></table></figure></div>
+
+<p>合理的内存对齐可以提高内存读写的性能，并且便于实现变量操作的原子性。</p>
+<h3 id="读写锁和互斥锁的性能比较"><a href="#读写锁和互斥锁的性能比较" class="headerlink" title="读写锁和互斥锁的性能比较"></a>读写锁和互斥锁的性能比较</h3><ul>
+<li>读写比为 9:1 时，读写锁的性能约为互斥锁的 8 倍</li>
+<li>读写比为 1:9 时，读写锁性能相当</li>
+<li>读写比为 5:5 时，读写锁的性能约为互斥锁的 2 倍</li>
+</ul>
+<h3 id="如何退出协程-goroutine-超时场景"><a href="#如何退出协程-goroutine-超时场景" class="headerlink" title="如何退出协程 goroutine (超时场景)"></a>如何退出协程 goroutine (超时场景)</h3><p><a class="link"   target="_blank" rel="noopener" href="https://geektutu.com/post/hpg-timeout-goroutine.html" >如何退出协程 goroutine (超时场景) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="如何退出协程-goroutine-其他场景"><a href="#如何退出协程-goroutine-其他场景" class="headerlink" title="如何退出协程 goroutine (其他场景)"></a>如何退出协程 goroutine (其他场景)</h3><p><a class="link"   target="_blank" rel="noopener" href="https://golang.design/go-questions/channel/graceful-close/" >如何优雅地关闭 channel <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="控制协程-goroutine-的并发数量"><a href="#控制协程-goroutine-的并发数量" class="headerlink" title="控制协程(goroutine)的并发数量"></a>控制协程(goroutine)的并发数量</h3><p>并发过高导致程序崩溃，如何控制并发数量：</p>
+<ul>
+<li>利用 channel 的缓存区（chan struct{}）</li>
+<li>利用第三方库</li>
+<li>调整系统资源的上限<ul>
+<li>ulimit（ulimit -a查看系统当前的设置， ulimit -n **  调整同时打开的文件句柄数量）</li>
+<li>虚拟内存(virtual memory)</li>
+</ul>
+</li>
+</ul>
+<h3 id="Go-sync-Pool"><a href="#Go-sync-Pool" class="headerlink" title="Go sync.Pool"></a>Go sync.Pool</h3><div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Student <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name   <span class="type">string</span></span><br><span class="line">    Age    <span class="type">int32</span></span><br><span class="line">    Remark [<span class="number">1024</span>]<span class="type">byte</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> buf, _ = json.Marshal(Student&#123;Name: <span class="string">&quot;Geektutu&quot;</span>, Age: <span class="number">25</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> studentPool = sync.Pool&#123;New: <span class="function"><span class="keyword">func</span><span class="params">()</span></span> <span class="keyword">interface</span>&#123;&#125; &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="built_in">new</span>(Student)</span><br><span class="line">    &#125;&#125;</span><br><span class="line">    stu := studentPool.Get().(*Student)</span><br><span class="line">    json.Unmarshal(buf, stu)</span><br><span class="line">    studentPool.Put(stu)</span><br><span class="line">    fmt.Println(stu)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h3 id="Go-sync-Once"><a href="#Go-sync-Once" class="headerlink" title="Go sync.Once"></a>Go sync.Once</h3><div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Once <span class="keyword">struct</span> &#123;</span><br><span class="line">    done <span class="type">uint32</span></span><br><span class="line">    m    Mutex</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(o *Once)</span></span> Do(f <span class="function"><span class="keyword">func</span><span class="params">()</span></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> atomic.LoadUint32(&amp;o.done) == <span class="number">0</span> &#123;</span><br><span class="line">        o.doSlow(f)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(o *Once)</span></span> doSlow(f <span class="function"><span class="keyword">func</span><span class="params">()</span></span>) &#123;</span><br><span class="line">    o.m.Lock()</span><br><span class="line">    <span class="keyword">defer</span> o.m.Unlock()</span><br><span class="line">    <span class="keyword">if</span> o.done == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">defer</span> atomic.StoreUint32(&amp;o.done, <span class="number">1</span>)</span><br><span class="line">        f()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>为什么将 done 置为 Once 的第一个字段：done 在热路径中，done 放在第一个字段，能够减少 CPU 指令，也就是说，这样做能够提升性能。</p>
+<p>简单解释下这句话：</p>
+<ol>
+<li>热路径(hot path)是程序非常频繁执行的一系列指令，sync.Once 绝大部分场景都会访问 <code>o.done</code>，在热路径上是比较好理解的，如果 hot path 编译后的机器码指令更少，更直接，必然是能够提升性能的。</li>
+<li>为什么放在第一个字段就能够减少指令呢？因为结构体第一个字段的地址和结构体的指针是相同的，如果是第一个字段，直接对结构体的指针解引用即可。如果是其他的字段，除了结构体指针外，还需要计算与第一个值的偏移(calculate offset)。在机器码中，偏移量是随指令传递的附加值，CPU 需要做一次偏移值与指针的加法运算，才能获取要访问的值的地址。因为，访问第一个字段的机器代码更紧凑，速度更快。</li>
+</ol>
+<h3 id="Go-sync-Cond"><a href="#Go-sync-Cond" class="headerlink" title="Go sync.Cond"></a>Go sync.Cond</h3><div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> done = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">read</span><span class="params">(name <span class="type">string</span>, c *sync.Cond)</span></span> &#123;</span><br><span class="line">	c.L.Lock()</span><br><span class="line">	<span class="keyword">for</span> !done &#123;</span><br><span class="line">		c.Wait()</span><br><span class="line">	&#125;</span><br><span class="line">	log.Println(name, <span class="string">&quot;starts reading&quot;</span>)</span><br><span class="line">	c.L.Unlock()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">write</span><span class="params">(name <span class="type">string</span>, c *sync.Cond)</span></span> &#123;</span><br><span class="line">	log.Println(name, <span class="string">&quot;starts writing&quot;</span>)</span><br><span class="line">	time.Sleep(time.Second)</span><br><span class="line">	c.L.Lock()</span><br><span class="line">	done = <span class="literal">true</span></span><br><span class="line">	c.L.Unlock()</span><br><span class="line">	log.Println(name, <span class="string">&quot;wakes all&quot;</span>)</span><br><span class="line">	c.Broadcast()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	cond := sync.NewCond(&amp;sync.Mutex&#123;&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">go</span> read(<span class="string">&quot;reader1&quot;</span>, cond)</span><br><span class="line">	<span class="keyword">go</span> read(<span class="string">&quot;reader2&quot;</span>, cond)</span><br><span class="line">	<span class="keyword">go</span> read(<span class="string">&quot;reader3&quot;</span>, cond)</span><br><span class="line">	write(<span class="string">&quot;writer&quot;</span>, cond)</span><br><span class="line"></span><br><span class="line">	time.Sleep(time.Second * <span class="number">3</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h3 id="减小-Go-代码编译后的二进制体积"><a href="#减小-Go-代码编译后的二进制体积" class="headerlink" title="减小 Go 代码编译后的二进制体积"></a>减小 Go 代码编译后的二进制体积</h3><div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> build -ldflags=<span class="string">&quot;-s -w&quot;</span> -o server main.<span class="keyword">go</span> &amp;&amp; upx <span class="number">-9</span> server</span><br></pre></td></tr></table></figure></div>
+
+<p>Go 编译器默认编译出来的程序会带有符号表和调试信息，一般来说 release 版本可以去除调试信息以减小二进制体积。</p>
+<ul>
+<li>-s：忽略符号表和调试信息。</li>
+<li>-w：忽略DWARFv3调试信息，使用该选项后将无法使用gdb进行调试。</li>
+</ul>
+<p>upx 有很多参数，最重要的则是压缩率，<code>1-9</code>，<code>1</code> 代表最低压缩率，<code>9</code> 代表最高压缩率。upx 压缩后的程序和压缩前的程序一样，无需解压仍然能够正常地运行，这种压缩方法称之为带壳压缩，压缩包含两个部分：</p>
+<ul>
+<li>在程序开头或其他合适的地方插入解压代码；</li>
+<li>将程序的其他部分压缩。</li>
+</ul>
+<p>执行时，也包含两个部分：</p>
+<ul>
+<li>首先执行的是程序开头的插入的解压代码，将原来的程序在内存中解压出来；</li>
+<li>再执行解压后的程序。</li>
+</ul>
+<p>也就是说，upx 在程序执行时，会有额外的解压动作，不过这个耗时几乎可以忽略。如果对编译后的体积没什么要求的情况下，可以不使用 upx 来压缩。一般在服务器端独立运行的后台服务，无需压缩体积。</p>
+<h3 id="Go-逃逸分析"><a href="#Go-逃逸分析" class="headerlink" title="Go 逃逸分析"></a>Go 逃逸分析</h3><p>传值会拷贝整个对象，而传指针只会拷贝指针地址，指向的对象是同一个。传指针可以减少值的拷贝，但是会导致内存分配逃逸到堆中，增加垃圾回收(GC)的负担。在对象频繁创建和删除的场景下，传递指针导致的 GC 开销可能会严重影响性能。</p>
+<p>一般情况下，对于需要修改原对象值，或占用内存比较大的结构体，选择传指针。对于只读的占用内存较小的结构体，直接传值能够获得更好的性能。</p>
+<h3 id="Go-死码消除与调试-debug-模式"><a href="#Go-死码消除与调试-debug-模式" class="headerlink" title="Go 死码消除与调试(debug)模式"></a>Go 死码消除与调试(debug)模式</h3><p>死码消除(dead code elimination, DCE)是一种编译器优化技术，用处是在编译阶段去掉对程序运行结果没有任何影响的代码。死码消除有很多好处：减小程序体积，程序运行过程中避免执行无用的指令，缩短运行时间。</p>
+<ul>
+<li>使用常量提升性能</li>
+<li>可推断的局部变量</li>
+<li>调试(debug)模式</li>
+<li>条件编译</li>
+</ul>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// +build debug 表示 build tags 中包含 debug 时，该源文件参与编译。</span></span><br><span class="line"><span class="comment">// +build !debug 表示 build tags 中不包含 debug 时，该源文件参与编译。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// +build debug</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">const</span> debug = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// +build !debug</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">const</span> debug = <span class="literal">false</span></span><br></pre></td></tr></table></figure></div>
+
 
         </div>
 
@@ -747,18 +801,18 @@
             <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
                 <div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> 未来云计算会是什么样子</li>
+        <li><strong>标题:</strong> Go高性能编程阅读笔记</li>
         <li><strong>作者:</strong> Olivia的小跟班</li>
         <li><strong>创建于
-                :</strong> 2024-07-16 21:54:52</li>
+                :</strong> 2024-11-18 21:13:52</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-07-16 22:06:57
+                    :</strong> 2024-11-19 04:42:47
             </li>
         
         <li>
-            <strong>链接:</strong> https://www.youandgentleness.cn/2024/07/16/未来云计算会是什么样子/
+            <strong>链接:</strong> https://www.youandgentleness.cn/2024/11/18/Go高性能编程阅读笔记/
         </li>
         <li>
             <strong>
@@ -777,35 +831,28 @@
         
 
         
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Go/">#Go</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
 
         
 
         
             <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
                 
-                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2024/07/27/%E5%BB%B6%E8%BF%9F%E5%8F%8C%E5%88%A0/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">延迟双删</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="next"
                         rel="next"
-                        href="/2024/07/15/Go-MOD%E9%81%87%E8%A7%81%E7%9A%84%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98/"
+                        href="/2024/11/13/mongodb%E5%AD%A6%E4%B9%A0/"
                         >
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">Go_MOD遇见的一个问题</span>
+                                <span class="post-nav-title-item">mongodb学习</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex justify-center items-center">
@@ -884,8 +931,8 @@
             <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">此页目录</div>
-        <div class="page-title">未来云计算会是什么样子</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%AC%E6%96%87%E6%98%AF%E4%B8%80%E7%AF%87%E8%BD%AC%E8%BD%BD%E6%96%87"><span class="nav-text">本文是一篇转载文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9B%9E%E9%A6%96%E5%BE%80%E4%BA%8B%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%8F%91%E5%B1%95"><span class="nav-text">1. 回首往事：操作系统与应用程序的发展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BA%A7%E7%94%9F%E4%B8%8E%E5%8F%91%E5%B1%95"><span class="nav-text">操作系统的产生与发展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD"><span class="nav-text">操作系统的基本功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%AE%B9%E5%99%A8%E5%8C%96"><span class="nav-text">应用容器化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E6%9C%BA%E8%B5%84%E6%BA%90%E9%9A%94%E7%A6%BB"><span class="nav-text">物理机资源隔离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%94%E7%A6%BB%E6%8A%80%E6%9C%AF%E7%9A%84%E5%BA%94%E7%94%A8%EF%BC%9A%E5%B0%81%E8%A3%85%E7%B3%BB%E7%BB%9F-or-%E5%B0%81%E8%A3%85%E5%BA%94%E7%94%A8%EF%BC%9F"><span class="nav-text">隔离技术的应用：封装系统 or 封装应用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92%EF%BC%9AKubernetes"><span class="nav-text">容器编排：Kubernetes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kubernetes-%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">Kubernetes 的问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Sealos-%E7%9A%84%E4%BA%A7%E7%94%9F%E4%B8%8E%E5%8F%91%E5%B1%95"><span class="nav-text">2. Sealos 的产生与发展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E8%AE%BE%E8%AE%A1%EF%BC%9A%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E5%B7%A5%E5%85%B7"><span class="nav-text">初始设计：集群安装工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E8%A7%92%E8%BD%AC%E5%8F%98%EF%BC%9A%E5%B0%86-Kubernetes-%E8%A7%86%E4%B8%BA%E4%BA%91%E5%86%85%E6%A0%B8"><span class="nav-text">视角转变：将 Kubernetes 视为云内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E6%9C%89%E4%BA%91%E6%9C%8D%E5%8A%A1%EF%BC%9A%E5%BC%B9%E6%80%A7%E8%AE%A1%E7%AE%97"><span class="nav-text">公有云服务：弹性计算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%B1%95%E6%9C%9B%E6%9C%AA%E6%9D%A5%EF%BC%9A%E4%BA%91%E5%8E%9F%E7%94%9F%E7%9A%84%E7%BB%88%E6%9E%81%E5%BD%A2%E6%80%81"><span class="nav-text">3. 展望未来：云原生的终极形态</span></a></li></ol></li></ol>
+        <div class="page-title">Go高性能编程阅读笔记</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#benchmark"><span class="nav-text">benchmark</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pprof"><span class="nav-text">pprof</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5"><span class="nav-text">字符串拼接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E7%89%87%E6%80%A7%E8%83%BD%E5%8F%8A%E9%99%B7%E9%98%B1"><span class="nav-text">切片性能及陷阱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-%E5%92%8C-range-%E7%9A%84%E6%80%A7%E8%83%BD%E6%AF%94%E8%BE%83"><span class="nav-text">for 和 range 的性能比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-Reflect-%E6%8F%90%E9%AB%98%E5%8F%8D%E5%B0%84%E6%80%A7%E8%83%BD"><span class="nav-text">Go Reflect 提高反射性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E7%A9%BA%E7%BB%93%E6%9E%84%E4%BD%93-struct-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">Go 空结构体 struct{} 的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-struct-%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90"><span class="nav-text">Go struct 内存对齐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E9%94%81%E5%92%8C%E4%BA%92%E6%96%A5%E9%94%81%E7%9A%84%E6%80%A7%E8%83%BD%E6%AF%94%E8%BE%83"><span class="nav-text">读写锁和互斥锁的性能比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%80%80%E5%87%BA%E5%8D%8F%E7%A8%8B-goroutine-%E8%B6%85%E6%97%B6%E5%9C%BA%E6%99%AF"><span class="nav-text">如何退出协程 goroutine (超时场景)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%80%80%E5%87%BA%E5%8D%8F%E7%A8%8B-goroutine-%E5%85%B6%E4%BB%96%E5%9C%BA%E6%99%AF"><span class="nav-text">如何退出协程 goroutine (其他场景)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E5%8D%8F%E7%A8%8B-goroutine-%E7%9A%84%E5%B9%B6%E5%8F%91%E6%95%B0%E9%87%8F"><span class="nav-text">控制协程(goroutine)的并发数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-sync-Pool"><span class="nav-text">Go sync.Pool</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-sync-Once"><span class="nav-text">Go sync.Once</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-sync-Cond"><span class="nav-text">Go sync.Cond</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%8F%E5%B0%8F-Go-%E4%BB%A3%E7%A0%81%E7%BC%96%E8%AF%91%E5%90%8E%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%93%E7%A7%AF"><span class="nav-text">减小 Go 代码编译后的二进制体积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90"><span class="nav-text">Go 逃逸分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E6%AD%BB%E7%A0%81%E6%B6%88%E9%99%A4%E4%B8%8E%E8%B0%83%E8%AF%95-debug-%E6%A8%A1%E5%BC%8F"><span class="nav-text">Go 死码消除与调试(debug)模式</span></a></li></ol></li></ol>
 
     </div>
 </div>
