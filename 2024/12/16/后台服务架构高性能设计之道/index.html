@@ -19,20 +19,24 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://zhouxing9454.github.io/archives/2023/"/>
+    <link rel="canonical" href="https://zhouxing9454.github.io/2024/12/16/后台服务架构高性能设计之道/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="Life&#x3D;Coding;Enjoy Life &#x3D;&#x3D;Enjoy Coding;">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Olivia的小跟班">
-<meta property="og:url" content="https://zhouxing9454.github.io/archives/2023/index.html">
+        <meta name="description" content="本文主要是转载于腾讯技术工程微信公众号的文章，是一篇关于如何设计一个高性能&#x2F;高并发&#x2F;高可用&#x2F;高可靠&#x2F;可扩展的系统，大纲如下：  原文链接：后台服务架构高性能设计之道">
+<meta property="og:type" content="article">
+<meta property="og:title" content="后台服务架构高性能设计之道">
+<meta property="og:url" content="https://zhouxing9454.github.io/2024/12/16/%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%BE%E8%AE%A1%E4%B9%8B%E9%81%93/index.html">
 <meta property="og:site_name" content="Olivia的小跟班">
-<meta property="og:description" content="Life&#x3D;Coding;Enjoy Life &#x3D;&#x3D;Enjoy Coding;">
+<meta property="og:description" content="本文主要是转载于腾讯技术工程微信公众号的文章，是一篇关于如何设计一个高性能&#x2F;高并发&#x2F;高可用&#x2F;高可靠&#x2F;可扩展的系统，大纲如下：  原文链接：后台服务架构高性能设计之道">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/640">
+<meta property="article:published_time" content="2024-12-16T14:49:42.000Z">
+<meta property="article:modified_time" content="2024-12-16T14:52:10.690Z">
 <meta property="article:author" content="Olivia的小跟班">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/640">
     
     
     <!--- Icon Part-->
@@ -44,7 +48,7 @@
     
     <title>
         
-            归档: 2023 -
+            后台服务架构高性能设计之道 -
         
         Olivia的小跟班
     </title>
@@ -546,385 +550,215 @@
             <div class="main-content">
 
                 
-                    <div class="archive-container shadow-none hover:shadow-none sm:shadow-redefine sm:hover:shadow-redefine-hover">
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">后台服务架构高性能设计之道</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/avatar.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Olivia的小跟班</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-12-16 22:49:42</span>
+        <span class="mobile">2024-12-16 22:49:42</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-12-16 22:52:10</span>
+            <span class="mobile">2024-12-16 22:52:10</span>
+            <span class="hover-info">更新</span>
+        </span>
     
 
-<div class="archive-list-container">
     
-        <section class="archive-item mb-spacing-unit last:mb-0">
-            <div class="archive-item-header flex flex-row items-center mb-2">
-                <span class="archive-year font-semibold text-3xl mr-2">2024</span>
-                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">15</span>
-            </div>
-            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='12-16'>
-                
-                    
-                        <a href="/2024/12/16/%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%BE%E8%AE%A1%E4%B9%8B%E9%81%93/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">后台服务架构高性能设计之道</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='11-18'>
-                
-                    
-                        <a href="/2024/11/18/Go%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Go高性能编程阅读笔记</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='11-13'>
-                
-                    
-                        <a href="/2024/11/13/mongodb%E5%AD%A6%E4%B9%A0/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">mongodb学习</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='09-26'>
-                
-                    
-                        <a href="/2024/09/26/ComfyUI%E5%AD%A6%E4%B9%A0/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">ComfyUI学习</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='08-29'>
-                
-                    
-                        <a href="/2024/08/29/%E4%B8%8A%E7%8F%AD%E9%81%87%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%81%E9%97%AE%E9%A2%98/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">数据库锁问题</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='08-28'>
-                
-                    
-                        <a href="/2024/08/28/Macos%E4%B8%8BSwitch%E6%A8%A1%E6%8B%9F%E5%99%A8%E7%95%85%E7%8E%A9%E4%BB%BB%E5%A4%A9%E5%A0%82%E6%B8%B8%E6%88%8F/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Macos下Switch模拟器畅玩任天堂游戏</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='07-27'>
-                
-                    
-                        <a href="/2024/07/27/wire%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">wire依赖注入</span>
-                        </a>
-                    
-              
-                
-                    
-                        <a href="/2024/07/27/%E5%BB%B6%E8%BF%9F%E5%8F%8C%E5%88%A0/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">延迟双删</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='07-16'>
-                
-                    
-                        <a href="/2024/07/16/%E6%9C%AA%E6%9D%A5%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BC%9A%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E5%AD%90/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">未来云计算会是什么样子</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='07-15'>
-                
-                    
-                        <a href="/2024/07/15/Go-MOD%E9%81%87%E8%A7%81%E7%9A%84%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Go_MOD遇见的一个问题</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-26'>
-                
-                    
-                        <a href="/2024/02/26/go-micro%E6%8F%92%E4%BB%B6%E5%AD%A6%E4%B9%A0/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">go-micro插件学习</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-22'>
-                
-                    
-                        <a href="/2024/02/22/go-micro%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AD%A6%E4%B9%A0/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">go-micro命令行学习</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-20'>
-                
-                    
-                        <a href="/2024/02/20/go-micro%D1%A7%CF%B0/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">go-micro学习</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-19'>
-                
-                    
-                        <a href="/2024/02/19/protobuf%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">protobuf入门学习</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-15'>
-                
-                    
-                        <a href="/2024/02/15/%E6%B7%B1%E5%9C%B3%E4%B8%87%E5%A3%B0%E9%9F%B3%E4%B9%90%E5%AE%9E%E4%B9%A0%E6%80%BB%E7%BB%93/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">深圳万声音乐实习总结</span>
-                        </a>
-                    
-              
-            </ul>
-        </section>
     
-        <section class="archive-item mb-spacing-unit last:mb-0">
-            <div class="archive-item-header flex flex-row items-center mb-2">
-                <span class="archive-year font-semibold text-3xl mr-2">2023</span>
-                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">18</span>
-            </div>
-            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='11-06'>
-                
-                    
-                        <a href="/2023/11/06/Redis%E4%BD%BF%E7%94%A8%E8%A7%84%E8%8C%83/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Redis使用规范</span>
-                        </a>
-                    
-              
-                
-                    
-                        <a href="/2023/11/06/RDB%E8%AE%BE%E8%AE%A1%E8%A7%84%E7%BA%A6/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">RDB设计规约</span>
-                        </a>
-                    
-              
-                
-                    
-                        <a href="/2023/11/06/Golang%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%831/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Golang编码规范1</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='10-23'>
-                
-                    
-                        <a href="/2023/10/23/%E9%A1%B9%E7%9B%AEGeeCache%E9%9D%A2%E8%AF%95%E9%A2%98/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">项目GeeCache面试题</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='09-21'>
-                
-                    
-                        <a href="/2023/09/21/Golang%E5%85%AB%E8%82%A1%E6%96%87%E6%B1%87%E6%80%BB/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Golang八股文汇总</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='08-28'>
-                
-                    
-                        <a href="/2023/08/28/Go%E8%AF%AD%E8%A8%80%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E8%AE%B2/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Go语言面试题精讲</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='06-27'>
-                
-                    
-                        <a href="/2023/06/27/Kafka%D1%A7%CF%B0/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Kafka学习</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='06-19'>
-                
-                    
-                        <a href="/2023/06/19/%E6%95%8F%E6%84%9F%E8%AF%8D%E6%A3%80%E6%B5%8B/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">敏感词检测</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='06-05'>
-                
-                    
-                        <a href="/2023/06/05/Redis%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Redis从零开始学习</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='04-29'>
-                
-                    
-                        <a href="/2023/04/29/Docker%E4%BD%A0%E5%A5%BD/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Docker你好</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='04-09'>
-                
-                    
-                        <a href="/2023/04/09/SHA-1%E7%AE%97%E6%B3%95/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">SHA-1算法</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-30'>
-                
-                    
-                        <a href="/2023/03/30/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">雪花算法</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-29'>
-                
-                    
-                        <a href="/2023/03/29/JWT%E8%AF%A6%E8%A7%A3/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">JWT详解</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-25'>
-                
-                    
-                        <a href="/2023/03/25/GO%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">GO设计模式</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-11'>
-                
-                    
-                        <a href="/2023/03/11/Go-context%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Go-context源码剖析</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-06'>
-                
-                    
-                        <a href="/2023/03/06/go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%9550%E9%97%AE/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">go基础语法50问</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-28'>
-                
-                    
-                        <a href="/2023/02/28/Git%E5%A4%9A%E4%BA%BA%E5%8D%8F%E4%BD%9C/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Git多人协作</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-02'>
-                
-                    
-                        <a href="/2023/01/02/Go%E5%AE%9E%E7%8E%B0%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Go实现十大排序算法</span>
-                        </a>
-                    
-              
-            </ul>
-        </section>
+
     
-        <section class="archive-item mb-spacing-unit last:mb-0">
-            <div class="archive-item-header flex flex-row items-center mb-2">
-                <span class="archive-year font-semibold text-3xl mr-2">2022</span>
-                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">2</span>
-            </div>
-            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='12-11'>
-                
-                    
-                        <a href="/2022/12/11/Go%E9%BB%91%E9%A9%AC%E7%A8%8B%E5%BA%8F%E5%91%98/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Go黑马程序员</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='08-05'>
-                
-                    
-                        <a href="/2022/08/05/c++%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">c++核心编程</span>
-                        </a>
-                    
-              
-            </ul>
-        </section>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
     
 </div>
 
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <p>本文主要是转载于腾讯技术工程微信公众号的文章，是一篇关于如何设计一个高性能&#x2F;高并发&#x2F;高可用&#x2F;高可靠&#x2F;可扩展的系统，大纲如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/640"
+                      alt="图片"
+                ></p>
+<p>原文链接：<a class="link"   target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/hsH7LMBEDGe_df9UbfOvbQ" >后台服务架构高性能设计之道 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 后台服务架构高性能设计之道</li>
+        <li><strong>作者:</strong> Olivia的小跟班</li>
+        <li><strong>创建于
+                :</strong> 2024-12-16 22:49:42</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2024-12-16 22:52:10
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://www.youandgentleness.cn/2024/12/16/后台服务架构高性能设计之道/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
 </div>
+
+            </div>
+        
+
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/11/18/Go%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Go高性能编程阅读笔记</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '782748daccf6cb467d2c',
+                    clientSecret: '2a18a038c753ac1ae59de258d979feb2e04ee274',
+                    repo: 'gitalk',
+                    owner: 'zhouxing9454',
+                    admin: ['zhouxing9454'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">后台服务架构高性能设计之道</div>
+        
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
 
                 
 
@@ -1017,6 +851,27 @@
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-side-tools-container">
