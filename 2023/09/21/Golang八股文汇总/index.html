@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="Hexo Theme Redefine">
     
-    <meta name="author" content="Olivia的小跟班">
+    <meta name="author" content="纸鸢">
     <!-- preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
         
         
         
-            <link rel="preconnect" href="https://cdn.staticfile.org" crossorigin>
+            <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin>
         
     
     <!--- Seo Part-->
@@ -24,43 +24,23 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="题记本文记录Golang语言面试的八股文。 Go基础init和main函数相关特点init函数（没有输入参数、返回值）的主要作用：  初始化不能采用初始化表达式初始化的变量。 程序运行前的注册。 实现sync.Once功能。 其他  init 顺序 1、在同一个 package 中，可以多个文件中定义 init 方法 2、在同一个 go 文件中，可以重复定义 init 方法 3、在同一个 pack">
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Golang八股文汇总">
 <meta property="og:url" content="https://zhouxing9454.github.io/2023/09/21/Golang%E5%85%AB%E8%82%A1%E6%96%87%E6%B1%87%E6%80%BB/index.html">
 <meta property="og:site_name" content="Olivia的小跟班">
-<meta property="og:description" content="题记本文记录Golang语言面试的八股文。 Go基础init和main函数相关特点init函数（没有输入参数、返回值）的主要作用：  初始化不能采用初始化表达式初始化的变量。 程序运行前的注册。 实现sync.Once功能。 其他  init 顺序 1、在同一个 package 中，可以多个文件中定义 init 方法 2、在同一个 go 文件中，可以重复定义 init 方法 3、在同一个 pack">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309211606395.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309212043803.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307241657901.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307241700649.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309220042395.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309220106185.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309220106985.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309221537150.jpeg">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309061705470.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309212146306.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309221401184.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309221401220.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309221401144.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309221401990.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309221401528.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309221402243.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309220041268.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309221403761.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309212132164.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309212128331.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309221533815.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309221533823.png">
-<meta property="og:image" content="https://image-1302243118.cos.ap-beijing.myqcloud.com/img/image-20220417141424408-16502031148431.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202307241643150.png">
+<meta property="og:image" content="https://zhouxing9454.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2023-09-21T07:49:10.000Z">
 <meta property="article:modified_time" content="2024-06-05T09:18:16.985Z">
 <meta property="article:author" content="Olivia的小跟班">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202309211606395.png">
+<meta name="twitter:image" content="https://zhouxing9454.github.io/images/redefine-og.webp">
     
     
     <!--- Icon Part-->
@@ -72,14 +52,11 @@
     
     <title>
         
-            Golang八股文汇总 -
+            Golang八股文汇总 | Olivia的小跟班
         
-        Olivia的小跟班
     </title>
 
-    
-<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
-
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/Chillax/chillax.css">
 
     <!--- Inject Part-->
     
@@ -90,7 +67,58 @@
     
 
     
-        <style>
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/css/build/tailwind.css">
+    
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/Geist/geist.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+        <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/anime.min.js" ></script>
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"zhouxing9454.github.io","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":null,"skip_dirs":[]}},"colors":{"primary":"#1890ff","secondary":"#1890ff","default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/back2.png","dark":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/back1.png"},"title":"Talk is cheap,Show me the code.","subtitle":{"text":["他们以为击败我就是终结，而我必归来将之改写。"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#D27D2D","dark":"#1E90FF"},"text_style":{"title_size":"2.1rem","subtitle_size":"1.2rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/zhouxing9454","instagram":null,"zhihu":null,"twitter":null,"email":"zhouxing9454@gmail.com","qq":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/QQ.jpg","weixin":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/wechat.jpg"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"一路山程","artist":"毛不易","url":"http://music.163.com/song/media/outer/url?id=2149269990.mp3","cover":"https://p2.music.126.net/6pWRp36W7nl9tQZM7Itzdg==/109951169481117593.jpg"},{"name":"最后的旅行","artist":"Rainton桐","url":"http://music.163.com/song/media/outer/url?id=30512539.mp3","cover":"https://p1.music.126.net/XWUdXb46hIdIecRihPCV_A==/109951168667887853.jpg"},{"name":"陪我长大","artist":"段奥娟","url":"http://music.163.com/song/media/outer/url?id=1299550093.mp3","cover":"http://p2.music.126.net/YxUbVoHngGMY8gZMjbEJkg==/109951163446151536.jpg"}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#FAF9F6","right":"#FAF9F6","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"Friends":{"icon":"fa-solid fa-link","path":"/links/"},"Essays":{"icon":"fa-solid fa-paper-plane","path":"/essays/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","typography":{"line_height":1.6}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/7/4 9:30:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
     :root {
         --preloader-background-color: #fff;
         --preloader-text-color: #000;
@@ -158,12 +186,9 @@
 </style>
 
 <div class="preloader">
-    
-<script src="/js/libs/anime.min.js"></script>
-
-    <h1 class="ml13">
+    <h2 class="ml13">
         Olivia的小跟班
-    </h1>
+    </h2>
     <script>
         var textWrapper = document.querySelector('.ml13');
         // Split text into words
@@ -181,24 +206,30 @@
             textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
         });
 
-
-        anime.timeline({loop: true})
+        var animation = anime.timeline({ loop: true })
             .add({
                 targets: '.ml13 .letter',
-                translateY: [100,0],
+                translateY: [20, 0],
                 translateZ: 0,
-                opacity: [0,1],
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
                 easing: "easeOutExpo",
-                duration: 1400,
-                delay: (el, i) => 300 + 30 * i
-            }).add({
-            targets: '.ml13 .letter',
-            translateY: [0,-100],
-            opacity: [1,0],
-            easing: "easeInExpo",
-            duration: 1200,
-            delay: (el, i) => 100 + 30 * i
-        });
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
 
         let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
 
@@ -221,101 +252,27 @@
         }
 
         window.addEventListener('load', function () {
-            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
         });
 
-        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
-        hidePreloaderAfterTimeout(5000);
-
-        function hidePreloaderAfterTimeout(delay) {
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
             setTimeout(function () {
-                var preloader = document.querySelector('.preloader');
-                preloader.style.opacity = '0';
-                setTimeout(function () {
-                    preloader.style.display = 'none';
-                }, 200);
-            }, delay);
+                preloader.style.display = 'none';
+            }, 200);
         }
     </script>
 </div>
-    
-
-    
-<link rel="stylesheet" href="/css/style.css">
-
-
-    
-        
-<link rel="stylesheet" href="/assets/build/styles.css">
-
-    
-
-    
-<link rel="stylesheet" href="/fonts/fonts.css">
-
-    
-<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
-
-    <!--- Font Part-->
-    
-    
-    
-    
-
-
-    <script id="hexo-configurations">
-    window.config = {"hostname":"zhouxing9454.github.io","root":"/","language":"zh-CN"};
-    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":null,"skip_dirs":[]}},"colors":{"primary":"#1890ff","secondary":"#1890ff","default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/back2.png","dark":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/back1.png"},"title":"Talk is cheap,Show me the code.","subtitle":{"text":["他们以为击败我就是终结，而我必归来将之改写。"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#D27D2D","dark":"#1E90FF"},"text_style":{"title_size":"2.1rem","subtitle_size":"1.2rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"email":"zhouxing9454@gmail.com","github":"https://github.com/zhouxing9454","qq":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/QQ.jpg","weixin":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/wechat.jpg"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"一路山程","artist":"毛不易","url":"http://music.163.com/song/media/outer/url?id=2149269990.mp3","cover":"https://p2.music.126.net/6pWRp36W7nl9tQZM7Itzdg==/109951169481117593.jpg"},{"name":"最后的旅行","artist":"Rainton桐","url":"http://music.163.com/song/media/outer/url?id=30512539.mp3","cover":"https://p1.music.126.net/XWUdXb46hIdIecRihPCV_A==/109951168667887853.jpg"},{"name":"陪我长大","artist":"段奥娟","url":"http://music.163.com/song/media/outer/url?id=1299550093.mp3","cover":"http://p2.music.126.net/YxUbVoHngGMY8gZMjbEJkg==/109951163446151536.jpg"}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.1","navbar":{"auto_hide":false,"color":{"left":"#FAF9F6","right":"#FAF9F6","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"Friends":{"icon":"fa-solid fa-link","path":"/links/"},"Essays":{"icon":"fa-solid fa-paper-plane","path":"/essays/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","typography":{"line_height":1.6}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/7/4 9:30:00"};
-    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
-    window.data = {"masonry":false};
-  </script>
-    
-    <!--- Fontawesome Part-->
-    
-<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
-
-    
-<link rel="stylesheet" href="/fontawesome/brands.min.css">
-
-    
-<link rel="stylesheet" href="/fontawesome/solid.min.css">
-
-    
-<link rel="stylesheet" href="/fontawesome/regular.min.css">
-
-    
-    
-    
-    
-<meta name="generator" content="Hexo 7.1.1"></head>
-
-
-<body>
-<div class="progress-bar-container">
-    
-        <span class="scroll-progress-bar"></span>
-    
-
-    
-        <span class="pjax-progress-bar"></span>
-<!--        <span class="swup-progress-icon">-->
-<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
-<!--        </span>-->
-    
-</div>
-
 
 <main class="page-container" id="swup">
 
-    
+	
 
-    <div class="main-content-container">
-
-
-        <div class="main-content-header">
-            <header class="navbar-container px-6 md:px-12">
-
-    <div class="navbar-content ">
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
         <div class="left">
             
             <a class="logo-title" href="/">
@@ -436,7 +393,7 @@
     </div>
 
     <!-- Mobile sheet -->
-    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
         <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
             
                 
@@ -565,40 +522,37 @@
 </header>
 
 
-        </div>
+		</div>
 
-        <div class="main-content-body">
+		<div class="main-content-body transition-fade-up">
+			
 
-            
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
 
-            <div class="main-content">
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Golang八股文汇总</h1>
+			</div>
+			
+		</div>
 
-                
-                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
-    <div class="article-content-container">
-
-        <div class="article-title relative w-full">
-            
-                <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">Golang八股文汇总</h1>
-                </div>
-            
-            </div>
-
-        
-            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
-                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
-                    <img src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/avatar.jpg">
-                </div>
-                <div class="info flex flex-col justify-between">
-                    <div class="author flex items-center">
-                        <span class="name text-default-text-color text-lg font-semibold">Olivia的小跟班</span>
-                        
-                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
-                        
-                    </div>
-                    <div class="meta-info">
-                        <div class="article-meta-info">
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">纸鸢</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
         <span class="desktop">2023-09-21 15:49:10</span>
@@ -654,16 +608,16 @@
     
 </div>
 
-                    </div>
-                </div>
-            </div>
-        
+				</div>
+			</div>
+		</div>
+		
 
-        
+		
 
 
-        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h1 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h1><p>本文记录Golang语言面试的八股文。</p>
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h1><p>本文记录Golang语言面试的八股文。</p>
 <h2 id="Go基础"><a href="#Go基础" class="headerlink" title="Go基础"></a>Go基础</h2><h3 id="init和main函数相关特点"><a href="#init和main函数相关特点" class="headerlink" title="init和main函数相关特点"></a>init和main函数相关特点</h3><p>init函数（没有输入参数、返回值）的主要作用：</p>
 <ul>
 <li>初始化不能采用初始化表达式初始化的变量。</li>
@@ -1908,14 +1862,14 @@
 <p>3、如果不是需要强制使用同一个对象，那么也可以采用创建对象副本的方式，每个协程独占一个对象，相互之间不关联，但是这显然不符合我们的要求。</p>
 <p>综上，使用互斥锁或者读写锁就能很好的解决问题。</p>
 
-        </div>
+		</div>
 
-        
-            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
-                <div class="article-copyright-info-container">
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
     <ul>
         <li><strong>标题:</strong> Golang八股文汇总</li>
-        <li><strong>作者:</strong> Olivia的小跟班</li>
+        <li><strong>作者:</strong> 纸鸢</li>
         <li><strong>创建于
                 :</strong> 2023-09-21 15:49:10</li>
         
@@ -1940,62 +1894,56 @@
     </ul>
 </div>
 
-            </div>
-        
+		</div>
+		
 
-        
-            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
-                
-                    <li class="tag-item mx-0.5">
-                        <a href="/tags/Go/">#Go</a>&nbsp;
-                    </li>
-                
-            </ul>
-        
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Go/">#Go</a>&nbsp;
+			</li>
+			
+		</ul>
+		
 
-        
+		
 
-        
-            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
-                
-                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2023/10/23/%E9%A1%B9%E7%9B%AEGeeCache%E9%9D%A2%E8%AF%95%E9%A2%98/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">项目GeeCache面试题</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
-                
-                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="next"
-                        rel="next"
-                        href="/2023/08/28/Go%E8%AF%AD%E8%A8%80%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E8%AE%B2/"
-                        >
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">Go语言面试题精讲</span>
-                                <span class="post-nav-item">下一篇</span>
-                            </span>
-                            <span class="right arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                
-            </div>
-        
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2023/10/23/%E9%A1%B9%E7%9B%AEGeeCache%E9%9D%A2%E8%AF%95%E9%A2%98/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">项目GeeCache面试题</span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2023/08/28/Go%E8%AF%AD%E8%A8%80%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B2%BE%E8%AE%B2/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Go语言面试题精讲</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
 
 
-        
-            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
-                <div class="comments-container mt-10 w-full ">
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
     <div id="comment-anchor" class="w-full h-2.5"></div>
     <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
         评论
@@ -2006,7 +1954,7 @@
             
     <div id="gitalk-container"></div>
     <script data-swup-reload-script
-            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+            src="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
     <script data-swup-reload-script>
 
         function loadGitalk() {
@@ -2050,36 +1998,30 @@
     
 </div>
 
-            </div>
-        
-    </div>
+		</div>
+		
+	</div>
 
-    
-        <div class="toc-content-container">
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <div class="toc-title">此页目录</div>
-        <div class="page-title">Golang八股文汇总</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Go%E5%9F%BA%E7%A1%80"><span class="nav-text">Go基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#init%E5%92%8Cmain%E5%87%BD%E6%95%B0%E7%9B%B8%E5%85%B3%E7%89%B9%E7%82%B9"><span class="nav-text">init和main函数相关特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E9%9B%B6%E5%80%BC%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">Go的数据结构的零值是什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#byte%E5%92%8Crune%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="nav-text">byte和rune有什么区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-struct-%E8%83%BD%E4%B8%8D%E8%83%BD%E6%AF%94%E8%BE%83"><span class="nav-text">Go struct 能不能比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%98%E9%87%8F"><span class="nav-text">Go语言如何初始化变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-import%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-text">Go import的三种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%9B%B8%E6%AF%94%EF%BC%8C%E4%BD%BF%E7%94%A8-Go-%E6%9C%89%E4%BB%80%E4%B9%88%E5%A5%BD%E5%A4%84%EF%BC%9F"><span class="nav-text">与其他语言相比，使用 Go 有什么好处？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AC%E8%AF%B4go%E6%9C%89%E4%BB%80%E4%B9%88%E4%BB%80%E4%B9%88%E7%9A%84%E7%BC%BA%E9%99%B7%EF%BC%8C%E4%BD%A0%E6%80%8E%E4%B9%88%E7%9C%8B"><span class="nav-text">听说go有什么什么的缺陷，你怎么看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%9A%84%E5%B8%B8%E9%87%8F%E5%8F%96%E5%9C%B0%E5%9D%80"><span class="nav-text">Golang的常量取地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5"><span class="nav-text">Golang的字符串拼接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string%E5%92%8C-byte%E5%A6%82%E4%BD%95%E5%8F%96%E8%88%8D"><span class="nav-text">string和[]byte如何取舍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%88%90byte%E6%95%B0%E7%BB%84%EF%BC%8C%E4%BC%9A%E5%8F%91%E7%94%9F%E5%86%85%E5%AD%98%E6%8B%B7%E8%B4%9D%E5%90%97"><span class="nav-text">字符串转成byte数组，会发生内存拷贝吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BF%BB%E8%BD%AC%E5%90%AB%E6%9C%89%E4%B8%AD%E6%96%87%E3%80%81%E6%95%B0%E5%AD%97%E3%80%81%E8%8B%B1%E6%96%87%E5%AD%97%E6%AF%8D%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-text">翻转含有中文、数字、英文字母的字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json%E5%8C%85%E5%8F%98%E9%87%8F%E4%B8%8D%E5%8A%A0tag%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7%EF%BC%9F"><span class="nav-text">json包变量不加tag会怎么样？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reflect%EF%BC%88%E5%8F%8D%E5%B0%84%E5%8C%85%EF%BC%89%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%AD%97%E6%AE%B5tag%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88json%E5%8C%85%E4%B8%8D%E8%83%BD%E5%AF%BC%E5%87%BA%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F%E7%9A%84tag%EF%BC%9F"><span class="nav-text">reflect（反射包）如何获取字段tag？为什么json包不能导出私有变量的tag？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%A8%E5%A4%A9%E9%82%A3%E4%B8%AA%E5%9C%A8for%E5%BE%AA%E7%8E%AF%E9%87%8Cappend%E5%85%83%E7%B4%A0%E7%9A%84%E5%90%8C%E4%BA%8B%EF%BC%8C%E4%BB%8A%E5%A4%A9%E8%BF%98%E5%9C%A8%E4%B9%88%EF%BC%9F"><span class="nav-text">昨天那个在for循环里append元素的同事，今天还在么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E8%AF%AD%E8%A8%80%E7%9A%84%E8%87%AA%E5%A2%9E%EF%BC%8C%E8%87%AA%E5%87%8F%E6%93%8D%E4%BD%9C"><span class="nav-text">Golang语言的自增，自减操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Printf-%E3%80%81Sprintf-%E3%80%81Fprintf-%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB%E7%94%A8%E6%B3%95%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">Printf()、Sprintf()、Fprintf()函数的区别用法是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E4%B8%ADcap-%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E4%BD%9C%E7%94%A8%E4%BA%8E%E5%93%AA%E4%BA%9B%E5%86%85%E5%AE%B9%EF%BC%9F"><span class="nav-text">Go语言中cap 函数可以作用于哪些内容？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E8%AF%AD%E8%A8%80%E7%9A%84%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E6%9C%89%E4%BB%80%E4%B9%88"><span class="nav-text">Golang语言的引用类型有什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%8C%87%E9%92%88%E5%8F%98%E9%87%8F-p-%E8%AE%BF%E9%97%AE%E5%85%B6%E6%88%90%E5%91%98%E5%8F%98%E9%87%8Fname%EF%BC%8C%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%9F"><span class="nav-text">通过指针变量 p 访问其成员变量name，有哪几种方式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-select%E6%97%B6%EF%BC%8C%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7%EF%BC%9F%E5%A6%82%E6%9E%9C%E5%8F%AA%E6%9C%89%E2%BC%80%E4%B8%AAcase%E5%91%A2%EF%BC%9F"><span class="nav-text">for select时，如果通道已经关闭会怎么样？如果只有⼀个case呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%9A%84bool%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%B5%8B%E5%80%BC"><span class="nav-text">Golang的bool类型的赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E5%85%B3%E9%94%AE%E5%AD%97fallthrough%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8"><span class="nav-text">Go关键字fallthrough有什么作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E7%BB%93%E6%9E%84%E4%BD%93%E5%8D%A0%E4%B8%8D%E5%8D%A0%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%EF%BC%9F-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E7%A9%BA%E7%BB%93%E6%9E%84%E4%BD%93%EF%BC%9F"><span class="nav-text">空结构体占不占内存空间？ 为什么使用空结构体？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%89%B9%E6%80%A7"><span class="nav-text">Go 的面向对象特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E4%B8%AD-%E4%B8%8B%E9%9D%A2%E5%93%AA%E4%B8%AA%E5%85%B3%E4%BA%8E%E6%8C%87%E9%92%88%E7%9A%84%E8%AF%B4%E6%B3%95%E6%98%AF%E9%94%99%E8%AF%AF%E7%9A%84"><span class="nav-text">Go语言中,下面哪个关于指针的说法是错误的?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E7%9A%84%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F"><span class="nav-text">Go语言的接口类型是如何实现的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Eswitch%E8%AF%AD%E5%8F%A5%EF%BC%8C%E4%B8%8B%E2%BE%AF%E8%AF%B4%E6%B3%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%9C%89"><span class="nav-text">关于switch语句，下⾯说法正确的有?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E5%88%97Add%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF%EF%BC%9F"><span class="nav-text">下列Add函数定义正确的是？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#copy%E6%98%AF%E6%93%8D%E4%BD%9C%E7%AC%A6%E8%BF%98%E6%98%AF%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="nav-text">copy是操作符还是内置函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E4%B8%A4%E4%B8%AA%E6%8E%A5%E5%8F%A3%E4%B9%8B%E9%97%B4%E5%8F%AF%E4%BB%A5%E5%AD%98%E5%9C%A8%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB%EF%BC%9F"><span class="nav-text">Go 两个接口之间可以存在什么关系？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E8%BF%90%E8%A1%8C%E6%97%B6%E6%A3%80%E6%9F%A5%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%EF%BC%9F"><span class="nav-text">如何在运行时检查变量类型？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%E5%91%BD%E5%90%8D"><span class="nav-text">Golang的返回值命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%9A%84iota%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%EF%BC%9F"><span class="nav-text">Golang的iota如何使用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%B9%8B%E9%97%B4%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%AF%94%E8%BE%83%EF%BC%9F"><span class="nav-text">数组之间如何进行比较？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-range%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9%E5%92%8C%E5%9D%91"><span class="nav-text">for range的注意点和坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%9A%84%E6%96%AD%E8%A8%80"><span class="nav-text">Golang的断言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B2%BE%E9%80%9AGolang%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96Go-modules"><span class="nav-text">精通Golang项目依赖Go modules</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-string%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="nav-text">Go string的底层实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E8%AF%AD%E8%A8%80%E7%9A%84-panic-%E5%A6%82%E4%BD%95%E6%81%A2%E5%A4%8D"><span class="nav-text">Go 语言的 panic 如何恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8Dpanic"><span class="nav-text">Go如何避免panic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">空结构体的使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#defer%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91"><span class="nav-text">defer的几个坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%BF%87%E5%93%AA%E4%BA%9B-Golang-%E7%9A%84-String-%E7%B1%BB%E5%BA%93"><span class="nav-text">使用过哪些 Golang 的 String 类库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E7%BB%93%E6%9E%84%E4%BD%93%E5%86%85%E5%B5%8C%E5%90%8E%E7%9A%84%E5%91%BD%E5%90%8D%E5%86%B2%E7%AA%81"><span class="nav-text">Go结构体内嵌后的命名冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84%E5%8C%85%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">Go程序中的包是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E5%AE%9E%E7%8E%B0%E4%B8%8D%E9%87%8D%E5%90%AF%E7%83%AD%E9%83%A8%E7%BD%B2"><span class="nav-text">Go 实现不重启热部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E4%B8%AD%E7%9A%84%E6%8C%87%E9%92%88%E5%BC%BA%E8%BD%AC"><span class="nav-text">Go中的指针强转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E6%94%AF%E6%8C%81%E4%BB%80%E4%B9%88%E5%BD%A2%E5%BC%8F%E7%9A%84%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%EF%BC%9F%E5%B0%86%E6%95%B4%E6%95%B0%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%B5%AE%E7%82%B9%E6%95%B0%E3%80%82"><span class="nav-text">Go支持什么形式的类型转换？将整数转换为浮点数。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E8%AF%AD%E8%A8%80%E4%B8%AD-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">Golang语言中&#x3D;&#x3D;的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#make%E5%87%BD%E6%95%B0%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="nav-text">make函数底层实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%B0%8F%E6%A0%B9%E5%A0%86"><span class="nav-text">Go语言实现小根堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0func%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%82%E6%95%B0"><span class="nav-text">Go 怎么实现func的自定义参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88go%E7%9A%84%E5%8F%98%E9%87%8F%E7%94%B3%E8%AF%B7%E7%B1%BB%E5%9E%8B%E6%98%AF%E4%B8%BA%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">为什么go的变量申请类型是为了什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E7%9A%84%E9%97%AD%E5%8C%85%E8%AF%AD%E6%B3%95"><span class="nav-text">Go的闭包语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E4%B8%ADint%E5%8D%A0%E5%87%A0%E4%B8%AA%E5%AD%97%E8%8A%82"><span class="nav-text">Go语言中int占几个字节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%A8%8B%E5%BA%8F%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B"><span class="nav-text">Golang程序启动过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E5%BC%80%E5%8F%91%E6%96%B0%E6%89%8B%E5%B8%B8%E7%8A%AF%E7%9A%8450%E4%B8%AA%E9%94%99%E8%AF%AF"><span class="nav-text">Golang开发新手常犯的50个错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Slice"><span class="nav-text">Slice</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nil%E5%88%87%E7%89%87%E5%92%8C%E7%A9%BA%E5%88%87%E7%89%87%E6%8C%87%E5%90%91%E7%9A%84%E5%9C%B0%E5%9D%80%E4%B8%80%E6%A0%B7%EF%BC%9F"><span class="nav-text">nil切片和空切片指向的地址一样？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E5%A4%A7%E5%88%87%E7%89%87%E4%B8%80%E5%AE%9A%E6%AF%94%E5%B0%8F%E5%88%87%E7%89%87%E4%BB%A3%E4%BB%B7%E5%A4%A7%E5%90%97%EF%BC%9F"><span class="nav-text">拷贝大切片一定比小切片代价大吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json%E5%BA%93%E5%AF%B9nil-slice%E5%92%8C%E7%A9%BAslice%E7%9A%84%E5%A4%84%E7%90%86%E6%98%AF%E4%B8%80%E8%87%B4%E7%9A%84%E5%90%97%EF%BC%9F"><span class="nav-text">json库对nil slice和空slice的处理是一致的吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E5%88%87%E7%89%87%E5%A6%82%E4%BD%95%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE"><span class="nav-text">Golang切片如何删除数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%AE%B9%E5%89%8D%E5%90%8E%E7%9A%84Slice%E6%98%AF%E5%90%A6%E7%9B%B8%E5%90%8C"><span class="nav-text">扩容前后的Slice是否相同?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%80%BC%E4%B8%BA-nil-%E7%9A%84-slice%E3%80%81map%E4%BC%9A%E5%8F%91%E7%94%9F%E5%95%A5"><span class="nav-text">使用值为 nil 的 slice、map会发生啥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slice%E5%88%86%E9%85%8D%E5%9C%A8%E5%A0%86%E4%B8%8A%E8%BF%98%E6%98%AF%E6%A0%88%E4%B8%8A"><span class="nav-text">slice分配在堆上还是栈上</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slice%E5%88%87%E7%89%87%E7%9A%84%E6%88%AA%E5%8F%96"><span class="nav-text">slice切片的截取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E4%B8%AD%E5%A6%82%E6%9E%9Cnew%E4%B8%80%E4%B8%AA%E5%88%87%E7%89%87%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7"><span class="nav-text">Go中如果new一个切片会怎么样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E5%9E%8B%E5%88%87%E7%89%87%E5%A6%82%E4%BD%95%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%9F"><span class="nav-text">整型切片如何初始化？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%80%8E%E4%B9%88%E8%BD%AC%E9%9B%86%E5%90%88"><span class="nav-text">数组怎么转集合?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%A0%B9%E6%8D%AE%E4%B8%8B%E6%A0%87%E9%9A%8F%E6%9C%BA%E8%AE%BF%E9%97%AE%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E5%90%97%EF%BC%9F"><span class="nav-text">数组是如何实现根据下标随机访问数组元素的吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%82%E4%B8%80%E4%B8%AAslice%EF%BC%8C%E5%85%88-append-%E5%86%8D%E8%B5%8B%E5%80%BC%E5%92%8C%E5%8F%A6%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E5%85%88%E8%B5%8B%E5%80%BC%E5%86%8Dappend%EF%BC%8C%E5%93%AA%E4%B8%AA%E4%BC%9A%E5%8F%91%E7%94%9F%E5%8F%98%E5%8C%96%EF%BC%9F"><span class="nav-text">一个函数传参一个slice，先 append 再赋值和另一个函数先赋值再append，哪个会发生变化？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%95%B0%E7%BB%84%EF%BC%8C%E4%B8%8D%E7%94%A8delete-%E4%BD%BF%E7%94%A8delete%E6%9C%89%E4%BB%80%E4%B9%88%E5%BD%B1%E5%93%8D"><span class="nav-text">一个对象数组，不用delete[] 使用delete有什么影响</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map"><span class="nav-text">Map</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-Map%E7%9A%84%E6%9F%A5%E8%AF%A2%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-text">Go Map的查询复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map%E7%9A%84key%E5%8F%AF%E4%BB%A5%E6%98%AF%E5%93%AA%E4%BA%9B%E7%B1%BB%E5%9E%8B%EF%BC%9F%E5%8F%AF%E4%BB%A5%E5%B5%8C%E5%A5%97map%E5%90%97%EF%BC%9F"><span class="nav-text">map的key可以是哪些类型？可以嵌套map吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map%E6%80%8E%E4%B9%88%E7%9F%A5%E9%81%93%E8%87%AA%E5%B7%B1%E5%A4%84%E4%BA%8E%E7%AB%9E%E4%BA%89%E7%8A%B6%E6%80%81%EF%BC%9F%E6%98%AFGo%E7%BC%96%E7%A0%81%E5%AE%9E%E7%8E%B0%E7%9A%84%E8%BF%98%E6%98%AF%E5%BA%95%E5%B1%82%E7%A1%AC%E4%BB%B6%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F"><span class="nav-text">Map怎么知道自己处于竞争状态？是Go编码实现的还是底层硬件实现的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map%E7%9A%84panic%E8%83%BD%E8%A2%ABrecover%E6%8E%89%E5%90%97%EF%BC%9F%E4%BA%86%E8%A7%A3panic%E5%92%8Crecover%E7%9A%84%E6%9C%BA%E5%88%B6%EF%BC%9F"><span class="nav-text">Map的panic能被recover掉吗？了解panic和recover的机制？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E4%B8%AD%E4%B8%A4%E4%B8%AAmap%E5%AF%B9%E8%B1%A1%E5%A6%82%E4%BD%95%E6%AF%94%E8%BE%83"><span class="nav-text">Go中两个map对象如何比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E4%BB%A5%E5%8F%8A%E6%94%B9%E8%BF%9B"><span class="nav-text">map的优缺点以及改进?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sync-Map%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8"><span class="nav-text">sync.Map怎么使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E4%B8%80%E4%B8%AAmap%E6%B2%A1%E7%94%B3%E8%AF%B7%E7%A9%BA%E9%97%B4%EF%BC%8C%E5%8E%BB%E5%90%91%E9%87%8C%E9%9D%A2%E5%8F%96%E5%80%BC%EF%BC%8C%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5"><span class="nav-text">如果一个map没申请空间，去向里面取值，会发生什么情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sync-Map%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-text">sync.Map底层数据结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Channel"><span class="nav-text">Channel</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel%E7%9A%84%E5%A4%A7%E5%B0%8F%E6%98%AF%E5%90%A6%E5%AF%B9%E6%80%A7%E8%83%BD%E6%9C%89%E5%BD%B1%E5%93%8D"><span class="nav-text">Channel的大小是否对性能有影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel%E7%9A%84%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">Channel的内存模型是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel%E7%9A%84%E8%AF%BB%E5%86%99%E6%93%8D%E4%BD%9C%E6%98%AF%E5%90%A6%E6%98%AF%E5%8E%9F%E5%AD%90%E6%80%A7%E7%9A%84%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0"><span class="nav-text">Channel的读写操作是否是原子性的，如何实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E5%9C%A8Channel%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AD%BB%E9%94%81%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-text">如何避免在Channel中出现死锁的情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel%E5%9C%A8go%E4%B8%AD%E8%B5%B7%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8"><span class="nav-text">Channel在go中起什么作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%B8%A4%E4%B8%AA%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0"><span class="nav-text">Channel为什么需要两个队列实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BC%80%E5%8F%91Channel%EF%BC%8C%E8%80%8C%E5%88%AB%E7%9A%84%E8%AF%AD%E8%A8%80%E4%B8%BA%E4%BB%80%E4%B9%88%E6%B2%A1%E6%9C%89"><span class="nav-text">Go为什么要开发Channel，而别的语言为什么没有</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel%E5%BA%95%E5%B1%82%E6%98%AF%E4%BD%BF%E7%94%A8%E9%94%81%E6%8E%A7%E5%88%B6%E5%B9%B6%E5%8F%91%E7%9A%84%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E9%94%81"><span class="nav-text">Channel底层是使用锁控制并发的，为什么不直接使用锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel%E5%8F%AF%E4%BB%A5%E5%9C%A8%E5%A4%9A%E4%B8%AAgoroutine%E4%B9%8B%E9%97%B4%E4%BC%A0%E9%80%92%E4%BB%80%E4%B9%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-text">Channel可以在多个goroutine之间传递什么类型的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8Channel%E4%B8%AD%E4%BC%A0%E9%80%92%E5%A4%8D%E6%9D%82%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">如何在Channel中传递复杂的数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8Go%E8%AF%AD%E8%A8%80%E4%B8%AD%EF%BC%8CChannel%E5%92%8C%E9%94%81%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8C%BA%E5%88%AB"><span class="nav-text">在Go语言中，Channel和锁的使用场景有哪些区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E4%BD%BF%E7%94%A8Channel%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E7%9A%84%E5%90%8C%E6%AD%A5%E6%80%A7%E5%92%8C%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-text">在使用Channel时，如何保证数据的同步性和一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81Channel%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-text">如何保证Channel的安全性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#channel%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">channel的应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%99channel%E7%94%A8%E7%A9%BA%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E5%A5%BD%E5%A4%84%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">给channel用空结构体的好处是什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%ADchannel%E6%98%AF%E5%90%A6%E5%85%B3%E9%97%AD"><span class="nav-text">如何判断channel是否关闭?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3%E2%80%9C%E4%B8%8D%E8%A6%81%E7%94%A8%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E6%9D%A5%E9%80%9A%E4%BF%A1%EF%BC%8C%E8%80%8C%E6%98%AF%E7%94%A8%E9%80%9A%E4%BF%A1%E6%9D%A5%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E2%80%9D"><span class="nav-text">怎么理解“不要用共享内存来通信，而是用通信来共享内存”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#channel%E5%92%8C%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E6%9C%89%E4%BB%80%E4%B9%88%E4%BC%98%E5%8A%A3%E5%8A%BF"><span class="nav-text">channel和共享内存有什么优劣势?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E9%87%8C%E7%9A%84Mutex%E5%92%8Cchannel%E7%9A%84%E6%80%A7%E8%83%BD%E6%9C%89%E5%8C%BA%E5%88%AB%E5%90%97%EF%BC%9F"><span class="nav-text">Go里的Mutex和channel的性能有区别吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel%E7%9A%84ring-buffer%E5%AE%9E%E7%8E%B0"><span class="nav-text">Channel的ring buffer实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8Go%E6%92%B8%E4%B8%80%E4%B8%AA%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E5%9E%8B%EF%BC%8C%E7%94%A8channel%E9%80%9A%E4%BF%A1%EF%BC%8C%E6%80%8E%E4%B9%88%E5%8F%8B%E5%A5%BD%E7%9A%84%E5%85%B3%E9%97%ADchan%EF%BC%9F"><span class="nav-text">用Go撸一个生产者消费型，用channel通信，怎么友好的关闭chan？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mutex"><span class="nav-text">Mutex</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mutex%E5%87%A0%E7%A7%8D%E7%8A%B6%E6%80%81"><span class="nav-text">Mutex几种状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RWMutex-%E5%AE%9E%E7%8E%B0%EF%BC%8CRWMutex%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-text">RWMutex 实现，RWMutex注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E5%BD%93%E4%B8%AD%E5%90%8C%E6%AD%A5%E9%94%81%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9%EF%BC%9F%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">Go 当中同步锁有什么特点？作用是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%88%B0%E9%94%81%E4%BC%9A%E4%B8%80%E7%9B%B4%E7%AD%89%E5%BE%85%E5%90%97%EF%BC%9F"><span class="nav-text">获取不到锁会一直等待吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA-timeout-%E7%9A%84%E9%94%81"><span class="nav-text">如何实现一个 timeout 的锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Goroutine"><span class="nav-text">Goroutine</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E4%BA%94%E4%B8%AA%E5%8D%8F%E7%A8%8B%EF%BC%8C%E5%85%A8%E9%83%A8%E6%89%A7%E8%A1%8C%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%EF%BC%8C%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E5%8D%8F%E7%A8%8B%E6%89%A7%E8%A1%8C%E5%AE%8C%E5%85%A8%E9%83%A8%E6%89%93%E5%8D%B0"><span class="nav-text">开五个协程，全部执行一个函数，怎么保证协程执行完全部打印</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8Channel%E5%92%8C%E4%B8%A4%E4%B8%AA%E5%8D%8F%E7%A8%8B%E5%AE%9E%E7%8E%B0%E6%95%B0%E7%BB%84%E7%9B%B8%E5%8A%A0"><span class="nav-text">用Channel和两个协程实现数组相加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E4%B8%AA%E5%8D%8F%E7%A8%8B%E4%BA%A4%E6%9B%BF%E6%89%93%E5%8D%B0%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97"><span class="nav-text">2个协程交替打印字母和数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%A6%81%E5%A4%A7%E9%87%8F%E4%BD%BF%E7%94%A8goroutine"><span class="nav-text">为什么不要大量使用goroutine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E4%B8%AD%E9%99%A4%E4%BA%86%E5%8A%A0Mutex%E9%94%81%E4%BB%A5%E5%A4%96%E8%BF%98%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B9%E5%BC%8F%E5%AE%89%E5%85%A8%E8%AF%BB%E5%86%99%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F%EF%BC%9F"><span class="nav-text">Golang中除了加Mutex锁以外还有哪些方式安全读写共享变量？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang-Panic-%E5%AD%90Goroutine%E5%8F%91%E7%94%9Fpanic%EF%BC%8C%E4%B8%BB%E8%BF%9B%E7%A8%8B%E4%BC%9Apanic%E5%90%97%EF%BC%9F"><span class="nav-text">Golang Panic 子Goroutine发生panic，主进程会panic吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8Cgoroutine%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0"><span class="nav-text">并行goroutine如何实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B%E4%B8%AD%E5%8F%82%E6%95%B0%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%EF%BC%8C%E5%92%8C%E4%BC%A0%E5%8F%82%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E9%80%A0%E6%88%90%E8%BF%99%E7%A7%8D%E7%BB%93%E6%9E%9C"><span class="nav-text">协程中参数直接使用，和传参的区别是什么，为什么会造成这种结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E4%B8%AD%E7%94%A8-for-%E9%81%8D%E5%8E%86%E5%A4%9A%E6%AC%A1%E6%89%A7%E8%A1%8C-goroutine%E4%BC%9A%E5%AD%98%E5%9C%A8%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="nav-text">Go 中用 for 遍历多次执行 goroutine会存在什么问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E9%87%8C%E9%9D%A2%E4%B8%80%E4%B8%AA%E5%8D%8F%E7%A8%8B%E8%83%BD%E4%BF%9D%E8%AF%81%E7%BB%91%E5%AE%9A%E5%9C%A8%E4%B8%80%E4%B8%AA%E5%86%85%E6%A0%B8%E7%BA%BF%E7%A8%8B%E4%B8%8A%E9%9D%A2%E7%9A%84%E3%80%82"><span class="nav-text">Go里面一个协程能保证绑定在一个内核线程上面的。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">协程池的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E6%BA%90%E7%A0%81%EF%BC%9A%E5%8D%8F%E7%A8%8B%E6%A0%88"><span class="nav-text">Go源码：协程栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E5%A6%82%E4%BD%95%E5%85%B3%E9%97%ADgoroutine"><span class="nav-text">Go如何关闭goroutine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%88%B6-goroutine-%E9%80%80%E5%87%BA%EF%BC%8C%E5%A6%82%E4%BD%95%E4%BD%BF%E5%BE%97%E5%AD%90-goroutine-%E4%B9%9F%E9%80%80%E5%87%BA%EF%BC%9F"><span class="nav-text">父 goroutine 退出，如何使得子 goroutine 也退出？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B%E6%89%93%E5%8D%B0%E5%A5%87%E6%95%B0%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B%E6%89%93%E5%8D%B0%E5%81%B6%E6%95%B0-%E4%BA%A4%E6%9B%BF%E6%89%93%E5%8D%B0"><span class="nav-text">一个线程打印奇数一个线程打印偶数 交替打印</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Goroutine-%E5%92%8C-kernel-thread-%E4%B9%8B%E9%97%B4%E6%98%AF%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB%EF%BC%9F"><span class="nav-text">Goroutine 和 kernel thread 之间是什么关系？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E6%89%93%E5%8D%B0123"><span class="nav-text">协程实现顺序打印123</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E5%8D%8F%E7%A8%8B%E4%BA%A4%E6%9B%BF%E6%89%93%E5%8D%B01%E5%88%B020"><span class="nav-text">两个协程交替打印1到20</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E5%8D%8F%E7%A8%8B%E4%BA%A4%E6%9B%BF%E6%89%93%E5%8D%B0%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84%EF%BC%8C%E4%BD%BF%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8C%89%E9%A1%BA%E5%BA%8F%E8%BE%93%E5%87%BA"><span class="nav-text">两个协程交替打印一个数组，使数组中的数据按顺序输出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E6%A8%A1%E5%9E%8B"><span class="nav-text">调度模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#P%E5%92%8CM%E7%9A%84%E6%95%B0%E9%87%8F%E4%B8%80%E5%AE%9A%E6%98%AF1%EF%BC%9A1%E5%90%97%EF%BC%9F%E5%A6%82%E6%9E%9C%E4%B8%80%E4%B8%AAG%E9%98%BB%E5%A1%9E%E4%BA%86%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7%EF%BC%9F"><span class="nav-text">P和M的数量一定是1：1吗？如果一个G阻塞了会怎么样？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang-GMP%E6%A8%A1%E5%9E%8B%EF%BC%8C%E5%85%A8%E5%B1%80%E9%98%9F%E5%88%97%E4%B8%AD%E7%9A%84G%E4%BC%9A%E4%B8%8D%E4%BC%9A%E9%A5%A5%E9%A5%BF-%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9FP%E7%9A%84%E6%95%B0%E9%87%8F%E6%98%AF%E5%A4%9A%E5%B0%91%EF%BC%9F%E8%83%BD%E4%BF%AE%E6%94%B9%E5%90%97%EF%BC%9FM%E7%9A%84%E6%95%B0%E9%87%8F%E6%98%AF%E5%A4%9A%E5%B0%91%EF%BC%9F"><span class="nav-text">Golang GMP模型，全局队列中的G会不会饥饿,为什么？P的数量是多少？能修改吗？M的数量是多少？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%83%BD%E5%BC%80%E5%A4%9A%E5%B0%91%E4%B8%AAP%E7%94%B1%E4%BB%80%E4%B9%88%E5%86%B3%E5%AE%9A"><span class="nav-text">服务器能开多少个P由什么决定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%83%BD%E5%BC%80%E5%A4%9A%E5%B0%91%E4%B8%AAM%E7%94%B1%E4%BB%80%E4%B9%88%E5%86%B3%E5%AE%9A"><span class="nav-text">服务器能开多少个M由什么决定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#M%E5%92%8CP%E6%98%AF%E6%80%8E%E4%B9%88%E6%A0%B7%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-text">M和P是怎么样的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GMP%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%AD%98%E5%9C%A8%E5%93%AA%E4%BA%9B%E9%98%BB%E5%A1%9E"><span class="nav-text">GMP调度过程中存在哪些阻塞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GMP%E5%BD%93%E4%B8%80%E4%B8%AAG%E5%A0%B5%E5%A1%9E%E6%97%B6%EF%BC%8CG%E3%80%81M%E3%80%81P%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88"><span class="nav-text">GMP当一个G堵塞时，G、M、P会发生什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sysmon-%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8"><span class="nav-text">sysmon 有什么作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GMP%E6%A8%A1%E5%9E%8B%E9%87%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89P%EF%BC%9F"><span class="nav-text">GMP模型里为什么要有P？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88GMP%E6%A8%A1%E5%9E%8B%E4%BC%9A%E6%9B%B4%E5%BF%AB"><span class="nav-text">为什么GMP模型会更快</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%E5%90%AF%E5%8A%A8%E4%BA%86%E4%B8%80%E4%B8%87%E4%B8%AAG%EF%BC%8C%E5%A6%82%E4%BD%95%E8%B0%83%E5%BA%A6%EF%BC%9F"><span class="nav-text">同时启动了一万个G，如何调度？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E5%A6%82%E4%BD%95%E8%B0%83%E5%BA%A6%EF%BC%8C%E5%81%87%E8%AE%BE4%E6%A0%B8%E7%9A%84cpu%E5%BA%94%E8%AF%A5%E6%9C%89%E5%87%A0%E4%B8%AAM%EF%BC%8C%E9%82%A3%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AAgroutinue%EF%BC%8Cgroutinue%E6%95%B0%E9%87%8F%E7%9A%84%E4%B8%8A%E9%99%90%E6%98%AF%E5%A4%9A%E5%B0%91%EF%BC%9F"><span class="nav-text">Go如何调度，假设4核的cpu应该有几个M，那能有几个groutinue，groutinue数量的上限是多少？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GMP%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B%EF%BC%8CGoroutine%E5%88%87%E6%8D%A2%E7%9A%84%E6%97%B6%E5%80%99%E4%B8%8A%E4%B8%8B%E6%96%87%E7%8E%AF%E5%A2%83%E6%94%BE%E5%9C%A8%E5%93%AA%E9%87%8C"><span class="nav-text">GMP并发模型，Goroutine切换的时候上下文环境放在哪里</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E8%B0%83%E5%BA%A6%E8%83%BD%E4%B8%8D%E8%83%BD%E4%B8%8D%E8%A6%81p"><span class="nav-text">Golang调度能不能不要p</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Goroutine%E7%9A%84%E8%B0%83%E5%BA%A6%E6%98%AF%E5%87%BA%E7%8E%B0%E5%9C%A8%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%EF%BC%8C%E8%B0%83%E5%BA%A6%E6%97%B6%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-text">Goroutine的调度是出现在什么情况下，调度时做了什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88P%E7%9A%84local-queue%E5%8F%AF%E6%97%A0%E9%94%81%E8%AE%BF%E9%97%AE%EF%BC%8C%E4%BB%BB%E5%8A%A1%E7%AA%83%E5%8F%96%E7%9A%84%E6%97%B6%E5%80%99%E8%A6%81%E5%8A%A0%E9%94%81%E5%90%97"><span class="nav-text">为什么P的local queue可无锁访问，任务窃取的时候要加锁吗?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AAgoroutine-sleep%E4%BA%86%EF%BC%8C%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%98%AF%E6%80%8E%E4%B9%88%E5%94%A4%E9%86%92%E7%9A%84"><span class="nav-text">一个goroutine sleep了，操作系统是怎么唤醒的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E7%9A%84%E5%8D%8F%E7%A8%8B%E5%8F%AF%E4%BB%A5%E5%8F%AA%E6%8C%82%E5%9C%A8%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B%E4%B8%8A%E9%9D%A2%E5%90%97"><span class="nav-text">Go的协程可以只挂在一个线程上面吗</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%9A%84%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E5%B0%8F%E5%AF%B9%E8%B1%A1%E5%A4%9A%E4%BA%86%E4%BC%9A%E9%80%A0%E6%88%90gc%E5%8E%8B%E5%8A%9B%E3%80%82"><span class="nav-text">Golang的内存模型，为什么小对象多了会造成gc压力。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%EF%BC%8C%E5%86%99%E4%BB%A3%E7%A0%81%E7%9A%84%E6%97%B6%E5%80%99%E5%A6%82%E4%BD%95%E5%87%8F%E5%B0%91%E5%AF%B9%E8%B1%A1%E5%88%86%E9%85%8D"><span class="nav-text">Go语言什么时候垃圾回收，写代码的时候如何减少对象分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E9%81%BF%E5%85%8D%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8%EF%BC%9F"><span class="nav-text">怎么避免内存逃逸？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%81%8A%E8%81%8A%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8%EF%BC%9F"><span class="nav-text">简单聊聊内存逃逸？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%99%E5%A4%A7%E5%AE%B6%E4%B8%A2%E8%84%B8%E4%BA%86%EF%BC%8C%E7%94%A8%E4%BA%86%E4%B8%89%E5%B9%B4Golang%EF%BC%8C%E6%88%91%E8%BF%98%E6%98%AF%E6%B2%A1%E7%AD%94%E5%AF%B9%E8%BF%99%E9%81%93%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E9%A2%98"><span class="nav-text">给大家丢脸了，用了三年Golang，我还是没答对这道内存泄漏题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%EF%BC%9F%E4%B8%8D%E6%98%AF%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95"><span class="nav-text">Go内存泄漏？不是那么简单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%EF%BC%8C%E5%92%8C-tcmalloc-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">Go内存分配，和 tcmalloc 的区别?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang-%E9%87%8C%E6%80%8E%E4%B9%88%E9%81%BF%E5%85%8D%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8%EF%BC%9F"><span class="nav-text">Golang 里怎么避免内存逃逸？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E5%A0%86%E5%92%8C%E6%A0%88"><span class="nav-text">Go语言中的堆和栈</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B"><span class="nav-text">并发编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E9%9D%A2%E5%93%AA%E4%B8%AA%E4%B8%8D%E6%98%AFGo%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E5%B9%B6%E5%8F%91%E5%8E%9F%E8%AF%AD"><span class="nav-text">下面哪个不是Go语言中的并发原语?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-sync-Once"><span class="nav-text">什么是 sync.Once</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E9%99%A4%E4%BA%86goroutine%E8%BF%98%E6%9C%89%E4%BB%80%E4%B9%88%E5%A4%84%E7%90%86%E5%B9%B6%E5%8F%91%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-text">Golang除了goroutine还有什么处理并发的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#select%E5%8F%AF%E4%BB%A5%E7%94%A8%E4%BA%8E%E4%BB%80%E4%B9%88"><span class="nav-text">select可以用于什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WaitGroup%E7%9A%84%E5%9D%91"><span class="nav-text">WaitGroup的坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3sync-Waitgroup"><span class="nav-text">深入理解sync.Waitgroup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Race%E9%97%AE%E9%A2%98%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%EF%BC%9F%E8%83%BD%E4%B8%8D%E8%83%BD%E4%B8%8D%E5%8A%A0%E9%94%81%E8%A7%A3%E5%86%B3%E8%BF%99%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-text">Data Race问题怎么解决？能不能不加锁解决这个问题？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#runtime%E6%8F%90%E4%BE%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-text">runtime提供常见的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84%E8%BF%9E%E6%8E%A5%E5%A4%8D%E7%94%A8%EF%BC%8C%E6%80%8E%E4%B9%88%E6%94%AF%E6%8C%81%E7%9A%84%E5%B9%B6%E5%8F%91%E8%AF%B7%E6%B1%82%EF%BC%8CGo%E7%9A%84netpoll%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%83%8F%E9%98%BB%E5%A1%9Eread%E4%B8%80%E6%A0%B7%E5%8E%BB%E4%BD%BF%E7%94%A8%E5%BA%95%E5%B1%82%E7%9A%84%E9%9D%9E%E9%98%BB%E5%A1%9Eread"><span class="nav-text">Go语言怎么做的连接复用，怎么支持的并发请求，Go的netpoll是怎么实现的像阻塞read一样去使用底层的非阻塞read</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%9A%84%E5%8D%8F%E7%A8%8B%E9%80%9A%E4%BF%A1%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B9%E5%BC%8F"><span class="nav-text">Golang的协程通信有哪些方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E4%B8%BA%E5%95%A5%E4%BD%BF%E7%94%A8CSP%E6%A8%A1%E5%9E%8B%E6%9D%A5%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91"><span class="nav-text">Go为啥使用CSP模型来实现并发?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sync-Pool-%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8"><span class="nav-text">sync.Pool 有什么用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E6%B2%A1%E6%9C%89%E4%BB%80%E4%B9%88%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%8A%9E%E6%B3%95%EF%BC%9F"><span class="nav-text">有没有什么线程安全的办法？</span></a></li></ol></li></ol></li></ol>
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">Golang八股文汇总</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Go%E5%9F%BA%E7%A1%80"><span class="nav-text">Go基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#init%E5%92%8Cmain%E5%87%BD%E6%95%B0%E7%9B%B8%E5%85%B3%E7%89%B9%E7%82%B9"><span class="nav-text">init和main函数相关特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E9%9B%B6%E5%80%BC%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">Go的数据结构的零值是什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#byte%E5%92%8Crune%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="nav-text">byte和rune有什么区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-struct-%E8%83%BD%E4%B8%8D%E8%83%BD%E6%AF%94%E8%BE%83"><span class="nav-text">Go struct 能不能比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%98%E9%87%8F"><span class="nav-text">Go语言如何初始化变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-import%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-text">Go import的三种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%9B%B8%E6%AF%94%EF%BC%8C%E4%BD%BF%E7%94%A8-Go-%E6%9C%89%E4%BB%80%E4%B9%88%E5%A5%BD%E5%A4%84%EF%BC%9F"><span class="nav-text">与其他语言相比，使用 Go 有什么好处？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AC%E8%AF%B4go%E6%9C%89%E4%BB%80%E4%B9%88%E4%BB%80%E4%B9%88%E7%9A%84%E7%BC%BA%E9%99%B7%EF%BC%8C%E4%BD%A0%E6%80%8E%E4%B9%88%E7%9C%8B"><span class="nav-text">听说go有什么什么的缺陷，你怎么看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%9A%84%E5%B8%B8%E9%87%8F%E5%8F%96%E5%9C%B0%E5%9D%80"><span class="nav-text">Golang的常量取地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5"><span class="nav-text">Golang的字符串拼接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string%E5%92%8C-byte%E5%A6%82%E4%BD%95%E5%8F%96%E8%88%8D"><span class="nav-text">string和[]byte如何取舍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%88%90byte%E6%95%B0%E7%BB%84%EF%BC%8C%E4%BC%9A%E5%8F%91%E7%94%9F%E5%86%85%E5%AD%98%E6%8B%B7%E8%B4%9D%E5%90%97"><span class="nav-text">字符串转成byte数组，会发生内存拷贝吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BF%BB%E8%BD%AC%E5%90%AB%E6%9C%89%E4%B8%AD%E6%96%87%E3%80%81%E6%95%B0%E5%AD%97%E3%80%81%E8%8B%B1%E6%96%87%E5%AD%97%E6%AF%8D%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-text">翻转含有中文、数字、英文字母的字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json%E5%8C%85%E5%8F%98%E9%87%8F%E4%B8%8D%E5%8A%A0tag%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7%EF%BC%9F"><span class="nav-text">json包变量不加tag会怎么样？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reflect%EF%BC%88%E5%8F%8D%E5%B0%84%E5%8C%85%EF%BC%89%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%AD%97%E6%AE%B5tag%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88json%E5%8C%85%E4%B8%8D%E8%83%BD%E5%AF%BC%E5%87%BA%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F%E7%9A%84tag%EF%BC%9F"><span class="nav-text">reflect（反射包）如何获取字段tag？为什么json包不能导出私有变量的tag？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%A8%E5%A4%A9%E9%82%A3%E4%B8%AA%E5%9C%A8for%E5%BE%AA%E7%8E%AF%E9%87%8Cappend%E5%85%83%E7%B4%A0%E7%9A%84%E5%90%8C%E4%BA%8B%EF%BC%8C%E4%BB%8A%E5%A4%A9%E8%BF%98%E5%9C%A8%E4%B9%88%EF%BC%9F"><span class="nav-text">昨天那个在for循环里append元素的同事，今天还在么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E8%AF%AD%E8%A8%80%E7%9A%84%E8%87%AA%E5%A2%9E%EF%BC%8C%E8%87%AA%E5%87%8F%E6%93%8D%E4%BD%9C"><span class="nav-text">Golang语言的自增，自减操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Printf-%E3%80%81Sprintf-%E3%80%81Fprintf-%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB%E7%94%A8%E6%B3%95%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">Printf()、Sprintf()、Fprintf()函数的区别用法是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E4%B8%ADcap-%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E4%BD%9C%E7%94%A8%E4%BA%8E%E5%93%AA%E4%BA%9B%E5%86%85%E5%AE%B9%EF%BC%9F"><span class="nav-text">Go语言中cap 函数可以作用于哪些内容？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E8%AF%AD%E8%A8%80%E7%9A%84%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E6%9C%89%E4%BB%80%E4%B9%88"><span class="nav-text">Golang语言的引用类型有什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%8C%87%E9%92%88%E5%8F%98%E9%87%8F-p-%E8%AE%BF%E9%97%AE%E5%85%B6%E6%88%90%E5%91%98%E5%8F%98%E9%87%8Fname%EF%BC%8C%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%9F"><span class="nav-text">通过指针变量 p 访问其成员变量name，有哪几种方式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-select%E6%97%B6%EF%BC%8C%E5%A6%82%E6%9E%9C%E9%80%9A%E9%81%93%E5%B7%B2%E7%BB%8F%E5%85%B3%E9%97%AD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7%EF%BC%9F%E5%A6%82%E6%9E%9C%E5%8F%AA%E6%9C%89%E2%BC%80%E4%B8%AAcase%E5%91%A2%EF%BC%9F"><span class="nav-text">for select时，如果通道已经关闭会怎么样？如果只有⼀个case呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%9A%84bool%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%B5%8B%E5%80%BC"><span class="nav-text">Golang的bool类型的赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E5%85%B3%E9%94%AE%E5%AD%97fallthrough%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8"><span class="nav-text">Go关键字fallthrough有什么作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E7%BB%93%E6%9E%84%E4%BD%93%E5%8D%A0%E4%B8%8D%E5%8D%A0%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%EF%BC%9F-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E7%A9%BA%E7%BB%93%E6%9E%84%E4%BD%93%EF%BC%9F"><span class="nav-text">空结构体占不占内存空间？ 为什么使用空结构体？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%89%B9%E6%80%A7"><span class="nav-text">Go 的面向对象特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E4%B8%AD-%E4%B8%8B%E9%9D%A2%E5%93%AA%E4%B8%AA%E5%85%B3%E4%BA%8E%E6%8C%87%E9%92%88%E7%9A%84%E8%AF%B4%E6%B3%95%E6%98%AF%E9%94%99%E8%AF%AF%E7%9A%84"><span class="nav-text">Go语言中,下面哪个关于指针的说法是错误的?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E7%9A%84%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F"><span class="nav-text">Go语言的接口类型是如何实现的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Eswitch%E8%AF%AD%E5%8F%A5%EF%BC%8C%E4%B8%8B%E2%BE%AF%E8%AF%B4%E6%B3%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%9C%89"><span class="nav-text">关于switch语句，下⾯说法正确的有?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E5%88%97Add%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF%EF%BC%9F"><span class="nav-text">下列Add函数定义正确的是？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#copy%E6%98%AF%E6%93%8D%E4%BD%9C%E7%AC%A6%E8%BF%98%E6%98%AF%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="nav-text">copy是操作符还是内置函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E4%B8%A4%E4%B8%AA%E6%8E%A5%E5%8F%A3%E4%B9%8B%E9%97%B4%E5%8F%AF%E4%BB%A5%E5%AD%98%E5%9C%A8%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB%EF%BC%9F"><span class="nav-text">Go 两个接口之间可以存在什么关系？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E8%BF%90%E8%A1%8C%E6%97%B6%E6%A3%80%E6%9F%A5%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%EF%BC%9F"><span class="nav-text">如何在运行时检查变量类型？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%E5%91%BD%E5%90%8D"><span class="nav-text">Golang的返回值命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%9A%84iota%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%EF%BC%9F"><span class="nav-text">Golang的iota如何使用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%B9%8B%E9%97%B4%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%AF%94%E8%BE%83%EF%BC%9F"><span class="nav-text">数组之间如何进行比较？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-range%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9%E5%92%8C%E5%9D%91"><span class="nav-text">for range的注意点和坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%9A%84%E6%96%AD%E8%A8%80"><span class="nav-text">Golang的断言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B2%BE%E9%80%9AGolang%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96Go-modules"><span class="nav-text">精通Golang项目依赖Go modules</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-string%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="nav-text">Go string的底层实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E8%AF%AD%E8%A8%80%E7%9A%84-panic-%E5%A6%82%E4%BD%95%E6%81%A2%E5%A4%8D"><span class="nav-text">Go 语言的 panic 如何恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8Dpanic"><span class="nav-text">Go如何避免panic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">空结构体的使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#defer%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91"><span class="nav-text">defer的几个坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%BF%87%E5%93%AA%E4%BA%9B-Golang-%E7%9A%84-String-%E7%B1%BB%E5%BA%93"><span class="nav-text">使用过哪些 Golang 的 String 类库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E7%BB%93%E6%9E%84%E4%BD%93%E5%86%85%E5%B5%8C%E5%90%8E%E7%9A%84%E5%91%BD%E5%90%8D%E5%86%B2%E7%AA%81"><span class="nav-text">Go结构体内嵌后的命名冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84%E5%8C%85%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">Go程序中的包是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E5%AE%9E%E7%8E%B0%E4%B8%8D%E9%87%8D%E5%90%AF%E7%83%AD%E9%83%A8%E7%BD%B2"><span class="nav-text">Go 实现不重启热部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E4%B8%AD%E7%9A%84%E6%8C%87%E9%92%88%E5%BC%BA%E8%BD%AC"><span class="nav-text">Go中的指针强转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E6%94%AF%E6%8C%81%E4%BB%80%E4%B9%88%E5%BD%A2%E5%BC%8F%E7%9A%84%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%EF%BC%9F%E5%B0%86%E6%95%B4%E6%95%B0%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%B5%AE%E7%82%B9%E6%95%B0%E3%80%82"><span class="nav-text">Go支持什么形式的类型转换？将整数转换为浮点数。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E8%AF%AD%E8%A8%80%E4%B8%AD-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">Golang语言中&#x3D;&#x3D;的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#make%E5%87%BD%E6%95%B0%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="nav-text">make函数底层实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%B0%8F%E6%A0%B9%E5%A0%86"><span class="nav-text">Go语言实现小根堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0func%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%82%E6%95%B0"><span class="nav-text">Go 怎么实现func的自定义参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88go%E7%9A%84%E5%8F%98%E9%87%8F%E7%94%B3%E8%AF%B7%E7%B1%BB%E5%9E%8B%E6%98%AF%E4%B8%BA%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">为什么go的变量申请类型是为了什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E7%9A%84%E9%97%AD%E5%8C%85%E8%AF%AD%E6%B3%95"><span class="nav-text">Go的闭包语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E4%B8%ADint%E5%8D%A0%E5%87%A0%E4%B8%AA%E5%AD%97%E8%8A%82"><span class="nav-text">Go语言中int占几个字节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%A8%8B%E5%BA%8F%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B"><span class="nav-text">Golang程序启动过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E5%BC%80%E5%8F%91%E6%96%B0%E6%89%8B%E5%B8%B8%E7%8A%AF%E7%9A%8450%E4%B8%AA%E9%94%99%E8%AF%AF"><span class="nav-text">Golang开发新手常犯的50个错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Slice"><span class="nav-text">Slice</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nil%E5%88%87%E7%89%87%E5%92%8C%E7%A9%BA%E5%88%87%E7%89%87%E6%8C%87%E5%90%91%E7%9A%84%E5%9C%B0%E5%9D%80%E4%B8%80%E6%A0%B7%EF%BC%9F"><span class="nav-text">nil切片和空切片指向的地址一样？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E5%A4%A7%E5%88%87%E7%89%87%E4%B8%80%E5%AE%9A%E6%AF%94%E5%B0%8F%E5%88%87%E7%89%87%E4%BB%A3%E4%BB%B7%E5%A4%A7%E5%90%97%EF%BC%9F"><span class="nav-text">拷贝大切片一定比小切片代价大吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json%E5%BA%93%E5%AF%B9nil-slice%E5%92%8C%E7%A9%BAslice%E7%9A%84%E5%A4%84%E7%90%86%E6%98%AF%E4%B8%80%E8%87%B4%E7%9A%84%E5%90%97%EF%BC%9F"><span class="nav-text">json库对nil slice和空slice的处理是一致的吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E5%88%87%E7%89%87%E5%A6%82%E4%BD%95%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE"><span class="nav-text">Golang切片如何删除数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%AE%B9%E5%89%8D%E5%90%8E%E7%9A%84Slice%E6%98%AF%E5%90%A6%E7%9B%B8%E5%90%8C"><span class="nav-text">扩容前后的Slice是否相同?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%80%BC%E4%B8%BA-nil-%E7%9A%84-slice%E3%80%81map%E4%BC%9A%E5%8F%91%E7%94%9F%E5%95%A5"><span class="nav-text">使用值为 nil 的 slice、map会发生啥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slice%E5%88%86%E9%85%8D%E5%9C%A8%E5%A0%86%E4%B8%8A%E8%BF%98%E6%98%AF%E6%A0%88%E4%B8%8A"><span class="nav-text">slice分配在堆上还是栈上</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slice%E5%88%87%E7%89%87%E7%9A%84%E6%88%AA%E5%8F%96"><span class="nav-text">slice切片的截取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E4%B8%AD%E5%A6%82%E6%9E%9Cnew%E4%B8%80%E4%B8%AA%E5%88%87%E7%89%87%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7"><span class="nav-text">Go中如果new一个切片会怎么样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E5%9E%8B%E5%88%87%E7%89%87%E5%A6%82%E4%BD%95%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%9F"><span class="nav-text">整型切片如何初始化？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%80%8E%E4%B9%88%E8%BD%AC%E9%9B%86%E5%90%88"><span class="nav-text">数组怎么转集合?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%A0%B9%E6%8D%AE%E4%B8%8B%E6%A0%87%E9%9A%8F%E6%9C%BA%E8%AE%BF%E9%97%AE%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E5%90%97%EF%BC%9F"><span class="nav-text">数组是如何实现根据下标随机访问数组元素的吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%82%E4%B8%80%E4%B8%AAslice%EF%BC%8C%E5%85%88-append-%E5%86%8D%E8%B5%8B%E5%80%BC%E5%92%8C%E5%8F%A6%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E5%85%88%E8%B5%8B%E5%80%BC%E5%86%8Dappend%EF%BC%8C%E5%93%AA%E4%B8%AA%E4%BC%9A%E5%8F%91%E7%94%9F%E5%8F%98%E5%8C%96%EF%BC%9F"><span class="nav-text">一个函数传参一个slice，先 append 再赋值和另一个函数先赋值再append，哪个会发生变化？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%95%B0%E7%BB%84%EF%BC%8C%E4%B8%8D%E7%94%A8delete-%E4%BD%BF%E7%94%A8delete%E6%9C%89%E4%BB%80%E4%B9%88%E5%BD%B1%E5%93%8D"><span class="nav-text">一个对象数组，不用delete[] 使用delete有什么影响</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map"><span class="nav-text">Map</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-Map%E7%9A%84%E6%9F%A5%E8%AF%A2%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-text">Go Map的查询复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map%E7%9A%84key%E5%8F%AF%E4%BB%A5%E6%98%AF%E5%93%AA%E4%BA%9B%E7%B1%BB%E5%9E%8B%EF%BC%9F%E5%8F%AF%E4%BB%A5%E5%B5%8C%E5%A5%97map%E5%90%97%EF%BC%9F"><span class="nav-text">map的key可以是哪些类型？可以嵌套map吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map%E6%80%8E%E4%B9%88%E7%9F%A5%E9%81%93%E8%87%AA%E5%B7%B1%E5%A4%84%E4%BA%8E%E7%AB%9E%E4%BA%89%E7%8A%B6%E6%80%81%EF%BC%9F%E6%98%AFGo%E7%BC%96%E7%A0%81%E5%AE%9E%E7%8E%B0%E7%9A%84%E8%BF%98%E6%98%AF%E5%BA%95%E5%B1%82%E7%A1%AC%E4%BB%B6%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F"><span class="nav-text">Map怎么知道自己处于竞争状态？是Go编码实现的还是底层硬件实现的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map%E7%9A%84panic%E8%83%BD%E8%A2%ABrecover%E6%8E%89%E5%90%97%EF%BC%9F%E4%BA%86%E8%A7%A3panic%E5%92%8Crecover%E7%9A%84%E6%9C%BA%E5%88%B6%EF%BC%9F"><span class="nav-text">Map的panic能被recover掉吗？了解panic和recover的机制？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E4%B8%AD%E4%B8%A4%E4%B8%AAmap%E5%AF%B9%E8%B1%A1%E5%A6%82%E4%BD%95%E6%AF%94%E8%BE%83"><span class="nav-text">Go中两个map对象如何比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E4%BB%A5%E5%8F%8A%E6%94%B9%E8%BF%9B"><span class="nav-text">map的优缺点以及改进?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sync-Map%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8"><span class="nav-text">sync.Map怎么使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E4%B8%80%E4%B8%AAmap%E6%B2%A1%E7%94%B3%E8%AF%B7%E7%A9%BA%E9%97%B4%EF%BC%8C%E5%8E%BB%E5%90%91%E9%87%8C%E9%9D%A2%E5%8F%96%E5%80%BC%EF%BC%8C%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5"><span class="nav-text">如果一个map没申请空间，去向里面取值，会发生什么情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sync-Map%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-text">sync.Map底层数据结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Channel"><span class="nav-text">Channel</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel%E7%9A%84%E5%A4%A7%E5%B0%8F%E6%98%AF%E5%90%A6%E5%AF%B9%E6%80%A7%E8%83%BD%E6%9C%89%E5%BD%B1%E5%93%8D"><span class="nav-text">Channel的大小是否对性能有影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel%E7%9A%84%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">Channel的内存模型是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel%E7%9A%84%E8%AF%BB%E5%86%99%E6%93%8D%E4%BD%9C%E6%98%AF%E5%90%A6%E6%98%AF%E5%8E%9F%E5%AD%90%E6%80%A7%E7%9A%84%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0"><span class="nav-text">Channel的读写操作是否是原子性的，如何实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E5%9C%A8Channel%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AD%BB%E9%94%81%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-text">如何避免在Channel中出现死锁的情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel%E5%9C%A8go%E4%B8%AD%E8%B5%B7%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8"><span class="nav-text">Channel在go中起什么作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%B8%A4%E4%B8%AA%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0"><span class="nav-text">Channel为什么需要两个队列实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BC%80%E5%8F%91Channel%EF%BC%8C%E8%80%8C%E5%88%AB%E7%9A%84%E8%AF%AD%E8%A8%80%E4%B8%BA%E4%BB%80%E4%B9%88%E6%B2%A1%E6%9C%89"><span class="nav-text">Go为什么要开发Channel，而别的语言为什么没有</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel%E5%BA%95%E5%B1%82%E6%98%AF%E4%BD%BF%E7%94%A8%E9%94%81%E6%8E%A7%E5%88%B6%E5%B9%B6%E5%8F%91%E7%9A%84%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E9%94%81"><span class="nav-text">Channel底层是使用锁控制并发的，为什么不直接使用锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel%E5%8F%AF%E4%BB%A5%E5%9C%A8%E5%A4%9A%E4%B8%AAgoroutine%E4%B9%8B%E9%97%B4%E4%BC%A0%E9%80%92%E4%BB%80%E4%B9%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-text">Channel可以在多个goroutine之间传递什么类型的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8Channel%E4%B8%AD%E4%BC%A0%E9%80%92%E5%A4%8D%E6%9D%82%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">如何在Channel中传递复杂的数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8Go%E8%AF%AD%E8%A8%80%E4%B8%AD%EF%BC%8CChannel%E5%92%8C%E9%94%81%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8C%BA%E5%88%AB"><span class="nav-text">在Go语言中，Channel和锁的使用场景有哪些区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E4%BD%BF%E7%94%A8Channel%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E7%9A%84%E5%90%8C%E6%AD%A5%E6%80%A7%E5%92%8C%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-text">在使用Channel时，如何保证数据的同步性和一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81Channel%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-text">如何保证Channel的安全性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#channel%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">channel的应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%99channel%E7%94%A8%E7%A9%BA%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E5%A5%BD%E5%A4%84%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">给channel用空结构体的好处是什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%ADchannel%E6%98%AF%E5%90%A6%E5%85%B3%E9%97%AD"><span class="nav-text">如何判断channel是否关闭?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3%E2%80%9C%E4%B8%8D%E8%A6%81%E7%94%A8%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E6%9D%A5%E9%80%9A%E4%BF%A1%EF%BC%8C%E8%80%8C%E6%98%AF%E7%94%A8%E9%80%9A%E4%BF%A1%E6%9D%A5%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E2%80%9D"><span class="nav-text">怎么理解“不要用共享内存来通信，而是用通信来共享内存”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#channel%E5%92%8C%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E6%9C%89%E4%BB%80%E4%B9%88%E4%BC%98%E5%8A%A3%E5%8A%BF"><span class="nav-text">channel和共享内存有什么优劣势?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E9%87%8C%E7%9A%84Mutex%E5%92%8Cchannel%E7%9A%84%E6%80%A7%E8%83%BD%E6%9C%89%E5%8C%BA%E5%88%AB%E5%90%97%EF%BC%9F"><span class="nav-text">Go里的Mutex和channel的性能有区别吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel%E7%9A%84ring-buffer%E5%AE%9E%E7%8E%B0"><span class="nav-text">Channel的ring buffer实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8Go%E6%92%B8%E4%B8%80%E4%B8%AA%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E5%9E%8B%EF%BC%8C%E7%94%A8channel%E9%80%9A%E4%BF%A1%EF%BC%8C%E6%80%8E%E4%B9%88%E5%8F%8B%E5%A5%BD%E7%9A%84%E5%85%B3%E9%97%ADchan%EF%BC%9F"><span class="nav-text">用Go撸一个生产者消费型，用channel通信，怎么友好的关闭chan？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mutex"><span class="nav-text">Mutex</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mutex%E5%87%A0%E7%A7%8D%E7%8A%B6%E6%80%81"><span class="nav-text">Mutex几种状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RWMutex-%E5%AE%9E%E7%8E%B0%EF%BC%8CRWMutex%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-text">RWMutex 实现，RWMutex注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E5%BD%93%E4%B8%AD%E5%90%8C%E6%AD%A5%E9%94%81%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9%EF%BC%9F%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">Go 当中同步锁有什么特点？作用是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%88%B0%E9%94%81%E4%BC%9A%E4%B8%80%E7%9B%B4%E7%AD%89%E5%BE%85%E5%90%97%EF%BC%9F"><span class="nav-text">获取不到锁会一直等待吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA-timeout-%E7%9A%84%E9%94%81"><span class="nav-text">如何实现一个 timeout 的锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Goroutine"><span class="nav-text">Goroutine</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E4%BA%94%E4%B8%AA%E5%8D%8F%E7%A8%8B%EF%BC%8C%E5%85%A8%E9%83%A8%E6%89%A7%E8%A1%8C%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%EF%BC%8C%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E5%8D%8F%E7%A8%8B%E6%89%A7%E8%A1%8C%E5%AE%8C%E5%85%A8%E9%83%A8%E6%89%93%E5%8D%B0"><span class="nav-text">开五个协程，全部执行一个函数，怎么保证协程执行完全部打印</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8Channel%E5%92%8C%E4%B8%A4%E4%B8%AA%E5%8D%8F%E7%A8%8B%E5%AE%9E%E7%8E%B0%E6%95%B0%E7%BB%84%E7%9B%B8%E5%8A%A0"><span class="nav-text">用Channel和两个协程实现数组相加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E4%B8%AA%E5%8D%8F%E7%A8%8B%E4%BA%A4%E6%9B%BF%E6%89%93%E5%8D%B0%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97"><span class="nav-text">2个协程交替打印字母和数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%A6%81%E5%A4%A7%E9%87%8F%E4%BD%BF%E7%94%A8goroutine"><span class="nav-text">为什么不要大量使用goroutine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E4%B8%AD%E9%99%A4%E4%BA%86%E5%8A%A0Mutex%E9%94%81%E4%BB%A5%E5%A4%96%E8%BF%98%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B9%E5%BC%8F%E5%AE%89%E5%85%A8%E8%AF%BB%E5%86%99%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F%EF%BC%9F"><span class="nav-text">Golang中除了加Mutex锁以外还有哪些方式安全读写共享变量？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang-Panic-%E5%AD%90Goroutine%E5%8F%91%E7%94%9Fpanic%EF%BC%8C%E4%B8%BB%E8%BF%9B%E7%A8%8B%E4%BC%9Apanic%E5%90%97%EF%BC%9F"><span class="nav-text">Golang Panic 子Goroutine发生panic，主进程会panic吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8Cgoroutine%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0"><span class="nav-text">并行goroutine如何实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B%E4%B8%AD%E5%8F%82%E6%95%B0%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%EF%BC%8C%E5%92%8C%E4%BC%A0%E5%8F%82%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E9%80%A0%E6%88%90%E8%BF%99%E7%A7%8D%E7%BB%93%E6%9E%9C"><span class="nav-text">协程中参数直接使用，和传参的区别是什么，为什么会造成这种结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E4%B8%AD%E7%94%A8-for-%E9%81%8D%E5%8E%86%E5%A4%9A%E6%AC%A1%E6%89%A7%E8%A1%8C-goroutine%E4%BC%9A%E5%AD%98%E5%9C%A8%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="nav-text">Go 中用 for 遍历多次执行 goroutine会存在什么问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E9%87%8C%E9%9D%A2%E4%B8%80%E4%B8%AA%E5%8D%8F%E7%A8%8B%E8%83%BD%E4%BF%9D%E8%AF%81%E7%BB%91%E5%AE%9A%E5%9C%A8%E4%B8%80%E4%B8%AA%E5%86%85%E6%A0%B8%E7%BA%BF%E7%A8%8B%E4%B8%8A%E9%9D%A2%E7%9A%84%E3%80%82"><span class="nav-text">Go里面一个协程能保证绑定在一个内核线程上面的。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">协程池的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E6%BA%90%E7%A0%81%EF%BC%9A%E5%8D%8F%E7%A8%8B%E6%A0%88"><span class="nav-text">Go源码：协程栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E5%A6%82%E4%BD%95%E5%85%B3%E9%97%ADgoroutine"><span class="nav-text">Go如何关闭goroutine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%88%B6-goroutine-%E9%80%80%E5%87%BA%EF%BC%8C%E5%A6%82%E4%BD%95%E4%BD%BF%E5%BE%97%E5%AD%90-goroutine-%E4%B9%9F%E9%80%80%E5%87%BA%EF%BC%9F"><span class="nav-text">父 goroutine 退出，如何使得子 goroutine 也退出？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B%E6%89%93%E5%8D%B0%E5%A5%87%E6%95%B0%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B%E6%89%93%E5%8D%B0%E5%81%B6%E6%95%B0-%E4%BA%A4%E6%9B%BF%E6%89%93%E5%8D%B0"><span class="nav-text">一个线程打印奇数一个线程打印偶数 交替打印</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Goroutine-%E5%92%8C-kernel-thread-%E4%B9%8B%E9%97%B4%E6%98%AF%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB%EF%BC%9F"><span class="nav-text">Goroutine 和 kernel thread 之间是什么关系？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E6%89%93%E5%8D%B0123"><span class="nav-text">协程实现顺序打印123</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E5%8D%8F%E7%A8%8B%E4%BA%A4%E6%9B%BF%E6%89%93%E5%8D%B01%E5%88%B020"><span class="nav-text">两个协程交替打印1到20</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E5%8D%8F%E7%A8%8B%E4%BA%A4%E6%9B%BF%E6%89%93%E5%8D%B0%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84%EF%BC%8C%E4%BD%BF%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8C%89%E9%A1%BA%E5%BA%8F%E8%BE%93%E5%87%BA"><span class="nav-text">两个协程交替打印一个数组，使数组中的数据按顺序输出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E6%A8%A1%E5%9E%8B"><span class="nav-text">调度模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#P%E5%92%8CM%E7%9A%84%E6%95%B0%E9%87%8F%E4%B8%80%E5%AE%9A%E6%98%AF1%EF%BC%9A1%E5%90%97%EF%BC%9F%E5%A6%82%E6%9E%9C%E4%B8%80%E4%B8%AAG%E9%98%BB%E5%A1%9E%E4%BA%86%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7%EF%BC%9F"><span class="nav-text">P和M的数量一定是1：1吗？如果一个G阻塞了会怎么样？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang-GMP%E6%A8%A1%E5%9E%8B%EF%BC%8C%E5%85%A8%E5%B1%80%E9%98%9F%E5%88%97%E4%B8%AD%E7%9A%84G%E4%BC%9A%E4%B8%8D%E4%BC%9A%E9%A5%A5%E9%A5%BF-%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9FP%E7%9A%84%E6%95%B0%E9%87%8F%E6%98%AF%E5%A4%9A%E5%B0%91%EF%BC%9F%E8%83%BD%E4%BF%AE%E6%94%B9%E5%90%97%EF%BC%9FM%E7%9A%84%E6%95%B0%E9%87%8F%E6%98%AF%E5%A4%9A%E5%B0%91%EF%BC%9F"><span class="nav-text">Golang GMP模型，全局队列中的G会不会饥饿,为什么？P的数量是多少？能修改吗？M的数量是多少？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%83%BD%E5%BC%80%E5%A4%9A%E5%B0%91%E4%B8%AAP%E7%94%B1%E4%BB%80%E4%B9%88%E5%86%B3%E5%AE%9A"><span class="nav-text">服务器能开多少个P由什么决定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%83%BD%E5%BC%80%E5%A4%9A%E5%B0%91%E4%B8%AAM%E7%94%B1%E4%BB%80%E4%B9%88%E5%86%B3%E5%AE%9A"><span class="nav-text">服务器能开多少个M由什么决定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#M%E5%92%8CP%E6%98%AF%E6%80%8E%E4%B9%88%E6%A0%B7%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-text">M和P是怎么样的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GMP%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%AD%98%E5%9C%A8%E5%93%AA%E4%BA%9B%E9%98%BB%E5%A1%9E"><span class="nav-text">GMP调度过程中存在哪些阻塞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GMP%E5%BD%93%E4%B8%80%E4%B8%AAG%E5%A0%B5%E5%A1%9E%E6%97%B6%EF%BC%8CG%E3%80%81M%E3%80%81P%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88"><span class="nav-text">GMP当一个G堵塞时，G、M、P会发生什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sysmon-%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8"><span class="nav-text">sysmon 有什么作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GMP%E6%A8%A1%E5%9E%8B%E9%87%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89P%EF%BC%9F"><span class="nav-text">GMP模型里为什么要有P？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88GMP%E6%A8%A1%E5%9E%8B%E4%BC%9A%E6%9B%B4%E5%BF%AB"><span class="nav-text">为什么GMP模型会更快</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%E5%90%AF%E5%8A%A8%E4%BA%86%E4%B8%80%E4%B8%87%E4%B8%AAG%EF%BC%8C%E5%A6%82%E4%BD%95%E8%B0%83%E5%BA%A6%EF%BC%9F"><span class="nav-text">同时启动了一万个G，如何调度？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E5%A6%82%E4%BD%95%E8%B0%83%E5%BA%A6%EF%BC%8C%E5%81%87%E8%AE%BE4%E6%A0%B8%E7%9A%84cpu%E5%BA%94%E8%AF%A5%E6%9C%89%E5%87%A0%E4%B8%AAM%EF%BC%8C%E9%82%A3%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AAgroutinue%EF%BC%8Cgroutinue%E6%95%B0%E9%87%8F%E7%9A%84%E4%B8%8A%E9%99%90%E6%98%AF%E5%A4%9A%E5%B0%91%EF%BC%9F"><span class="nav-text">Go如何调度，假设4核的cpu应该有几个M，那能有几个groutinue，groutinue数量的上限是多少？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GMP%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B%EF%BC%8CGoroutine%E5%88%87%E6%8D%A2%E7%9A%84%E6%97%B6%E5%80%99%E4%B8%8A%E4%B8%8B%E6%96%87%E7%8E%AF%E5%A2%83%E6%94%BE%E5%9C%A8%E5%93%AA%E9%87%8C"><span class="nav-text">GMP并发模型，Goroutine切换的时候上下文环境放在哪里</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E8%B0%83%E5%BA%A6%E8%83%BD%E4%B8%8D%E8%83%BD%E4%B8%8D%E8%A6%81p"><span class="nav-text">Golang调度能不能不要p</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Goroutine%E7%9A%84%E8%B0%83%E5%BA%A6%E6%98%AF%E5%87%BA%E7%8E%B0%E5%9C%A8%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%EF%BC%8C%E8%B0%83%E5%BA%A6%E6%97%B6%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-text">Goroutine的调度是出现在什么情况下，调度时做了什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88P%E7%9A%84local-queue%E5%8F%AF%E6%97%A0%E9%94%81%E8%AE%BF%E9%97%AE%EF%BC%8C%E4%BB%BB%E5%8A%A1%E7%AA%83%E5%8F%96%E7%9A%84%E6%97%B6%E5%80%99%E8%A6%81%E5%8A%A0%E9%94%81%E5%90%97"><span class="nav-text">为什么P的local queue可无锁访问，任务窃取的时候要加锁吗?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AAgoroutine-sleep%E4%BA%86%EF%BC%8C%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%98%AF%E6%80%8E%E4%B9%88%E5%94%A4%E9%86%92%E7%9A%84"><span class="nav-text">一个goroutine sleep了，操作系统是怎么唤醒的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E7%9A%84%E5%8D%8F%E7%A8%8B%E5%8F%AF%E4%BB%A5%E5%8F%AA%E6%8C%82%E5%9C%A8%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B%E4%B8%8A%E9%9D%A2%E5%90%97"><span class="nav-text">Go的协程可以只挂在一个线程上面吗</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%9A%84%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E5%B0%8F%E5%AF%B9%E8%B1%A1%E5%A4%9A%E4%BA%86%E4%BC%9A%E9%80%A0%E6%88%90gc%E5%8E%8B%E5%8A%9B%E3%80%82"><span class="nav-text">Golang的内存模型，为什么小对象多了会造成gc压力。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%EF%BC%8C%E5%86%99%E4%BB%A3%E7%A0%81%E7%9A%84%E6%97%B6%E5%80%99%E5%A6%82%E4%BD%95%E5%87%8F%E5%B0%91%E5%AF%B9%E8%B1%A1%E5%88%86%E9%85%8D"><span class="nav-text">Go语言什么时候垃圾回收，写代码的时候如何减少对象分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E9%81%BF%E5%85%8D%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8%EF%BC%9F"><span class="nav-text">怎么避免内存逃逸？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%81%8A%E8%81%8A%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8%EF%BC%9F"><span class="nav-text">简单聊聊内存逃逸？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%99%E5%A4%A7%E5%AE%B6%E4%B8%A2%E8%84%B8%E4%BA%86%EF%BC%8C%E7%94%A8%E4%BA%86%E4%B8%89%E5%B9%B4Golang%EF%BC%8C%E6%88%91%E8%BF%98%E6%98%AF%E6%B2%A1%E7%AD%94%E5%AF%B9%E8%BF%99%E9%81%93%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E9%A2%98"><span class="nav-text">给大家丢脸了，用了三年Golang，我还是没答对这道内存泄漏题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%EF%BC%9F%E4%B8%8D%E6%98%AF%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95"><span class="nav-text">Go内存泄漏？不是那么简单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%EF%BC%8C%E5%92%8C-tcmalloc-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">Go内存分配，和 tcmalloc 的区别?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang-%E9%87%8C%E6%80%8E%E4%B9%88%E9%81%BF%E5%85%8D%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8%EF%BC%9F"><span class="nav-text">Golang 里怎么避免内存逃逸？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E5%A0%86%E5%92%8C%E6%A0%88"><span class="nav-text">Go语言中的堆和栈</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B"><span class="nav-text">并发编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E9%9D%A2%E5%93%AA%E4%B8%AA%E4%B8%8D%E6%98%AFGo%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E5%B9%B6%E5%8F%91%E5%8E%9F%E8%AF%AD"><span class="nav-text">下面哪个不是Go语言中的并发原语?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-sync-Once"><span class="nav-text">什么是 sync.Once</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E9%99%A4%E4%BA%86goroutine%E8%BF%98%E6%9C%89%E4%BB%80%E4%B9%88%E5%A4%84%E7%90%86%E5%B9%B6%E5%8F%91%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-text">Golang除了goroutine还有什么处理并发的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#select%E5%8F%AF%E4%BB%A5%E7%94%A8%E4%BA%8E%E4%BB%80%E4%B9%88"><span class="nav-text">select可以用于什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WaitGroup%E7%9A%84%E5%9D%91"><span class="nav-text">WaitGroup的坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3sync-Waitgroup"><span class="nav-text">深入理解sync.Waitgroup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Race%E9%97%AE%E9%A2%98%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%EF%BC%9F%E8%83%BD%E4%B8%8D%E8%83%BD%E4%B8%8D%E5%8A%A0%E9%94%81%E8%A7%A3%E5%86%B3%E8%BF%99%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-text">Data Race问题怎么解决？能不能不加锁解决这个问题？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#runtime%E6%8F%90%E4%BE%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-text">runtime提供常见的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84%E8%BF%9E%E6%8E%A5%E5%A4%8D%E7%94%A8%EF%BC%8C%E6%80%8E%E4%B9%88%E6%94%AF%E6%8C%81%E7%9A%84%E5%B9%B6%E5%8F%91%E8%AF%B7%E6%B1%82%EF%BC%8CGo%E7%9A%84netpoll%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%83%8F%E9%98%BB%E5%A1%9Eread%E4%B8%80%E6%A0%B7%E5%8E%BB%E4%BD%BF%E7%94%A8%E5%BA%95%E5%B1%82%E7%9A%84%E9%9D%9E%E9%98%BB%E5%A1%9Eread"><span class="nav-text">Go语言怎么做的连接复用，怎么支持的并发请求，Go的netpoll是怎么实现的像阻塞read一样去使用底层的非阻塞read</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang%E7%9A%84%E5%8D%8F%E7%A8%8B%E9%80%9A%E4%BF%A1%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B9%E5%BC%8F"><span class="nav-text">Golang的协程通信有哪些方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E4%B8%BA%E5%95%A5%E4%BD%BF%E7%94%A8CSP%E6%A8%A1%E5%9E%8B%E6%9D%A5%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91"><span class="nav-text">Go为啥使用CSP模型来实现并发?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sync-Pool-%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8"><span class="nav-text">sync.Pool 有什么用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E6%B2%A1%E6%9C%89%E4%BB%80%E4%B9%88%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%8A%9E%E6%B3%95%EF%BC%9F"><span class="nav-text">有没有什么线程安全的办法？</span></a></li></ol></li></ol></li></ol>
 
-    </div>
+	</div>
 </div>
-        </div>
-    
+	</div>
+	
 </div>
+			</div>
 
+			
+		</div>
 
-
-                
-
-            </div>
-
-            
-
-        </div>
-
-        <div class="main-content-footer">
-            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
     <div class="info-container py-3 text-center">
         
         <div class="text-center">
@@ -2088,12 +2030,12 @@
               <span>2022</span>
               -
             
-            2025&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin"></i>&nbsp;&nbsp;<a href="/">Olivia的小跟班</a>
+            2025&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin"></i>&nbsp;&nbsp;<a href="/">纸鸢</a>
             
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        共 35 篇文章
+                        共撰写了 35 篇文章
                     </span>
                     
                 </p>
@@ -2118,7 +2060,7 @@
         
         <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
             <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
-            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.1</a></span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
         </div>
         
             <div class="icp-info my-1"><a target="_blank" rel="nofollow" href="
@@ -2158,125 +2100,102 @@
         
     </div>  
 </footer>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="article-tools-list">
-        <!-- TOC aside toggle -->
-        
-            <li class="right-bottom-tools page-aside-toggle">
-                <i class="fa-regular fa-outdent"></i>
-            </li>
-        
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
 
-        <!-- go comment -->
-        
-            <li class="go-comment">
-                <i class="fa-regular fa-comments"></i>
-            </li>
-        
-    </ul>
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
 </div>
 
-        </div>
-    
-
-    <div class="right-side-tools-container">
-        <div class="side-tools-container">
-    <ul class="hidden-tools-list">
-        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-plus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-minus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
-            <i class="fa-regular fa-moon"></i>
-        </li>
-
-        <!-- rss -->
-        
-
-        
-
-        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
-            <i class="fa-regular fa-arrow-down"></i>
-        </li>
-    </ul>
-
-    <ul class="visible-tools-list">
-        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
-            <i class="fa-regular fa-cog fa-spin"></i>
-        </li>
-        
-            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
-        
-        
-    </ul>
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
 </div>
-
-    </div>
-
-    <div class="image-viewer-container">
-    <img src="">
-</div>
-
-
-    
-        <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-          <span class="search-input-field-pre">
-            <i class="fa-solid fa-keyboard"></i>
-          </span>
-            <div class="search-input-container">
-                <input autocomplete="off"
-                       autocorrect="off"
-                       autocapitalize="off"
-                       placeholder="搜索..."
-                       spellcheck="false"
-                       type="search"
-                       class="search-input"
-                >
-            </div>
-            <span class="popup-btn-close">
-                <i class="fa-solid fa-times"></i>
-            </span>
-        </div>
-        <div id="search-result">
-            <div id="no-result">
-                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-    
+	
 
 </main>
 
 
-    
-<script src="/js/libs/Swup.min.js"></script>
-
-<script src="/js/libs/SwupSlideTheme.min.js"></script>
-
-<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
-
-<script src="/js/libs/SwupProgressPlugin.min.js"></script>
-
-<script src="/js/libs/SwupScrollPlugin.min.js"></script>
-
-<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
-
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/Swup.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupSlideTheme.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupScriptsPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupProgressPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupScrollPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupPreloadPlugin.min.js" ></script>
 <script>
     const swup = new Swup({
         plugins: [
@@ -2299,60 +2218,29 @@
 
 
 
+	<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/imageViewer.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/utils.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/main.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/navbarShrink.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/scrollTopBottom.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/lightDarkSwitch.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/categoryList.js" ></script>
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/localSearch.js" ></script>
 
 
 
-<script src="/js/tools/imageViewer.js" type="module"></script>
-
-<script src="/js/utils.js" type="module"></script>
-
-<script src="/js/main.js" type="module"></script>
-
-<script src="/js/layouts/navbarShrink.js" type="module"></script>
-
-<script src="/js/tools/scrollTopBottom.js" type="module"></script>
-
-<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
-
-<script src="/js/layouts/categoryList.js" type="module"></script>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/codeBlock.js" ></script>
 
 
 
-    
-<script src="/js/tools/localSearch.js" type="module"></script>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/lazyload.js" ></script>
 
 
 
-
-    
-<script src="/js/tools/codeBlock.js" type="module"></script>
-
-
-
-
-    
-<script src="/js/layouts/lazyload.js" type="module"></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/runtime.js" ></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/odometer.min.js" ></script>
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/assets/odometer-theme-minimal.css">
 
 
 
-
-    
-<script src="/js/tools/runtime.js"></script>
-
-    
-<script src="/js/libs/odometer.min.js"></script>
-
-    
-<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
-
-
-
-
-  
-<script src="/js/libs/Typed.min.js"></script>
-
-  
-<script src="/js/plugins/typed.js" type="module"></script>
+  <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/Typed.min.js" ></script>
+  <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/typed.js" ></script>
 
 
 
@@ -2362,29 +2250,26 @@
 
 
 
-<div class="post-scripts" data-swup-reload-script>
-    
-        
-<script src="/js/tools/tocToggle.js" type="module"></script>
 
-<script src="/js/layouts/toc.js" type="module"></script>
-
-<script src="/js/plugins/tabs.js" type="module"></script>
-
-    
-</div>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/tocToggle.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/toc.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/tabs.js" data-swup-reload-script></script>
 
 
-    <div id="aplayer"></div>
-
-<script src="/js/libs/APlayer.min.js"></script>
-
-
-<script src="/js/plugins/aplayer.js"></script>
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script>
+<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/essays.js" data-swup-reload-script></script>
 
 
+
+
+	
+	<div id="aplayer"></div>
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/APlayer.min.js" ></script>
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/aplayer.js" ></script>
+
+	
 </body>
+
 </html>
+
 
 <script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/love.js"></script>
 <script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/FunnyTitle.js"></script>

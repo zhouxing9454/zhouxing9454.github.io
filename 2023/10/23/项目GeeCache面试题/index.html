@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="Hexo Theme Redefine">
     
-    <meta name="author" content="Olivia的小跟班">
+    <meta name="author" content="纸鸢">
     <!-- preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
         
         
         
-            <link rel="preconnect" href="https://cdn.staticfile.org" crossorigin>
+            <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin>
         
     
     <!--- Seo Part-->
@@ -24,38 +24,23 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="项目地址https:&#x2F;&#x2F;github.com&#x2F;zhouxing9454&#x2F;Geecache  项目流程(不是Grpc版本) 什么是分布式缓存系统？分布式缓存是指将缓存数据分布在多台机器上，以提高缓存容量和并发读写能力的缓存系统。分布式缓存通常由多台机器组成一个集群，每台机器上都运行着相同的缓存服务进程，缓存数据被均匀地分布在集群中的各个节点上。 为什么要使用分布式缓存？高并发环境下，例如典型的淘宝双">
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="项目GeeCache面试题">
 <meta property="og:url" content="https://zhouxing9454.github.io/2023/10/23/%E9%A1%B9%E7%9B%AEGeeCache%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
 <meta property="og:site_name" content="Olivia的小跟班">
-<meta property="og:description" content="项目地址https:&#x2F;&#x2F;github.com&#x2F;zhouxing9454&#x2F;Geecache  项目流程(不是Grpc版本) 什么是分布式缓存系统？分布式缓存是指将缓存数据分布在多台机器上，以提高缓存容量和并发读写能力的缓存系统。分布式缓存通常由多台机器组成一个集群，每台机器上都运行着相同的缓存服务进程，缓存数据被均匀地分布在集群中的各个节点上。 为什么要使用分布式缓存？高并发环境下，例如典型的淘宝双">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253486.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253248.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253713.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253044.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253606.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253339.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232255736.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254044.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254433.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254788.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254675.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254636.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254603.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254387.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254760.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254129.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254325.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254323.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232254624.png">
+<meta property="og:image" content="https://zhouxing9454.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2023-10-23T14:51:00.000Z">
 <meta property="article:modified_time" content="2024-05-28T15:05:15.869Z">
 <meta property="article:author" content="Olivia的小跟班">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202310232253486.png">
+<meta name="twitter:image" content="https://zhouxing9454.github.io/images/redefine-og.webp">
     
     
     <!--- Icon Part-->
@@ -67,14 +52,11 @@
     
     <title>
         
-            项目GeeCache面试题 -
+            项目GeeCache面试题 | Olivia的小跟班
         
-        Olivia的小跟班
     </title>
 
-    
-<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
-
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/Chillax/chillax.css">
 
     <!--- Inject Part-->
     
@@ -85,7 +67,58 @@
     
 
     
-        <style>
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/css/build/tailwind.css">
+    
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/Geist/geist.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+        <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/anime.min.js" ></script>
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"zhouxing9454.github.io","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":null,"skip_dirs":[]}},"colors":{"primary":"#1890ff","secondary":"#1890ff","default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/back2.png","dark":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/back1.png"},"title":"Talk is cheap,Show me the code.","subtitle":{"text":["他们以为击败我就是终结，而我必归来将之改写。"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#D27D2D","dark":"#1E90FF"},"text_style":{"title_size":"2.1rem","subtitle_size":"1.2rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/zhouxing9454","instagram":null,"zhihu":null,"twitter":null,"email":"zhouxing9454@gmail.com","qq":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/QQ.jpg","weixin":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/wechat.jpg"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"一路山程","artist":"毛不易","url":"http://music.163.com/song/media/outer/url?id=2149269990.mp3","cover":"https://p2.music.126.net/6pWRp36W7nl9tQZM7Itzdg==/109951169481117593.jpg"},{"name":"最后的旅行","artist":"Rainton桐","url":"http://music.163.com/song/media/outer/url?id=30512539.mp3","cover":"https://p1.music.126.net/XWUdXb46hIdIecRihPCV_A==/109951168667887853.jpg"},{"name":"陪我长大","artist":"段奥娟","url":"http://music.163.com/song/media/outer/url?id=1299550093.mp3","cover":"http://p2.music.126.net/YxUbVoHngGMY8gZMjbEJkg==/109951163446151536.jpg"}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#FAF9F6","right":"#FAF9F6","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"Friends":{"icon":"fa-solid fa-link","path":"/links/"},"Essays":{"icon":"fa-solid fa-paper-plane","path":"/essays/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","typography":{"line_height":1.6}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/7/4 9:30:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
     :root {
         --preloader-background-color: #fff;
         --preloader-text-color: #000;
@@ -153,12 +186,9 @@
 </style>
 
 <div class="preloader">
-    
-<script src="/js/libs/anime.min.js"></script>
-
-    <h1 class="ml13">
+    <h2 class="ml13">
         Olivia的小跟班
-    </h1>
+    </h2>
     <script>
         var textWrapper = document.querySelector('.ml13');
         // Split text into words
@@ -176,24 +206,30 @@
             textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
         });
 
-
-        anime.timeline({loop: true})
+        var animation = anime.timeline({ loop: true })
             .add({
                 targets: '.ml13 .letter',
-                translateY: [100,0],
+                translateY: [20, 0],
                 translateZ: 0,
-                opacity: [0,1],
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
                 easing: "easeOutExpo",
-                duration: 1400,
-                delay: (el, i) => 300 + 30 * i
-            }).add({
-            targets: '.ml13 .letter',
-            translateY: [0,-100],
-            opacity: [1,0],
-            easing: "easeInExpo",
-            duration: 1200,
-            delay: (el, i) => 100 + 30 * i
-        });
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
 
         let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
 
@@ -216,101 +252,27 @@
         }
 
         window.addEventListener('load', function () {
-            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
         });
 
-        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
-        hidePreloaderAfterTimeout(5000);
-
-        function hidePreloaderAfterTimeout(delay) {
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
             setTimeout(function () {
-                var preloader = document.querySelector('.preloader');
-                preloader.style.opacity = '0';
-                setTimeout(function () {
-                    preloader.style.display = 'none';
-                }, 200);
-            }, delay);
+                preloader.style.display = 'none';
+            }, 200);
         }
     </script>
 </div>
-    
-
-    
-<link rel="stylesheet" href="/css/style.css">
-
-
-    
-        
-<link rel="stylesheet" href="/assets/build/styles.css">
-
-    
-
-    
-<link rel="stylesheet" href="/fonts/fonts.css">
-
-    
-<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
-
-    <!--- Font Part-->
-    
-    
-    
-    
-
-
-    <script id="hexo-configurations">
-    window.config = {"hostname":"zhouxing9454.github.io","root":"/","language":"zh-CN"};
-    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":null,"skip_dirs":[]}},"colors":{"primary":"#1890ff","secondary":"#1890ff","default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/back2.png","dark":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/back1.png"},"title":"Talk is cheap,Show me the code.","subtitle":{"text":["他们以为击败我就是终结，而我必归来将之改写。"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#D27D2D","dark":"#1E90FF"},"text_style":{"title_size":"2.1rem","subtitle_size":"1.2rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"email":"zhouxing9454@gmail.com","github":"https://github.com/zhouxing9454","qq":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/QQ.jpg","weixin":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/wechat.jpg"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"一路山程","artist":"毛不易","url":"http://music.163.com/song/media/outer/url?id=2149269990.mp3","cover":"https://p2.music.126.net/6pWRp36W7nl9tQZM7Itzdg==/109951169481117593.jpg"},{"name":"最后的旅行","artist":"Rainton桐","url":"http://music.163.com/song/media/outer/url?id=30512539.mp3","cover":"https://p1.music.126.net/XWUdXb46hIdIecRihPCV_A==/109951168667887853.jpg"},{"name":"陪我长大","artist":"段奥娟","url":"http://music.163.com/song/media/outer/url?id=1299550093.mp3","cover":"http://p2.music.126.net/YxUbVoHngGMY8gZMjbEJkg==/109951163446151536.jpg"}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.1","navbar":{"auto_hide":false,"color":{"left":"#FAF9F6","right":"#FAF9F6","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"Friends":{"icon":"fa-solid fa-link","path":"/links/"},"Essays":{"icon":"fa-solid fa-paper-plane","path":"/essays/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","typography":{"line_height":1.6}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/7/4 9:30:00"};
-    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
-    window.data = {"masonry":false};
-  </script>
-    
-    <!--- Fontawesome Part-->
-    
-<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
-
-    
-<link rel="stylesheet" href="/fontawesome/brands.min.css">
-
-    
-<link rel="stylesheet" href="/fontawesome/solid.min.css">
-
-    
-<link rel="stylesheet" href="/fontawesome/regular.min.css">
-
-    
-    
-    
-    
-<meta name="generator" content="Hexo 7.1.1"></head>
-
-
-<body>
-<div class="progress-bar-container">
-    
-        <span class="scroll-progress-bar"></span>
-    
-
-    
-        <span class="pjax-progress-bar"></span>
-<!--        <span class="swup-progress-icon">-->
-<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
-<!--        </span>-->
-    
-</div>
-
 
 <main class="page-container" id="swup">
 
-    
+	
 
-    <div class="main-content-container">
-
-
-        <div class="main-content-header">
-            <header class="navbar-container px-6 md:px-12">
-
-    <div class="navbar-content ">
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
         <div class="left">
             
             <a class="logo-title" href="/">
@@ -431,7 +393,7 @@
     </div>
 
     <!-- Mobile sheet -->
-    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
         <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
             
                 
@@ -560,40 +522,37 @@
 </header>
 
 
-        </div>
+		</div>
 
-        <div class="main-content-body">
+		<div class="main-content-body transition-fade-up">
+			
 
-            
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
 
-            <div class="main-content">
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">项目GeeCache面试题</h1>
+			</div>
+			
+		</div>
 
-                
-                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
-    <div class="article-content-container">
-
-        <div class="article-title relative w-full">
-            
-                <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">项目GeeCache面试题</h1>
-                </div>
-            
-            </div>
-
-        
-            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
-                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
-                    <img src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/avatar.jpg">
-                </div>
-                <div class="info flex flex-col justify-between">
-                    <div class="author flex items-center">
-                        <span class="name text-default-text-color text-lg font-semibold">Olivia的小跟班</span>
-                        
-                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
-                        
-                    </div>
-                    <div class="meta-info">
-                        <div class="article-meta-info">
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">纸鸢</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
         <span class="desktop">2023-10-23 22:51</span>
@@ -649,16 +608,16 @@
     
 </div>
 
-                    </div>
-                </div>
-            </div>
-        
+				</div>
+			</div>
+		</div>
+		
 
-        
+		
 
 
-        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/zhouxing9454/Geecache" >https://github.com/zhouxing9454/Geecache <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/zhouxing9454/Geecache" >https://github.com/zhouxing9454/Geecache <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <h2 id="项目流程-不是Grpc版本"><a href="#项目流程-不是Grpc版本" class="headerlink" title="项目流程(不是Grpc版本)"></a>项目流程(不是Grpc版本)</h2><p><img  
                      lazyload
                      src="/images/loading.svg"
@@ -1026,14 +985,14 @@
 
 <p>如果 maxBytes 的值为 0，表示没有限制缓存的总大小，即不限制缓存的内存使用量。在这种情况下，不需要执行缓存大小控制的相关逻辑，可以直接添加或更新缓存项。因此，不需要在 Add 方法中执行删除最旧的缓存项 (RemoveOldest) 的操作。</p>
 <h2 id="最后请你记住项目中的所有代码必须看懂、看透。"><a href="#最后请你记住项目中的所有代码必须看懂、看透。" class="headerlink" title="最后请你记住项目中的所有代码必须看懂、看透。"></a>最后请你记住项目中的所有代码必须看懂、看透。</h2>
-        </div>
+		</div>
 
-        
-            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
-                <div class="article-copyright-info-container">
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
     <ul>
         <li><strong>标题:</strong> 项目GeeCache面试题</li>
-        <li><strong>作者:</strong> Olivia的小跟班</li>
+        <li><strong>作者:</strong> 纸鸢</li>
         <li><strong>创建于
                 :</strong> 2023-10-23 22:51:00</li>
         
@@ -1058,62 +1017,56 @@
     </ul>
 </div>
 
-            </div>
-        
+		</div>
+		
 
-        
-            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
-                
-                    <li class="tag-item mx-0.5">
-                        <a href="/tags/Go/">#Go</a>&nbsp;
-                    </li>
-                
-            </ul>
-        
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Go/">#Go</a>&nbsp;
+			</li>
+			
+		</ul>
+		
 
-        
+		
 
-        
-            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
-                
-                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2023/11/06/Golang%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%831/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">Golang编码规范1</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
-                
-                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="next"
-                        rel="next"
-                        href="/2023/09/21/Golang%E5%85%AB%E8%82%A1%E6%96%87%E6%B1%87%E6%80%BB/"
-                        >
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">Golang八股文汇总</span>
-                                <span class="post-nav-item">下一篇</span>
-                            </span>
-                            <span class="right arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                
-            </div>
-        
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2023/11/06/Golang%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%831/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Golang编码规范1</span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2023/09/21/Golang%E5%85%AB%E8%82%A1%E6%96%87%E6%B1%87%E6%80%BB/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Golang八股文汇总</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
 
 
-        
-            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
-                <div class="comments-container mt-10 w-full ">
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
     <div id="comment-anchor" class="w-full h-2.5"></div>
     <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
         评论
@@ -1124,7 +1077,7 @@
             
     <div id="gitalk-container"></div>
     <script data-swup-reload-script
-            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+            src="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
     <script data-swup-reload-script>
 
         function loadGitalk() {
@@ -1168,36 +1121,30 @@
     
 </div>
 
-            </div>
-        
-    </div>
+		</div>
+		
+	</div>
 
-    
-        <div class="toc-content-container">
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <div class="toc-title">此页目录</div>
-        <div class="page-title">项目GeeCache面试题</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80"><span class="nav-text">项目地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%B5%81%E7%A8%8B-%E4%B8%8D%E6%98%AFGrpc%E7%89%88%E6%9C%AC"><span class="nav-text">项目流程(不是Grpc版本)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F%EF%BC%9F"><span class="nav-text">什么是分布式缓存系统？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%EF%BC%9F"><span class="nav-text">为什么要使用分布式缓存？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%EF%BC%9F"><span class="nav-text">分布式缓存系统的优缺点？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9F"><span class="nav-text">分布式缓存系统的应用场景？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E5%93%AA%E4%BA%9B%E6%96%B9%E9%9D%A2%EF%BC%9F"><span class="nav-text">设计一个分布式缓存系统需要考虑哪些方面？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E3%80%81%E5%87%BB%E7%A9%BF%E3%80%81%E7%A9%BF%E9%80%8F%E5%88%86%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E5%A6%82%E4%BD%95%E5%BA%94%E5%AF%B9%EF%BC%9F"><span class="nav-text">缓存雪崩、击穿、穿透分别是什么，如何应对？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AEGeeCache%E4%B8%AD%E5%A6%82%E4%BD%95%E5%BA%94%E5%AF%B9%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E5%92%8C%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-text">项目GeeCache中如何应对缓存雪崩和缓存击穿问题？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-text">缓存淘汰策略有哪些？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%AE%83%EF%BC%9F"><span class="nav-text">什么是一致性哈希，为什么要在项目中使用它？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E6%9C%89%E6%95%88%E6%80%A7%EF%BC%9F"><span class="nav-text">如何保证一致性哈希算法的有效性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E4%B8%AD%E7%9A%84%E8%99%9A%E6%8B%9F%E8%8A%82%E7%82%B9%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%AE%83%E4%BB%AC%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">一致性哈希算法中的虚拟节点是什么？它们的作用是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E8%8A%82%E7%82%B9%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F%E6%9F%A5%E6%89%BE%E7%9B%AE%E6%A0%87-key-%E7%9A%84%E8%BF%87%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F"><span class="nav-text">虚拟节点怎么实现的？查找目标 key 的过程是怎样的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7hash-%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9F"><span class="nav-text">一致性hash 存在的问题及解决方案？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E5%95%86%E5%A1%AB%E5%85%85%E3%80%81%E9%A2%84%E7%83%AD%E6%9C%BA%E5%88%B6"><span class="nav-text">协商填充、预热机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Raft%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90"><span class="nav-text">Raft算法解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Raft%E4%B8%AD%E7%9A%84%E4%B8%80%E4%B8%AATerm%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F"><span class="nav-text">Raft中的一个Term是什么意思？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Raft%E7%8A%B6%E6%80%81%E6%9C%BA%E6%98%AF%E6%80%8E%E6%A0%B7%E8%BF%9B%E8%A1%8C%E5%88%87%E6%8D%A2%E7%9A%84%EF%BC%9F"><span class="nav-text">Raft状态机是怎样进行切换的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%9C%80%E7%9F%AD%E6%97%B6%E9%97%B4%E5%86%85%E7%AB%9E%E9%80%89%E5%87%BALeader%EF%BC%8C%E9%98%B2%E6%AD%A2%E7%AB%9E%E9%80%89%E5%86%B2%E7%AA%81%EF%BC%9F"><span class="nav-text">如何保证最短时间内竞选出Leader，防止竞选冲突？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2%E5%88%AB%E7%9A%84Candidate%E5%9C%A8%E9%81%97%E6%BC%8F%E9%83%A8%E5%88%86%E6%95%B0%E6%8D%AE%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%8F%91%E8%B5%B7%E6%8A%95%E7%A5%A8%E6%88%90%E4%B8%BALeader%EF%BC%9F"><span class="nav-text">如何防止别的Candidate在遗漏部分数据的情况下发起投票成为Leader？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Raft%E6%9C%89%E8%8A%82%E7%82%B9%E5%AE%95%E6%9C%BA%E5%90%8E%E6%80%8E%E6%A0%B7%EF%BC%9F"><span class="nav-text">Raft有节点宕机后怎样？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88Raft%E7%AE%97%E6%B3%95%E5%9C%A8%E7%A1%AE%E5%AE%9A%E5%8F%AF%E7%94%A8%E8%8A%82%E7%82%B9%E6%95%B0%E9%87%8F%E6%97%B6%E4%B8%8D%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-text">为什么Raft算法在确定可用节点数量时不需要考虑拜占庭将军问题？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFetcd%E4%BB%A5%E5%8F%8Aetcd%E7%9A%84%E7%89%B9%E7%82%B9%E3%80%81%E7%BC%BA%E7%82%B9%EF%BC%9F"><span class="nav-text">什么是etcd以及etcd的特点、缺点？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9F"><span class="nav-text">etcd的使用场景？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8etcd%EF%BC%8C%E6%80%8E%E4%B9%88%E7%94%A8%E7%9A%84%EF%BC%9F"><span class="nav-text">为什么在项目中使用etcd，怎么用的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcd%E7%9A%84%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86%EF%BC%9F"><span class="nav-text">etcd的组成部分？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81Snapshot%E5%BF%AB%E7%85%A7%EF%BC%9F"><span class="nav-text">为什么需要Snapshot快照？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFWAL%EF%BC%8CWAL%E7%9A%84%E5%85%B7%E4%BD%93%E7%BB%93%E6%9E%84%EF%BC%9F"><span class="nav-text">什么是WAL，WAL的具体结构？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRaft%E5%8D%8F%E8%AE%AE%E7%9A%84Entry%E8%AE%B0%E5%BD%95%EF%BC%9F"><span class="nav-text">什么是Raft协议的Entry记录？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcd%E7%9A%84%E9%80%BB%E8%BE%91%E8%A7%86%E5%9B%BE%E5%92%8C%E7%89%A9%E7%90%86%E8%A7%86%E5%9B%BE%EF%BC%9F"><span class="nav-text">etcd的逻辑视图和物理视图？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proxy%E6%A8%A1%E5%BC%8F%E5%8F%96%E4%BB%A3Standby%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%9F"><span class="nav-text">Proxy模式取代Standby模式的原因？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcd%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%BC%BA%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F"><span class="nav-text">etcd如何保证强一致性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcd%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9C%BA%E5%88%B6%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F"><span class="nav-text">etcd分布式锁实现的基础机制是怎样的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRPC%EF%BC%88%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%EF%BC%89%EF%BC%9F%E8%83%BD%E5%90%A6%E6%8F%90%E4%BE%9B%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E4%BE%8B%E5%AD%90%EF%BC%9F"><span class="nav-text">什么是RPC（远程过程调用）？能否提供一个简单的定义和例子？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPC%E5%92%8CRESTful-API%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F%E5%9C%A8%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E6%88%91%E5%BA%94%E9%80%89%E6%8B%A9%E4%BD%BF%E7%94%A8RPC%E8%80%8C%E9%9D%9ERESTful-API%EF%BC%9F"><span class="nav-text">RPC和RESTful API有什么区别？在什么情况下我应选择使用RPC而非RESTful API？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8RPC%E4%B8%AD%EF%BC%8C%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E7%BD%91%E7%BB%9C%E5%BB%B6%E8%BF%9F%E5%92%8C%E8%B6%85%E6%97%B6%EF%BC%9F%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AD%96%E7%95%A5%EF%BC%9F"><span class="nav-text">在RPC中，如何处理网络延迟和超时？有哪些常见的策略？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88RPC%E9%80%9A%E5%B8%B8%E8%A2%AB%E8%AE%A4%E4%B8%BA%E6%98%AF%E9%98%BB%E5%A1%9E%E7%9A%84%EF%BC%9F%E8%BF%99%E6%9C%89%E4%BB%80%E4%B9%88%E5%BD%B1%E5%93%8D%EF%BC%9F"><span class="nav-text">在分布式系统中，为什么RPC通常被认为是阻塞的？这有什么影响？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E5%90%8C%E6%AD%A5RPC%E4%B8%8E%E5%BC%82%E6%AD%A5RPC%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F%E5%9C%A8%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E4%B8%AD%EF%BC%8C%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%EF%BC%9F"><span class="nav-text">如何理解同步RPC与异步RPC的区别？在实际应用中，应该如何选择？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E4%BD%BF%E7%94%A8RPC%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%EF%BC%9F"><span class="nav-text">在使用RPC时，如何处理服务端的状态管理？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4%E5%9C%A8RPC%E4%B8%AD%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%98%AF%E4%B8%80%E4%B8%AA%E9%87%8D%E8%A6%81%E7%9A%84%E7%8E%AF%E8%8A%82%EF%BC%9F%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%B3%95%EF%BC%9F"><span class="nav-text">为什么说在RPC中序列化和反序列化是一个重要的环节？有哪些常见的序列化和反序列化方法？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%EF%BC%8C%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81RPC%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7%E5%92%8C%E7%A8%B3%E5%AE%9A%E6%80%A7%EF%BC%9F"><span class="nav-text">在大规模分布式系统中，如何保证RPC的可扩展性和稳定性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8RPC%E7%B3%BB%E7%BB%9F%E4%B8%AD%E5%AE%9E%E7%8E%B0%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E5%92%8C%E5%BC%82%E5%B8%B8%E7%AE%A1%E7%90%86%EF%BC%9F%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AD%96%E7%95%A5%EF%BC%9F"><span class="nav-text">如何在RPC系统中实现错误处理和异常管理？有哪些常见的策略？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84RPC%E6%A1%86%E6%9E%B6%EF%BC%9F%E5%A6%82gRPC-Thrift%E7%AD%89%E3%80%82%E5%AE%83%E4%BB%AC%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">有哪些常见的RPC框架？如gRPC, Thrift等。它们的优缺点是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFgrpc%EF%BC%8C%E5%AE%83%E6%AF%94%E4%BC%A0%E7%BB%9F%E7%9A%84HTTP%E9%80%9A%E4%BF%A1%E6%9C%89%E4%BB%80%E4%B9%88%E4%BC%98%E5%8A%BF%EF%BC%8C%E9%80%82%E7%94%A8%E4%BB%80%E4%B9%88%E5%9C%BA%E6%99%AF%EF%BC%9F"><span class="nav-text">什么是grpc，它比传统的HTTP通信有什么优势，适用什么场景？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gRPC%E6%8F%90%E4%BE%9B%E4%BA%86%E5%93%AA%E4%BA%9B%E7%B1%BB%E5%9E%8B%E7%9A%84%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%BC%8F%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%8C%E4%BD%A0%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E9%80%89%E6%8B%A9%E4%BA%86%E5%93%AA%E7%A7%8D%E6%A8%A1%E5%BC%8F%EF%BC%9F"><span class="nav-text">gRPC提供了哪些类型的通信模式及其使用场景，你在项目中选择了哪种模式？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gRPC%E4%BD%BF%E7%94%A8%E4%BA%86%E5%93%AA%E7%A7%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">gRPC使用了哪种序列化和反序列化？为什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#grpc%E7%9A%84%E7%BC%BA%E7%82%B9%EF%BC%9F"><span class="nav-text">grpc的缺点？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#protobuf%E7%9A%84%E7%BC%BA%E7%82%B9%EF%BC%9F"><span class="nav-text">protobuf的缺点？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#protobuf%E4%B8%BA%E4%BB%80%E4%B9%88%E6%8B%A5%E6%9C%89%E6%9B%B4%E5%B0%91%E7%9A%84%E6%95%B0%E6%8D%AE%E9%87%8F%EF%BC%9F"><span class="nav-text">protobuf为什么拥有更少的数据量？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B7%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8BgRPC%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%EF%BC%8C%E5%8C%85%E6%8B%AC%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94%E7%9A%84%E8%BF%87%E7%A8%8B%E3%80%82"><span class="nav-text">请描述一下gRPC的工作原理，包括请求和响应的过程。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E7%9A%84%E5%A5%BD%E5%A4%84%EF%BC%9F"><span class="nav-text">微服务架构的好处？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#maxBytes-0%E6%9C%89%E5%95%A5%E6%84%8F%E6%80%9D%EF%BC%9F"><span class="nav-text">maxBytes&#x3D;0有啥意思？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E8%AF%B7%E4%BD%A0%E8%AE%B0%E4%BD%8F%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E4%BB%A3%E7%A0%81%E5%BF%85%E9%A1%BB%E7%9C%8B%E6%87%82%E3%80%81%E7%9C%8B%E9%80%8F%E3%80%82"><span class="nav-text">最后请你记住项目中的所有代码必须看懂、看透。</span></a></li></ol>
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">项目GeeCache面试题</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80"><span class="nav-text">项目地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%B5%81%E7%A8%8B-%E4%B8%8D%E6%98%AFGrpc%E7%89%88%E6%9C%AC"><span class="nav-text">项目流程(不是Grpc版本)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F%EF%BC%9F"><span class="nav-text">什么是分布式缓存系统？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%EF%BC%9F"><span class="nav-text">为什么要使用分布式缓存？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%EF%BC%9F"><span class="nav-text">分布式缓存系统的优缺点？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9F"><span class="nav-text">分布式缓存系统的应用场景？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E5%93%AA%E4%BA%9B%E6%96%B9%E9%9D%A2%EF%BC%9F"><span class="nav-text">设计一个分布式缓存系统需要考虑哪些方面？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E3%80%81%E5%87%BB%E7%A9%BF%E3%80%81%E7%A9%BF%E9%80%8F%E5%88%86%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E5%A6%82%E4%BD%95%E5%BA%94%E5%AF%B9%EF%BC%9F"><span class="nav-text">缓存雪崩、击穿、穿透分别是什么，如何应对？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AEGeeCache%E4%B8%AD%E5%A6%82%E4%BD%95%E5%BA%94%E5%AF%B9%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E5%92%8C%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-text">项目GeeCache中如何应对缓存雪崩和缓存击穿问题？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-text">缓存淘汰策略有哪些？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%AE%83%EF%BC%9F"><span class="nav-text">什么是一致性哈希，为什么要在项目中使用它？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E6%9C%89%E6%95%88%E6%80%A7%EF%BC%9F"><span class="nav-text">如何保证一致性哈希算法的有效性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E4%B8%AD%E7%9A%84%E8%99%9A%E6%8B%9F%E8%8A%82%E7%82%B9%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%AE%83%E4%BB%AC%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">一致性哈希算法中的虚拟节点是什么？它们的作用是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E8%8A%82%E7%82%B9%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F%E6%9F%A5%E6%89%BE%E7%9B%AE%E6%A0%87-key-%E7%9A%84%E8%BF%87%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F"><span class="nav-text">虚拟节点怎么实现的？查找目标 key 的过程是怎样的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7hash-%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9F"><span class="nav-text">一致性hash 存在的问题及解决方案？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E5%95%86%E5%A1%AB%E5%85%85%E3%80%81%E9%A2%84%E7%83%AD%E6%9C%BA%E5%88%B6"><span class="nav-text">协商填充、预热机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Raft%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90"><span class="nav-text">Raft算法解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Raft%E4%B8%AD%E7%9A%84%E4%B8%80%E4%B8%AATerm%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F"><span class="nav-text">Raft中的一个Term是什么意思？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Raft%E7%8A%B6%E6%80%81%E6%9C%BA%E6%98%AF%E6%80%8E%E6%A0%B7%E8%BF%9B%E8%A1%8C%E5%88%87%E6%8D%A2%E7%9A%84%EF%BC%9F"><span class="nav-text">Raft状态机是怎样进行切换的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%9C%80%E7%9F%AD%E6%97%B6%E9%97%B4%E5%86%85%E7%AB%9E%E9%80%89%E5%87%BALeader%EF%BC%8C%E9%98%B2%E6%AD%A2%E7%AB%9E%E9%80%89%E5%86%B2%E7%AA%81%EF%BC%9F"><span class="nav-text">如何保证最短时间内竞选出Leader，防止竞选冲突？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2%E5%88%AB%E7%9A%84Candidate%E5%9C%A8%E9%81%97%E6%BC%8F%E9%83%A8%E5%88%86%E6%95%B0%E6%8D%AE%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%8F%91%E8%B5%B7%E6%8A%95%E7%A5%A8%E6%88%90%E4%B8%BALeader%EF%BC%9F"><span class="nav-text">如何防止别的Candidate在遗漏部分数据的情况下发起投票成为Leader？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Raft%E6%9C%89%E8%8A%82%E7%82%B9%E5%AE%95%E6%9C%BA%E5%90%8E%E6%80%8E%E6%A0%B7%EF%BC%9F"><span class="nav-text">Raft有节点宕机后怎样？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88Raft%E7%AE%97%E6%B3%95%E5%9C%A8%E7%A1%AE%E5%AE%9A%E5%8F%AF%E7%94%A8%E8%8A%82%E7%82%B9%E6%95%B0%E9%87%8F%E6%97%B6%E4%B8%8D%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-text">为什么Raft算法在确定可用节点数量时不需要考虑拜占庭将军问题？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFetcd%E4%BB%A5%E5%8F%8Aetcd%E7%9A%84%E7%89%B9%E7%82%B9%E3%80%81%E7%BC%BA%E7%82%B9%EF%BC%9F"><span class="nav-text">什么是etcd以及etcd的特点、缺点？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9F"><span class="nav-text">etcd的使用场景？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8etcd%EF%BC%8C%E6%80%8E%E4%B9%88%E7%94%A8%E7%9A%84%EF%BC%9F"><span class="nav-text">为什么在项目中使用etcd，怎么用的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcd%E7%9A%84%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86%EF%BC%9F"><span class="nav-text">etcd的组成部分？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81Snapshot%E5%BF%AB%E7%85%A7%EF%BC%9F"><span class="nav-text">为什么需要Snapshot快照？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFWAL%EF%BC%8CWAL%E7%9A%84%E5%85%B7%E4%BD%93%E7%BB%93%E6%9E%84%EF%BC%9F"><span class="nav-text">什么是WAL，WAL的具体结构？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRaft%E5%8D%8F%E8%AE%AE%E7%9A%84Entry%E8%AE%B0%E5%BD%95%EF%BC%9F"><span class="nav-text">什么是Raft协议的Entry记录？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcd%E7%9A%84%E9%80%BB%E8%BE%91%E8%A7%86%E5%9B%BE%E5%92%8C%E7%89%A9%E7%90%86%E8%A7%86%E5%9B%BE%EF%BC%9F"><span class="nav-text">etcd的逻辑视图和物理视图？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proxy%E6%A8%A1%E5%BC%8F%E5%8F%96%E4%BB%A3Standby%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%9F"><span class="nav-text">Proxy模式取代Standby模式的原因？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcd%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%BC%BA%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F"><span class="nav-text">etcd如何保证强一致性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcd%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9C%BA%E5%88%B6%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F"><span class="nav-text">etcd分布式锁实现的基础机制是怎样的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRPC%EF%BC%88%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%EF%BC%89%EF%BC%9F%E8%83%BD%E5%90%A6%E6%8F%90%E4%BE%9B%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E4%BE%8B%E5%AD%90%EF%BC%9F"><span class="nav-text">什么是RPC（远程过程调用）？能否提供一个简单的定义和例子？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPC%E5%92%8CRESTful-API%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F%E5%9C%A8%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E6%88%91%E5%BA%94%E9%80%89%E6%8B%A9%E4%BD%BF%E7%94%A8RPC%E8%80%8C%E9%9D%9ERESTful-API%EF%BC%9F"><span class="nav-text">RPC和RESTful API有什么区别？在什么情况下我应选择使用RPC而非RESTful API？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8RPC%E4%B8%AD%EF%BC%8C%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E7%BD%91%E7%BB%9C%E5%BB%B6%E8%BF%9F%E5%92%8C%E8%B6%85%E6%97%B6%EF%BC%9F%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AD%96%E7%95%A5%EF%BC%9F"><span class="nav-text">在RPC中，如何处理网络延迟和超时？有哪些常见的策略？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88RPC%E9%80%9A%E5%B8%B8%E8%A2%AB%E8%AE%A4%E4%B8%BA%E6%98%AF%E9%98%BB%E5%A1%9E%E7%9A%84%EF%BC%9F%E8%BF%99%E6%9C%89%E4%BB%80%E4%B9%88%E5%BD%B1%E5%93%8D%EF%BC%9F"><span class="nav-text">在分布式系统中，为什么RPC通常被认为是阻塞的？这有什么影响？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E5%90%8C%E6%AD%A5RPC%E4%B8%8E%E5%BC%82%E6%AD%A5RPC%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F%E5%9C%A8%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E4%B8%AD%EF%BC%8C%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%EF%BC%9F"><span class="nav-text">如何理解同步RPC与异步RPC的区别？在实际应用中，应该如何选择？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E4%BD%BF%E7%94%A8RPC%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%EF%BC%9F"><span class="nav-text">在使用RPC时，如何处理服务端的状态管理？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4%E5%9C%A8RPC%E4%B8%AD%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%98%AF%E4%B8%80%E4%B8%AA%E9%87%8D%E8%A6%81%E7%9A%84%E7%8E%AF%E8%8A%82%EF%BC%9F%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%B3%95%EF%BC%9F"><span class="nav-text">为什么说在RPC中序列化和反序列化是一个重要的环节？有哪些常见的序列化和反序列化方法？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%EF%BC%8C%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81RPC%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7%E5%92%8C%E7%A8%B3%E5%AE%9A%E6%80%A7%EF%BC%9F"><span class="nav-text">在大规模分布式系统中，如何保证RPC的可扩展性和稳定性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8RPC%E7%B3%BB%E7%BB%9F%E4%B8%AD%E5%AE%9E%E7%8E%B0%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E5%92%8C%E5%BC%82%E5%B8%B8%E7%AE%A1%E7%90%86%EF%BC%9F%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AD%96%E7%95%A5%EF%BC%9F"><span class="nav-text">如何在RPC系统中实现错误处理和异常管理？有哪些常见的策略？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84RPC%E6%A1%86%E6%9E%B6%EF%BC%9F%E5%A6%82gRPC-Thrift%E7%AD%89%E3%80%82%E5%AE%83%E4%BB%AC%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">有哪些常见的RPC框架？如gRPC, Thrift等。它们的优缺点是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFgrpc%EF%BC%8C%E5%AE%83%E6%AF%94%E4%BC%A0%E7%BB%9F%E7%9A%84HTTP%E9%80%9A%E4%BF%A1%E6%9C%89%E4%BB%80%E4%B9%88%E4%BC%98%E5%8A%BF%EF%BC%8C%E9%80%82%E7%94%A8%E4%BB%80%E4%B9%88%E5%9C%BA%E6%99%AF%EF%BC%9F"><span class="nav-text">什么是grpc，它比传统的HTTP通信有什么优势，适用什么场景？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gRPC%E6%8F%90%E4%BE%9B%E4%BA%86%E5%93%AA%E4%BA%9B%E7%B1%BB%E5%9E%8B%E7%9A%84%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%BC%8F%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%8C%E4%BD%A0%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E9%80%89%E6%8B%A9%E4%BA%86%E5%93%AA%E7%A7%8D%E6%A8%A1%E5%BC%8F%EF%BC%9F"><span class="nav-text">gRPC提供了哪些类型的通信模式及其使用场景，你在项目中选择了哪种模式？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gRPC%E4%BD%BF%E7%94%A8%E4%BA%86%E5%93%AA%E7%A7%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">gRPC使用了哪种序列化和反序列化？为什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#grpc%E7%9A%84%E7%BC%BA%E7%82%B9%EF%BC%9F"><span class="nav-text">grpc的缺点？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#protobuf%E7%9A%84%E7%BC%BA%E7%82%B9%EF%BC%9F"><span class="nav-text">protobuf的缺点？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#protobuf%E4%B8%BA%E4%BB%80%E4%B9%88%E6%8B%A5%E6%9C%89%E6%9B%B4%E5%B0%91%E7%9A%84%E6%95%B0%E6%8D%AE%E9%87%8F%EF%BC%9F"><span class="nav-text">protobuf为什么拥有更少的数据量？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B7%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8BgRPC%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%EF%BC%8C%E5%8C%85%E6%8B%AC%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94%E7%9A%84%E8%BF%87%E7%A8%8B%E3%80%82"><span class="nav-text">请描述一下gRPC的工作原理，包括请求和响应的过程。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E7%9A%84%E5%A5%BD%E5%A4%84%EF%BC%9F"><span class="nav-text">微服务架构的好处？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#maxBytes-0%E6%9C%89%E5%95%A5%E6%84%8F%E6%80%9D%EF%BC%9F"><span class="nav-text">maxBytes&#x3D;0有啥意思？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E8%AF%B7%E4%BD%A0%E8%AE%B0%E4%BD%8F%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E4%BB%A3%E7%A0%81%E5%BF%85%E9%A1%BB%E7%9C%8B%E6%87%82%E3%80%81%E7%9C%8B%E9%80%8F%E3%80%82"><span class="nav-text">最后请你记住项目中的所有代码必须看懂、看透。</span></a></li></ol>
 
-    </div>
+	</div>
 </div>
-        </div>
-    
+	</div>
+	
 </div>
+			</div>
 
+			
+		</div>
 
-
-                
-
-            </div>
-
-            
-
-        </div>
-
-        <div class="main-content-footer">
-            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
     <div class="info-container py-3 text-center">
         
         <div class="text-center">
@@ -1206,12 +1153,12 @@
               <span>2022</span>
               -
             
-            2025&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin"></i>&nbsp;&nbsp;<a href="/">Olivia的小跟班</a>
+            2025&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin"></i>&nbsp;&nbsp;<a href="/">纸鸢</a>
             
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        共 35 篇文章
+                        共撰写了 35 篇文章
                     </span>
                     
                 </p>
@@ -1236,7 +1183,7 @@
         
         <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
             <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
-            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.1</a></span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
         </div>
         
             <div class="icp-info my-1"><a target="_blank" rel="nofollow" href="
@@ -1276,125 +1223,102 @@
         
     </div>  
 </footer>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="article-tools-list">
-        <!-- TOC aside toggle -->
-        
-            <li class="right-bottom-tools page-aside-toggle">
-                <i class="fa-regular fa-outdent"></i>
-            </li>
-        
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
 
-        <!-- go comment -->
-        
-            <li class="go-comment">
-                <i class="fa-regular fa-comments"></i>
-            </li>
-        
-    </ul>
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
 </div>
 
-        </div>
-    
-
-    <div class="right-side-tools-container">
-        <div class="side-tools-container">
-    <ul class="hidden-tools-list">
-        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-plus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-minus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
-            <i class="fa-regular fa-moon"></i>
-        </li>
-
-        <!-- rss -->
-        
-
-        
-
-        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
-            <i class="fa-regular fa-arrow-down"></i>
-        </li>
-    </ul>
-
-    <ul class="visible-tools-list">
-        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
-            <i class="fa-regular fa-cog fa-spin"></i>
-        </li>
-        
-            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
-        
-        
-    </ul>
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
 </div>
-
-    </div>
-
-    <div class="image-viewer-container">
-    <img src="">
-</div>
-
-
-    
-        <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-          <span class="search-input-field-pre">
-            <i class="fa-solid fa-keyboard"></i>
-          </span>
-            <div class="search-input-container">
-                <input autocomplete="off"
-                       autocorrect="off"
-                       autocapitalize="off"
-                       placeholder="搜索..."
-                       spellcheck="false"
-                       type="search"
-                       class="search-input"
-                >
-            </div>
-            <span class="popup-btn-close">
-                <i class="fa-solid fa-times"></i>
-            </span>
-        </div>
-        <div id="search-result">
-            <div id="no-result">
-                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-    
+	
 
 </main>
 
 
-    
-<script src="/js/libs/Swup.min.js"></script>
-
-<script src="/js/libs/SwupSlideTheme.min.js"></script>
-
-<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
-
-<script src="/js/libs/SwupProgressPlugin.min.js"></script>
-
-<script src="/js/libs/SwupScrollPlugin.min.js"></script>
-
-<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
-
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/Swup.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupSlideTheme.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupScriptsPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupProgressPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupScrollPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupPreloadPlugin.min.js" ></script>
 <script>
     const swup = new Swup({
         plugins: [
@@ -1417,60 +1341,29 @@
 
 
 
+	<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/imageViewer.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/utils.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/main.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/navbarShrink.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/scrollTopBottom.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/lightDarkSwitch.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/categoryList.js" ></script>
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/localSearch.js" ></script>
 
 
 
-<script src="/js/tools/imageViewer.js" type="module"></script>
-
-<script src="/js/utils.js" type="module"></script>
-
-<script src="/js/main.js" type="module"></script>
-
-<script src="/js/layouts/navbarShrink.js" type="module"></script>
-
-<script src="/js/tools/scrollTopBottom.js" type="module"></script>
-
-<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
-
-<script src="/js/layouts/categoryList.js" type="module"></script>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/codeBlock.js" ></script>
 
 
 
-    
-<script src="/js/tools/localSearch.js" type="module"></script>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/lazyload.js" ></script>
 
 
 
-
-    
-<script src="/js/tools/codeBlock.js" type="module"></script>
-
-
-
-
-    
-<script src="/js/layouts/lazyload.js" type="module"></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/runtime.js" ></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/odometer.min.js" ></script>
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/assets/odometer-theme-minimal.css">
 
 
 
-
-    
-<script src="/js/tools/runtime.js"></script>
-
-    
-<script src="/js/libs/odometer.min.js"></script>
-
-    
-<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
-
-
-
-
-  
-<script src="/js/libs/Typed.min.js"></script>
-
-  
-<script src="/js/plugins/typed.js" type="module"></script>
+  <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/Typed.min.js" ></script>
+  <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/typed.js" ></script>
 
 
 
@@ -1480,29 +1373,26 @@
 
 
 
-<div class="post-scripts" data-swup-reload-script>
-    
-        
-<script src="/js/tools/tocToggle.js" type="module"></script>
 
-<script src="/js/layouts/toc.js" type="module"></script>
-
-<script src="/js/plugins/tabs.js" type="module"></script>
-
-    
-</div>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/tocToggle.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/toc.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/tabs.js" data-swup-reload-script></script>
 
 
-    <div id="aplayer"></div>
-
-<script src="/js/libs/APlayer.min.js"></script>
-
-
-<script src="/js/plugins/aplayer.js"></script>
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script>
+<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/essays.js" data-swup-reload-script></script>
 
 
+
+
+	
+	<div id="aplayer"></div>
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/APlayer.min.js" ></script>
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/aplayer.js" ></script>
+
+	
 </body>
+
 </html>
+
 
 <script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/love.js"></script>
 <script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/FunnyTitle.js"></script>

@@ -1,4 +1,4 @@
-.category-list-container .category-header {
+.category-header {
   margin: 6px 0 36px 0;
   font-size: 3.2rem;
   padding: 0;
@@ -6,14 +6,14 @@
   font-weight: bold;
   color: var(--second-text-color);
 }
-.category-list-container .category-list-content .all-category-list {
+.category-list-content .all-category-list {
   display: flex;
   padding-left: 16px;
   flex-wrap: wrap;
   justify-content: center;
   gap: 28px;
 }
-.category-list-container .category-list-content .all-category-list>.all-category-list-item {
+.category-list-content .all-category-list>.all-category-list-item {
   font-size: 1.5rem;
   font-weight: 600;
   padding: 28px;
@@ -27,14 +27,14 @@ redefine-mobile()
   overflow: hidden;
   transition: all 0.2s ease;
 }
-.category-list-container .category-list-content .all-category-list>.all-category-list-item:hover {
+.category-list-content .all-category-list>.all-category-list-item:hover {
   background-color: var(--background-color);
   box-shadow: var(--redefine-box-shadow);
   transform: scale(1.01);
   transition: all 0.2s ease;
   color: var(--primary-color);
 }
-.category-list-container .category-list-content .all-category-list>.all-category-list-item span.all-category-list-count {
+.category-list-content .all-category-list>.all-category-list-item span.all-category-list-count {
   color: var(--third-text-color);
   margin-left: 8px;
   background-color: var(--third-background-color);
@@ -42,10 +42,10 @@ redefine-mobile()
   border-radius: $redefine-border-radius-small;
   border: solid 1px var(--border-color);
 }
-.category-list-container .category-list-content .all-category-list>.all-category-list-item>.all-category-list-link {
+.category-list-content .all-category-list>.all-category-list-item>.all-category-list-link {
   border-bottom: 2px solid var(--border-color);
 }
-.category-list-container .category-list-content .all-category-list>.all-category-list-item>.all-category-list-child {
+.category-list-content .all-category-list>.all-category-list-item>.all-category-list-child {
   font-weight: 550;
   font-size: 1.3rem;
   margin-left: 20px;
@@ -55,16 +55,16 @@ redefine-mobile()
   overflow: hidden;
   transition: all 0.2s ease;
 }
-.category-list-container .category-list-content .all-category-list>.all-category-list-item>.all-category-list-child li {
+.category-list-content .all-category-list>.all-category-list-item>.all-category-list-child li {
   margin-bottom: 10px;
 }
-.category-list-container .category-list-content .all-category-list>.all-category-list-item>.all-category-list-child li::before {
+.category-list-content .all-category-list>.all-category-list-item>.all-category-list-child li::before {
   content: '';
 }
-.category-list-container .category-list-content .all-category-list>.all-category-list-item>.all-category-list-child li:last-child {
+.category-list-content .all-category-list>.all-category-list-item>.all-category-list-child li:last-child {
   margin-bottom: 0;
 }
-.category-list-container .category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child {
+.category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child {
   font-weight: 400;
   font-size: 1.2rem;
   margin-left: 20px;
@@ -75,16 +75,16 @@ redefine-mobile()
   overflow: hidden;
   transition: all 0.2s ease;
 }
-.category-list-container .category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child li {
+.category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child li {
   margin-bottom: 10px;
 }
-.category-list-container .category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child li::before {
+.category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child li::before {
   content: '';
 }
-.category-list-container .category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child li:last-child {
+.category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child li:last-child {
   margin-bottom: 0;
 }
-.category-list-container .category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child>li>.all-category-list-child {
+.category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child>li>.all-category-list-child {
   margin-left: 10px;
   margin-top: 15px;
   border-left: 2px solid var(--border-color);
@@ -93,16 +93,16 @@ redefine-mobile()
   overflow: hidden;
   transition: all 0.2s ease;
 }
-.category-list-container .category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child>li>.all-category-list-child li {
+.category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child>li>.all-category-list-child li {
   margin-bottom: 10px;
 }
-.category-list-container .category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child>li>.all-category-list-child li::before {
+.category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child>li>.all-category-list-child li::before {
   content: '';
 }
-.category-list-container .category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child>li>.all-category-list-child li:last-child {
+.category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child>li>.all-category-list-child li:last-child {
   margin-bottom: 0;
 }
-.category-list-container .category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child>li>.all-category-list-child>li>.all-category-list-child {
+.category-list-content .all-category-list>.all-category-list-item>.all-category-list-child>li>.all-category-list-child>li>.all-category-list-child>li>.all-category-list-child {
   margin-left: 10px;
   margin-top: 15px;
   border-left: 2px solid var(--border-color);

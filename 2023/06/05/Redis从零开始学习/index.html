@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="Hexo Theme Redefine">
     
-    <meta name="author" content="Olivia的小跟班">
+    <meta name="author" content="纸鸢">
     <!-- preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
         
         
         
-            <link rel="preconnect" href="https://cdn.staticfile.org" crossorigin>
+            <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin>
         
     
     <!--- Seo Part-->
@@ -24,127 +24,23 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="题记记录我的redis学习笔记。 1.数据库的演进及Nosql的初步认知为什么要用 Nosql ？咱们一起来看看数据库的发展过程 1、单机的 MYSQL 时代 应用访问数据库是 应用 – DAL 数据库访问层 – DB 数据库  在单机的 MYSQL 时代，数据都不会太大，而且网页也是静态网页，一般网站的访问量也小，因此单数据库就完全够用了 上面这种网站，瓶颈就会很明显：  数据量变得大了，一个机">
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis从零开始学习">
 <meta property="og:url" content="https://zhouxing9454.github.io/2023/06/05/Redis%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Olivia的小跟班">
-<meta property="og:description" content="题记记录我的redis学习笔记。 1.数据库的演进及Nosql的初步认知为什么要用 Nosql ？咱们一起来看看数据库的发展过程 1、单机的 MYSQL 时代 应用访问数据库是 应用 – DAL 数据库访问层 – DB 数据库  在单机的 MYSQL 时代，数据都不会太大，而且网页也是静态网页，一般网站的访问量也小，因此单数据库就完全够用了 上面这种网站，瓶颈就会很明显：  数据量变得大了，一个机">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050043212.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050044542.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050044565.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050044623.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050045626.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050051789.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050052267.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060129492.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060129961.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060131164.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060133473.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060133055.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060134810.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060136328.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060136154.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060137754.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306060137806.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121548077.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121556055.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121559197.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121602445.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121612196.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121613655.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121615605.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121621945.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121628644.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121629561.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121631121.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121636728.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121639699.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121640931.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121644732.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121646664.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121700160.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121704377.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121708399.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121709077.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121712442.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121714641.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121718481.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121724685.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121729412.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121730480.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121732656.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121733248.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121737950.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121738259.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121741541.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306121957201.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122034267.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122033454.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122035309.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122046522.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122052465.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122054549.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122100004.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122103849.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122104691.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122106282.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122110549.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122112021.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122113562.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122116683.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122118392.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122119641.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122126270.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122126513.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306122127375.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306130040484.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306130041003.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306130042998.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306130046489.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131416228.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131431852.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131433902.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131437091.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131437725.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131441725.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131440890.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131456635.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131457143.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131457050.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131504067.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131508312.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131508401.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131529520.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131535365.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131535133.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131535678.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131536936.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131536282.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131548897.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131548563.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131549600.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131549057.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306131550750.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132228517.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132228677.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132236559.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132241482.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132238460.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132238663.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132238755.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132256104.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132258745.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132258747.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132304106.png">
-<meta property="og:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306132308624.png">
+<meta property="og:image" content="https://zhouxing9454.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2023-06-04T16:25:55.000Z">
 <meta property="article:modified_time" content="2023-06-14T14:00:22.000Z">
 <meta property="article:author" content="Olivia的小跟班">
 <meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202306050043212.png">
+<meta name="twitter:image" content="https://zhouxing9454.github.io/images/redefine-og.webp">
     
     
     <!--- Icon Part-->
@@ -156,14 +52,11 @@
     
     <title>
         
-            Redis从零开始学习 -
+            Redis从零开始学习 | Olivia的小跟班
         
-        Olivia的小跟班
     </title>
 
-    
-<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
-
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/Chillax/chillax.css">
 
     <!--- Inject Part-->
     
@@ -174,7 +67,58 @@
     
 
     
-        <style>
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/css/build/tailwind.css">
+    
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/Geist/geist.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+        <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/anime.min.js" ></script>
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"zhouxing9454.github.io","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":null,"skip_dirs":[]}},"colors":{"primary":"#1890ff","secondary":"#1890ff","default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/back2.png","dark":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/back1.png"},"title":"Talk is cheap,Show me the code.","subtitle":{"text":["他们以为击败我就是终结，而我必归来将之改写。"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#D27D2D","dark":"#1E90FF"},"text_style":{"title_size":"2.1rem","subtitle_size":"1.2rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/zhouxing9454","instagram":null,"zhihu":null,"twitter":null,"email":"zhouxing9454@gmail.com","qq":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/QQ.jpg","weixin":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/wechat.jpg"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"一路山程","artist":"毛不易","url":"http://music.163.com/song/media/outer/url?id=2149269990.mp3","cover":"https://p2.music.126.net/6pWRp36W7nl9tQZM7Itzdg==/109951169481117593.jpg"},{"name":"最后的旅行","artist":"Rainton桐","url":"http://music.163.com/song/media/outer/url?id=30512539.mp3","cover":"https://p1.music.126.net/XWUdXb46hIdIecRihPCV_A==/109951168667887853.jpg"},{"name":"陪我长大","artist":"段奥娟","url":"http://music.163.com/song/media/outer/url?id=1299550093.mp3","cover":"http://p2.music.126.net/YxUbVoHngGMY8gZMjbEJkg==/109951163446151536.jpg"}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#FAF9F6","right":"#FAF9F6","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"Friends":{"icon":"fa-solid fa-link","path":"/links/"},"Essays":{"icon":"fa-solid fa-paper-plane","path":"/essays/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","typography":{"line_height":1.6}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/7/4 9:30:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
     :root {
         --preloader-background-color: #fff;
         --preloader-text-color: #000;
@@ -242,12 +186,9 @@
 </style>
 
 <div class="preloader">
-    
-<script src="/js/libs/anime.min.js"></script>
-
-    <h1 class="ml13">
+    <h2 class="ml13">
         Olivia的小跟班
-    </h1>
+    </h2>
     <script>
         var textWrapper = document.querySelector('.ml13');
         // Split text into words
@@ -265,24 +206,30 @@
             textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
         });
 
-
-        anime.timeline({loop: true})
+        var animation = anime.timeline({ loop: true })
             .add({
                 targets: '.ml13 .letter',
-                translateY: [100,0],
+                translateY: [20, 0],
                 translateZ: 0,
-                opacity: [0,1],
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
                 easing: "easeOutExpo",
-                duration: 1400,
-                delay: (el, i) => 300 + 30 * i
-            }).add({
-            targets: '.ml13 .letter',
-            translateY: [0,-100],
-            opacity: [1,0],
-            easing: "easeInExpo",
-            duration: 1200,
-            delay: (el, i) => 100 + 30 * i
-        });
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
 
         let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
 
@@ -305,101 +252,27 @@
         }
 
         window.addEventListener('load', function () {
-            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
         });
 
-        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
-        hidePreloaderAfterTimeout(5000);
-
-        function hidePreloaderAfterTimeout(delay) {
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
             setTimeout(function () {
-                var preloader = document.querySelector('.preloader');
-                preloader.style.opacity = '0';
-                setTimeout(function () {
-                    preloader.style.display = 'none';
-                }, 200);
-            }, delay);
+                preloader.style.display = 'none';
+            }, 200);
         }
     </script>
 </div>
-    
-
-    
-<link rel="stylesheet" href="/css/style.css">
-
-
-    
-        
-<link rel="stylesheet" href="/assets/build/styles.css">
-
-    
-
-    
-<link rel="stylesheet" href="/fonts/fonts.css">
-
-    
-<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
-
-    <!--- Font Part-->
-    
-    
-    
-    
-
-
-    <script id="hexo-configurations">
-    window.config = {"hostname":"zhouxing9454.github.io","root":"/","language":"zh-CN"};
-    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":null,"skip_dirs":[]}},"colors":{"primary":"#1890ff","secondary":"#1890ff","default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/back2.png","dark":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/back1.png"},"title":"Talk is cheap,Show me the code.","subtitle":{"text":["他们以为击败我就是终结，而我必归来将之改写。"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#D27D2D","dark":"#1E90FF"},"text_style":{"title_size":"2.1rem","subtitle_size":"1.2rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"email":"zhouxing9454@gmail.com","github":"https://github.com/zhouxing9454","qq":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/QQ.jpg","weixin":"https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/wechat.jpg"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"一路山程","artist":"毛不易","url":"http://music.163.com/song/media/outer/url?id=2149269990.mp3","cover":"https://p2.music.126.net/6pWRp36W7nl9tQZM7Itzdg==/109951169481117593.jpg"},{"name":"最后的旅行","artist":"Rainton桐","url":"http://music.163.com/song/media/outer/url?id=30512539.mp3","cover":"https://p1.music.126.net/XWUdXb46hIdIecRihPCV_A==/109951168667887853.jpg"},{"name":"陪我长大","artist":"段奥娟","url":"http://music.163.com/song/media/outer/url?id=1299550093.mp3","cover":"http://p2.music.126.net/YxUbVoHngGMY8gZMjbEJkg==/109951163446151536.jpg"}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.1","navbar":{"auto_hide":false,"color":{"left":"#FAF9F6","right":"#FAF9F6","transparency":50},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"},"Friends":{"icon":"fa-solid fa-link","path":"/links/"},"Essays":{"icon":"fa-solid fa-paper-plane","path":"/essays/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","typography":{"line_height":1.6}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/7/4 9:30:00"};
-    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
-    window.data = {"masonry":false};
-  </script>
-    
-    <!--- Fontawesome Part-->
-    
-<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
-
-    
-<link rel="stylesheet" href="/fontawesome/brands.min.css">
-
-    
-<link rel="stylesheet" href="/fontawesome/solid.min.css">
-
-    
-<link rel="stylesheet" href="/fontawesome/regular.min.css">
-
-    
-    
-    
-    
-<meta name="generator" content="Hexo 7.1.1"></head>
-
-
-<body>
-<div class="progress-bar-container">
-    
-        <span class="scroll-progress-bar"></span>
-    
-
-    
-        <span class="pjax-progress-bar"></span>
-<!--        <span class="swup-progress-icon">-->
-<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
-<!--        </span>-->
-    
-</div>
-
 
 <main class="page-container" id="swup">
 
-    
+	
 
-    <div class="main-content-container">
-
-
-        <div class="main-content-header">
-            <header class="navbar-container px-6 md:px-12">
-
-    <div class="navbar-content ">
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
         <div class="left">
             
             <a class="logo-title" href="/">
@@ -520,7 +393,7 @@
     </div>
 
     <!-- Mobile sheet -->
-    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
         <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
             
                 
@@ -649,40 +522,37 @@
 </header>
 
 
-        </div>
+		</div>
 
-        <div class="main-content-body">
+		<div class="main-content-body transition-fade-up">
+			
 
-            
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
 
-            <div class="main-content">
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Redis从零开始学习</h1>
+			</div>
+			
+		</div>
 
-                
-                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
-    <div class="article-content-container">
-
-        <div class="article-title relative w-full">
-            
-                <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">Redis从零开始学习</h1>
-                </div>
-            
-            </div>
-
-        
-            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
-                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
-                    <img src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/avatar.jpg">
-                </div>
-                <div class="info flex flex-col justify-between">
-                    <div class="author flex items-center">
-                        <span class="name text-default-text-color text-lg font-semibold">Olivia的小跟班</span>
-                        
-                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
-                        
-                    </div>
-                    <div class="meta-info">
-                        <div class="article-meta-info">
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/background-img/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">纸鸢</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
         <span class="desktop">2023-06-05 00:25:55</span>
@@ -738,16 +608,16 @@
     
 </div>
 
-                    </div>
-                </div>
-            </div>
-        
+				</div>
+			</div>
+		</div>
+		
 
-        
+		
 
 
-        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h1 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h1><p>记录我的redis学习笔记。</p>
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h1><p>记录我的redis学习笔记。</p>
 <h2 id="1-数据库的演进及Nosql的初步认知"><a href="#1-数据库的演进及Nosql的初步认知" class="headerlink" title="1.数据库的演进及Nosql的初步认知"></a>1.数据库的演进及Nosql的初步认知</h2><h3 id="为什么要用-Nosql-？"><a href="#为什么要用-Nosql-？" class="headerlink" title="为什么要用 Nosql ？"></a>为什么要用 Nosql ？</h3><p>咱们一起来看看数据库的发展过程</p>
 <p><strong>1、单机的 MYSQL 时代</strong></p>
 <p>应用访问数据库是 <strong>应用 – DAL 数据库访问层 – DB 数据库</strong></p>
@@ -2391,14 +2261,14 @@
 <h2 id="13-Redis面试题"><a href="#13-Redis面试题" class="headerlink" title="13.Redis面试题"></a>13.Redis面试题</h2><p><a class="link"   target="_blank" rel="noopener" href="https://learnku.com/articles/67307" >Redis 常问简单面试题 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <h2 id="14-Go操作Redis"><a href="#14-Go操作Redis" class="headerlink" title="14.Go操作Redis"></a>14.Go操作Redis</h2><p><a class="link"   target="_blank" rel="noopener" href="https://redis.uptrace.dev/zh/" >Go-Redis文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 
-        </div>
+		</div>
 
-        
-            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
-                <div class="article-copyright-info-container">
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
     <ul>
         <li><strong>标题:</strong> Redis从零开始学习</li>
-        <li><strong>作者:</strong> Olivia的小跟班</li>
+        <li><strong>作者:</strong> 纸鸢</li>
         <li><strong>创建于
                 :</strong> 2023-06-05 00:25:55</li>
         
@@ -2423,62 +2293,56 @@
     </ul>
 </div>
 
-            </div>
-        
+		</div>
+		
 
-        
-            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
-                
-                    <li class="tag-item mx-0.5">
-                        <a href="/tags/Redis/">#Redis</a>&nbsp;
-                    </li>
-                
-            </ul>
-        
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Redis/">#Redis</a>&nbsp;
+			</li>
+			
+		</ul>
+		
 
-        
+		
 
-        
-            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
-                
-                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2023/06/19/%E6%95%8F%E6%84%9F%E8%AF%8D%E6%A3%80%E6%B5%8B/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">敏感词检测</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
-                
-                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="next"
-                        rel="next"
-                        href="/2023/04/29/Docker%E4%BD%A0%E5%A5%BD/"
-                        >
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">Docker你好</span>
-                                <span class="post-nav-item">下一篇</span>
-                            </span>
-                            <span class="right arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                
-            </div>
-        
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2023/06/19/%E6%95%8F%E6%84%9F%E8%AF%8D%E6%A3%80%E6%B5%8B/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">敏感词检测</span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2023/04/29/Docker%E4%BD%A0%E5%A5%BD/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Docker你好</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
 
 
-        
-            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
-                <div class="comments-container mt-10 w-full ">
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
     <div id="comment-anchor" class="w-full h-2.5"></div>
     <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
         评论
@@ -2489,7 +2353,7 @@
             
     <div id="gitalk-container"></div>
     <script data-swup-reload-script
-            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+            src="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
     <script data-swup-reload-script>
 
         function loadGitalk() {
@@ -2533,36 +2397,30 @@
     
 </div>
 
-            </div>
-        
-    </div>
+		</div>
+		
+	</div>
 
-    
-        <div class="toc-content-container">
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <div class="toc-title">此页目录</div>
-        <div class="page-title">Redis从零开始学习</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%BC%94%E8%BF%9B%E5%8F%8ANosql%E7%9A%84%E5%88%9D%E6%AD%A5%E8%AE%A4%E7%9F%A5"><span class="nav-text">1.数据库的演进及Nosql的初步认知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8-Nosql-%EF%BC%9F"><span class="nav-text">为什么要用 Nosql ？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nosql-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">Nosql 是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nosql-%E7%9A%84%E5%9B%9B%E5%A4%A7%E5%88%86%E7%B1%BB"><span class="nav-text">Nosql 的四大分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Redis%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">2.Redis是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">Redis 是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E8%83%BD%E5%B9%B2%E5%98%9B%EF%BC%9F"><span class="nav-text">Redis 能干嘛？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0-Redis-%E9%9C%80%E8%A6%81%E7%94%A8%E5%88%B0%E7%9A%84%E8%B5%84%E6%96%99"><span class="nav-text">学习 Redis 需要用到的资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85-Redis"><span class="nav-text">如何安装 Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-text">redis 基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84"><span class="nav-text">redis 是单线程的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Redis-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bstring%E5%92%8Clist%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E5%8F%8A%E7%86%9F%E6%82%89"><span class="nav-text">3.Redis 数据结构之string和list基本使用及熟悉</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#string-%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-text">string 字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List"><span class="nav-text">List</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-set-%E9%9B%86%E5%90%88%EF%BC%8Chash-%E5%93%88%E5%B8%8C%EF%BC%8Czset-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%E5%88%9D%E6%AD%A5%E8%AE%A4%E7%9F%A5"><span class="nav-text">4.set 集合，hash 哈希，zset 有序集合初步认知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#set%E9%9B%86%E5%90%88"><span class="nav-text">set集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash-%E5%93%88%E5%B8%8C"><span class="nav-text">hash 哈希</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zset-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88"><span class="nav-text">zset 有序集合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Redis%E7%9A%84%E4%B8%89%E7%A7%8D%E7%89%B9%E6%AE%8A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">5.Redis的三种特殊数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Geospatial%E5%9C%B0%E7%90%86%E4%BD%8D%E7%BD%AE"><span class="nav-text">Geospatial地理位置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GEOADD"><span class="nav-text">GEOADD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GEOPOS"><span class="nav-text">GEOPOS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GEODIST"><span class="nav-text">GEODIST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GEOHASH"><span class="nav-text">GEOHASH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GEORADIUS"><span class="nav-text">GEORADIUS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GEORADIUSBYMEMBER"><span class="nav-text">GEORADIUSBYMEMBER</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hyperloglog-%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1"><span class="nav-text">Hyperloglog 基数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitmaps-%E4%BD%8D%E5%9B%BE%E5%9C%BA%E6%99%AF"><span class="nav-text">Bitmaps 位图场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Redis%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E5%92%8C%E7%9B%91%E6%8E%A7%E4%BA%8B%E5%8A%A1"><span class="nav-text">6.Redis事务处理和监控事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E4%BA%8B%E5%8A%A1"><span class="nav-text">开启事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%BE%E5%BC%83%E4%BA%8B%E5%8A%A1"><span class="nav-text">放弃事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E5%87%BA%E9%94%99"><span class="nav-text">事务出错</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%9E%8B%E5%87%BA%E9%94%99"><span class="nav-text">编译型出错</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%87%BA%E9%94%99"><span class="nav-text">运行时出错</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-%E7%9A%84-watch-%E7%9B%91%E6%8E%A7"><span class="nav-text">redis 的 watch 监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unwatch"><span class="nav-text">unwatch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Redis%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3"><span class="nav-text">7.Redis配置文件详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%BD%8D"><span class="nav-text">单位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INCLUDES%E5%8C%85%E5%90%AB"><span class="nav-text">INCLUDES包含</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NETWORK-%E7%BD%91%E7%BB%9C"><span class="nav-text">NETWORK 网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GENERAL-%E9%80%9A%E7%94%A8"><span class="nav-text">GENERAL 通用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SNAPSHOTTING-%E5%BF%AB%E7%85%A7"><span class="nav-text">SNAPSHOTTING 快照</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#REPLICATION-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="nav-text">REPLICATION 主从复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SECURITY-%E5%AE%89%E5%85%A8"><span class="nav-text">SECURITY 安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CLIENTS-%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-text">CLIENTS 客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMORY-MANAGEMENT-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">MEMORY MANAGEMENT 内存管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#APPEND-ONLY-MODE-%E8%BF%BD%E5%8A%A0%E6%A8%A1%E5%BC%8F%EF%BC%88aof-%E9%85%8D%E7%BD%AE%EF%BC%89"><span class="nav-text">APPEND ONLY MODE 追加模式（aof 配置）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Redis-%E6%8C%81%E4%B9%85%E5%8C%96-RDB-%E5%92%8C-AOF"><span class="nav-text">8.Redis 持久化 RDB 和 AOF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-text">Redis 持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDB-%EF%BC%88Redis-DatabBase%EF%BC%89"><span class="nav-text">RDB （Redis DatabBase）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF-%E6%8C%81%E4%B9%85%E5%8C%96%E6%96%B9%E5%BC%8F"><span class="nav-text">AOF 持久化方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%86%99%E8%A7%84%E5%88%99%E8%AF%B4%E6%98%8E"><span class="nav-text">重写规则说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aof-%E7%9A%84%E4%BC%98%E5%8A%BF%E5%92%8C%E5%8A%A3%E5%8A%BF"><span class="nav-text">aof 的优势和劣势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E4%B8%8A%E7%9A%84%E5%BB%BA%E8%AE%AE"><span class="nav-text">性能上的建议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-Redis%E7%9A%84%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85%E6%98%AF%E5%92%8B%E7%8E%A9%E7%9A%84"><span class="nav-text">9.Redis的发布和订阅是咋玩的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85"><span class="nav-text">Redis 发布订阅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A5%E7%9C%8B%E7%9C%8B%E5%9B%BE%E7%A4%BA"><span class="nav-text">来看看图示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E6%B5%8B%E8%AF%95%E5%92%8C%E9%AA%8C%E8%AF%81"><span class="nav-text">实际测试和验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">Redis 发布 &#x2F; 订阅应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Redis-%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85-%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9"><span class="nav-text">使用 Redis 发布 &#x2F; 订阅 需要注意的点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Redis-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E5%92%8C%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="nav-text">10.Redis 集群搭建和主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E7%9A%84%E7%90%86%E8%AE%BA"><span class="nav-text">主从复制的理论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E8%AE%BE%E7%BD%AE%E4%B8%BB%E4%BB%8E%EF%BC%88%E4%B8%80%E4%B8%BB%E4%BA%8C%E4%BB%8E%EF%BC%89"><span class="nav-text">开始设置主从（一主二从）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%96%AD%E6%8E%89%E4%B8%BB%E6%9C%BA"><span class="nav-text">测试断掉主机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-text">复制的原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-Redis%E7%9A%84%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3%E5%92%8C%E5%AE%9E%E6%88%98"><span class="nav-text">11.Redis的哨兵模式详解和实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F"><span class="nav-text">哨兵模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-text">介绍</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E6%BC%94%E7%BB%83"><span class="nav-text">实际演练</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E8%AF%A6%E7%BB%86%E9%85%8D%E7%BD%AE%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-text">哨兵模式详细配置如下：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-Redis%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%EF%BC%8C%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF%EF%BC%8C%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9"><span class="nav-text">12.Redis缓存穿透，缓存击穿，缓存雪崩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F"><span class="nav-text">什么是缓存穿透</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF"><span class="nav-text">什么是缓存击穿</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9"><span class="nav-text">什么是缓存雪崩</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-Redis%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-text">13.Redis面试题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-Go%E6%93%8D%E4%BD%9CRedis"><span class="nav-text">14.Go操作Redis</span></a></li></ol></li></ol>
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">Redis从零开始学习</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%BC%94%E8%BF%9B%E5%8F%8ANosql%E7%9A%84%E5%88%9D%E6%AD%A5%E8%AE%A4%E7%9F%A5"><span class="nav-text">1.数据库的演进及Nosql的初步认知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8-Nosql-%EF%BC%9F"><span class="nav-text">为什么要用 Nosql ？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nosql-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">Nosql 是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nosql-%E7%9A%84%E5%9B%9B%E5%A4%A7%E5%88%86%E7%B1%BB"><span class="nav-text">Nosql 的四大分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Redis%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">2.Redis是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">Redis 是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E8%83%BD%E5%B9%B2%E5%98%9B%EF%BC%9F"><span class="nav-text">Redis 能干嘛？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0-Redis-%E9%9C%80%E8%A6%81%E7%94%A8%E5%88%B0%E7%9A%84%E8%B5%84%E6%96%99"><span class="nav-text">学习 Redis 需要用到的资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85-Redis"><span class="nav-text">如何安装 Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-text">redis 基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84"><span class="nav-text">redis 是单线程的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Redis-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bstring%E5%92%8Clist%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E5%8F%8A%E7%86%9F%E6%82%89"><span class="nav-text">3.Redis 数据结构之string和list基本使用及熟悉</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#string-%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-text">string 字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List"><span class="nav-text">List</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-set-%E9%9B%86%E5%90%88%EF%BC%8Chash-%E5%93%88%E5%B8%8C%EF%BC%8Czset-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%E5%88%9D%E6%AD%A5%E8%AE%A4%E7%9F%A5"><span class="nav-text">4.set 集合，hash 哈希，zset 有序集合初步认知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#set%E9%9B%86%E5%90%88"><span class="nav-text">set集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash-%E5%93%88%E5%B8%8C"><span class="nav-text">hash 哈希</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zset-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88"><span class="nav-text">zset 有序集合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Redis%E7%9A%84%E4%B8%89%E7%A7%8D%E7%89%B9%E6%AE%8A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">5.Redis的三种特殊数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Geospatial%E5%9C%B0%E7%90%86%E4%BD%8D%E7%BD%AE"><span class="nav-text">Geospatial地理位置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GEOADD"><span class="nav-text">GEOADD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GEOPOS"><span class="nav-text">GEOPOS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GEODIST"><span class="nav-text">GEODIST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GEOHASH"><span class="nav-text">GEOHASH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GEORADIUS"><span class="nav-text">GEORADIUS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GEORADIUSBYMEMBER"><span class="nav-text">GEORADIUSBYMEMBER</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hyperloglog-%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1"><span class="nav-text">Hyperloglog 基数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitmaps-%E4%BD%8D%E5%9B%BE%E5%9C%BA%E6%99%AF"><span class="nav-text">Bitmaps 位图场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Redis%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E5%92%8C%E7%9B%91%E6%8E%A7%E4%BA%8B%E5%8A%A1"><span class="nav-text">6.Redis事务处理和监控事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E4%BA%8B%E5%8A%A1"><span class="nav-text">开启事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%BE%E5%BC%83%E4%BA%8B%E5%8A%A1"><span class="nav-text">放弃事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E5%87%BA%E9%94%99"><span class="nav-text">事务出错</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%9E%8B%E5%87%BA%E9%94%99"><span class="nav-text">编译型出错</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%87%BA%E9%94%99"><span class="nav-text">运行时出错</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-%E7%9A%84-watch-%E7%9B%91%E6%8E%A7"><span class="nav-text">redis 的 watch 监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unwatch"><span class="nav-text">unwatch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Redis%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3"><span class="nav-text">7.Redis配置文件详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%BD%8D"><span class="nav-text">单位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INCLUDES%E5%8C%85%E5%90%AB"><span class="nav-text">INCLUDES包含</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NETWORK-%E7%BD%91%E7%BB%9C"><span class="nav-text">NETWORK 网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GENERAL-%E9%80%9A%E7%94%A8"><span class="nav-text">GENERAL 通用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SNAPSHOTTING-%E5%BF%AB%E7%85%A7"><span class="nav-text">SNAPSHOTTING 快照</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#REPLICATION-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="nav-text">REPLICATION 主从复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SECURITY-%E5%AE%89%E5%85%A8"><span class="nav-text">SECURITY 安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CLIENTS-%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-text">CLIENTS 客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MEMORY-MANAGEMENT-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">MEMORY MANAGEMENT 内存管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#APPEND-ONLY-MODE-%E8%BF%BD%E5%8A%A0%E6%A8%A1%E5%BC%8F%EF%BC%88aof-%E9%85%8D%E7%BD%AE%EF%BC%89"><span class="nav-text">APPEND ONLY MODE 追加模式（aof 配置）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Redis-%E6%8C%81%E4%B9%85%E5%8C%96-RDB-%E5%92%8C-AOF"><span class="nav-text">8.Redis 持久化 RDB 和 AOF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-text">Redis 持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDB-%EF%BC%88Redis-DatabBase%EF%BC%89"><span class="nav-text">RDB （Redis DatabBase）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF-%E6%8C%81%E4%B9%85%E5%8C%96%E6%96%B9%E5%BC%8F"><span class="nav-text">AOF 持久化方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%86%99%E8%A7%84%E5%88%99%E8%AF%B4%E6%98%8E"><span class="nav-text">重写规则说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aof-%E7%9A%84%E4%BC%98%E5%8A%BF%E5%92%8C%E5%8A%A3%E5%8A%BF"><span class="nav-text">aof 的优势和劣势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E4%B8%8A%E7%9A%84%E5%BB%BA%E8%AE%AE"><span class="nav-text">性能上的建议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-Redis%E7%9A%84%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85%E6%98%AF%E5%92%8B%E7%8E%A9%E7%9A%84"><span class="nav-text">9.Redis的发布和订阅是咋玩的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85"><span class="nav-text">Redis 发布订阅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A5%E7%9C%8B%E7%9C%8B%E5%9B%BE%E7%A4%BA"><span class="nav-text">来看看图示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E6%B5%8B%E8%AF%95%E5%92%8C%E9%AA%8C%E8%AF%81"><span class="nav-text">实际测试和验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">Redis 发布 &#x2F; 订阅应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Redis-%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85-%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9"><span class="nav-text">使用 Redis 发布 &#x2F; 订阅 需要注意的点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Redis-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E5%92%8C%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="nav-text">10.Redis 集群搭建和主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E7%9A%84%E7%90%86%E8%AE%BA"><span class="nav-text">主从复制的理论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E8%AE%BE%E7%BD%AE%E4%B8%BB%E4%BB%8E%EF%BC%88%E4%B8%80%E4%B8%BB%E4%BA%8C%E4%BB%8E%EF%BC%89"><span class="nav-text">开始设置主从（一主二从）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%96%AD%E6%8E%89%E4%B8%BB%E6%9C%BA"><span class="nav-text">测试断掉主机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-text">复制的原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-Redis%E7%9A%84%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3%E5%92%8C%E5%AE%9E%E6%88%98"><span class="nav-text">11.Redis的哨兵模式详解和实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F"><span class="nav-text">哨兵模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-text">介绍</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E6%BC%94%E7%BB%83"><span class="nav-text">实际演练</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E8%AF%A6%E7%BB%86%E9%85%8D%E7%BD%AE%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-text">哨兵模式详细配置如下：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-Redis%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%EF%BC%8C%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF%EF%BC%8C%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9"><span class="nav-text">12.Redis缓存穿透，缓存击穿，缓存雪崩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F"><span class="nav-text">什么是缓存穿透</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF"><span class="nav-text">什么是缓存击穿</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9"><span class="nav-text">什么是缓存雪崩</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-Redis%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-text">13.Redis面试题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-Go%E6%93%8D%E4%BD%9CRedis"><span class="nav-text">14.Go操作Redis</span></a></li></ol></li></ol>
 
-    </div>
+	</div>
 </div>
-        </div>
-    
+	</div>
+	
 </div>
+			</div>
 
+			
+		</div>
 
-
-                
-
-            </div>
-
-            
-
-        </div>
-
-        <div class="main-content-footer">
-            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
     <div class="info-container py-3 text-center">
         
         <div class="text-center">
@@ -2571,12 +2429,12 @@
               <span>2022</span>
               -
             
-            2025&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin"></i>&nbsp;&nbsp;<a href="/">Olivia的小跟班</a>
+            2025&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin"></i>&nbsp;&nbsp;<a href="/">纸鸢</a>
             
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        共 35 篇文章
+                        共撰写了 35 篇文章
                     </span>
                     
                 </p>
@@ -2601,7 +2459,7 @@
         
         <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
             <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
-            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.1</a></span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
         </div>
         
             <div class="icp-info my-1"><a target="_blank" rel="nofollow" href="
@@ -2641,125 +2499,102 @@
         
     </div>  
 </footer>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="article-tools-list">
-        <!-- TOC aside toggle -->
-        
-            <li class="right-bottom-tools page-aside-toggle">
-                <i class="fa-regular fa-outdent"></i>
-            </li>
-        
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
 
-        <!-- go comment -->
-        
-            <li class="go-comment">
-                <i class="fa-regular fa-comments"></i>
-            </li>
-        
-    </ul>
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
 </div>
 
-        </div>
-    
-
-    <div class="right-side-tools-container">
-        <div class="side-tools-container">
-    <ul class="hidden-tools-list">
-        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-plus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-minus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
-            <i class="fa-regular fa-moon"></i>
-        </li>
-
-        <!-- rss -->
-        
-
-        
-
-        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
-            <i class="fa-regular fa-arrow-down"></i>
-        </li>
-    </ul>
-
-    <ul class="visible-tools-list">
-        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
-            <i class="fa-regular fa-cog fa-spin"></i>
-        </li>
-        
-            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
-        
-        
-    </ul>
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
 </div>
-
-    </div>
-
-    <div class="image-viewer-container">
-    <img src="">
-</div>
-
-
-    
-        <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-          <span class="search-input-field-pre">
-            <i class="fa-solid fa-keyboard"></i>
-          </span>
-            <div class="search-input-container">
-                <input autocomplete="off"
-                       autocorrect="off"
-                       autocapitalize="off"
-                       placeholder="搜索..."
-                       spellcheck="false"
-                       type="search"
-                       class="search-input"
-                >
-            </div>
-            <span class="popup-btn-close">
-                <i class="fa-solid fa-times"></i>
-            </span>
-        </div>
-        <div id="search-result">
-            <div id="no-result">
-                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-    
+	
 
 </main>
 
 
-    
-<script src="/js/libs/Swup.min.js"></script>
-
-<script src="/js/libs/SwupSlideTheme.min.js"></script>
-
-<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
-
-<script src="/js/libs/SwupProgressPlugin.min.js"></script>
-
-<script src="/js/libs/SwupScrollPlugin.min.js"></script>
-
-<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
-
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/Swup.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupSlideTheme.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupScriptsPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupProgressPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupScrollPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupPreloadPlugin.min.js" ></script>
 <script>
     const swup = new Swup({
         plugins: [
@@ -2782,60 +2617,29 @@
 
 
 
+	<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/imageViewer.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/utils.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/main.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/navbarShrink.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/scrollTopBottom.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/lightDarkSwitch.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/categoryList.js" ></script>
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/localSearch.js" ></script>
 
 
 
-<script src="/js/tools/imageViewer.js" type="module"></script>
-
-<script src="/js/utils.js" type="module"></script>
-
-<script src="/js/main.js" type="module"></script>
-
-<script src="/js/layouts/navbarShrink.js" type="module"></script>
-
-<script src="/js/tools/scrollTopBottom.js" type="module"></script>
-
-<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
-
-<script src="/js/layouts/categoryList.js" type="module"></script>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/codeBlock.js" ></script>
 
 
 
-    
-<script src="/js/tools/localSearch.js" type="module"></script>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/lazyload.js" ></script>
 
 
 
-
-    
-<script src="/js/tools/codeBlock.js" type="module"></script>
-
-
-
-
-    
-<script src="/js/layouts/lazyload.js" type="module"></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/runtime.js" ></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/odometer.min.js" ></script>
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/assets/odometer-theme-minimal.css">
 
 
 
-
-    
-<script src="/js/tools/runtime.js"></script>
-
-    
-<script src="/js/libs/odometer.min.js"></script>
-
-    
-<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
-
-
-
-
-  
-<script src="/js/libs/Typed.min.js"></script>
-
-  
-<script src="/js/plugins/typed.js" type="module"></script>
+  <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/Typed.min.js" ></script>
+  <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/typed.js" ></script>
 
 
 
@@ -2845,29 +2649,26 @@
 
 
 
-<div class="post-scripts" data-swup-reload-script>
-    
-        
-<script src="/js/tools/tocToggle.js" type="module"></script>
 
-<script src="/js/layouts/toc.js" type="module"></script>
-
-<script src="/js/plugins/tabs.js" type="module"></script>
-
-    
-</div>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/tocToggle.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/toc.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/tabs.js" data-swup-reload-script></script>
 
 
-    <div id="aplayer"></div>
-
-<script src="/js/libs/APlayer.min.js"></script>
-
-
-<script src="/js/plugins/aplayer.js"></script>
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script>
+<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/essays.js" data-swup-reload-script></script>
 
 
+
+
+	
+	<div id="aplayer"></div>
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/APlayer.min.js" ></script>
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/aplayer.js" ></script>
+
+	
 </body>
+
 </html>
+
 
 <script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/love.js"></script>
 <script type="text/javascript" src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/FunnyTitle.js"></script>

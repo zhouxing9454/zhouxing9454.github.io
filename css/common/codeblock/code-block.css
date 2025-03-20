@@ -1,10 +1,10 @@
-.highlight-container[data-rel] {
+.code-container {
   position: relative;
 }
-.highlight-container:hover .copy-button,
-.highlight-container .copy-button:focus,
-.highlight-container:hover .fold-button,
-.highlight-container .fold-button:focus {
+.code-container:hover .copy-button,
+.code-container .copy-button:focus,
+.code-container:hover .fold-button,
+.code-container .fold-button:focus {
   opacity: 1;
 }
 .fold-button {
@@ -53,7 +53,7 @@
   right: 0;
   top: 0;
 }
-.highlight-container[data-rel] {
+.code-container {
   background: var(--third-background-color);
   border-radius: $redefine-border-radius-large;
   box-shadow: var(--redefine-box-shadow-flat);
@@ -62,7 +62,7 @@
   margin-bottom: 1.2rem;
   position: relative;
 }
-.highlight-container[data-rel] figcaption {
+.code-container figcaption {
   font-weight: bold;
   font-size: 16px;
   position: absolute;
@@ -70,10 +70,10 @@
   left: 50%;
   transform: translateX(-50%);
 }
-.highlight-container[data-rel] figcaption a {
+.code-container figcaption a {
   margin-left: 10px;
 }
-.highlight-container[data-rel]::before {
+.code-container::before {
   position: absolute;
   content: attr(data-rel);
   line-height: 38px;
@@ -89,12 +89,15 @@
   font-weight: bold;
   font-size: 16px;
 }
-.highlight-container[data-rel] .folded figure {
+.code-container .folded {
+  height: 0 !important;
+}
+.code-container .folded figure {
   height: 0 !important;
   width: 0 !important;
   overflow: hidden !important;
 }
-.highlight-container[data-rel]::after {
+.code-container::after {
   content: ' ';
   position: absolute;
   -webkit-border-radius: $redefine-border-radius-full;
