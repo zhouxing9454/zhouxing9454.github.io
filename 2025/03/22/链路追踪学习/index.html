@@ -36,7 +36,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://zhouxing9454.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2025-03-22T06:35:52.000Z">
-<meta property="article:modified_time" content="2025-03-22T15:21:55.434Z">
+<meta property="article:modified_time" content="2025-03-22T18:30:14.916Z">
 <meta property="article:author" content="Olivia的小跟班">
 <meta property="article:tag" content="jaeger">
 <meta name="twitter:card" content="summary">
@@ -562,8 +562,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-03-22 23:21:55</span>
-            <span class="mobile">2025-03-22 23:21:55</span>
+            <span class="desktop">2025-03-23 02:30:14</span>
+            <span class="mobile">2025-03-23 02:30:14</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -676,8 +676,8 @@
 <p><strong>三种追踪级别的实例：</strong></p>
 <p><a class="link"   target="_blank" rel="noopener" href="https://github.com/copilot/share/022f5186-0144-8436-a002-3445800c6935" >https://github.com/copilot/share/022f5186-0144-8436-a002-3445800c6935<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 <h3 id="阿里云链路追踪Golang-Agent测试"><a href="#阿里云链路追踪Golang-Agent测试" class="headerlink" title="阿里云链路追踪Golang Agent测试"></a>阿里云链路追踪Golang Agent测试</h3><p>​	阿里云开源的 Golang Agent 可以在不修改任何代码的情况下，获取应用的各种观测数据，从而提升运维团队和研发团队的工作效率和幸福感。</p>
-<p><strong>安装jaeger：</strong></p>
-<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name jaeger -e COLLECTOR_ZIPKIN_HOST_PORT=:9411  -p 6831:6831/udp  -p 6832:6832/udp  -p 5778:5778 -p 16686:16686  -p 4317:4317 -p 4318:4318  -p 14250:14250   -p 14268:14268  -p 14269:14269 -p 9411:9411 jaegertracing/all-in-one:1.6.0</span><br></pre></td></tr></table></figure></div>
+<h5 id="环境安装并打包使用"><a href="#环境安装并打包使用" class="headerlink" title="环境安装并打包使用"></a>环境安装并打包使用</h5><p><strong>安装jaeger：</strong></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name jaeger-aliyun  -e COLLECTOR_ZIPKIN_HOST_PORT=:9411  -p 6831:6831/udp   -p 6832:6832/udp -p 5778:5778  -p 16686:16686  -p 4317:4317  -p 4318:4318  -p 14250:14250   -p 14268:14268  -p 14269:14269 -p 9411:9411 jaegertracing/all-in-one:1.53.0</span><br></pre></td></tr></table></figure></div>
 
 
 
@@ -691,11 +691,86 @@
 
 
 
+<p><strong>打开demo，otel打包：</strong></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ./example/demo</span><br><span class="line">otel go build .</span><br></pre></td></tr></table></figure></div>
 
 
 
+<p><strong>安装mysql和redis（demo需要）：</strong></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 3306:3306 -p 33060:33060 -e MYSQL_USER=test -e MYSQL_PASSWORD=test -e MYSQL_DATABASE=test -e MYSQL_ALLOW_EMPTY_PASSWORD=yes mysql:8.0.36</span><br><span class="line">docker run -d -p 6379:6379 redis:latest</span><br></pre></td></tr></table></figure></div>
 
-<h3 id="阿里云配置Jaeger"><a href="#阿里云配置Jaeger" class="headerlink" title="阿里云配置Jaeger"></a>阿里云配置Jaeger</h3><h3 id="阿里云k8s集群配置Jaeger"><a href="#阿里云k8s集群配置Jaeger" class="headerlink" title="阿里云k8s集群配置Jaeger"></a>阿里云k8s集群配置Jaeger</h3>
+
+
+<p><strong>启动应用：</strong></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export OTEL_EXPORTER_OTLP_ENDPOINT=&quot;http://127.0.0.1:4318&quot; </span><br><span class="line">export OTEL_EXPORTER_OTLP_INSECURE=true </span><br><span class="line">export OTEL_SERVICE_NAME=demo </span><br><span class="line">./demo</span><br></pre></td></tr></table></figure></div>
+
+<p>注意：9000端口如果绑定记得换</p>
+<p><strong>请求应用以生成相关调用链信息：</strong></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl localhost:9000/http-service</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p><strong>jaeger ui查看：</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250323003602890.png"
+                      alt="image-20250323003602890"
+                ></p>
+<ol>
+<li>可以追踪到每一步redis和db的操作，MySQL的话是可以记录下查询语句的，用的mongodb是无法记录。</li>
+<li>甚至也能追踪到<strong>包体内部请求其他url</strong>的http请求</li>
+</ol>
+<h5 id="代码中获取traceID和spanID"><a href="#代码中获取traceID和spanID" class="headerlink" title="代码中获取traceID和spanID"></a>代码中获取traceID和spanID</h5><p>​	如果您使用了 Golang Agent 支持的日志框架：<a class="link"   target="_blank" rel="noopener" href="https://github.com/alibaba/opentelemetry-go-auto-instrumentation/blob/main/docs/supported-libraries.md" >supported-libraries.md<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，那么 Agent 将会自动将 traceID 以及 spanID 注入至日志中。此外，您还可以通过 Otel SDK 来手动获取 traceID 以及 spanID，从而将它们打印到日志中。</p>
+<div class="code-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;go.opentelemetry.io/otel/sdk/trace&quot;</span></span><br><span class="line">traceId, spanId := trace.GetTraceAndSpanId()</span><br><span class="line"></span><br><span class="line">curl localhost:<span class="number">9000</span>/http-service</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250323004251691.png"
+                      alt="image-20250323004251691"
+                ></p>
+<p>然后在jaeger里面search <strong>02b1a848d9680dac15e8620e696ef791</strong>这个traceID的数据。</p>
+<h5 id="在docker打包编译时"><a href="#在docker打包编译时" class="headerlink" title="在docker打包编译时"></a>在docker打包编译时</h5><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//方法1.（项目文件中自带对应环境的编译好的otel）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//方法2（docker打包时拉取git上对应版本的预编译好的otel）</span><br><span class="line">WORKDIR /src</span><br><span class="line">RUN curl -L https://github.com/alibaba/opentelemetry-go-auto-instrumentation/releases/download/v0.4.1/otel-linux-amd64 -o otel</span><br><span class="line">RUN chmod +x otel</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//方法3（docker打包时git克隆下来整个项目make一个对应环境的otel（更通用点，但是打包时间变长了点））</span><br><span class="line">WORKDIR /home</span><br><span class="line">RUN git clone https://github.com/alibaba/opentelemetry-go-auto-instrumentation.git</span><br><span class="line">WORKDIR /home/opentelemetry-go-auto-instrumentation</span><br><span class="line">RUN make</span><br><span class="line">//移动到项目目录</span><br><span class="line">RUN mv otel /src</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h5 id="使用clickhouse作为jaeger存储后端"><a href="#使用clickhouse作为jaeger存储后端" class="headerlink" title="使用clickhouse作为jaeger存储后端"></a>使用clickhouse作为jaeger存储后端</h5><p><strong>安装clickhouse：</strong></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --rm -it -d -e CLICKHOUSE_USER=zhiyuan -e CLICKHOUSE_PASSWORD=zhiyuan -p 8123:8123 -p 9000:9000 --name clickhouse-server --ulimit nofile=262144:262144 clickhouse/clickhouse-server:22</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p><strong>下载并编译插件：</strong></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/jaegertracing/jaeger-clickhouse.git</span><br><span class="line"></span><br><span class="line">cd jaeger-clickhouse</span><br><span class="line"></span><br><span class="line">CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -trimpath -o jaeger-clickhouse-linux-arm64 ./cmd/jaeger-clickhouse/main.go（config路径记得写）</span><br><span class="line"></span><br><span class="line">//编译完成后，在目录生成 jaeger-clickhouse-linux-arm64 二进制文件</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250323021839757.png"
+                      alt="image-20250323021839757"
+                ></p>
+<p><strong>修改配置：</strong></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipconfig getifaddr en0</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250323021954813.png"
+                      alt="image-20250323021954813"
+                ></p>
+<p><strong>使用docker启动：</strong></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name jaeger-demo \</span><br><span class="line">  -p 6831:6831/udp \</span><br><span class="line">  -p 6832:6832/udp \</span><br><span class="line">  -p 5778:5778 \</span><br><span class="line">  -p 16686:16686 \</span><br><span class="line">  -p 4317:4317 \</span><br><span class="line">  -p 4318:4318 \</span><br><span class="line">  -p 14250:14250 \</span><br><span class="line">  -p 14268:14268 \</span><br><span class="line">  -p 14269:14269 \</span><br><span class="line">  -p 9411:9411 \</span><br><span class="line">  -v /Users/zhouxing/GOPATH/src/jaeger-clickhouse:/data \</span><br><span class="line">  -e SPAN_STORAGE_TYPE=grpc-plugin \</span><br><span class="line">  -e GRPC_STORAGE_PLUGIN_BINARY=/data/jaeger-clickhouse-linux-arm64 \</span><br><span class="line">  -e GRPC_STORAGE_PLUGIN_CONFIGURATION_FILE=/data/config.yaml \</span><br><span class="line">  -e GRPC_STORAGE_PLUGIN_LOG_LEVEL=debug \</span><br><span class="line">  --platform linux/arm64 \</span><br><span class="line">  jaegertracing/all-in-one:1.55.0</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p><strong>结果如下：</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250323022717505.png"
+                      alt="image-20250323022717505"
+                ></p>
+<h3 id="阿里云k8s集群配置Jaeger"><a href="#阿里云k8s集群配置Jaeger" class="headerlink" title="阿里云k8s集群配置Jaeger"></a>阿里云k8s集群配置Jaeger</h3>
 		</div>
 
 		
@@ -709,7 +784,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2025-03-22 23:21:55
+                    :</strong> 2025-03-23 02:30:14
             </li>
         
         <li>
@@ -830,7 +905,7 @@
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
 		<div class="page-title">链路追踪学习</div>
-		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA"><span class="nav-text">什么是链路追踪</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="nav-text">链路追踪主要功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%BD%E8%B8%AA%E7%BA%A7%E5%88%AB"><span class="nav-text">追踪级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFOpentracing"><span class="nav-text">什么是Opentracing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFOpenTelemetry"><span class="nav-text">什么是OpenTelemetry</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jaeger"><span class="nav-text">Jaeger</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E5%9B%BE"><span class="nav-text">架构图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6"><span class="nav-text">组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E7%A4%BA%E4%BE%8B"><span class="nav-text">实战示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AAGolang-Agent%E6%B5%8B%E8%AF%95"><span class="nav-text">阿里云链路追踪Golang Agent测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91%E9%85%8D%E7%BD%AEJaeger"><span class="nav-text">阿里云配置Jaeger</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91k8s%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AEJaeger"><span class="nav-text">阿里云k8s集群配置Jaeger</span></a></li></ol></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA"><span class="nav-text">什么是链路追踪</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="nav-text">链路追踪主要功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%BD%E8%B8%AA%E7%BA%A7%E5%88%AB"><span class="nav-text">追踪级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFOpentracing"><span class="nav-text">什么是Opentracing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFOpenTelemetry"><span class="nav-text">什么是OpenTelemetry</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jaeger"><span class="nav-text">Jaeger</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E5%9B%BE"><span class="nav-text">架构图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6"><span class="nav-text">组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E7%A4%BA%E4%BE%8B"><span class="nav-text">实战示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AAGolang-Agent%E6%B5%8B%E8%AF%95"><span class="nav-text">阿里云链路追踪Golang Agent测试</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E5%B9%B6%E6%89%93%E5%8C%85%E4%BD%BF%E7%94%A8"><span class="nav-text">环境安装并打包使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E4%B8%AD%E8%8E%B7%E5%8F%96traceID%E5%92%8CspanID"><span class="nav-text">代码中获取traceID和spanID</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8docker%E6%89%93%E5%8C%85%E7%BC%96%E8%AF%91%E6%97%B6"><span class="nav-text">在docker打包编译时</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8clickhouse%E4%BD%9C%E4%B8%BAjaeger%E5%AD%98%E5%82%A8%E5%90%8E%E7%AB%AF"><span class="nav-text">使用clickhouse作为jaeger存储后端</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91k8s%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AEJaeger"><span class="nav-text">阿里云k8s集群配置Jaeger</span></a></li></ol></li></ol>
 
 	</div>
 </div>
