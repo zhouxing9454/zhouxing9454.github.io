@@ -571,6 +571,158 @@
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
+                        <a href="/2024/08/29/%E4%B8%8A%E7%8F%AD%E9%81%87%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%81%E9%97%AE%E9%A2%98/">
+                            数据库锁问题
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            题记​	今天在公司遇见了一个数据库锁问题，复盘一下。
+问题与原因​	测试环境下更新Spine接口：biz层使用ExecTx调用data层的一些函数用于数据库操作，其中更新文件时间戳的代码如下所示，其他都是使用c.db.DB(ctx)来实现数据库操作，这可能会出现更新文件时间戳操作使用的 gorm.DB 实例和其他的不同，导致事务不一致的问题。（我就遇见了执行到更新文件时间戳函数卡住的情况，锁...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Thu Aug 29 2024 23:07:50 GMT+0800">
+                
+                    2024-08-29
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2024/08/29/%E4%B8%8A%E7%8F%AD%E9%81%87%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%81%E9%97%AE%E9%A2%98/">阅读全文<span class="seo-reader-text">数据库锁问题</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/08/28/Macos%E4%B8%8BSwitch%E6%A8%A1%E6%8B%9F%E5%99%A8%E7%95%85%E7%8E%A9%E4%BB%BB%E5%A4%A9%E5%A0%82%E6%B8%B8%E6%88%8F/">
+                            Macos下Switch模拟器畅玩任天堂游戏
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            题记Macos下Switch模拟器畅玩任天堂游戏：
+步骤首先下载模拟器
+
+然后安装keys和固件（最新版本）
+
+然后解压keys文件放入图片打开的文件夹下的system目录下
+
+安装固件
+
+一些参数设置
+
+
+
+运行宝可梦的截图：
+
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Aug 28 2024 01:21:12 GMT+0800">
+                
+                    2024-08-28
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2024/08/28/Macos%E4%B8%8BSwitch%E6%A8%A1%E6%8B%9F%E5%99%A8%E7%95%85%E7%8E%A9%E4%BB%BB%E5%A4%A9%E5%A0%82%E6%B8%B8%E6%88%8F/">阅读全文<span class="seo-reader-text">Macos下Switch模拟器畅玩任天堂游戏</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
                         <a href="/2024/07/27/wire%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/">
                             wire依赖注入
                         </a>
@@ -798,85 +950,6 @@ Go 项目必备：深入浅出 Wire 依赖注入工具-腾讯云开发者社区-
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2023/09/21/Golang%E5%85%AB%E8%82%A1%E6%96%87%E6%B1%87%E6%80%BB/">
-                            Golang八股文汇总
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            题记本文记录Golang语言面试的八股文。
-Go基础init和main函数相关特点init函数（没有输入参数、返回值）的主要作用：
-
-初始化不能采用初始化表达式初始化的变量。
-程序运行前的注册。
-实现sync.Once功能。
-其他
-
-init 顺序
-1、在同一个 package 中，可以多个文件中定义 init 方法
-2、在同一个 go 文件中，可以重复定义 init 方法
-3、在同一个 p...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Sep 21 2023 15:49:10 GMT+0800">
-                
-                    2023-09-21
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/Go/">Go</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/Go/">Go</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2023/09/21/Golang%E5%85%AB%E8%82%A1%E6%96%87%E6%B1%87%E6%80%BB/">阅读全文<span class="seo-reader-text">Golang八股文汇总</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
                         <a href="/2023/10/23/%E9%A1%B9%E7%9B%AEGeeCache%E9%9D%A2%E8%AF%95%E9%A2%98/">
                             项目GeeCache面试题
                         </a>
@@ -1019,91 +1092,6 @@ Heartbeat分布式系统架构中会有多个节点（node），有的是多个�
     </div>
 
     <a href="/2024/02/26/go-micro%E6%8F%92%E4%BB%B6%E5%AD%A6%E4%B9%A0/">阅读全文<span class="seo-reader-text">go-micro插件学习</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2024/02/22/go-micro%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AD%A6%E4%B9%A0/">
-                            go-micro命令行学习
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            题记上篇文章我们提到了go-micro有个CLI（提供命令行界面让我们和微服务进行交互），现在我们来简单的学习一下。
-1、什么是go-micro.exe（CLI）？go-micro 是一个命令行工具，用于管理和操作微服务。它提供了一系列命令，允许您进行各种操作，包括调用服务、创建新项目、生成项目模板文件、运行服务、列出服务等等。
-2、go-micro.exe（CLI）安装使用如下命令安装go...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Feb 22 2024 23:50:11 GMT+0800">
-                
-                    2024-02-22
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/go/">go</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/go/go-micro/">go-micro</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/go/">go</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/go-micro/">go-micro</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2024/02/22/go-micro%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AD%A6%E4%B9%A0/">阅读全文<span class="seo-reader-text">go-micro命令行学习</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
