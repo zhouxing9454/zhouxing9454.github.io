@@ -613,7 +613,7 @@
 <li><p>当需要为某个包创建测试替身时，可以创建一个新的Go包用于测试。一个安全的命名选择是在原始包名后加上“test”这个单词，例如，原始包名是“creditcard”，则测试包名为“creditcardtest”。</p>
 </li>
 <li><p>例如：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">package creditcardtest</span><br></pre></td></tr></table></figure></div></li>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">package creditcardtest</span><br></pre></td></tr></table></figure></div></li>
 </ul>
 </li>
 <li><p><strong>简单情况下的测试替身：</strong></p>
@@ -621,7 +621,7 @@
 <li><p>当只需要为某个类型（例如<code>Service</code>）创建测试替身时，可以使用简洁的命名方式。例如，对于<code>Service</code>类型的测试替身，可以直接将其命名为<code>Stub</code>，因为<code>Card</code>类型类似于普通数据类型，不需要特殊处理。</p>
 </li>
 <li><p>示例：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import (</span><br><span class="line">    &quot;path/to/creditcard&quot;</span><br><span class="line">    &quot;path/to/money&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">// Stub替身creditcard.Service，不提供自己的行为。</span><br><span class="line">type Stub struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (Stub) Charge(*creditcard.Card, money.Money) error &#123; return nil &#125;</span><br></pre></td></tr></table></figure></div></li>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import (</span><br><span class="line">    &quot;path/to/creditcard&quot;</span><br><span class="line">    &quot;path/to/money&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">// Stub替身creditcard.Service，不提供自己的行为。</span><br><span class="line">type Stub struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (Stub) Charge(*creditcard.Card, money.Money) error &#123; return nil &#125;</span><br></pre></td></tr></table></figure></div></li>
 </ul>
 </li>
 <li><p><strong>多种替身行为的命名：</strong></p>
@@ -629,7 +629,7 @@
 <li><p>当需要多种类型的测试替身（例如，有的替身总是成功，有的替身总是失败）时，建议根据替身的行为对其进行命名。例如，将<code>Stub</code>替身命名为<code>AlwaysCharges</code>，另一个替身命名为<code>AlwaysDeclines</code>，以便清晰地表示它们的行为。</p>
 </li>
 <li><p>示例：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// AlwaysCharges替身creditcard.Service，模拟成功。</span><br><span class="line">type AlwaysCharges struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (AlwaysCharges) Charge(*creditcard.Card, money.Money) error &#123; return nil &#125;</span><br><span class="line"></span><br><span class="line">// AlwaysDeclines替身creditcard.Service，模拟拒绝的情况。</span><br><span class="line">type AlwaysDeclines struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (AlwaysDeclines) Charge(*creditcard.Card, money.Money) error &#123;</span><br><span class="line">    return creditcard.ErrDeclined</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// AlwaysCharges替身creditcard.Service，模拟成功。</span><br><span class="line">type AlwaysCharges struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (AlwaysCharges) Charge(*creditcard.Card, money.Money) error &#123; return nil &#125;</span><br><span class="line"></span><br><span class="line">// AlwaysDeclines替身creditcard.Service，模拟拒绝的情况。</span><br><span class="line">type AlwaysDeclines struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (AlwaysDeclines) Charge(*creditcard.Card, money.Money) error &#123;</span><br><span class="line">    return creditcard.ErrDeclined</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
 </ul>
 </li>
 <li><p><strong>多种类型的测试替身：</strong></p>
@@ -637,7 +637,7 @@
 <li><p>当一个包中有多个类型需要创建测试替身时，建议使用更明确的命名方式。例如，对于<code>Service</code>和<code>StoredValue</code>类型的替身，可以使用更明确的命名，例如<code>StubService</code>和<code>StubStoredValue</code>。</p>
 </li>
 <li><p>示例：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// StubService替身creditcard.Service。</span><br><span class="line">type StubService struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (StubService) Charge(*creditcard.Card, money.Money) error &#123; return nil &#125;</span><br><span class="line"></span><br><span class="line">// StubStoredValue替身creditcard.StoredValue。</span><br><span class="line">type StubStoredValue struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (StubStoredValue) Credit(*creditcard.Card, money.Money) error &#123; return nil &#125;</span><br></pre></td></tr></table></figure></div></li>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// StubService替身creditcard.Service。</span><br><span class="line">type StubService struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (StubService) Charge(*creditcard.Card, money.Money) error &#123; return nil &#125;</span><br><span class="line"></span><br><span class="line">// StubStoredValue替身creditcard.StoredValue。</span><br><span class="line">type StubStoredValue struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func (StubStoredValue) Credit(*creditcard.Card, money.Money) error &#123; return nil &#125;</span><br></pre></td></tr></table></figure></div></li>
 </ul>
 </li>
 <li><p><strong>测试中的局部变量：</strong></p>
@@ -645,7 +645,7 @@
 <li><p>在测试中，当变量引用测试替身时，应根据上下文选择一个能够清晰区分测试替身和其他生产类型的名称。例如，在测试中引用了名为“spy”的测试替身，可以在其名称前加上前缀以提高清晰度，例如<code>spyCC</code>。</p>
 </li>
 <li><p>示例：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// Good:</span><br><span class="line">func TestProcessor(t *testing.T) &#123;</span><br><span class="line">    var spyCC creditcardtest.Spy</span><br><span class="line"></span><br><span class="line">    proc := &amp;Processor&#123;CC: spyCC&#125;</span><br><span class="line"></span><br><span class="line">    // declarations omitted: card and amount</span><br><span class="line">    if err := proc.Process(card, amount); err != nil &#123;</span><br><span class="line">        t.Errorf(&quot;proc.Process(card, amount) = %v, want %v&quot;, got, want)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    charges := []creditcardtest.Charge&#123;</span><br><span class="line">        &#123;Card: card, Amount: amount&#125;,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if got, want := spyCC.Charges, charges; !cmp.Equal(got, want) &#123;</span><br><span class="line">        t.Errorf(&quot;spyCC.Charges = %v, want %v&quot;, got, want)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// Good:</span><br><span class="line">func TestProcessor(t *testing.T) &#123;</span><br><span class="line">    var spyCC creditcardtest.Spy</span><br><span class="line"></span><br><span class="line">    proc := &amp;Processor&#123;CC: spyCC&#125;</span><br><span class="line"></span><br><span class="line">    // declarations omitted: card and amount</span><br><span class="line">    if err := proc.Process(card, amount); err != nil &#123;</span><br><span class="line">        t.Errorf(&quot;proc.Process(card, amount) = %v, want %v&quot;, got, want)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    charges := []creditcardtest.Charge&#123;</span><br><span class="line">        &#123;Card: card, Amount: amount&#125;,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if got, want := spyCC.Charges, charges; !cmp.Equal(got, want) &#123;</span><br><span class="line">        t.Errorf(&quot;spyCC.Charges = %v, want %v&quot;, got, want)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
 </ul>
 </li>
 </ol>
@@ -807,7 +807,7 @@
 <li><p><strong>非指针类型的零值</strong>：</p>
 <ul>
 <li><p>对于变量的零值，可以使用var关键字来声明，例如：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var (</span><br><span class="line">    coords Point</span><br><span class="line">    magic  [4]byte</span><br><span class="line">    primes []int</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var (</span><br><span class="line">    coords Point</span><br><span class="line">    magic  [4]byte</span><br><span class="line">    primes []int</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
 </li>
 <li><p>当你想要表示一个准备好用于后续使用的空值时，应该使用变量的零值。这种方式比使用显式初始化的复合字面量更简洁。</p>
 </li>
@@ -822,7 +822,7 @@
 <li><p><strong>复合字面量</strong>：</p>
 <ul>
 <li><p>使用复合字面量（composite literals）来声明具有初始元素或成员的值。例如：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var (</span><br><span class="line">    coords   = Point&#123;X: x, Y: y&#125;</span><br><span class="line">    magic    = [4]byte&#123;&#x27;I&#x27;, &#x27;W&#x27;, &#x27;A&#x27;, &#x27;D&#x27;&#125;</span><br><span class="line">    primes   = []int&#123;2, 3, 5, 7, 11&#125;</span><br><span class="line">    captains = map[string]string&#123;&quot;Kirk&quot;: &quot;James Tiberius&quot;, &quot;Picard&quot;: &quot;Jean-Luc&quot;&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var (</span><br><span class="line">    coords   = Point&#123;X: x, Y: y&#125;</span><br><span class="line">    magic    = [4]byte&#123;&#x27;I&#x27;, &#x27;W&#x27;, &#x27;A&#x27;, &#x27;D&#x27;&#125;</span><br><span class="line">    primes   = []int&#123;2, 3, 5, 7, 11&#125;</span><br><span class="line">    captains = map[string]string&#123;&quot;Kirk&quot;: &quot;James Tiberius&quot;, &quot;Picard&quot;: &quot;Jean-Luc&quot;&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
 </li>
 <li><p>当你知道变量的初始元素或成员时，可以使用复合字面量来声明变量。</p>
 </li>
@@ -836,7 +836,7 @@
 <li><p><strong>大小提示</strong>：</p>
 <ul>
 <li><p>在某些情况下，可以使用大小提示来预先分配切片（slice）或映射（map）的容量。例如：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var (</span><br><span class="line">    buf = make([]byte, 131072) // 预分配大小为131072的字节切片</span><br><span class="line">    q = make([]Node, 0, 16)    // 预分配切片的容量为16，初始长度为0</span><br><span class="line">    seen = make(map[string]bool, shardSize) // 预分配map的容量为shardSize</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var (</span><br><span class="line">    buf = make([]byte, 131072) // 预分配大小为131072的字节切片</span><br><span class="line">    q = make([]Node, 0, 16)    // 预分配切片的容量为16，初始长度为0</span><br><span class="line">    seen = make(map[string]bool, shardSize) // 预分配map的容量为shardSize</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
 </li>
 <li><p>使用大小提示和经验性的代码分析结合起来，可以创建性能敏感和资源高效的代码。然而，在大多数情况下，不需要使用大小提示或预分配，可以让运行时根据需要动态增长切片或映射。</p>
 </li>
@@ -847,7 +847,7 @@
 <li><p><strong>通道方向</strong>：</p>
 <ul>
 <li><p>在函数签名中指定通道的方向是一种良好的做法。例如：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// sum计算所有值的和。它从通道中读取值直到通道被关闭。</span><br><span class="line">func sum(values &lt;-chan int) int &#123;</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// sum计算所有值的和。它从通道中读取值直到通道被关闭。</span><br><span class="line">func sum(values &lt;-chan int) int &#123;</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 </li>
 <li><p>指定通道的方向可以防止一些可能的编程错误。如果没有指定方向，程序员可能会意外地在不应该关闭通道的时候关闭它，导致错误。通过指定方向，编译器可以捕获到这类简单错误，同时也有助于传达类型的所有权信息</p>
 </li>
@@ -943,7 +943,7 @@
 <li><p>在拼接少量字符串时，可以使用“+”操作符。这种方法在语法上最简单，无需引入其他包。</p>
 </li>
 <li><p>示例：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">key := &quot;projectid: &quot; + p</span><br></pre></td></tr></table></figure></div></li>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">key := &quot;projectid: &quot; + p</span><br></pre></td></tr></table></figure></div></li>
 </ul>
 </li>
 <li><p><strong>使用<code>fmt.Sprintf</code>进行格式化：</strong></p>
@@ -951,7 +951,7 @@
 <li><p>在构建带有格式的复杂字符串时，推荐使用<code>fmt.Sprintf</code>。使用多个“+”操作符可能会使结果不太清晰。</p>
 </li>
 <li><p>示例：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str := fmt.Sprintf(&quot;%s [%s:%d]-&gt; %s&quot;, src, qos, mtu, dst)</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str := fmt.Sprintf(&quot;%s [%s:%d]-&gt; %s&quot;, src, qos, mtu, dst)</span><br></pre></td></tr></table></figure></div>
 </li>
 <li><p>避免在构建字符串操作的输出是<code>io.Writer</code>时，构造临时字符串再将其发送到<code>Writer</code>。相反，可以使用<code>fmt.Fprintf</code>直接将格式化内容发送到<code>Writer</code>。</p>
 </li>
@@ -962,7 +962,7 @@
 <li><p>当需要逐步构建字符串时，推荐使用<code>strings.Builder</code>。与连续调用“+”和<code>fmt.Sprintf</code>形成更大字符串时，<code>strings.Builder</code>具有均摊线性时间复杂度，性能更好。</p>
 </li>
 <li><p>示例：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">b := new(strings.Builder)</span><br><span class="line">for i, d := range digitsOfPi &#123;</span><br><span class="line">    fmt.Fprintf(b, &quot;the %d digit of pi is: %d\n&quot;, i, d)</span><br><span class="line">&#125;</span><br><span class="line">str := b.String()</span><br></pre></td></tr></table></figure></div></li>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">b := new(strings.Builder)</span><br><span class="line">for i, d := range digitsOfPi &#123;</span><br><span class="line">    fmt.Fprintf(b, &quot;the %d digit of pi is: %d\n&quot;, i, d)</span><br><span class="line">&#125;</span><br><span class="line">str := b.String()</span><br></pre></td></tr></table></figure></div></li>
 </ul>
 </li>
 <li><p><strong>常量字符串使用反引号（&#96;）：</strong></p>
@@ -970,7 +970,7 @@
 <li><p>在构建常量的多行字符串文字时，建议使用反引号（&#96;）。这种方式更清晰和简洁。</p>
 </li>
 <li><p>示例：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">usage := `Usage:</span><br><span class="line">custom_tool [args]`</span><br></pre></td></tr></table></figure></div></li>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">usage := `Usage:</span><br><span class="line">custom_tool [args]`</span><br></pre></td></tr></table></figure></div></li>
 </ul>
 </li>
 </ol>
@@ -1017,7 +1017,7 @@
 </ul>
 </li>
 </ol>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a class="link"   target="_blank" rel="noopener" href="https://google.github.io/styleguide/go/best-practices.html" >Go Style Best Practices <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a class="link"   target="_blank" rel="noopener" href="https://google.github.io/styleguide/go/best-practices.html" >Go Style Best Practices<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 
 		</div>
 

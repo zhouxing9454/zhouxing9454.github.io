@@ -585,7 +585,7 @@
 </ul>
 <p>以业务名(或数据库名)为前缀(防止key冲突)，用冒号分隔，比如业务名:表名:id</p>
 <p>&lt;业务模块名&gt;:&lt;应用名(ktv模块缺省)&gt;:&lt;业务逻辑含义&gt;:<index>:<index>:…</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setting:v:agreement:uid:o_uid_xxx:pid:xxx</span><br><span class="line">ktv:room:roomid:xxx</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setting:v:agreement:uid:o_uid_xxx:pid:xxx</span><br><span class="line">ktv:room:roomid:xxx</span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li>(2)【强制】：不要包含特殊字符</li>
@@ -602,10 +602,10 @@
 </ul>
 <p>例如：实体类型(要合理控制和使用数据结构内存编码优化配置,例如ziplist，但也要注意节省内存和性能之间的平衡)</p>
 <p>反例：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set user:1:name tom</span><br><span class="line">set user:1:age 19</span><br><span class="line">set user:1:favor football</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set user:1:name tom</span><br><span class="line">set user:1:age 19</span><br><span class="line">set user:1:favor football</span><br></pre></td></tr></table></figure></div>
 
 <p>正例:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hmset user:1 name tom age 19 favor football</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hmset user:1 name tom age 19 favor football</span><br></pre></td></tr></table></figure></div>
 
 <h4 id="3-【推荐】：控制key的生命周期，redis不是垃圾桶。"><a href="#3-【推荐】：控制key的生命周期，redis不是垃圾桶。" class="headerlink" title="3.【推荐】：控制key的生命周期，redis不是垃圾桶。"></a>3.【推荐】：控制key的生命周期，redis不是垃圾桶。</h4><p>建议使用expire设置过期时间(条件允许可以打散过期时间，防止集中过期)，不过期的数据重点关注idletime。</p>
 
