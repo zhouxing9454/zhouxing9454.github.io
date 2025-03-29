@@ -577,11 +577,11 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">22</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">24</div>
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
@@ -617,11 +617,11 @@
 </div>
                 <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">22</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">24</div>
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
@@ -759,7 +759,7 @@
                     
                         
                         <li>
-                            <a href="/categories/SQL/">SQL</a>&nbsp;
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>&nbsp;
                         </li>
                     
                     
@@ -774,7 +774,7 @@
                     
                         <li>
                             
-                            <a href="/tags/SQL/">SQL</a>&nbsp;
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -842,7 +842,7 @@ init 顺序
                     
                         
                         <li>
-                            <a href="/categories/Go/">Go</a>&nbsp;
+                            <a href="/categories/Golang/">Golang</a>&nbsp;
                         </li>
                     
                     
@@ -857,7 +857,7 @@ init 顺序
                     
                         <li>
                             
-                            <a href="/tags/Go/">Go</a>&nbsp;
+                            <a href="/tags/Golang/">Golang</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -921,7 +921,7 @@ Go 方法值接收者和指针接收者的区别?如果方法的接收者是指�
                     
                         
                         <li>
-                            <a href="/categories/GO/">GO</a>&nbsp;
+                            <a href="/categories/Golang/">Golang</a>&nbsp;
                         </li>
                     
                     
@@ -931,7 +931,7 @@ Go 方法值接收者和指针接收者的区别?如果方法的接收者是指�
                             <li>></li>
                         
                         <li>
-                            <a href="/categories/GO/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>&nbsp;
+                            <a href="/categories/Golang/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>&nbsp;
                         </li>
                     
                     
@@ -946,12 +946,12 @@ Go 方法值接收者和指针接收者的区别?如果方法的接收者是指�
                     
                         <li>
                             
-                            <a href="/tags/GO/">GO</a>&nbsp;
+                            <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>&nbsp;
                         </li>
                     
                         <li>
                             | 
-                            <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>&nbsp;
+                            <a href="/tags/Golang/">Golang</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -1021,38 +1021,31 @@ Go 方法值接收者和指针接收者的区别?如果方法的接收者是指�
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2024/10/24/golang%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">
-                            golang单元测试
+                        <a href="/2023/03/06/go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%9550%E9%97%AE/">
+                            go基础语法50问
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            1、Golang测试分类
-单元测试（Unit Tests）
-以 Test 开头
-函数签名为 func TestXxx(t *testing.T)
-用于测试代码的最小可测试单元
+                            题记本文是转载于掘金的一篇文章：
 
+作者：夏沫的梦
+链接：https://juejin.cn/post/7160639446612705316
 
-基准测试（Benchmark Tests）
-以 Benchmark 开头
-函数签名为 func BenchmarkXxx(b *testing.B)
-用于测试代码的性能
-
-
-示例测试（Example Tests）
-...
+其中还有我补充的知识点，用于自己的学习。
+1.使用值为 nil 的 slice、map会发生啥允许对值为 nil 的 slice 添加元素，但对值为 nil 的 map 添加元素，则会造成运行时 panic。
+123456789101112// m...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Oct 24 2024 16:06:03 GMT+0800">
+            <span class="home-article-date" data-date="Mon Mar 06 2023 13:12:53 GMT+0800">
                 
-                    2024-10-24
+                    2023-03-06
                 
             </span>
         </span>
@@ -1065,7 +1058,7 @@ Go 方法值接收者和指针接收者的区别?如果方法的接收者是指�
                     
                         
                         <li>
-                            <a href="/categories/go/">go</a>&nbsp;
+                            <a href="/categories/Golang/">Golang</a>&nbsp;
                         </li>
                     
                     
@@ -1080,7 +1073,7 @@ Go 方法值接收者和指针接收者的区别?如果方法的接收者是指�
                     
                         <li>
                             
-                            <a href="/tags/go/">go</a>&nbsp;
+                            <a href="/tags/Golang/">Golang</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -1088,7 +1081,7 @@ Go 方法值接收者和指针接收者的区别?如果方法的接收者是指�
         
     </div>
 
-    <a href="/2024/10/24/golang%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">阅读全文<span class="seo-reader-text">golang单元测试</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2023/03/06/go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%9550%E9%97%AE/">阅读全文<span class="seo-reader-text">go基础语法50问</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1136,7 +1129,7 @@ benchmark
                     
                         
                         <li>
-                            <a href="/categories/Go/">Go</a>&nbsp;
+                            <a href="/categories/Golang/">Golang</a>&nbsp;
                         </li>
                     
                     
@@ -1151,7 +1144,7 @@ benchmark
                     
                         <li>
                             
-                            <a href="/tags/Go/">Go</a>&nbsp;
+                            <a href="/tags/Golang/">Golang</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -1174,29 +1167,28 @@ benchmark
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2024/11/13/mongodb%E5%AD%A6%E4%B9%A0/">
-                            mongodb学习
+                        <a href="/2023/01/02/Go%E5%AE%9E%E7%8E%B0%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+                            Go实现十大排序算法
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            题记​	本文主要是记录mongodb的安装和使用。
-mongodb安装​	本文主要介绍在macos系统下用docker安装mongodb。首先拉取对应的mongodb镜像
-1docker pull mongo:latest
+                            题记排序算法是《数据结构与算法》中最基本的算法之一。
+排序算法可以分为内部排序和外部排序，内部排序是数据记录在内存中进行排序，而外部排序是因排序的数据很大，一次不能容纳全部的排序记录，在排序过程中需要访问外存。常见的内部排序算法有：插入排序、希尔排序、选择排序、冒泡排序、归并排序、快速排序、堆排序、基数排序等。
 
-然后跑起来对应的容器
-123456docker run -itd --name mongo    //容器名-p 27017:27017  //暴露端口-e MONGO...
+1.冒泡排序比较相邻的元素。如果第一个比第二个大，就交换他们两个。
+对每一对相...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Nov 13 2024 22:29:44 GMT+0800">
+            <span class="home-article-date" data-date="Mon Jan 02 2023 15:03:32 GMT+0800">
                 
-                    2024-11-13
+                    2023-01-02
                 
             </span>
         </span>
@@ -1209,7 +1201,7 @@ mongodb安装​	本文主要介绍在macos系统下用docker安装mongodb。首
                     
                         
                         <li>
-                            <a href="/categories/mongo/">mongo</a>&nbsp;
+                            <a href="/categories/Golang/">Golang</a>&nbsp;
                         </li>
                     
                     
@@ -1224,7 +1216,7 @@ mongodb安装​	本文主要介绍在macos系统下用docker安装mongodb。首
                     
                         <li>
                             
-                            <a href="/tags/mongo/">mongo</a>&nbsp;
+                            <a href="/tags/Golang/">Golang</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -1232,7 +1224,7 @@ mongodb安装​	本文主要介绍在macos系统下用docker安装mongodb。首
         
     </div>
 
-    <a href="/2024/11/13/mongodb%E5%AD%A6%E4%B9%A0/">阅读全文<span class="seo-reader-text">mongodb学习</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2023/01/02/Go%E5%AE%9E%E7%8E%B0%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">阅读全文<span class="seo-reader-text">Go实现十大排序算法</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>

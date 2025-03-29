@@ -498,11 +498,11 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">22</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">24</div>
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
@@ -538,11 +538,11 @@
 </div>
                 <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">22</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">24</div>
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
@@ -571,33 +571,60 @@
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2024/09/26/ComfyUI%E5%AD%A6%E4%B9%A0/">
-                            ComfyUI学习
+                        <a href="/2022/12/11/Go%E9%BB%91%E9%A9%AC%E7%A8%8B%E5%BA%8F%E5%91%98/">
+                            Go黑马程序员
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            题记​	笔者因为自身原因，需要使用stable diffusion进行一些操作，然后入门了comfyui进行工作流的ai绘画。
-什么是comfyui​	ComfyUI 是一个基于节点的图形用户界面（GUI），专为 Stable Diffusion 创建图像生成工作流程而设计。用户可以通过链接不同的块（节点）来构建复杂的图像生成流程，包括加载检查点模型、输入提示、指定采样器等。（简而言之，帮助...
+                            1.初识go语言第一个Go程序12345678910111213141516// 1.狗语言是以包作为管理单位// 2.每个文件都必须先声明包// 3，程序必须有一个main包（重要）package mainimport &quot;fmt&quot; //导入包//入口函数func main() &#123; //左括号必须和函数名同行，main函数不带参数	//打印	//hello wo...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Sep 26 2024 01:31:48 GMT+0800">
+            <span class="home-article-date" data-date="Sun Dec 11 2022 14:50:19 GMT+0800">
                 
-                    2024-09-26
+                    2022-12-11
                 
             </span>
         </span>
         
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Golang/">Golang</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Golang/">Golang</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
         
     </div>
 
-    <a href="/2024/09/26/ComfyUI%E5%AD%A6%E4%B9%A0/">阅读全文<span class="seo-reader-text">ComfyUI学习</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2022/12/11/Go%E9%BB%91%E9%A9%AC%E7%A8%8B%E5%BA%8F%E5%91%98/">阅读全文<span class="seo-reader-text">Go黑马程序员</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -612,25 +639,279 @@
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2024/08/29/%E4%B8%8A%E7%8F%AD%E9%81%87%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%81%E9%97%AE%E9%A2%98/">
-                            数据库锁问题
+                        <a href="/2024/02/20/go-micro%D1%A7%CF%B0/">
+                            go-micro学习
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            题记​	今天在公司遇见了一个数据库锁问题，复盘一下。
-问题与原因​	测试环境下更新Spine接口：biz层使用ExecTx调用data层的一些函数用于数据库操作，其中更新文件时间戳的代码如下所示，其他都是使用c.db.DB(ctx)来实现数据库操作，这可能会出现更新文件时间戳操作使用的 gorm.DB 实例和其他的不同，导致事务不一致的问题。（我就遇见了执行到更新文件时间戳函数卡住的情况，锁...
+                            题记本文主要记录微服务框架go-micro的学习笔记。
+1、什么是go-microgo-micro是一个开源的微服务框架，旨在简化分布式系统的开发。 它基于 Go 语言构建，提供了一组组件和工具，帮助开发人员构建可伸缩、可维护的微服务应用程序。
+GitHub项目地址：Go Micro
+整体架构设计：
+
+2、go-micro的构成组件Go Micro
+用于在Go中编写微服务的插件式RPC框架。...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Aug 29 2024 23:07:50 GMT+0800">
+            <span class="home-article-date" data-date="Tue Feb 20 2024 18:38:13 GMT+0800">
                 
-                    2024-08-29
+                    2024-02-20
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Golang/">Golang</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/Golang/go-micro/">go-micro</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/go-micro/">go-micro</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/Golang/">Golang</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2024/02/20/go-micro%D1%A7%CF%B0/">阅读全文<span class="seo-reader-text">go-micro学习</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2023/11/06/Golang%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%831/">
+                            Golang编码规范1
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            题记本文主要用来规范自己编写Golang的代码，感谢本人实习的mentor孙晨辉（万声音乐），让我对编码规范有了新的认识。
+正文函数和方法命名
+函数和方法名称中通常可以省略以下内容：
+
+输入和输出的类型（当没有冲突时）
+方法的接收器的类型
+输入或输出是否为指针
+
+
+对于函数，不要重复包的名称。
+
+对于方法，不要重复方法接收器的名称。
+
+不要重复作为参数传递的变量的名称。
+
+不要重复返回值的名...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Mon Nov 06 2023 13:55:10 GMT+0800">
+                
+                    2023-11-06
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Golang/">Golang</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Golang/">Golang</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2023/11/06/Golang%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%831/">阅读全文<span class="seo-reader-text">Golang编码规范1</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/10/24/golang%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">
+                            golang单元测试
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            1、Golang测试分类
+单元测试（Unit Tests）
+以 Test 开头
+函数签名为 func TestXxx(t *testing.T)
+用于测试代码的最小可测试单元
+
+
+基准测试（Benchmark Tests）
+以 Benchmark 开头
+函数签名为 func BenchmarkXxx(b *testing.B)
+用于测试代码的性能
+
+
+示例测试（Example Tests）
+...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Thu Oct 24 2024 16:06:03 GMT+0800">
+                
+                    2024-10-24
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Golang/">Golang</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Golang/">Golang</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2024/10/24/golang%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">阅读全文<span class="seo-reader-text">golang单元测试</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2023/11/06/RDB%E8%AE%BE%E8%AE%A1%E8%A7%84%E7%BA%A6/">
+                            RDB设计规约
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            怎么才能很好的避免低级故障？以下规范在大型互联网公司经过了充分的验证，尤其适用于并发量大、数据量大的业务场景。
+在我们对数据库技术方案设计的时候，我们是否有自己的设计理念或者原则，还是更多的依据自己的直觉去设计，是否曾经懊悔线上发生过的一次低级故障，可能稍微注意点就可以避免，是否想过怎么才能很好的避免，下面规范的价值正是我们工作的检查清单，需要我们不断从错误中积累有效经验来指导未来的工作。以...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Mon Nov 06 2023 18:49:47 GMT+0800">
+                
+                    2023-11-06
                 
             </span>
         </span>
@@ -666,246 +947,7 @@
         
     </div>
 
-    <a href="/2024/08/29/%E4%B8%8A%E7%8F%AD%E9%81%87%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%81%E9%97%AE%E9%A2%98/">阅读全文<span class="seo-reader-text">数据库锁问题</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2024/08/28/Macos%E4%B8%8BSwitch%E6%A8%A1%E6%8B%9F%E5%99%A8%E7%95%85%E7%8E%A9%E4%BB%BB%E5%A4%A9%E5%A0%82%E6%B8%B8%E6%88%8F/">
-                            Macos下Switch模拟器畅玩任天堂游戏
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            题记Macos下Switch模拟器畅玩任天堂游戏：
-步骤首先下载模拟器
-
-然后安装keys和固件（最新版本）
-
-然后解压keys文件放入图片打开的文件夹下的system目录下
-
-安装固件
-
-一些参数设置
-
-
-
-运行宝可梦的截图：
-
-
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Aug 28 2024 01:21:12 GMT+0800">
-                
-                    2024-08-28
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2024/08/28/Macos%E4%B8%8BSwitch%E6%A8%A1%E6%8B%9F%E5%99%A8%E7%95%85%E7%8E%A9%E4%BB%BB%E5%A4%A9%E5%A0%82%E6%B8%B8%E6%88%8F/">阅读全文<span class="seo-reader-text">Macos下Switch模拟器畅玩任天堂游戏</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2024/07/27/wire%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/">
-                            wire依赖注入
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            理解一下依赖注入，以及如何用wire (farer.org)
-Go 项目必备：深入浅出 Wire 依赖注入工具-腾讯云开发者社区-腾讯云 (tencent.com)
-
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Jul 27 2024 18:06:48 GMT+0800">
-                
-                    2024-07-27
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2024/07/27/wire%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/">阅读全文<span class="seo-reader-text">wire依赖注入</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2024/07/27/%E5%BB%B6%E8%BF%9F%E5%8F%8C%E5%88%A0/">
-                            延迟双删
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            <p>Here’s something encrypted, password is required to continue reading.</p>
-
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Jul 27 2024 17:55:50 GMT+0800">
-                
-                    2024-07-27
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/Redis/">Redis</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/Redis/">Redis</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2024/07/27/%E5%BB%B6%E8%BF%9F%E5%8F%8C%E5%88%A0/">阅读全文<span class="seo-reader-text">延迟双删</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2024/07/16/%E6%9C%AA%E6%9D%A5%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BC%9A%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E5%AD%90/">
-                            未来云计算会是什么样子
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            本文是一篇转载文
-原文链接：未来云计算会是什么样子？Sealos 或将给出答案，
-原文作者：魏鹏宇，来自哈尔滨工业大学，Sealos 社区贡献者，目前从事 Kubernetes 相关研发工作
-作者博客：友链第三个
-
-本文以时间顺序，结合历史与时代背景，介绍 Sealos 的发展历程与设计理念。并预测未来的发展。
-1. 回首往事：操作系统与应用程序的发展操作系统的产生与发展从1945年第一台电...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Tue Jul 16 2024 21:54:52 GMT+0800">
-                
-                    2024-07-16
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2024/07/16/%E6%9C%AA%E6%9D%A5%E4%BA%91%E8%AE%A1%E7%AE%97%E4%BC%9A%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E5%AD%90/">阅读全文<span class="seo-reader-text">未来云计算会是什么样子</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2023/11/06/RDB%E8%AE%BE%E8%AE%A1%E8%A7%84%E7%BA%A6/">阅读全文<span class="seo-reader-text">RDB设计规约</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -953,7 +995,7 @@ Go 项目必备：深入浅出 Wire 依赖注入工具-腾讯云开发者社区-
                     
                         
                         <li>
-                            <a href="/categories/GO/">GO</a>&nbsp;
+                            <a href="/categories/Golang/">Golang</a>&nbsp;
                         </li>
                     
                     
@@ -968,7 +1010,7 @@ Go 项目必备：深入浅出 Wire 依赖注入工具-腾讯云开发者社区-
                     
                         <li>
                             
-                            <a href="/tags/GO/">GO</a>&nbsp;
+                            <a href="/tags/Golang/">Golang</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -977,6 +1019,74 @@ Go 项目必备：深入浅出 Wire 依赖注入工具-腾讯云开发者社区-
     </div>
 
     <a href="/2024/07/15/Go-MOD%E9%81%87%E8%A7%81%E7%9A%84%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98/">阅读全文<span class="seo-reader-text">Go_MOD遇见的一个问题</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/02/15/%E6%B7%B1%E5%9C%B3%E4%B8%87%E5%A3%B0%E9%9F%B3%E4%B9%90%E5%AE%9E%E4%B9%A0%E6%80%BB%E7%BB%93/">
+                            深圳万声音乐实习总结
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            <p>Here’s something encrypted, password is required to continue reading.</p>
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Thu Feb 15 2024 02:10:00 GMT+0800">
+                
+                    2024-02-15
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Golang/">Golang</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Golang/">Golang</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2024/02/15/%E6%B7%B1%E5%9C%B3%E4%B8%87%E5%A3%B0%E9%9F%B3%E4%B9%90%E5%AE%9E%E4%B9%A0%E6%80%BB%E7%BB%93/">阅读全文<span class="seo-reader-text">深圳万声音乐实习总结</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1024,7 +1134,7 @@ Go 项目必备：深入浅出 Wire 依赖注入工具-腾讯云开发者社区-
                     
                         
                         <li>
-                            <a href="/categories/Go/">Go</a>&nbsp;
+                            <a href="/categories/Golang/">Golang</a>&nbsp;
                         </li>
                     
                     
@@ -1039,7 +1149,7 @@ Go 项目必备：深入浅出 Wire 依赖注入工具-腾讯云开发者社区-
                     
                         <li>
                             
-                            <a href="/tags/Go/">Go</a>&nbsp;
+                            <a href="/tags/Golang/">Golang</a>&nbsp;
                         </li>
                     
                 </ul>
