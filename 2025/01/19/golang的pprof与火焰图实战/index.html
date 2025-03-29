@@ -36,7 +36,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://zhouxing9454.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2025-01-19T14:43:05.000Z">
-<meta property="article:modified_time" content="2025-03-29T14:43:44.368Z">
+<meta property="article:modified_time" content="2025-03-29T19:23:30.071Z">
 <meta property="article:author" content="Olivia的小跟班">
 <meta property="article:tag" content="Golang">
 <meta name="twitter:card" content="summary">
@@ -525,8 +525,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-03-29 22:43:44</span>
-            <span class="mobile">2025-03-29 22:43:44</span>
+            <span class="desktop">2025-03-30 03:23:30</span>
+            <span class="mobile">2025-03-30 03:23:30</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -580,7 +580,686 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			
+			<h1 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h1><p>​	性能分析是一种动态程序分析方法,用于收集程序运行时的信息以研究程序性能行为。在日常开发中对定位和优化性能问题非常重要，能够帮助我们以最小的投入获得最大的性能优化回报。</p>
+<h1 id="1、pprof是什么"><a href="#1、pprof是什么" class="headerlink" title="1、pprof是什么"></a>1、pprof是什么</h1><p>​	在Go语言中，pprof是用于可视化和分析性能分析数据的工具，pprof以profile.proto读取分析样本的集合，并生成报告以可视化并帮助分析数据（支持文本和图形报告）。</p>
+<h1 id="2、pprof作用"><a href="#2、pprof作用" class="headerlink" title="2、pprof作用"></a>2、pprof作用</h1><p>​	Go的pprof提供了2个工具供我们使用，runtime&#x2F;pprof中是它的源码，net&#x2F;http&#x2F;pprof对源码做了简单封装，能让你在http服务中直接使用。它可以采样程序运行时的CPU、堆内存、Goroutine、锁竞争、阻塞调用、系统线程的使用情况。然后通过可视化终端或网页的形式展示给用户，用户可以通过列表、调用图、源码、火焰图、反汇编等视图去展示采集到的性能指标。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20211128132832839.png"
+                      alt="pprof 作用"
+                ></p>
+<p><strong>pprof指标采样的维度：</strong></p>
+<ol>
+<li>CPU（profile）<ul>
+<li>CPU Profiling：CPU 分析，按照一定的频率采集所监听的应用程序 CPU（含寄存器）的使用情况，可确定应用程序在主动消耗 CPU 周期时花费时间的位置。</li>
+<li>报告CPU的使用情况，定位到热点（消耗CPU周期最多的）代码。默认情况下Go以100HZ的频率进行CPU采样</li>
+</ul>
+</li>
+<li>Goroutine<ul>
+<li>Goroutine Profiling： Goroutine 分析，可以对当前应用程序正在运行的 Goroutine 进行堆栈跟踪和分析。这项功能在实际排查中会经常用到，因为很多问题出现时的表象就是 Goroutine 暴增，而这时候我们要做的事情之一就是查看应用程序中的 Goroutine 正在做什么事情，因为什么阻塞了，然后再进行下一步。</li>
+</ul>
+</li>
+<li>系统线程<ul>
+<li>获取导致创建 OS 线程的 goroutine 堆栈</li>
+</ul>
+</li>
+<li>堆内存&#x2F;内存剖析（heap）<ul>
+<li>Memory Profiling：内存分析，在应用程序进行堆分配时记录堆栈跟踪，用于监视当前和历史内存使用情况，以及检查内存泄漏。</li>
+<li>包含每个 goroutine 分配大小，分配堆栈等。</li>
+<li>每分配 runtime.MemProfileRate(默认为512K) 个字节进行一次数据采样。</li>
+</ul>
+</li>
+<li>内存剖析（allocs）：报告所有内存分配历史</li>
+<li>阻塞操作<ul>
+<li>Block Profiling：阻塞分析，记录 Goroutine 阻塞等待同步（包括定时器通道）的位置，默认不开启，需要调用 <code>runtime.SetBlockProfileRate</code> 进行设置。</li>
+<li>获取导致阻塞的 goroutine 堆栈(如 channel, mutex 等)，使用前需要先调用 <code>runtime.SetBlockProfileRate</code></li>
+</ul>
+</li>
+<li>锁竞争<ul>
+<li>Mutex Profiling：互斥锁分析，报告互斥锁的竞争情况，默认不开启，需要调用 <code>runtime.SetMutexProfileFraction</code> 进行设置。</li>
+</ul>
+</li>
+<li>执行追踪（trace）：追踪当前应用程序的执行栈</li>
+</ol>
+<h1 id="3、pprof使用模式"><a href="#3、pprof使用模式" class="headerlink" title="3、pprof使用模式"></a>3、pprof使用模式</h1><ul>
+<li>Report generation：报告生成</li>
+<li>Interactive terminal use：交互式终端</li>
+<li>Web interface：Web 界面</li>
+</ul>
+<h1 id="4、采样方式"><a href="#4、采样方式" class="headerlink" title="4、采样方式"></a>4、采样方式</h1><table>
+<thead>
+<tr>
+<th align="left">方式名称</th>
+<th align="left">如何使用</th>
+<th align="left">优点</th>
+<th align="left">缺点</th>
+<th align="left">使用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">runtime&#x2F;pprof</td>
+<td align="left">手动调用【runtime.StartCPUProfile、runtime.StopCPUProfile】等<strong>API</strong>来进行数据的采集。采集程序（非 Server）的指定区块的运行数据进行分析。</td>
+<td align="left"><strong>灵活性高</strong>、按需采集。</td>
+<td align="left"></td>
+<td align="left"><strong>工具型应用</strong>（比如说定制化的分析小工具、集成到公司监控系统）。这种应用运行一段时间就结束。</td>
+</tr>
+<tr>
+<td align="left">net&#x2F;http&#x2F;pprof</td>
+<td align="left">通过<strong>http</strong>服务来获取Profile采样文件。 <code>import _ &quot;net/http/pprof&quot;</code>。基于 HTTP Server 运行，并且可以采集运行时数据进行分析。<code>net/http/pprof中只是使用runtime/pprof包来进行封装了一下，并在http端口上暴露出来</code></td>
+<td align="left"><strong>简单易用</strong></td>
+<td align="left"></td>
+<td align="left">在线服务（一直运行着的程序）</td>
+</tr>
+<tr>
+<td align="left">go test</td>
+<td align="left">通过命令<code>go test -bench . -cpuprofile cpu.prof</code>来进行采集数据。</td>
+<td align="left"><strong>针对性强</strong>、细化到函数</td>
+<td align="left"></td>
+<td align="left">进行某函数的性能测试</td>
+</tr>
+</tbody></table>
+<p>​	上面的 pprof 开启后，每隔一段时间就会采集当前程序的堆栈信息，获取函数的 cpu、内存等使用情况。通过对采样的数据进行分析，形成一个数据分析报告。</p>
+<p>​	pprof 以 <a class="link"   target="_blank" rel="noopener" href="https://github.com/google/pprof/blob/master/proto/profile.proto" >profile.proto<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 的格式保存数据，然后根据这个数据可以生成可视化的分析报告，支持文本形式和图形形式报告。profile.proto 里具体的数据格式是 <a class="link"   target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers" >protocol buffers<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
+<p>​	那用什么方法来对数据进行分析，从而形成文本或图形报告？用一个命令行工具 <code>go tool pprof</code> 。</p>
+<h2 id="4-1、go-test"><a href="#4-1、go-test" class="headerlink" title="4.1、go test"></a>4.1、go test</h2><ul>
+<li>cpu 使用分析：-cpuprofile&#x3D;cpu.pprof</li>
+<li>内存使用分析：-benchmem -memprofile&#x3D;mem.pprof</li>
+<li>block分析：-blockprofile&#x3D;block.pprof</li>
+</ul>
+<p>运行命令采样数据：</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">go test -bench=. -run=none -benchmem -memprofile=mem.pprof</span><br><span class="line"></span><br><span class="line">go test -bench=. -run=none -blockprofile=block.pprof</span><br><span class="line"></span><br><span class="line">go test -bench=. -run=none -benchmem -memprofile=mem.pprof -cpuprofile=cpu.pprof</span><br><span class="line"></span><br><span class="line">go test -bench=. -run=none -benchmem -memprofile=mem.pprof -cpuprofile=cpu.pprof -blockprofile=block.pprof</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h2 id="4-2、runtime-pprof"><a href="#4-2、runtime-pprof" class="headerlink" title="4.2、runtime&#x2F;pprof"></a>4.2、runtime&#x2F;pprof</h2><p>​	除了注入 http handler 和 go test 以外，我们还可以在程序中通过 pprof 所提供的 Lookup 方法来进行相关内容的采集和调用，其一共支持六种类型，分别是：goroutine、threadcreate、heap、block、mutex，代码如下：</p>
+<div class="code-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> LookupType <span class="type">int8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    LookupGoroutine LookupType = <span class="literal">iota</span></span><br><span class="line">    LookupThreadcreate</span><br><span class="line">    LookupHeap</span><br><span class="line">    LookupAllocs</span><br><span class="line">    LookupBlock</span><br><span class="line">    LookupMutex</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pprofLookup</span><span class="params">(lookupType LookupType, w io.Writer)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> err <span class="type">error</span></span><br><span class="line">    <span class="keyword">switch</span> lookupType &#123;</span><br><span class="line">    <span class="keyword">case</span> LookupGoroutine:</span><br><span class="line">        p := pprof.Lookup(<span class="string">&quot;goroutine&quot;</span>)</span><br><span class="line">        err = p.WriteTo(w, <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">case</span> LookupThreadcreate:</span><br><span class="line">        p := pprof.Lookup(<span class="string">&quot;threadcreate&quot;</span>)</span><br><span class="line">        err = p.WriteTo(w, <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">case</span> LookupHeap:</span><br><span class="line">        p := pprof.Lookup(<span class="string">&quot;heap&quot;</span>)</span><br><span class="line">        err = p.WriteTo(w, <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">case</span> LookupAllocs:</span><br><span class="line">        p := pprof.Lookup(<span class="string">&quot;allocs&quot;</span>)</span><br><span class="line">        err = p.WriteTo(w, <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">case</span> LookupBlock:</span><br><span class="line">        p := pprof.Lookup(<span class="string">&quot;block&quot;</span>)</span><br><span class="line">        err = p.WriteTo(w, <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">case</span> LookupMutex:</span><br><span class="line">        p := pprof.Lookup(<span class="string">&quot;mutex&quot;</span>)</span><br><span class="line">        err = p.WriteTo(w, <span class="number">2</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>​	接下来我们只需要对该方法进行调用就好了，其提供了 <code>io.Writer</code> 接口，也就是只要实现了对应的 Write 方法，我们可以将其写到任何支持地方去，如下：</p>
+<div class="code-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    runtime.SetMutexProfileFraction(<span class="number">1</span>)</span><br><span class="line">    runtime.SetBlockProfileRate(<span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    http.HandleFunc(<span class="string">&quot;/lookup/heap&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">        _ = pprofLookup(LookupHeap, os.Stdout)</span><br><span class="line">    &#125;)</span><br><span class="line">    http.HandleFunc(<span class="string">&quot;/lookup/threadcreate&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">        _ = pprofLookup(LookupThreadcreate, os.Stdout)</span><br><span class="line">    &#125;)</span><br><span class="line">    http.HandleFunc(<span class="string">&quot;/lookup/block&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">        _ = pprofLookup(LookupBlock, os.Stdout)</span><br><span class="line">    &#125;)</span><br><span class="line">    http.HandleFunc(<span class="string">&quot;/lookup/goroutine&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">        _ = pprofLookup(LookupGoroutine, os.Stdout)</span><br><span class="line">    &#125;)</span><br><span class="line">    _ = http.ListenAndServe(<span class="string">&quot;0.0.0.0:6060&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>​	在上述代码中，我们将采集结果写入到了控制台上，我们可以进行一下验证，调用 <code>http://127.0.0.1:6060/lookup/heap</code>，控制台输出结果如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330004913602.png"
+                      alt="image-20250330004913602"
+                ></p>
+<p>​	本章节所有测试都是使用的main.go文件，子章节只会展示我的测试代码，统一用一个入口main函数。main函数如下：</p>
+<div class="code-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;runtime&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 设置最大的可同时使用的 CPU 核数。只有一个操作系统线程可供用户的Go代码使用</span></span><br><span class="line">	runtime.GOMAXPROCS(<span class="number">1</span>)</span><br><span class="line">  </span><br><span class="line">	<span class="comment">//CollectCpu()</span></span><br><span class="line">	<span class="comment">//CollectMutex()</span></span><br><span class="line">	<span class="comment">//CollectBlock()</span></span><br><span class="line">	<span class="comment">//CollectHeap()</span></span><br><span class="line">	<span class="comment">//CollectAllocs()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run main.go</span><br></pre></td></tr></table></figure></div>
+
+<p>结果分析方式也是一样的，如下：</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">go tool pprof cpu.prof</span><br><span class="line"></span><br><span class="line">执行命令行两件套</span><br><span class="line">top</span><br><span class="line">list 函数名</span><br><span class="line"></span><br><span class="line">生成web页面查看</span><br><span class="line">web</span><br></pre></td></tr></table></figure></div>
+
+<p>或者通过暴露http端口的方式，可以查看更多类型的图。</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go tool pprof -http=:6060 cpu.prof</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h3 id="4-2-1、采集CPU-CPU-占用过高"><a href="#4-2-1、采集CPU-CPU-占用过高" class="headerlink" title="4.2.1、采集CPU(CPU 占用过高)"></a>4.2.1、采集CPU(CPU 占用过高)</h3><div class="code-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CollectCpu</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建分析文件，在当前目录下</span></span><br><span class="line">    file, err := os.Create(<span class="string">&quot;./cpu.prof&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">&quot;创建采集文件失败, err:%v\n&quot;</span>, err)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 进行cpu数据的获取</span></span><br><span class="line">    pprof.StartCPUProfile(file)</span><br><span class="line">    <span class="keyword">defer</span> pprof.StopCPUProfile()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 执行一段有问题的代码</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">4</span>; i++ &#123;</span><br><span class="line">      <span class="keyword">go</span> dosomething()</span><br><span class="line">    &#125;</span><br><span class="line">    time.Sleep(<span class="number">10</span> * time.Second)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h3 id="4-2-2、采集内存-heap-内存占用过高"><a href="#4-2-2、采集内存-heap-内存占用过高" class="headerlink" title="4.2.2、采集内存(heap-内存占用过高)"></a>4.2.2、采集内存(heap-内存占用过高)</h3><p>作用：看哪些方法分配了最多的内存</p>
+<div class="code-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    Ki = <span class="number">1024</span></span><br><span class="line">    Mi = Ki * Ki</span><br><span class="line">    Gi = Ki * Mi</span><br><span class="line">    Ti = Ki * Gi</span><br><span class="line">    Pi = Ki * Ti</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Mouse <span class="keyword">struct</span> &#123;</span><br><span class="line">    buffer [][Mi]<span class="type">byte</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mouse)</span></span>StealMem() &#123;</span><br><span class="line">    max := Gi</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">len</span>(m.buffer) * Mi &lt; max &#123;</span><br><span class="line">        m.buffer = <span class="built_in">append</span>(m.buffer, [Mi]<span class="type">byte</span>&#123;&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CollectHeap</span><span class="params">()</span></span>  &#123;</span><br><span class="line">    <span class="comment">// 设置采样率，默认每分配512*1024字节采样一次。如果设置为0则禁止采样，只能设置一次</span></span><br><span class="line">    runtime.MemProfileRate = <span class="number">512</span> * <span class="number">1024</span></span><br><span class="line"></span><br><span class="line">    f, err := os.Create(<span class="string">&quot;./heap.prof&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatal(<span class="string">&quot;could not create heap profile: &quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> f.Close()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 高的内存占用 : 有个循环会一直向 m.buffer 里追加长度为 1 MiB 的数组，直到总容量到达 1 GiB 为止，且一直不释放这些内存，这就难怪会有这么高的内存占用了。</span></span><br><span class="line">    m := &amp;Mouse&#123;&#125;</span><br><span class="line">    m.StealMem()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// runtime.GC() // 执行GC，避免垃圾对象干扰</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将剖析概要信息记录到文件</span></span><br><span class="line">    <span class="keyword">if</span> err := pprof.WriteHeapProfile(f); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatal(<span class="string">&quot;could not write heap profile: &quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h3 id="4-2-3、采集内存-allocs-频繁内存回收"><a href="#4-2-3、采集内存-allocs-频繁内存回收" class="headerlink" title="4.2.3、采集内存(allocs-频繁内存回收)"></a>4.2.3、采集内存(allocs-频繁内存回收)</h3><p>获取程序运行依赖，所有内存分配的历史</p>
+<div class="code-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ApplyMemDoNothing</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 在 golang 里，对象是使用堆内存还是栈内存，由编译器进行逃逸分析并决定，如果对象不会逃逸，便可在使用栈内存，</span></span><br><span class="line">    <span class="comment">// 但总有意外，就是对象的尺寸过大时，便不得不使用堆内存。所以这里设置申请 16 MiB 的内存就是为了避免编译器直接在栈上分配，如果那样得话就不会涉及到 GC 了。</span></span><br><span class="line">    _ = <span class="built_in">make</span>([]<span class="type">byte</span>, <span class="number">16</span> * Mi)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CollectAllocs</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 设置采样率，默认每分配512*1024字节采样一次。如果设置为0则禁止采样，只能设置一次</span></span><br><span class="line">    runtime.MemProfileRate = <span class="number">512</span> * <span class="number">1024</span></span><br><span class="line"></span><br><span class="line">    f, err := os.Create(<span class="string">&quot;./allocs.prof&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatal(<span class="string">&quot;could not create memory profile: &quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> f.Close()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 频繁内存回收</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">100</span>; i++ &#123;</span><br><span class="line">        time.Sleep(<span class="number">3</span> * time.Second)</span><br><span class="line">        ApplyMemDoNothing()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// runtime.GC() // 执行GC，避免垃圾对象干扰</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将剖析概要信息记录到文件</span></span><br><span class="line">    <span class="keyword">if</span> err := pprof.Lookup(<span class="string">&quot;allocs&quot;</span>).WriteTo(f, <span class="number">0</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatal(<span class="string">&quot;could not write allocs profile: &quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>​	为了获取程序运行过程中 GC 日志，我们需要先退出炸弹程序，再在重新启动前赋予一个环境变量，同时为了避免其他日志的干扰，使用 grep 筛选出 GC 日志查看：由于内存的申请与释放频度是需要一段时间来统计的，所有我们保证炸弹程序已经运行了几分钟之后，再结束：</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">go build main.go</span><br><span class="line">GODEBUG=gctrace=1 ./main | grep gc</span><br><span class="line">//GODEBUG=gctrace=1,用于查看垃圾收集器的工作情况</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330010650536.png"
+                      alt="image-20250330010650536"
+                ></p>
+<p>​	可以看到，GC 差不多每 3 秒就发生一次，且每次 GC 都会从 16MB 清理到几乎 0MB，说明程序在不断的申请内存再释放，这是高性能 golang 程序所不允许的。如果你希望进一步了解 golang 的 GC 日志可以查看<a class="link"   target="_blank" rel="noopener" href="https://blog.wolfogre.com/redirect/v3/A9DNc05mRFLA-ZPsjfPhLuZDu-oKbuLF_wQyMDE2xf8CMDfF_wIwMcUtHy8qzDsGiVTMOxzFMRIDAzwK_jrFxVoWBjtuQQYW3Dsh_cU8Bk0KxTsGzDw8Bcw8ghxKiMU" >《如何监控 golang 程序的垃圾回收》<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>,为保证实验节奏，这里不做展开。所以接下来使用 pprof 排查时，我们在乎的不是什么地方在占用大量内存，而是什么地方在不停地申请内存，这两者是有区别的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330011542680.png"
+                      alt="image-20250330011542680"
+                ></p>
+<h3 id="4-2-4、采集goroutine-协程泄露"><a href="#4-2-4、采集goroutine-协程泄露" class="headerlink" title="4.2.4、采集goroutine(协程泄露)"></a>4.2.4、采集goroutine(协程泄露)</h3><div class="code-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CollectGoroutine</span><span class="params">()</span></span> &#123;</span><br><span class="line">    f, err := os.Create(<span class="string">&quot;./goroutine.prof&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatal(<span class="string">&quot;could not create goroutine profile: &quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> f.Close()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 函数每次释放 10 个协程出去，每个协程会睡眠 30 秒再退出，而 Drink 函数又会被反复调用</span></span><br><span class="line">    <span class="comment">// 这才导致大量协程泄露，试想一下，如果释放出的协程会永久阻塞，那么泄露的协程数便会持续增加，</span></span><br><span class="line">    <span class="comment">// 内存的占用也会持续增加，那迟早是会被操作系统杀死的。</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">            time.Sleep(<span class="number">10</span> * time.Second)</span><br><span class="line">        &#125;()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 等待所有协程运行结束</span></span><br><span class="line">    <span class="comment">//time.Sleep(100 * time.Second)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> err = pprof.Lookup(<span class="string">&quot;goroutine&quot;</span>).WriteTo(f, <span class="number">0</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Fprintf(os.Stderr, <span class="string">&quot;Can not write %s: %s&quot;</span>, <span class="string">&quot;./goroutine.prof&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 设置最大的可同时使用的 CPU 核数。只有一个操作系统线程可供用户的Go代码使用</span></span><br><span class="line">    runtime.GOMAXPROCS(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// CollectCpu()</span></span><br><span class="line">    <span class="comment">// CollectMutex()</span></span><br><span class="line">    <span class="comment">// CollectBlock()</span></span><br><span class="line">    <span class="comment">// CollectHeap()</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> err := http.ListenAndServe(<span class="string">&quot;:6060&quot;</span>, <span class="literal">nil</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">            log.Fatal(err)</span><br><span class="line">        &#125;</span><br><span class="line">        os.Exit(<span class="number">0</span>)</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        CollectGoroutine()</span><br><span class="line">        time.Sleep(<span class="number">3</span> * time.Second)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330012857371.png"
+                      alt="image-20250330012857371"
+                ></p>
+<h3 id="4-2-5、采集mutex-锁的争用"><a href="#4-2-5、采集mutex-锁的争用" class="headerlink" title="4.2.5、采集mutex(锁的争用)"></a>4.2.5、采集mutex(锁的争用)</h3><div class="code-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CollectMutex</span><span class="params">()</span></span>  &#123;</span><br><span class="line">    <span class="comment">// 进行采集量的设置，否则默认关闭，若设置的值小于等于 0 也会认为是关闭。</span></span><br><span class="line">    <span class="comment">// 一般有如下方式：调用 chan（通道）、调用 sync.Mutex （同步锁）、调用 time.Sleep() 等等。</span></span><br><span class="line">    runtime.SetMutexProfileFraction(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    f, err := os.Create(<span class="string">&quot;./mutex.prof&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatal(<span class="string">&quot;could not create memory profile: &quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> f.Close()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这个锁由主协程 Lock，并启动子协程去 Unlock，主协程会阻塞在第二次 Lock 这儿等待子协程完成任务，</span></span><br><span class="line">    <span class="comment">// 但由于子协程足足睡眠了3秒，导致主协程等待这个锁释放足足等了一秒钟。</span></span><br><span class="line">    m := &amp;sync.Mutex&#123;&#125;</span><br><span class="line">    m.Lock()</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        time.Sleep(<span class="number">3</span> * time.Second)</span><br><span class="line">        m.Unlock()</span><br><span class="line">    &#125;()</span><br><span class="line">    m.Lock()</span><br><span class="line"></span><br><span class="line">    time.Sleep(<span class="number">10</span> * time.Second)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将阻塞剖析概要信息记录到文件</span></span><br><span class="line">    <span class="keyword">if</span> err = pprof.Lookup(<span class="string">&quot;mutex&quot;</span>).WriteTo(f, <span class="number">0</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Fprintf(os.Stderr, <span class="string">&quot;Can not write %s: %s&quot;</span>, <span class="string">&quot;./mutex.prof&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h3 id="4-2-6、采集block-阻塞操作"><a href="#4-2-6、采集block-阻塞操作" class="headerlink" title="4.2.6、采集block(阻塞操作)"></a>4.2.6、采集block(阻塞操作)</h3><div class="code-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CollectBlock</span><span class="params">()</span></span>  &#123;</span><br><span class="line">    <span class="comment">// 参数5表示，每发生1次Goroutine阻塞事件则采样一次。默认值1。</span></span><br><span class="line">    runtime.SetBlockProfileRate(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    f, err := os.Create(<span class="string">&quot;./block.prof&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatal(<span class="string">&quot;could not create block profile: &quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> f.Close()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 不同于睡眠一秒，这里是从一个 channel 里读数据时，发生了阻塞，直到这个 channel 在一秒后才有数据读出，这就导致程序阻塞了一秒而非睡眠了一秒。</span></span><br><span class="line">    &lt;- time.After(time.Second)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将阻塞剖析概要信息记录到文件</span></span><br><span class="line">    <span class="keyword">if</span> err = pprof.Lookup(<span class="string">&quot;block&quot;</span>).WriteTo(f, <span class="number">0</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Fprintf(os.Stderr, <span class="string">&quot;Can not write %s: %s&quot;</span>, <span class="string">&quot;./block.prof&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h2 id="4-3、net-http-pprof"><a href="#4-3、net-http-pprof" class="headerlink" title="4.3、net&#x2F;http&#x2F;pprof"></a>4.3、net&#x2F;http&#x2F;pprof</h2><div class="code-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line">    _ <span class="string">&quot;net/http/pprof&quot;</span>  <span class="comment">// 第一步～</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一段有问题的代码</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">do</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> c <span class="keyword">chan</span> <span class="type">int</span></span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> v := &lt;-c:</span><br><span class="line">            fmt.Printf(<span class="string">&quot;我是有问题的那一行，因为收不到值：%v&quot;</span>, v)</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 执行一段有问题的代码</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">4</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">go</span> do()</span><br><span class="line">    &#125;</span><br><span class="line">    http.ListenAndServe(<span class="string">&quot;127.0.0.1:6060&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>通过代码中的关键两步，执行起来就可以通过看到对应的数据：<a class="link"   target="_blank" rel="noopener" href="http://127.0.0.1:6060/debug/pprof/" >http://127.0.0.1:6060/debug/pprof/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330014042646.png"
+                      alt="image-20250330014042646"
+                ></p>
+<h1 id="5、采样的数据内容"><a href="#5、采样的数据内容" class="headerlink" title="5、采样的数据内容"></a>5、采样的数据内容</h1><table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">描述</th>
+<th align="left">url</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">allocs</td>
+<td align="left"><strong>内</strong>存分配情况的采样信息，过去所有内存抽样情况</td>
+<td align="left">$host&#x2F;debug&#x2F;pprof&#x2F;allocs?debug&#x3D;1</td>
+</tr>
+<tr>
+<td align="left">blocks</td>
+<td align="left"><strong>阻塞</strong>操作情况的采样信息，同步阻塞时程序栈跟踪的一些情况</td>
+<td align="left">$host&#x2F;debug&#x2F;pprof&#x2F;block?debug&#x3D;1</td>
+</tr>
+<tr>
+<td align="left">cmdline</td>
+<td align="left">显示程序启动<strong>命令参数</strong>及其参数</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">goroutine</td>
+<td align="left">显示当前所有<strong>协程</strong>的堆栈信息</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">heap</td>
+<td align="left"><strong>堆</strong>上的内存分配情况的采样信息，活动对象的内存分配情况</td>
+<td align="left">$host&#x2F;debug&#x2F;pprof&#x2F;heap?debug&#x3D;1</td>
+</tr>
+<tr>
+<td align="left">mutex</td>
+<td align="left"><strong>锁</strong>竞争情况的采样信息，互斥锁持有者的栈帧情况</td>
+<td align="left">$host&#x2F;debug&#x2F;pprof&#x2F;mutex?debug&#x3D;1</td>
+</tr>
+<tr>
+<td align="left">profile</td>
+<td align="left"><strong>cpu</strong>占用情况的采样信息，点击会下载文件，cpu profile，点击时会得到一个文件，然后可以用 go tool pprof 命令进行分析</td>
+<td align="left">$host&#x2F;debug&#x2F;pprof&#x2F;profile</td>
+</tr>
+<tr>
+<td align="left">threadcreate</td>
+<td align="left">系统<strong>线程</strong>创建情况的采样信息，创建新 OS 线程的堆栈跟踪情况</td>
+<td align="left">$host&#x2F;debug&#x2F;pprof&#x2F;threadcreate?debug&#x3D;1</td>
+</tr>
+<tr>
+<td align="left">trace</td>
+<td align="left">程序<strong>运行跟踪</strong>信息，当前程序执行的追踪情况，点击时会得到一个文件，可以用 go tool trace 命令来分析这个文件</td>
+<td align="left">$host&#x2F;debug&#x2F;pprof&#x2F;trace</td>
+</tr>
+</tbody></table>
+<h1 id="6、数据分析方式"><a href="#6、数据分析方式" class="headerlink" title="6、数据分析方式"></a>6、数据分析方式</h1><h2 id="6-1、命令行"><a href="#6-1、命令行" class="headerlink" title="6.1、命令行"></a>6.1、命令行</h2><p>核心命令：<code>go tool pprof &lt;binary&gt; &lt;source&gt;</code></p>
+<p>binary：是应用的二进制文件，用来解析各种符号；</p>
+<p>source：代表生成的分析数据来源，可以是<strong>本地文件</strong>（前文生成的cpu.prof），也可以是<strong>http地址</strong>（比如：<code>go tool pprof http://127.0.0.1:9090/debug/pprof/profile</code>）</p>
+<blockquote>
+<p>需要注意的是：较大负载的情况下（要不就故意写故障代码，或者就模拟访问压力）获取的有效数据更有意义，如果处于空闲状态，得到的结果可能意义不大</p>
+</blockquote>
+<p>通过工具go tool pprof打开URL或文件后，会显示一个 (pprof)提示符，你可以使用以下命令：</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">参数</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">gv</td>
+<td align="left">[focus]</td>
+<td align="left">将当前概要文件以图形化和层次化的形式显示出来。当没有任何参数时，在概要文件中的所有采样都会被显示如果指定了focus参数，则只显示调用栈中有名称与此参数相匹配的函数或方法的采样。 focus参数应该是一个正则表达式需要dot、gv命令，执行下面的命令安装：sudo apt-<strong>get</strong> install graphviz</td>
+</tr>
+<tr>
+<td align="left"><strong>web</strong></td>
+<td align="left">[focus]</td>
+<td align="left">生成 svg 热点图片，与gv命令类似，web命令也会用图形化的方式来显示概要文件。但不同的是，web命令是在一个Web浏览器中显示它</td>
+</tr>
+<tr>
+<td align="left"><strong>list</strong></td>
+<td align="left">[routine_regexp]</td>
+<td align="left">列出名称与参数 routine_regexp代表的正则表达式相匹配的函数或方法的相关源代码</td>
+</tr>
+<tr>
+<td align="left">weblist</td>
+<td align="left">[routine_regexp]</td>
+<td align="left">在Web浏览器中显示与list命令的输出相同的内容。它与list命令相比的优势是，在我们点击某行源码时还可以显示相应的汇编代码</td>
+</tr>
+<tr>
+<td align="left"><strong>top[N]</strong></td>
+<td align="left">[–cum]</td>
+<td align="left">top命令可以以本地采样计数为顺序列出函数或方法及相关信息如果存在标记 –cum则以累积采样计数为顺序默认情况下top命令会列出前10项内容。但是如果在top命令后面紧跟一个数字，那么其列出的项数就会与这个数字相同。默认显示 flat 前10的函数调用，可使用 -cum 以 cum 排序</td>
+</tr>
+<tr>
+<td align="left">traces</td>
+<td align="left"></td>
+<td align="left">打印所有采集的样本</td>
+</tr>
+<tr>
+<td align="left">disasm</td>
+<td align="left">[routine_regexp]</td>
+<td align="left">显示名称与参数 routine_regexp相匹配的函数或方法的反汇编代码。并且，在显示的内容中还会标注有相应的采样计数</td>
+</tr>
+<tr>
+<td align="left">callgrind</td>
+<td align="left">[filename]</td>
+<td align="left">利用callgrind工具生成统计文件。在这个文件中，说明了程序中函数的调用情况。如果未指定 filename参数，则直接调用kcachegrind工具。kcachegrind可以以可视化的方式查看callgrind工具生成的统计文件</td>
+</tr>
+<tr>
+<td align="left">help</td>
+<td align="left"></td>
+<td align="left">显示帮助</td>
+</tr>
+<tr>
+<td align="left">quit</td>
+<td align="left"></td>
+<td align="left">退出</td>
+</tr>
+</tbody></table>
+<p>开始分析前文生成的cpu.prof:</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go tool pprof cpu.prof</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330015139046.png"
+                      alt="image-20250330015139046"
+                ></p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">描述</th>
+<th align="left">举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">flat</td>
+<td align="left">该函数占用CPU的耗时，不包含当前函数调用其它函数并等待返回的时间</td>
+<td align="left">selectnbrecv占用CPU的耗时是7.28s</td>
+</tr>
+<tr>
+<td align="left">flat%</td>
+<td align="left">该函数占用CPU的耗时的百分比</td>
+<td align="left">selectnbrecv耗时：7.28s，cpu总耗时：21.75s，7.28&#x2F;21.75&#x3D;33.47%</td>
+</tr>
+<tr>
+<td align="left">sum%</td>
+<td align="left">前面所有flat总和，top命令中排在它上面的函数以及本函数flat%之和</td>
+<td align="left">chanrecv：42.76%+33.47%+18.44%&#x3D;94.67%</td>
+</tr>
+<tr>
+<td align="left">cum</td>
+<td align="left">当前函数加上该函数调用其它函数的累计CPU耗时，该指标包含子函数耗时</td>
+<td align="left">chanrecv：4.01s本身没调用其他函数</td>
+</tr>
+<tr>
+<td align="left">cum%</td>
+<td align="left">当前函数加上该函数调用其它函数的累计CPU耗时的百分比</td>
+<td align="left">4.01&#x2F;21.75&#x3D;18.44%</td>
+</tr>
+<tr>
+<td align="left">最后一列</td>
+<td align="left">当前函数名称</td>
+<td align="left">-</td>
+</tr>
+</tbody></table>
+<p>​	什么时候<code>Flat==cum</code>？Flat是当前函数耗时，Cum是当前函数和调用函数累计耗时，他俩相等，代表当前函数没有调用别的函数。什么时候<code>Flat==0</code>？函数中只有其它函数的调用。</p>
+<p>上面的命令解析，发现do函数有点问题。此时通过命令：<strong>list funcName</strong>，来进行查看具体的位置</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330015502307.png"
+                      alt="image-20250330015502307"
+                ></p>
+<blockquote>
+<p>1.在前文的对话框中继续输入：<strong>web</strong>。即可生成pprof001.svg的页面。</p>
+</blockquote>
+<blockquote>
+<p>2.执行命令：<code>go tool pprof -pdf cpu.prof</code>,会生成profile001.pdf的pdf文件。(参数可选text、pdf、svg)，不管哪种形式，都会得到以下图片：</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330022113680.png"
+                      alt="image-20250330022113680"
+                ></p>
+<h2 id="6-2、可视化界面方式"><a href="#6-2、可视化界面方式" class="headerlink" title="6.2、可视化界面方式"></a>6.2、可视化界面方式</h2><p>执行命令：<code>go tool pprof -http=:6060 cpu.prof</code></p>
+<ul>
+<li>Top（同前文gdb交互页面的top命令）</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330022250132.png"
+                      alt="image-20250330022250132"
+                ></p>
+<ul>
+<li>Graph（同前文gdb交互页面的web命令）</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330022354928.png"
+                      alt="image-20250330022354928"
+                ></p>
+<ul>
+<li><p>Flame Graph（火焰图）</p>
+<p>​	这里的颜色是随机分布的，只是看起来像火焰。调用顺序<strong>由上到下</strong>，每一块代表一个函数，越大代表占用 CPU 的时间更长。同时它也可以支持点击块深入进行分析。</p>
+</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330022404970.png"
+                      alt="image-20250330022404970"
+                ></p>
+<ul>
+<li>Peek（详细&#x3D;树结构）</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330022452283.png"
+                      alt="image-20250330022452283"
+                ></p>
+<ul>
+<li>Source（同前文gdb交互页面的list FuncName命令）</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330030753396.png"
+                      alt="image-20250330030753396"
+                ></p>
+<ul>
+<li>Disassemble</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330030801093.png"
+                      alt="image-20250330030801093"
+                ></p>
+<h1 id="7、数据分析实战"><a href="#7、数据分析实战" class="headerlink" title="7、数据分析实战"></a>7、数据分析实战</h1><h2 id="7-1、排查套"><a href="#7-1、排查套" class="headerlink" title="7.1、排查套"></a>7.1、排查套</h2><h3 id="7-1-1、套路1"><a href="#7-1-1、套路1" class="headerlink" title="7.1.1、套路1"></a>7.1.1、套路1</h3><p>这里先说一下排查套路。</p>
+<blockquote>
+<p>第一步：进入排除对应的gdb交互。</p>
+</blockquote>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go tool pprof http://localhost:6060/debug/pprof/&#123;填上你想查看的内容&#125;?seconds=10</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>seconds&#x3D;10, 采样间隔时间数字</li>
+</ul>
+<p>内容关键字：</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">allocs</td>
+<td align="left"><strong>内</strong>存分配情况的采样信息</td>
+</tr>
+<tr>
+<td align="left">blocks</td>
+<td align="left"><strong>阻塞</strong>操作情况的采样信息</td>
+</tr>
+<tr>
+<td align="left">cmdline</td>
+<td align="left">显示程序启动<strong>命令参数</strong>及其参数</td>
+</tr>
+<tr>
+<td align="left">goroutine</td>
+<td align="left">显示当前所有<strong>协程</strong>的堆栈信息</td>
+</tr>
+<tr>
+<td align="left">heap</td>
+<td align="left"><strong>堆</strong>上的内存分配情况的采样信息</td>
+</tr>
+<tr>
+<td align="left">mutex</td>
+<td align="left"><strong>锁</strong>竞争情况的采样信息</td>
+</tr>
+<tr>
+<td align="left">profile</td>
+<td align="left"><strong>cpu</strong>占用情况的采样信息，点击会下载文件</td>
+</tr>
+<tr>
+<td align="left">threadcreate</td>
+<td align="left">系统<strong>线程</strong>创建情况的采样信息</td>
+</tr>
+<tr>
+<td align="left">trace</td>
+<td align="left">程序<strong>运行跟踪</strong>信息</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>第二步：三联招，top-&gt;list FuncName-&gt;web</p>
+</blockquote>
+<p>通过占用比分析，查看具体代码行数，看大图确认。</p>
+<blockquote>
+<p>第三步：解决问题。</p>
+</blockquote>
+<p>（细心的同学可能会发现没有对trace进行分析，这个请期待《一看就懂系列之Golang的trace》）</p>
+<h3 id="7-1-2、套路2-推荐"><a href="#7-1-2、套路2-推荐" class="headerlink" title="7.1.2、套路2-推荐"></a>7.1.2、套路2-推荐</h3><p>将其重新运行起来，然后在其它窗口执行下述命令：</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://127.0.0.1:6060/debug/pprof/profile   </span><br></pre></td></tr></table></figure></div>
+
+<p>默认需要等待 30 秒，执行完毕后可在当前目录下发现采集的文件 profile，针对可视化界面我们有两种方式可进行下一步分析：该命令将在所指定的端口号运行一个 PProf 的分析用的站点。</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go tool pprof -http=:6001 profile </span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h2 id="7-2、背景说明"><a href="#7-2、背景说明" class="headerlink" title="7.2、背景说明"></a>7.2、背景说明</h2><p>本章节使用WOLFOGRE的文章进行实践。</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> github.com/wolfogre/go-pprof-practice</span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$GOPATH</span>/src/github.com/wolfogre/go-pprof-practice</span><br><span class="line">go mod init</span><br><span class="line">go mod tidy</span><br><span class="line">go mod download</span><br><span class="line">go build</span><br><span class="line">./go-pprof-practice</span><br></pre></td></tr></table></figure></div>
+
+<p>运行后注意查看一下资源是否吃紧，机器是否还能扛得住，坚持一分钟，如果确认没问题，咱们再进行下一步。</p>
+<h2 id="7-3、排查-CPU-占用过高"><a href="#7-3、排查-CPU-占用过高" class="headerlink" title="7.3、排查 CPU 占用过高"></a>7.3、排查 CPU 占用过高</h2><p>我们首先通过活动监视器（或任务管理器、top 命令，取决于你的操作系统和你的喜好），查看一下炸弹程序的 CPU 占用：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330023614462.png"
+                      alt="image-20250330023614462"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330023800502.png"
+                      alt="image-20250330023800502"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330023811469.png"
+                      alt="image-20250330023811469"
+                ></p>
+<p>很明显，CPU 占用过高是 <code>github.com/wolfogre/go-pprof-practice/animal/felidae/tiger.(*Tiger).Eat</code> 造成的。</p>
+<p>可以看到，是第 24 行那个一百亿次空循环占用了大量 CPU 时间，至此，问题定位成功！</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330023947757.png"
+                      alt="image-20250330023947757"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330024015379.png"
+                      alt="image-20250330024015379"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330024158132.png"
+                      alt="image-20250330024158132"
+                ></p>
+<p>之后修复问题的的方法都是注释掉相关的代码，不再赘述。你可能觉得这很粗暴，但要知道，这个实验的重点是如何使用 pprof 定位问题，我们不需要花太多时间在改代码上。</p>
+<h2 id="7-4、排查内存占用过高"><a href="#7-4、排查内存占用过高" class="headerlink" title="7.4、排查内存占用过高"></a>7.4、排查内存占用过高</h2><p>重新编译炸弹程序，再次运行，可以看到 CPU 占用率已经下来了，但是内存的占用率仍然很高：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330024240300.png"
+                      alt="image-20250330024240300"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330024458592.png"
+                      alt="image-20250330024458592"
+                ></p>
+<p>​	可以看到这次出问题的地方在 <code>github.com/wolfogre/go-pprof-practice/animal/muridae/mouse.(*Mouse).Steal</code>注释代码就可以了</p>
+<p><code>go tool pprof -inuse_space http://localhost:6060/debug/pprof/heap</code>      </p>
+<table>
+<thead>
+<tr>
+<th align="left">选项名</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">alloc_objects</td>
+<td align="left">分析应用程序的内存临时分配情况</td>
+</tr>
+<tr>
+<td align="left">alloc_space</td>
+<td align="left">查看每个函数分配的内存空间大小</td>
+</tr>
+<tr>
+<td align="left">inuse_space</td>
+<td align="left">分析应用程序的常驻内存占用情况</td>
+</tr>
+<tr>
+<td align="left">inuse_objects</td>
+<td align="left">查看每个函数所分配的对象数量</td>
+</tr>
+</tbody></table>
+<h2 id="7-5-排查频繁内存回收-同4-2-3"><a href="#7-5-排查频繁内存回收-同4-2-3" class="headerlink" title="7.5 排查频繁内存回收(同4.2.3)"></a>7.5 排查频繁内存回收(同4.2.3)</h2><p>​	你应该知道，频繁的 GC 对 golang 程序性能的影响也是非常严重的。虽然现在这个炸弹程序内存使用量并不高，但这会不会是频繁 GC 之后的假象呢？为了获取程序运行过程中 GC 日志，我们需要先退出炸弹程序，再在重新启动前赋予一个环境变量，同时为了避免其他日志的干扰，使用 grep 筛选出 GC 日志查看：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GODEBUG=gctrace=1 ./go-pprof-practice | grep gc</span><br></pre></td></tr></table></figure></div>
+
+<p>日志输出如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330010650536.png"
+                      alt="image-20250330010650536"
+                ></p>
+<p>​	可以看到，GC 差不多每 3 秒就发生一次，且每次 GC 都会从 16MB 清理到几乎 0MB，说明程序在不断的申请内存再释放，这是高性能 golang 程序所不允许的。如果你希望进一步了解 golang 的 GC 日志可以查看<a class="link"   target="_blank" rel="noopener" href="https://blog.wolfogre.com/redirect/v3/A9DNc05mRFLA-ZPsjfPhLuZDu-oKbuLF_wQyMDE2xf8CMDfF_wIwMcUtHy8qzDsGiVTMOxzFMRIDAzwK_jrFxVoWBjtuQQYW3Dsh_cU8Bk0KxTsGzDw8Bcw8ghxKiMU" >《如何监控 golang 程序的垃圾回收》<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>,为保证实验节奏，这里不做展开。所以接下来使用 pprof 排查时，我们在乎的不是什么地方在占用大量内存，而是什么地方在不停地申请内存，这两者是有区别的。由于内存的申请与释放频度是需要一段时间来统计的，所有我们保证炸弹程序已经运行了几分钟之后，再运行命令：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go tool pprof http://localhost:6060/debug/pprof/allocs</span><br></pre></td></tr></table></figure></div>
+
+<p>同样使用 top、list、web 大法：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330011542680-20250330025023227.png"
+                      alt="image-20250330011542680"
+                ></p>
+<p>​	可以看到 <code>github.com/wolfogre/go-pprof-practice/animal/canidae/dog.(*Dog).Run</code> 会进行无意义的内存申请，而这个函数又会被频繁调用，这才导致程序不停地进行 GC:</p>
+<div class="code-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(d *Dog)</span></span> Run() &#123;</span><br><span class="line">    log.Println(d.Name(), <span class="string">&quot;run&quot;</span>)</span><br><span class="line">    _ = <span class="built_in">make</span>([]<span class="type">byte</span>, <span class="number">16</span> * constant.Mi)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>​	这里有个小插曲，你可尝试一下将 <code>16 * constant.Mi</code> 修改成一个较小的值，重新编译运行，会发现并不会引起频繁 GC，原因是在 golang 里，对象是使用堆内存还是栈内存，由编译器进行逃逸分析并决定，如果对象不会逃逸，便可在使用栈内存，但总有意外，就是对象的尺寸过大时，便不得不使用堆内存。所以这里设置申请 16 MiB 的内存就是为了避免编译器直接在栈上分配，如果那样得话就不会涉及到 GC 了。我们同样注释掉问题代码，重新编译执行，可以看到这一次，程序的 GC 频度要低很多，以至于短时间内都看不到 GC 日志了。</p>
+<h2 id="7-6、排查协程泄露"><a href="#7-6、排查协程泄露" class="headerlink" title="7.6、排查协程泄露"></a>7.6、排查协程泄露</h2><p>​	由于 golang 自带内存回收，所以一般不会发生内存泄露。但凡事都有例外，在 golang 中，协程本身是可能泄露的，或者叫协程失控，进而导致内存泄露。我们在浏览器里可以看到，此时程序的协程数已经多达 60 条：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330025243158.png"
+                      alt="image-20250330025243158"
+                ></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://localhost:6060/debug/pprof/goroutine</span><br><span class="line">go tool pprof -http=:8080 goroutine</span><br></pre></td></tr></table></figure></div>
+
+<p>​	然后查看代码，可以看到，Drink 函数每次回释放 10 个协程出去，每个协程会睡眠 30 秒再退出，而 Drink 函数又会被反复调用，这才导致大量协程泄露，试想一下，如果释放出的协程会永久阻塞，那么泄露的协程数便会持续增加，内存的占用也会持续增加，那迟早是会被操作系统杀死的。我们注释掉问题代码，重新编译运行可以看到，协程数已经降到 9 条了：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330025740119.png"
+                      alt="image-20250330025740119"
+                ></p>
+<h2 id="7-7、排查锁的争用"><a href="#7-7、排查锁的争用" class="headerlink" title="7.7、排查锁的争用"></a>7.7、排查锁的争用</h2><p>​	到目前为止，我们已经解决这个炸弹程序的所有资源占用问题，但是事情还没有完，我们需要进一步排查那些会导致程序运行慢的性能问题，这些问题可能并不会导致资源占用，但会让程序效率低下，这同样是高性能程序所忌讳的。</p>
+<p>​	我们首先想到的就是程序中是否有不合理的锁的争用，我们倒一倒，回头看看上一张图，虽然协程数已经降到 4 条，但还显示有一个 mutex 存在争用问题。</p>
+<p>​	相信到这里，你已经触类旁通了，无需多言，开整。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://localhost:6060/debug/pprof/mutex</span><br><span class="line">go tool pprof -http=:8080 mutex</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330025932625.png"
+                      alt="image-20250330025932625"
+                ></p>
+<p>​	可以看出来这问题出在 <code>github.com/wolfogre/go-pprof-practice/animal/canidae/wolf.(*Wolf).Howl</code>。但要知道，在代码中使用锁是无可非议的，并不是所有的锁都会被标记有问题，我们看看这个有问题的锁那儿触雷了。</p>
+<p>​	可以从代码看到，这个锁由主协程 Lock，并启动子协程去 Unlock，主协程会阻塞在第二次 Lock 这儿等待子协程完成任务，但由于子协程足足睡眠了一秒，导致主协程等待这个锁释放足足等了一秒钟。虽然这可能是实际的业务需要，逻辑上说得通，并不一定真的是性能瓶颈，但既然它出现在我写的“炸弹”里，就肯定不是什么“业务需要”啦。所以，我们注释掉这段问题代码，重新编译执行，继续。</p>
+<h2 id="7-8、排查阻塞操作"><a href="#7-8、排查阻塞操作" class="headerlink" title="7.8、排查阻塞操作"></a>7.8、排查阻塞操作</h2><p>好了，我们开始排查最后一个问题。</p>
+<p>在程序中，除了锁的争用会导致阻塞之外，很多逻辑都会导致阻塞。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://localhost:6060/debug/pprof/block</span><br><span class="line">go tool pprof -http=:8080 block</span><br></pre></td></tr></table></figure></div>
+
+<p>可以看到，阻塞操作位于 <code>github.com/wolfogre/go-pprof-practice/animal/felidae/cat.(*Cat).Pee</code>：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330030200736.png"
+                      alt="image-20250330030200736"
+                ></p>
+<p>​	你应该可以看懂，不同于睡眠一秒，这里是从一个 channel 里读数据时，发生了阻塞，直到这个 channel 在一秒后才有数据读出，这就导致程序阻塞了一秒而非睡眠了一秒。</p>
+<h1 id="8、代码优化建议"><a href="#8、代码优化建议" class="headerlink" title="8、代码优化建议"></a>8、代码优化建议</h1><p>以下是一些从其它项目借鉴或者自己总结的实践经验，它们只是建议，而不是准则，实际项目中应该以性能分析数据来作为优化的参考，避免过早优化。</p>
+<ol>
+<li>对频繁分配的小对象，使用 <a class="link"   target="_blank" rel="noopener" href="https://golang.org/pkg/sync/#Pool" >sync.Pool<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 对象池避免分配</li>
+<li>自动化的 DeepCopy 是非常耗时的，其中涉及到反射，内存分配，容器(如 map)扩展等，大概比手动拷贝慢一个数量级</li>
+<li>用 atomic.Load&#x2F;StoreXXX，atomic.Value, sync.Map 等代替 Mutex。(优先级递减)</li>
+<li>使用高效的第三方库，如用<a class="link"   target="_blank" rel="noopener" href="https://github.com/valyala/fasthttp" >fasthttp<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>替代 net&#x2F;http</li>
+<li>在开发环境加上<code>-race</code>编译选项进行竞态检查</li>
+<li>在开发环境开启 net&#x2F;http&#x2F;pprof，方便实时 pprof</li>
+<li>将所有外部IO(网络IO，磁盘IO)做成异步</li>
+</ol>
+<h1 id="9、pyroscope"><a href="#9、pyroscope" class="headerlink" title="9、pyroscope"></a>9、pyroscope</h1><p>​	为什么要用它？当你半夜酣睡时，即使系统出现了 CPU 飙升、OOM 或协程泄露，第二天仍然可以通过 Pyroscope 查看完整的性能分析数据，这就是它的一个重要价值所在。</p>
+<p>简单使用：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker network create pyroscope-demo</span><br><span class="line">docker run --rm --name pyroscope --network=pyroscope-demo -p 4040:4040 grafana/pyroscope:latest</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/grafana/pyroscope-go</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;github.com/grafana/pyroscope-go&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">  // These 2 lines are only required if you&#x27;re using mutex or block profiling</span><br><span class="line">  // Read the explanation below for how to set these rates:</span><br><span class="line">  runtime.SetMutexProfileFraction(5)</span><br><span class="line">  runtime.SetBlockProfileRate(5)</span><br><span class="line"></span><br><span class="line">  pyroscope.Start(pyroscope.Config&#123;</span><br><span class="line">    ApplicationName: &quot;simple.golang.app&quot;,</span><br><span class="line"></span><br><span class="line">    // replace this with the address of pyroscope server</span><br><span class="line">    ServerAddress:   &quot;http://pyroscope-server:4040&quot;,</span><br><span class="line"></span><br><span class="line">    // you can disable logging by setting this to nil</span><br><span class="line">    Logger:          pyroscope.StandardLogger,</span><br><span class="line"></span><br><span class="line">    // you can provide static tags via a map:</span><br><span class="line">    Tags:            map[string]string&#123;&quot;hostname&quot;: os.Getenv(&quot;HOSTNAME&quot;)&#125;,</span><br><span class="line"></span><br><span class="line">    ProfileTypes: []pyroscope.ProfileType&#123;</span><br><span class="line">      // these profile types are enabled by default:</span><br><span class="line">      pyroscope.ProfileCPU,</span><br><span class="line">      pyroscope.ProfileAllocObjects,</span><br><span class="line">      pyroscope.ProfileAllocSpace,</span><br><span class="line">      pyroscope.ProfileInuseObjects,</span><br><span class="line">      pyroscope.ProfileInuseSpace,</span><br><span class="line"></span><br><span class="line">      // these profile types are optional:</span><br><span class="line">      pyroscope.ProfileGoroutines,</span><br><span class="line">      pyroscope.ProfileMutexCount,</span><br><span class="line">      pyroscope.ProfileMutexDuration,</span><br><span class="line">      pyroscope.ProfileBlockCount,</span><br><span class="line">      pyroscope.ProfileBlockDuration,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  // your code goes here</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250330032258144.png"
+                      alt="image-20250330032258144"
+                ></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a class="link"   target="_blank" rel="noopener" href="https://juejin.cn/post/6844904079525675016#heading-14" >一看就懂系列之Golang的pprof<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://golang2.eddycjy.com/posts/ch6/01-pprof-1/#611-pprof-%E6%98%AF%E4%BB%80%E4%B9%88" >煎鱼-Go 大杀器之性能剖析 PProf（上）<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://blog.gmem.cc/go-program-profiling" >Go应用性能剖析<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>[<a class="link"   target="_blank" rel="noopener" href="https://blog.wolfogre.com/posts/go-ppof-practice/#%E5%AE%9E%E9%AA%8C%E5%87%86%E5%A4%87" >WOLFOGRE’S BLOG]golang pprof 实战<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://qcrao.com/2019/11/10/dive-into-go-pprof/#runtime-pprof" >码农桃花源-深度解密Go语言之pprof<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/wolfogre/go-pprof-practice/issues/1" >pprof统计的内存与PC上显示的内存不符合 · Issue #1 · wolfogre&#x2F;go-pprof-practice<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://grafana.org.cn/docs/pyroscope/latest/configure-client/language-sdks/go_push/" >Go (推送模式) | Grafana Pyroscope 文档 - Grafana 可观测平台<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+
 		</div>
 
 		
@@ -594,7 +1273,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2025-03-29 22:43:44
+                    :</strong> 2025-03-30 03:23:30
             </li>
         
         <li>
@@ -727,7 +1406,7 @@
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
 		<div class="page-title">golang的pprof与火焰图实战</div>
-		
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1%E3%80%81pprof%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">1、pprof是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2%E3%80%81pprof%E4%BD%9C%E7%94%A8"><span class="nav-text">2、pprof作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3%E3%80%81pprof%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%BC%8F"><span class="nav-text">3、pprof使用模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4%E3%80%81%E9%87%87%E6%A0%B7%E6%96%B9%E5%BC%8F"><span class="nav-text">4、采样方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1%E3%80%81go-test"><span class="nav-text">4.1、go test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2%E3%80%81runtime-pprof"><span class="nav-text">4.2、runtime&#x2F;pprof</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-1%E3%80%81%E9%87%87%E9%9B%86CPU-CPU-%E5%8D%A0%E7%94%A8%E8%BF%87%E9%AB%98"><span class="nav-text">4.2.1、采集CPU(CPU 占用过高)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-2%E3%80%81%E9%87%87%E9%9B%86%E5%86%85%E5%AD%98-heap-%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E8%BF%87%E9%AB%98"><span class="nav-text">4.2.2、采集内存(heap-内存占用过高)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-3%E3%80%81%E9%87%87%E9%9B%86%E5%86%85%E5%AD%98-allocs-%E9%A2%91%E7%B9%81%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6"><span class="nav-text">4.2.3、采集内存(allocs-频繁内存回收)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-4%E3%80%81%E9%87%87%E9%9B%86goroutine-%E5%8D%8F%E7%A8%8B%E6%B3%84%E9%9C%B2"><span class="nav-text">4.2.4、采集goroutine(协程泄露)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-5%E3%80%81%E9%87%87%E9%9B%86mutex-%E9%94%81%E7%9A%84%E4%BA%89%E7%94%A8"><span class="nav-text">4.2.5、采集mutex(锁的争用)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-6%E3%80%81%E9%87%87%E9%9B%86block-%E9%98%BB%E5%A1%9E%E6%93%8D%E4%BD%9C"><span class="nav-text">4.2.6、采集block(阻塞操作)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3%E3%80%81net-http-pprof"><span class="nav-text">4.3、net&#x2F;http&#x2F;pprof</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5%E3%80%81%E9%87%87%E6%A0%B7%E7%9A%84%E6%95%B0%E6%8D%AE%E5%86%85%E5%AE%B9"><span class="nav-text">5、采样的数据内容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6%E3%80%81%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%96%B9%E5%BC%8F"><span class="nav-text">6、数据分析方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1%E3%80%81%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="nav-text">6.1、命令行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2%E3%80%81%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2%E6%96%B9%E5%BC%8F"><span class="nav-text">6.2、可视化界面方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7%E3%80%81%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98"><span class="nav-text">7、数据分析实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1%E3%80%81%E6%8E%92%E6%9F%A5%E5%A5%97"><span class="nav-text">7.1、排查套</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-1%E3%80%81%E5%A5%97%E8%B7%AF1"><span class="nav-text">7.1.1、套路1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-2%E3%80%81%E5%A5%97%E8%B7%AF2-%E6%8E%A8%E8%8D%90"><span class="nav-text">7.1.2、套路2-推荐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2%E3%80%81%E8%83%8C%E6%99%AF%E8%AF%B4%E6%98%8E"><span class="nav-text">7.2、背景说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3%E3%80%81%E6%8E%92%E6%9F%A5-CPU-%E5%8D%A0%E7%94%A8%E8%BF%87%E9%AB%98"><span class="nav-text">7.3、排查 CPU 占用过高</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-4%E3%80%81%E6%8E%92%E6%9F%A5%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E8%BF%87%E9%AB%98"><span class="nav-text">7.4、排查内存占用过高</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-5-%E6%8E%92%E6%9F%A5%E9%A2%91%E7%B9%81%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6-%E5%90%8C4-2-3"><span class="nav-text">7.5 排查频繁内存回收(同4.2.3)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-6%E3%80%81%E6%8E%92%E6%9F%A5%E5%8D%8F%E7%A8%8B%E6%B3%84%E9%9C%B2"><span class="nav-text">7.6、排查协程泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-7%E3%80%81%E6%8E%92%E6%9F%A5%E9%94%81%E7%9A%84%E4%BA%89%E7%94%A8"><span class="nav-text">7.7、排查锁的争用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-8%E3%80%81%E6%8E%92%E6%9F%A5%E9%98%BB%E5%A1%9E%E6%93%8D%E4%BD%9C"><span class="nav-text">7.8、排查阻塞操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8%E3%80%81%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="nav-text">8、代码优化建议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9%E3%80%81pyroscope"><span class="nav-text">9、pyroscope</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-text">参考文章</span></a></li></ol>
 
 	</div>
 </div>
