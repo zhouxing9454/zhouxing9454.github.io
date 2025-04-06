@@ -19,7 +19,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://zhouxing9454.github.io/2023/02/28/git多人协作/"/>
+    <link rel="canonical" href="https://zhouxing9454.github.io/2025/01/06/go服务开发tips/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -29,16 +29,16 @@
         
         <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git多人协作">
-<meta property="og:url" content="https://zhouxing9454.github.io/2023/02/28/Git%E5%A4%9A%E4%BA%BA%E5%8D%8F%E4%BD%9C/index.html">
+<meta property="og:title" content="Go服务开发Tips">
+<meta property="og:url" content="https://zhouxing9454.github.io/2025/01/06/Go%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%8F%91Tips/index.html">
 <meta property="og:site_name" content="Olivia的小跟班">
 <meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://zhouxing9454.github.io/images/redefine-og.webp">
-<meta property="article:published_time" content="2023-02-28T06:26:42.000Z">
-<meta property="article:modified_time" content="2024-01-01T11:10:04.000Z">
+<meta property="article:published_time" content="2025-01-06T13:50:33.000Z">
+<meta property="article:modified_time" content="2025-04-06T17:19:15.014Z">
 <meta property="article:author" content="Olivia的小跟班">
-<meta property="article:tag" content="git">
+<meta property="article:tag" content="Golang">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zhouxing9454.github.io/images/redefine-og.webp">
     
@@ -52,7 +52,7 @@
     
     <title>
         
-            Git多人协作 | Olivia的小跟班
+            Go服务开发Tips | Olivia的小跟班
         
     </title>
 
@@ -497,7 +497,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Git多人协作</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Go服务开发Tips</h1>
 			</div>
 			
 		</div>
@@ -518,15 +518,15 @@
 					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2023-02-28 14:26:42</span>
-        <span class="mobile">2023-02-28 14:26:42</span>
+        <span class="desktop">2025-01-06 21:50:33</span>
+        <span class="mobile">2025-01-06 21:50:33</span>
         <span class="hover-info">创建</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-01-01 19:10:04</span>
-            <span class="mobile">2024-01-01 19:10:04</span>
+            <span class="desktop">2025-04-07 01:19:15</span>
+            <span class="mobile">2025-04-07 01:19:15</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -540,7 +540,7 @@
                     
                         
                         <li>
-                            <a href="/categories/git/">git</a>&nbsp;
+                            <a href="/categories/Golang/">Golang</a>&nbsp;
                         </li>
                     
                     
@@ -554,7 +554,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/git/">git</a>&nbsp;
+                        <a href="/tags/Golang/">Golang</a>&nbsp;
                     </li>
                 
             </ul>
@@ -580,200 +580,162 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<h1 id="题记"><a href="#题记" class="headerlink" title="题记"></a>题记</h1><p>本文是用来记录git多人协作的流程（Gitflow）。</p>
-<h3 id="1-创建项目"><a href="#1-创建项目" class="headerlink" title="1.创建项目"></a>1.创建项目</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143231961.png"
-                      alt="image-20230228143231961"
-                ></p>
-<h3 id="2-连接GitHub"><a href="#2-连接GitHub" class="headerlink" title="2.连接GitHub"></a>2.连接GitHub</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143357534.png"
-                      alt="image-20230228143357534"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143406302.png"
-                      alt="image-20230228143406302"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143420380.png"
-                      alt="image-20230228143420380"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143502060.png"
-                      alt="image-20230228143502060"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143533637.png"
-                      alt="image-20230228143533637"
-                ></p>
-<h3 id="3-develop分支"><a href="#3-develop分支" class="headerlink" title="3.develop分支"></a>3.develop分支</h3><p>develop 分支用于日常开发，保存了开发过程中最新的代码。当 develop 分支上的代码达到稳定，并且具备发版状态时，需要将 develop 的代码合并到 master，<strong>并且打一个带有发布版本号的 tag。</strong></p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 从 master 分支上创建 develop 分支</span><br><span class="line">git checkout –b develop master</span><br><span class="line"></span><br><span class="line"># 推送 develop 分支</span><br><span class="line">git push origin develop</span><br></pre></td></tr></table></figure></div>
-
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143729960.png"
-                      alt="image-20230228143729960"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228143834294.png"
-                      alt="image-20230228143834294"
-                ></p>
-<p>在GitHub仓库里面将master分支设置为<strong>Protected分支</strong>，不允许developer推送代码，master可以推送代码。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228144212290.png"
-                      alt="image-20230228144212290"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228145014269.png"
-                      alt="image-20230228145014269"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228145030274.png"
-                      alt="image-20230228145030274"
-                ></p>
-<h3 id="4-feature分支"><a href="#4-feature分支" class="headerlink" title="4.feature分支"></a>4.feature分支</h3><ul>
-<li>分支来源：develop</li>
-<li>合并到分支：develop</li>
-<li>分支命名约定：feature-…</li>
+			<h3 id="1、如何性能优化"><a href="#1、如何性能优化" class="headerlink" title="1、如何性能优化"></a>1、如何性能优化</h3><p>五大步骤：定目标、找瓶颈点、分析瓶颈原因、性能优化、验证目标</p>
+<h3 id="2、优化性能三大利器"><a href="#2、优化性能三大利器" class="headerlink" title="2、优化性能三大利器"></a>2、优化性能三大利器</h3><ul>
+<li>pprof<ul>
+<li>cpu采样用于确定程序中哪些函数或代码片段在运行时消耗了大量的CPU 时间，帮助定位CPU性能瓶颈。</li>
+<li>allocs采样侧重于定位那些频繁进行内存分配的函数。</li>
+<li>heap采样用于查看存活对象的内存分配情况，侧重于定位内存泄漏问题。</li>
 </ul>
-<p>功能分支，在开发某一个新功能时，从 develop 分支分出来，开发完之后，再合并回 develop 分支。功能分支通常只存在于开发者的本地仓库中，并不包含在远程库中。</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#创建一个feature分支，新分支不是基于master分支，而是应该基于develop分支</span><br><span class="line">git checkout -b feature-v1.0 develop</span><br><span class="line"></span><br><span class="line">#开发新特性，这时候开始开发功能</span><br><span class="line"></span><br><span class="line">#拉取：在合并功能前确保develop分支是最新的</span><br><span class="line">git pull origin develop</span><br><span class="line"></span><br><span class="line">#提交，开发的文件（git commit)</span><br><span class="line"></span><br><span class="line">#切换分支</span><br><span class="line">git checkout develop</span><br><span class="line"></span><br><span class="line">#合并分支</span><br><span class="line">git merge feature-v1.0</span><br><span class="line"></span><br><span class="line">#提交到origin/develop</span><br><span class="line">git push origin develop</span><br><span class="line"></span><br><span class="line">#删除指定的feature分支</span><br><span class="line">git branch -d feature-v1.0</span><br></pre></td></tr></table></figure></div>
-
-
-
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228175934130.png"
-                      alt="image-20230228175934130"
-                ></p>
-<h3 id="5-release分支"><a href="#5-release分支" class="headerlink" title="5.release分支"></a>5.release分支</h3><ul>
-<li>分支来源：develop</li>
-<li>合并到分支：develop，master</li>
-<li>分支命名约定：release-…</li>
+</li>
+<li>benchmark</li>
+<li>trace</li>
 </ul>
-<p>预发布分支，它是指发布正式版本之前，我们可能需要有一个预发布的版本测试，并且可以在上面做一些较小 bug 的修复。预发布分支是从 develop 分支上分出来的，预发布结束以后，必须合并进 develop 和 master 分支。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228222458369.png"
-                      alt="image-20230228222458369"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250406215814785.png"
+                      alt="image-20250406215814785"
                 ></p>
-<p>合并出现问题 <code>:wq</code> 强制退出。</p>
-<p>记得删除分支。</p>
-<h3 id="6-hotfix分支"><a href="#6-hotfix分支" class="headerlink" title="6.hotfix分支"></a>6.hotfix分支</h3><ul>
-<li>分支来源：master</li>
-<li>合并到分支：develop，master</li>
-<li>分支命名约定：hotfix-…</li>
+<h3 id="3、代码优化"><a href="#3、代码优化" class="headerlink" title="3、代码优化"></a>3、代码优化</h3><ul>
+<li>当用map构造集合时，我们可以将value类型设置为空结构体类型，<strong>空结构体类型不占用内存空间</strong>，这样就能帮我们降低内存资源消耗。</li>
+<li>当创建map和切片对象时，如果我们可以<strong>提前确定容器容量</strong>，就可以传入make函数中，从而<strong>避免往集合中添加数据时触发扩容迁移，达到降低内存和CPU资源消耗的目的</strong>。</li>
+<li>高性能字符串拼接技巧。当我们代码有大量字符串拼接操作时，可以使用 <strong>strings.Builder</strong> 类型，并利用它的内存预分配功能做字符串拼接。</li>
+<li>高性能整型转字符串技巧。当我们代码有大量整型转字符串操作时，可以用 <strong>strconv</strong> 库做转换，避免使用fmt.Sprint函数的反射和格式化资源消耗。</li>
+<li>高性能字符串转字节切片技巧。当我们代码有大量字符串转字节切片操作时，可以用 <strong>unsafe</strong> 包，通过字符串和字节切片底层数组空间共用，实现高性能转换。并且，也可以用unsafe包将字节切片转换为字符串。（补充：现在go1.22版本已经实现相互零拷贝）</li>
+<li>当我们对结构体数组或切片做循环遍历时，基于性能上的考虑，建议优先使用下标遍历的方式，而不提倡使用for range值遍历的方式。</li>
+<li>对于数据处理的优化，咱们还有一种常用的思路，<strong>当官方库没有性能更高的实现方式时，可以使用性能更高的第三方库</strong>。比如当我们需要进行JSON序列化和反序列化操作时，可以使用考虑使用 <a class="link"   target="_blank" rel="noopener" href="https://github.com/bytedance/sonic" >sonic库<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</li>
+<li>当我们编写的代码中需要频繁创建相同类型的临时对象时，可以使用 sync.Pool 对象池，实现临时对象复用，从而减少 Go中的内存分配和GC开销。</li>
+<li>当我们的代码需要频繁地创建协程，这时候使用协程池就很关键了。通过协程复用，我们可以降低协程创建的开销。同时，协程池能限制同时运行的协程的最大数目，从而避免同时有太多协程，导致频繁进行协程调度。</li>
 </ul>
-<p>最后一种是修复 bug 分支。软件正式发布以后，难免会出现 bug。这时就需要创建一个分支，进行 bug 修复。</p>
-<p>修复 bug 分支是从 master 分支上分出来的。修复结束以后，再合并进 master 和 develop 分支。</p>
+<h3 id="4、并发等待技巧"><a href="#4、并发等待技巧" class="headerlink" title="4、并发等待技巧"></a>4、并发等待技巧</h3><ul>
+<li>WaitGroup 类型。当我们手头有一个规模较大的任务时，为了提高执行效率，我们可以巧妙地将其拆分成多个子任务，然后让这些子任务并发运行。而此时，如果我们还需要等待所有子任务都顺利执行完毕，那么 WaitGroup 类型就该闪亮登场啦，它能够精准地满足这一需求。</li>
+<li>errgroup 包。实际上，errgroup 包可以看作是对 WaitGroup 类型的升级与封装。当我们在实际开发中，不仅需要并发运行任务，还得周全地考虑对可能出现的错误进行妥善处理、能够灵活地取消任务以及精准地控制最大协程数等复杂需求，这时errgroup 包无疑就是我们的最佳选择。</li>
+</ul>
+<h3 id="5、锁的使用"><a href="#5、锁的使用" class="headerlink" title="5、锁的使用"></a>5、锁的使用</h3><ul>
+<li>当对数据的写操作较多或者读操作不频繁时，可以使用互斥锁保证并发访问的安全性；</li>
+<li>当读操作远远多于写操作时，可以使用读写锁，允许多个协程同时进行读操作，而在写操作时进行独占式访问，这样可以提高并发读取的性能；</li>
+<li>当大量数据存储在map中，并且协程对map的访问相对均匀地分布在不同的键上时，可以考虑使用分段锁提高性能。具体是通过将map分成多个段，每个段有自己的锁，降低锁粒度，从而提升并发性能。</li>
+<li>当需要对共享对象进行原子操作时，可以利用atomic包无锁编程，避免加锁操作，从而提升性能。</li>
+</ul>
+<h3 id="6、大规模数据缓存如何设计数据结构"><a href="#6、大规模数据缓存如何设计数据结构" class="headerlink" title="6、大规模数据缓存如何设计数据结构"></a>6、大规模数据缓存如何设计数据结构</h3><p>针对大规模数据缓存的场景，我们在数据结构设计上要考虑的技术点有两个。</p>
+<ol>
+<li>如何实现并发安全的map类型。</li>
+<li>如何减少甚至避免因大规模数据缓存导致的GC开销。</li>
+</ol>
+<p>因为sync.map的缺点有如下几点，所以一般我们使用分段锁map：</p>
+<ol>
+<li>由于有两个map，因此占用内存会比较高。</li>
+<li>更适用于读多写少的场景，当由于写比较多或者本地缓存没有全量数据时，会导致读map经常读不到数据，而需要加锁再读一次，从而导致读性能退化。</li>
+<li>当数据量比较大时，如果写入触发读map向写map拷贝，会导致较大的性能开销。</li>
+</ol>
+<p>当map中缓存的数据比较多时，为了避免GC开销，我们可以将map中的key-value类型设计成非指针类型且大小不超过128字节，从而避免GC扫描。</p>
+<h3 id="7、IO多路复用底层"><a href="#7、IO多路复用底层" class="headerlink" title="7、IO多路复用底层"></a>7、IO多路复用底层</h3><p>Golang底层使用的epoll，存在两个问题。针对这两个问题，我以字节开源的高</p>
+<p>性能网络库<a class="link"   target="_blank" rel="noopener" href="https://github.com/cloudwego/netpoll/tree/develop" >netpoll<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>为例，看它是如何解决这两个问题的。</p>
+<ol>
+<li><p>针对高并发场景循环处理的事件过多的问题，就像下面的图一样，netpoll采用了主从多Reactor的模式。也就是由多个协程监听多个epoll池，每个epoll池放一部分需要监听的文件描述符（fd）。主Reactor监听连接事件，从Reactor监听读写等网络事件。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228223307478.png"
-                      alt="image-20230228223307478"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/e069885f06da042a19606e879fc466ec-20250407010726112.jpg"
+                      alt="图1 主从 Reactor"
                 ></p>
-<h3 id="7-tag标签"><a href="#7-tag标签" class="headerlink" title="7.tag标签"></a>7.tag标签</h3><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#打标签</span><br><span class="line">git tag ...(tagname)</span><br><span class="line"></span><br><span class="line">#列出所有标签</span><br><span class="line">git tag -n</span><br><span class="line"></span><br><span class="line">#删除指定标签</span><br><span class="line">git tag -d ...(tagname)</span><br><span class="line"></span><br><span class="line">#上传标签</span><br><span class="line">git push --tags</span><br></pre></td></tr></table></figure></div>
-
-
-
-
-
-<h3 id="8-邀请他人协作开发"><a href="#8-邀请他人协作开发" class="headerlink" title="8.邀请他人协作开发"></a>8.邀请他人协作开发</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20230228145254837.png"
-                      alt="image-20230228145254837"
-                ></p>
-<h3 id="9-回退版本"><a href="#9-回退版本" class="headerlink" title="9.回退版本"></a>9.回退版本</h3><p><strong>本地仓（Local Repository）：</strong>本地仓指的是在开发者本地计算机上保存项目版本历史记录的地方。它通常是一个包含了完整项目历史记录的目录，包括所有的版本和分支信息。在Git中，本地仓是通过在项目目录下初始化Git仓库（使用”git init”命令）或者通过克隆远程仓库到本地（使用”git clone”命令）来创建的。</p>
+</li>
+<li><p>针对net库读写未就绪，导致协程阻塞问题，就像下面的图一样，netpoll由从Reactor完成内核和程序之间的数据复制，协程池中的协程只负责异步对业务逻辑进行处理，不再需要阻塞等待网络IO事件就绪和数据复制，从而避免了大量协程因网络IO而被阻塞的问题。</p>
+</li>
+</ol>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202304160008478.png"
-                      alt="image-20230416000848430"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/698087c1c9259103dc5e04dc2da01f83.jpg"
+                      alt="图2 非阻塞读写"
                 ></p>
-<p><strong>暂存区（Staging Area）：</strong>暂存区是Git中用于暂时存储将要提交的文件或者修改的地方。它相当于一个缓冲区，可以让开发者选择性地将文件添加到其中，然后在一次性提交（commit）时，将暂存区中的所有文件一并提交到本地仓。暂存区的作用是为了控制提交的粒度，允许开发者对提交的内容进行精细的控制，可以将不同逻辑上的修改分别暂存，然后一次性提交。</p>
+<h3 id="8、网络通信延时"><a href="#8、网络通信延时" class="headerlink" title="8、网络通信延时"></a>8、网络通信延时</h3><p><strong>跨机通信优化：</strong>为了降低网络传输延时，我们需要让服务调用的物理距离更近一点，尽量<strong>不跨地域、不跨机房调用</strong>。</p>
+<p><strong>亲和性部署方案：</strong>把上下游服务部署到一台物理机里，优先进行同机调用，从而消除网络传输开销。</p>
+<p><strong>合并编译方案：</strong>将Server编译成SDK，并将Client对Server的RPC调用，变成本地SDK的函数调用，从而消除服务调用的编解码开销。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202304160008035.png"
-                      alt="image-20230416000824987"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250407011724528.png"
+                      alt="image-20250407011724528"
                 ></p>
-<p><strong>工作区（Working Directory）：</strong>工作区是开发者在本地计算机上实际进行开发工作的目录，包含了项目的源代码、文件和文件夹等。当开发者对工作区中的文件进行修改后，这些修改会被记录到暂存区，然后再通过提交（commit）操作将修改保存到本地仓。工作区中的文件可以通过Git命令进行添加、修改、删除等操作，然后通过将修改保存到暂存区和本地仓来管理项目的版本历史记录。</p>
+<h3 id="9、架构层面来优化数据库的读写性能"><a href="#9、架构层面来优化数据库的读写性能" class="headerlink" title="9、架构层面来优化数据库的读写性能"></a>9、架构层面来优化数据库的读写性能</h3><p>高并发读写场景：</p>
+<ul>
+<li>首先是读写分离架构。当我们数据库读QPS过高时，可以通过读写分离架构，增加从库来提升数据库集群的读QPS。</li>
+<li>其次是分表架构。当我们单表数据行数太多，导致读性能下降时，可以用分表架构，将一张表拆成多张小表，从而提升读性能。</li>
+<li>最后是分库架构。当我们数据库写入TPS过高时，可以用分库架构，通过增加多个主库，分散单库的写压力，从而提升数据库整体的写TPS上限。</li>
+</ul>
+<h3 id="10、如何解决热Key问题"><a href="#10、如何解决热Key问题" class="headerlink" title="10、如何解决热Key问题"></a>10、如何解决热Key问题</h3><ul>
+<li>首先是业务服务本地缓存全量数据的方案。要是数据量不大，我们可以直接在服务本地内存把所有数据都缓存起来，这样能大幅度降低热Key问题导致的Redis访问压力。</li>
+<li>然后是业务服务本地只缓存热Key数据的方案。当服务不能缓存全部数据时，我们可以接入热 Key 探测框架，只把那些被频繁访问的热 Key 数据存到本地，节省内存之外还能保证热 Key 的快速读取。</li>
+<li>之后是Redis读写分离架构方案。要是不想让业务层变得复杂，我们可以采取读写分离架构，给每个 Redis Server 都加上从库，让从库去应对热 Key 的高频率读取，分担压力。</li>
+<li>最后是Proxy热Key承载方案。由于读写分离架构会增加Redis资源成本，所以在Redis提供了热Key承载方案的条件下，我们可以优先用Proxy热Key承载方案，这样既能解决热 Key 问题，又能控制成本。</li>
+</ul>
+<p>补充：signlefight机制也可以解决</p>
+<h3 id="11、如何解决大Key问题"><a href="#11、如何解决大Key问题" class="headerlink" title="11、如何解决大Key问题"></a>11、如何解决大Key问题</h3><p>首先是<strong>基于PB序列化的数据压缩方案</strong>。在将数据存储到Redis时，我们很多时候会使用JSON格式。通过改用PB序列化，我们可以避免不必要的数据写入，从而有效减少数据体积，预防大Key问题的发生。</p>
+<p>其次是<strong>基于版本号机制的大Key拆分方案</strong>。在数据经过压缩后，如果它的大小仍然超出了大Key的标准，我们就可以采用这一方案。通过将数据拆分成多个部分，并为每个部分添加版本号作为子Key，我们可以有效避免因拆分操作而可能引发的脏读问题。</p>
+<h3 id="12、全量本地缓存"><a href="#12、全量本地缓存" class="headerlink" title="12、全量本地缓存"></a>12、全量本地缓存</h3><p><strong>如何解决加载慢的问题：</strong>对于数据量较小的情况，我们可以直接从数据库轮询获取数据。然而，面对大量数据时，这种方法会导致启动时间过长。为了加速程序启动，我们可以采用<strong>本地文件加载和数据库轮询加载相结合的策略</strong>（时间戳看增量数据，启动过程中的数据）。</p>
+<p><strong>如何解决实时性和一致性问题：</strong>对于那些对实时性要求不高的场景，我们可以设定一个时间间隔，定期从数据库轮询获取更新的数据。但是，如果业务需要更高的实时性，我们可以采用 <strong>RocketMQ 广播消费</strong>的方式，以实现更快速的数据同步（MQ数据来源：Canal），最好还要有定期对账机制。</p>
+<p><strong>如何解决本地缓存过大问题：</strong>我们可以采用<strong>分片集群</strong>的思想，将数据分散加载到不同的服务集群中，从而降低单机内存的负担。</p>
+<h3 id="13、设计模式"><a href="#13、设计模式" class="headerlink" title="13、设计模式"></a>13、设计模式</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/923e84b23544fae2c5887f8d2a83be7f.jpg"
+                      alt="img"
+                ></p>
+<h3 id="14、如何编写相似函数"><a href="#14、如何编写相似函数" class="headerlink" title="14、如何编写相似函数"></a>14、如何编写相似函数</h3><p>反射、泛型</p>
+<h3 id="15、代码编写陷阱"><a href="#15、代码编写陷阱" class="headerlink" title="15、代码编写陷阱"></a>15、代码编写陷阱</h3><ul>
+<li><strong>接口变量判空问题</strong>。接口变量在底层会储存类型 T 和值 V 这两个关键元素。当值为 nil 但类型不为 nil 时，就可能出现类似 “nil 不等于 nil” 这种看似矛盾的奇怪现象。</li>
+<li><strong>循环变量的使用问题</strong>。在 Go 1.22 版本之前，循环迭代变量的作用域涵盖整个循环体。如果我们在循环内部直接使用这个变量，极有可能引发一些令人困惑的</li>
+<li>问题。</li>
+<li><strong>数值类型的JSON反序列化问题</strong>。当我们采用 map[string]interface{} 类型对 JSON 字符串进行反序列化操作时，会发现 int 类型悄然变成了 float64 类型的诡异现象。</li>
+<li>最后还有<strong>并发原语和库的使用问题</strong>。如果 WaitGroup 和 channel 使用不当，程序不仅可能出现错误，还极有可能导致协程泄漏，对程序的稳定性造成严重影响。</li>
+</ul>
+<h3 id="16、日志和错误码"><a href="#16、日志和错误码" class="headerlink" title="16、日志和错误码"></a>16、日志和错误码</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250406235709673.png"
+                      alt="image-20250406235709673"
+                ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/202304160007776.png"
-                      alt="image-20230416000751679"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/image-20250406235656368.png"
+                      alt="image-20250406235656368"
                 ></p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">git reset：回退版本，可指定某一次提交的版本。</span><br><span class="line">1、--soft参数</span><br><span class="line">回滚本地仓库</span><br><span class="line"></span><br><span class="line">2、--mixed参数</span><br><span class="line">这是默认参数。表示本地仓和暂存区，都回滚到Y版本号。工作区代码不受影响。</span><br><span class="line"></span><br><span class="line">3、--hard参数</span><br><span class="line">本地仓、暂存区、工作区，三区都回滚。</span><br><span class="line"></span><br><span class="line">4.使用 ～数字表示</span><br><span class="line">HEAD~0 表示当前版本</span><br><span class="line">HEAD~~1 上一个版本</span><br><span class="line">HEAD~~2 上上一个版本</span><br><span class="line">HEAD~3 上上上一个版本</span><br></pre></td></tr></table></figure></div>
+<p><a class="link"   target="_blank" rel="noopener" href="https://xiaoxue-images.oss-cn-shenzhen.aliyuncs.com/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4Java%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83%EF%BC%88%E5%B5%A9%E5%B1%B1%E7%89%88%EF%BC%89.pdf" >阿里成熟的错误码规范<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<h3 id="17、mock"><a href="#17、mock" class="headerlink" title="17、mock"></a>17、mock</h3><div class="code-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;github.com/agiledragon/gomonkey/v2&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发送HTTP GET请求并返回响应的函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">httpGetRequest</span><span class="params">(url <span class="type">string</span>)</span></span> ([]<span class="type">byte</span>, <span class="type">error</span>) &#123;</span><br><span class="line">    resp, err := http.Get(url)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> resp.Body.Close()</span><br><span class="line">    <span class="keyword">return</span> io.ReadAll(resp.Body)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 依赖httpGetRequest函数获取用户信息的函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fetchUserInfo</span><span class="params">(userID <span class="type">string</span>)</span></span> (<span class="type">string</span>, <span class="type">error</span>) &#123;</span><br><span class="line">    url := <span class="string">&quot;https://example.com/api/user/&quot;</span> + userID</span><br><span class="line">    data, err := httpGetRequest(url)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">string</span>(data), <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestMock</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 使用gomonkey mock函数httpGetRequest的返回</span></span><br><span class="line">    mockData := []<span class="type">byte</span>(<span class="string">`&#123;&quot;name&quot;:&quot;killianxu&quot;,&quot;age&quot;:32&#125;`</span>)</span><br><span class="line">    patch := gomonkey.ApplyFunc(httpGetRequest, <span class="function"><span class="keyword">func</span><span class="params">(url <span class="type">string</span>)</span></span> ([]<span class="type">byte</span>, <span class="type">error</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> mockData, <span class="literal">nil</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">defer</span> patch.Reset()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 底层httpGetRequest的函数调用返回，会被mock</span></span><br><span class="line">    mockUserInfo, _ := fetchUserInfo(<span class="string">&quot;123&quot;</span>)</span><br><span class="line"></span><br><span class="line">    fmt.Printf(<span class="string">&quot;mocked user info: %s\n&quot;</span>, mockUserInfo)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出</span></span><br><span class="line">killianxu@KILLIANXU-MB0 mock % <span class="keyword">go</span> test -gcflags=all=-l</span><br><span class="line">mocked user info: &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;killianxu&quot;</span>,<span class="string">&quot;age&quot;</span>:<span class="number">32</span>&#125;</span><br></pre></td></tr></table></figure></div>
 
 
 
 
 
-<h3 id="10-开发流程"><a href="#10-开发流程" class="headerlink" title="10.开发流程"></a>10.开发流程</h3><p>每天只要干活先从远程仓库pull(拉取)下来，结束工作先pull，再commite整个项目，再push到远程仓库（自己创建feature分支实现功能）</p>
-<h3 id="11-补充"><a href="#11-补充" class="headerlink" title="11.补充"></a>11.补充</h3><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">git init	//该命令执行完后会在当前目录生成一个 .git 目录。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git init newrepo	//初始化后，会在 newrepo 目录下会出现一个名为 .git 的目录，所有 Git 需要的数据和资源都存放在这个目录中。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git add *.c</span><br><span class="line">git add README</span><br><span class="line">git commit -m &quot;初始化项目版本&quot;</span><br><span class="line">//以上命令将目录下以 .c 结尾及 README 文件提交到仓库中。 -m:提交信息</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git clone &lt;repository&gt;  &lt;directory&gt;	//从Git仓库中拷贝项目到指定目录，目录可选</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git config --list	//显示当前的 git 配置信息：</span><br><span class="line">git config -e	//针对当前仓库 </span><br><span class="line">git config -e --global	//针对系统上所有仓库</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//设置提交代码时的用户信息</span><br><span class="line">git config --global user.name &quot;runoob&quot;</span><br><span class="line">git config --global user.email test@runoob.com</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git status	//查看仓库当前的状态，显示有变更的文件</span><br><span class="line">git --version	//获取Git版本号的命令</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git rm &lt;file&gt;	//将文件从暂存区和工作区中删除，加上-f就是强制删除，加上--cached是指从暂存区删除</span><br><span class="line">git rm –r *		//进入某个目录中，执行此语句，会删除该目录下的所有文件和子目录。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git mv		//命令用于移动或重命名一个文件、目录或软连接。</span><br><span class="line">git mv [file] [newfile]		//如果新文件名已经存在，但还是要重命名它，可以使用 -f 参数：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">显示暂存区和工作区的差异:git diff [file]</span><br><span class="line">显示暂存区和上一次提交(commit)的差异:git diff --cached [file]</span><br><span class="line">显示两次提交之间的差异:git diff [first-branch]...[second-branch]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git log		//查看历史提交记录。</span><br><span class="line">--oneline	查看历史记录的简洁的版本。</span><br><span class="line">--graph		查看历史中什么时候出现了分支、合并。</span><br><span class="line">--reverse	逆向显示所有日志。</span><br><span class="line">--author	查找指定用户的提交日志可以使用命令</span><br><span class="line">--since和--before	指定日期</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git blame &lt;file&gt; 	//查看指定文件的修改记录</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git remote -v	//显示所有远程仓库</span><br><span class="line">git remote show [remote]显示某个远程仓库的信息：</span><br><span class="line">git remote add [shortname] [url] 添加远程版本库,shortname 为本地的版本库</span><br><span class="line">git remote rm name		//删除远程仓库</span><br><span class="line">git remote rename old_name new_name		//修改仓库名</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git fetch &lt;远程主机名&gt;		//将某个远程主机的更新，全部取回本地。git fetch命令通常用来查看其他人的进程，因为它取回的代码对你本地的开发代码没有影响。默认情况下，git fetch取回所有分支（branch）的更新。如果只想取回特定分支的更新，可以指定分支名。</span><br><span class="line">git fetch &lt;远程主机名&gt; &lt;分支名&gt;		//比如，取回origin主机的master分支(git fetch origin master),所取回的更新，在本地主机上要用&quot;远程主机名/分支名&quot;的形式读取。比如origin主机的master，就要用origin/master读取。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git branch命令的-r选项，可以用来查看远程分支，-a选项查看所有分支。git branch -r、git branch -a</span><br></pre></td></tr></table></figure></div>
-
-
-
-
-
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a class="link"   target="_blank" rel="noopener" href="https://ypbg9olvt2.feishu.cn/docs/doccnTMRmh7YgMwL2PgZ5moWUsd" >Git分支管理规范<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://www.runoob.com/git/git-tutorial.html" >Git 教程 | 菜鸟教程 <i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://juejin.cn/post/7164740289922334727#heading-3" >Git分支管理策略汇总<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/SOFTPOWER1991/my-git/blob/master/git-workflow-tutorial.md" >Git-workflow-tutorial<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://www.liuxing.io/blog/git-workflow/" >Git分支管理策略和工作流程<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<h3 id="工作之后学习的Git"><a href="#工作之后学习的Git" class="headerlink" title="工作之后学习的Git"></a>工作之后学习的Git</h3><p>git clone *** 克隆远程版本库</p>
-<p>git init 初始化本地版仓库</p>
-<p>git status 查看文件状态</p>
-<p>git diff 查看变更内容</p>
-<p>git add [file1] [file2]…. 添加文件到暂存区</p>
-<p>git add . 这个命令将一次性添加所有的文件</p>
-<p>git commit -a 这个选项只考虑Git中已经添加的文件。它不会提交新创建的文件  </p>
-<p>git commit -m “XXXX” 提交更新的文件</p>
-<p>git pull –rebase 拉取    <a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/yao_hou/article/details/108178717" >Git pull –rebase的作用<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<p>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</p>
-<p>git checkout (branchName) 切到指定分支</p>
-<p>git checkout -b (branchName)  用于创建一个新分支branchName并立即切换到新创建的分支</p>
-<p>git branch -d  (branchName)  删除指定分支·</p>
-<p>git branch -a 列出所有本地分支</p>
-<p>git merge  (branchName) 合并指定分支到当前分支</p>
-<p>git log 查看历史提交记录</p>
-<p>git cherry-pick “复制”一个提交节点并在当前分支做一次完全一样的新提交。</p>
-<p>git reset –hard HEAD 本地暂存区退回</p>
-<p>git revert 线上已提交&#x2F;合并分支退回</p>
-<p>git stash 、git stash pop <a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/117553180" >Git stash 命令<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<p>git config –add core.filemode false 忽略filemode变更</p>
-<p>git branch –set-upstream-to origin  remoteBranchName 设置默认的远程分支</p>
-<p>git branch -vv 显示默认的远程分支</p>
-<p>git fetch –all 用于从远程仓库中获取所有分支的更新</p>
-<p>git tag 列出存储在仓库中的标签</p>
-<p>git tag   tagname 创建一个新的标签</p>
-<p>git tag -d  tagname 要删除现有的标签</p>
-<p>git push origin tagname  将标签推送到远程仓库</p>
-<p>git checkout tagname  检出特定的标签</p>
+<h3 id="18、超时和重试"><a href="#18、超时和重试" class="headerlink" title="18、超时和重试"></a>18、超时和重试</h3><p><strong>超时时间</strong>：基于调用下游服务的p99延时（99%的请求都在这个时间内返回），外加一定的冗余时间作为超时时间。而且为了尽量避免无意义的等待，这个超时时间应该小于上游调用我们服务设置的超时时间。</p>
+<p><strong>重试次数</strong>：实践经验，我们一般设置成2-3次，而且这个重试次数，需要小于上游超时时间除以我们调下游的超时时间<strong>，</strong>避免无效重试（最好还要设置重试阈值熔断）。</p>
+<h3 id="19、熔断和降级"><a href="#19、熔断和降级" class="headerlink" title="19、熔断和降级"></a>19、熔断和降级</h3><p><strong>熔断：</strong>熔断器的核心实现逻辑是一个状态机，分别在打开状态、断开状态、半打开状态之间转换。</p>
+<p><strong>降级：</strong>降级的常见策略有返回兜底数据、异步处理和关闭非核心功能三种方案。</p>
+<h3 id="20、限流"><a href="#20、限流" class="headerlink" title="20、限流"></a>20、限流</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog-1314857283.cos.ap-shanghai.myqcloud.com/images/7748b2c564ee438d7d65b7ef7fd6c15b.jpg"
+                      alt="img"
+                ></p>
+<h3 id="21、故障隔离"><a href="#21、故障隔离" class="headerlink" title="21、故障隔离"></a>21、故障隔离</h3><p><strong>数据隔离：</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://static001.geekbang.org/resource/image/fc/44/fcf77beebd07ecbbayyb44af09cf3444.jpg?wh=4000x1761"
+                      alt="img"
+                ></p>
+<p><strong>集群隔离：</strong>根据请求的不同，我们通常会把在线请求和离线请求分别部署在不同的集群中，同时，也会对在线请求进一步按照核心和非核心的区别来拆分集群。</p>
+<p><strong>服务拆分：</strong>为避免其他接口的迭代过程对核心接口产生影响，我们有时候可以考虑将核心接口单独拆分成独立的服务。</p>
+<h3 id="22、部署策略"><a href="#22、部署策略" class="headerlink" title="22、部署策略"></a>22、部署策略</h3><ul>
+<li><strong>停机部署</strong>：在这种部署方式下，在发布新版本时，我们需要先停止服务的运行，待新版本的代码和配置准备好之后，再重新启动服务。</li>
+<li><strong>蓝绿部署</strong>：在实施蓝绿部署时，除了正在运行稳定版本代码的线上蓝环境外，我们还需要搭建一套全新的绿环境，并且将绿环境中的代码更新为即将发布的新版本。当在绿环境中的各项测试与验证都确认无误后，再通过流量调度，逐步将线上流量从蓝环境切换到绿环境。（资源成本相对较高）</li>
+<li><strong>滚动部署</strong>。滚动部署是一种按比例分批将新版本部署到各个服务器的策略，它的操作流程如下：首先，根据预设的滚动比例，将部分服务器从 Consul等服务注册系统中暂时移除，以此中断线上流量对这些服务器的调用。随后，对这些已移除的服务器进行升级操作，待升级完成后，再将它们重新注册回 Consul 等系统中。最后，上游服务能够借助 Consul 等再次发现这些服务器，并把流量引导至这些已经部署了新版本代码的服务器上。当然，如果在滚动更新过程中发现任何问题，我们可以暂停后续更新并执行回滚；如果一切顺利，就可以继续下一轮滚动更新（资源利用效率高。但是进行部署还是回滚操作，所耗费的时间都相对较长）</li>
+<li><strong>灰度部署</strong>：灰度部署借鉴了煤矿工人使用金丝雀检测有害气体的做法，先将新版本代码部署到一小部分特定的服务器（单独配置监控），通过观察他们的使用情况来判断新版本是否存在问题（和滚动部署相比，灰度部署的优势在于能够先把新版本部署到某些特定的灰度机器上，并且会提前为这些灰度机器配置单独的监控。通过这种方式，我们更加容易发现新版本可能潜藏的问题，进而有效降低发布风险）</li>
+</ul>
+<p>在实际操作过程中，很多公司会采用<strong>灰度部署和滚动部署相结合的发布策略</strong>。首先将新版本部署到灰度机器上，对它们的运行情况进行一段时间的观察，确认没有问题之后，再按照一定的比例，采用滚动部署的方式对其他机器进行更新，最终实现全量发布。</p>
 
 		</div>
 
@@ -781,18 +743,18 @@
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> Git多人协作</li>
+        <li><strong>标题:</strong> Go服务开发Tips</li>
         <li><strong>作者:</strong> 纸鸢</li>
         <li><strong>创建于
-                :</strong> 2023-02-28 14:26:42</li>
+                :</strong> 2025-01-06 21:50:33</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-01-01 19:10:04
+                    :</strong> 2025-04-07 01:19:15
             </li>
         
         <li>
-            <strong>链接:</strong> https://www.youandgentleness.cn/2023/02/28/Git多人协作/
+            <strong>链接:</strong> https://www.youandgentleness.cn/2025/01/06/Go服务开发Tips/
         </li>
         <li>
             <strong>
@@ -814,7 +776,7 @@
 		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
 			
 			<li class="tag-item mx-0.5">
-				<a href="/tags/git/">#git</a>&nbsp;
+				<a href="/tags/Golang/">#Golang</a>&nbsp;
 			</li>
 			
 		</ul>
@@ -826,12 +788,12 @@
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
 			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2023/03/06/go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%9550%E9%97%AE/">
+				<a class="prev" rel="prev" href="/2025/01/19/golang%E7%9A%84pprof%E4%B8%8E%E7%81%AB%E7%84%B0%E5%9B%BE%E5%AE%9E%E6%88%98/">
 					<span class="left arrow-icon flex justify-center items-center">
 						<i class="fa-solid fa-chevron-left"></i>
 					</span>
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">go基础语法50问</span>
+						<span class="post-nav-title-item">golang的pprof与火焰图实战</span>
 						<span class="post-nav-item">上一篇</span>
 					</span>
 				</a>
@@ -839,9 +801,9 @@
 			
 			
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/2023/01/02/Go%E5%AE%9E%E7%8E%B0%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+				<a class="next" rel="next" href="/2024/12/16/%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%BE%E8%AE%A1%E4%B9%8B%E9%81%93/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">Go实现十大排序算法</span>
+						<span class="post-nav-title-item">后台服务架构高性能设计之道</span>
 						<span class="post-nav-item">下一篇</span>
 					</span>
 					<span class="right arrow-icon flex justify-center items-center">
@@ -920,8 +882,8 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
-		<div class="page-title">Git多人协作</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%AE%B0"><span class="nav-text">题记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-text">1.创建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%BF%9E%E6%8E%A5GitHub"><span class="nav-text">2.连接GitHub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-develop%E5%88%86%E6%94%AF"><span class="nav-text">3.develop分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-feature%E5%88%86%E6%94%AF"><span class="nav-text">4.feature分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-release%E5%88%86%E6%94%AF"><span class="nav-text">5.release分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-hotfix%E5%88%86%E6%94%AF"><span class="nav-text">6.hotfix分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-tag%E6%A0%87%E7%AD%BE"><span class="nav-text">7.tag标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E9%82%80%E8%AF%B7%E4%BB%96%E4%BA%BA%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91"><span class="nav-text">8.邀请他人协作开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E5%9B%9E%E9%80%80%E7%89%88%E6%9C%AC"><span class="nav-text">9.回退版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="nav-text">10.开发流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E8%A1%A5%E5%85%85"><span class="nav-text">11.补充</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E4%B9%8B%E5%90%8E%E5%AD%A6%E4%B9%A0%E7%9A%84Git"><span class="nav-text">工作之后学习的Git</span></a></li></ol></li></ol></li></ol>
+		<div class="page-title">Go服务开发Tips</div>
+		<ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%A6%82%E4%BD%95%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-text">1、如何性能优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E4%BC%98%E5%8C%96%E6%80%A7%E8%83%BD%E4%B8%89%E5%A4%A7%E5%88%A9%E5%99%A8"><span class="nav-text">2、优化性能三大利器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96"><span class="nav-text">3、代码优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E5%B9%B6%E5%8F%91%E7%AD%89%E5%BE%85%E6%8A%80%E5%B7%A7"><span class="nav-text">4、并发等待技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E9%94%81%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">5、锁的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E5%A4%A7%E8%A7%84%E6%A8%A1%E6%95%B0%E6%8D%AE%E7%BC%93%E5%AD%98%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-text">6、大规模数据缓存如何设计数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7%E3%80%81IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E5%BA%95%E5%B1%82"><span class="nav-text">7、IO多路复用底层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8%E3%80%81%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%BB%B6%E6%97%B6"><span class="nav-text">8、网络通信延时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9%E3%80%81%E6%9E%B6%E6%9E%84%E5%B1%82%E9%9D%A2%E6%9D%A5%E4%BC%98%E5%8C%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%AF%BB%E5%86%99%E6%80%A7%E8%83%BD"><span class="nav-text">9、架构层面来优化数据库的读写性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10%E3%80%81%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E7%83%ADKey%E9%97%AE%E9%A2%98"><span class="nav-text">10、如何解决热Key问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11%E3%80%81%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%A4%A7Key%E9%97%AE%E9%A2%98"><span class="nav-text">11、如何解决大Key问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12%E3%80%81%E5%85%A8%E9%87%8F%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98"><span class="nav-text">12、全量本地缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13%E3%80%81%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-text">13、设计模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14%E3%80%81%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E7%9B%B8%E4%BC%BC%E5%87%BD%E6%95%B0"><span class="nav-text">14、如何编写相似函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15%E3%80%81%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E9%99%B7%E9%98%B1"><span class="nav-text">15、代码编写陷阱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16%E3%80%81%E6%97%A5%E5%BF%97%E5%92%8C%E9%94%99%E8%AF%AF%E7%A0%81"><span class="nav-text">16、日志和错误码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17%E3%80%81mock"><span class="nav-text">17、mock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18%E3%80%81%E8%B6%85%E6%97%B6%E5%92%8C%E9%87%8D%E8%AF%95"><span class="nav-text">18、超时和重试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19%E3%80%81%E7%86%94%E6%96%AD%E5%92%8C%E9%99%8D%E7%BA%A7"><span class="nav-text">19、熔断和降级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20%E3%80%81%E9%99%90%E6%B5%81"><span class="nav-text">20、限流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#21%E3%80%81%E6%95%85%E9%9A%9C%E9%9A%94%E7%A6%BB"><span class="nav-text">21、故障隔离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22%E3%80%81%E9%83%A8%E7%BD%B2%E7%AD%96%E7%95%A5"><span class="nav-text">22、部署策略</span></a></li></ol>
 
 	</div>
 </div>
