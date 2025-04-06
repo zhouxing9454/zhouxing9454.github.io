@@ -498,15 +498,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">18</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">18</div>
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">39</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
         <div class="label text-third-text-color text-sm">文章</div>
     </a>
 </div>
@@ -538,15 +538,15 @@
 </div>
                 <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">18</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">18</div>
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">39</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
         <div class="label text-third-text-color text-sm">文章</div>
     </a>
 </div>
@@ -561,6 +561,75 @@
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/08/29/%E4%B8%8A%E7%8F%AD%E9%81%87%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%81%E9%97%AE%E9%A2%98/">
+                            数据库锁问题
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            题记​	今天在公司遇见了一个数据库锁问题，复盘一下。
+问题与原因​	测试环境下更新Spine接口：biz层使用ExecTx调用data层的一些函数用于数据库操作，其中更新文件时间戳的代码如下所示，其他都是使用c.db.DB(ctx)来实现数据库操作，这可能会出现更新文件时间戳操作使用的 gorm.DB 实例和其他的不同，导致事务不一致的问题。（我就遇见了执行到更新文件时间戳函数卡住的情况，锁...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Thu Aug 29 2024 23:07:50 GMT+0800">
+                
+                    2024-08-29
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2024/08/29/%E4%B8%8A%E7%8F%AD%E9%81%87%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%81%E9%97%AE%E9%A2%98/">阅读全文<span class="seo-reader-text">数据库锁问题</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -1010,78 +1079,6 @@ Kafka介绍Kafka是什么12345678kafka使用scala开发，支持多语言客户�
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2023/03/30/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95/">
-                            雪花算法
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            题记当我们需要生成不重复的ID，通常有以下几种做法：
-
-UUID（通用唯一标识符）：使用算法生成的通用唯一标识符，可以保证在同一台机器上生成的ID不会重复，也可以在多台机器之间生成全局唯一ID。
-雪花算法（Snowflake）：Twitter开发的一种生成不重复ID的算法，可以在分布式系统中生成不重复的ID。使用时间戳、数据中心ID和工作节点ID等信息进行位运算和组合生成ID。
-数据库自增列...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Mar 30 2023 12:16:32 GMT+0800">
-                
-                    2023-03-30
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2023/03/30/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95/">阅读全文<span class="seo-reader-text">雪花算法</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1112,7 +1109,7 @@ UUID（通用唯一标识符）：使用算法生成的通用唯一标识符，�
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        共撰写了 39 篇文章
+                        共撰写了 40 篇文章
                     </span>
                     
                 </p>
