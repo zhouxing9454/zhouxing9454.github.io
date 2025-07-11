@@ -1,0 +1,178 @@
+details {
+  margin-bottom: 1rem;
+}
+details> summary {
+  list-style: none;
+}
+details> summary::-webkit-details-marker {
+  display: none;
+}
+details> summary::marker {
+  display: none;
+}
+details[open] > summary {
+  border-radius: $redefine-border-radius-small $redefine-border-radius-small 0 0;
+  border-bottom: 1px solid transparent;
+}
+details[open] > summary i.fa-chevron-right {
+  transform: rotate(90deg);
+  transition: transform 0.2s ease;
+}
+summary {
+  border: solid 1px var(--shadow-color-1);
+  border-radius: $redefine-border-radius-small;
+  padding: 15px;
+  font-size: 1.2rem;
+  background-color: var(--background-color);
+  line-height: 2rem;
+  cursor: pointer;
+}
+summary:marker {
+  margin-right: 100px;
+}
+summary i.fa-chevron-right {
+  transform: rotate(0deg);
+  transition: transform 0.2s ease;
+  margin-right: 1rem;
+  float: right;
+  padding-top: 6px;
+}
+summary:hover {
+  background-color: rgba(166,166,166,0.188);
+}
+summary p {
+  display: inline-block;
+  margin: 0;
+  float: left;
+}
+details div.content {
+  border-radius: 0 0 $redefine-border-radius-small $redefine-border-radius-small;
+  border: solid 1px var(--shadow-color-1);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: var(--second-background-color);
+  animation: fade 0.2s ease forwards;
+}
+details div.content>:first-child {
+  margin-top: 0;
+}
+details.yellow summary:hover {
+  background-color: rgba(255,238,48,0.188);
+}
+details.yellow[open] > summary {
+  background-color: rgba(255,238,48,0.188);
+}
+details.blue summary:hover {
+  background-color: rgba(0,166,255,0.188);
+}
+details.blue[open] > summary {
+  background-color: rgba(0,166,255,0.188);
+}
+details.green summary:hover {
+  background-color: rgba(0,255,166,0.188);
+}
+details.green[open] > summary {
+  background-color: rgba(0,255,166,0.188);
+}
+details.red summary:hover {
+  background-color: rgba(255,0,0,0.188);
+}
+details.red[open] > summary {
+  background-color: rgba(255,0,0,0.188);
+}
+details.orange summary:hover {
+  background-color: rgba(255,152,48,0.188);
+}
+details.orange[open] > summary {
+  background-color: rgba(255,152,48,0.188);
+}
+details.pink summary:hover {
+  background-color: rgba(255,0,255,0.188);
+}
+details.pink[open] > summary {
+  background-color: rgba(255,0,255,0.188);
+}
+details.cyan summary:hover {
+  background-color: rgba(0,255,255,0.188);
+}
+details.cyan[open] > summary {
+  background-color: rgba(0,255,255,0.188);
+}
+details.white summary:hover {
+  background-color: rgba(255,255,255,0.188);
+}
+details.white[open] > summary {
+  background-color: rgba(255,255,255,0.188);
+}
+details.black summary:hover {
+  background-color: rgba(0,0,0,0.188);
+}
+details.black[open] > summary {
+  background-color: rgba(0,0,0,0.188);
+}
+details.gray summary:hover {
+  background-color: rgba(166,166,166,0.188);
+}
+details.gray[open] > summary {
+  background-color: rgba(166,166,166,0.188);
+}
+details.purple summary:hover {
+  background-color: rgba(167,99,255,0.188);
+}
+details.purple[open] > summary {
+  background-color: rgba(167,99,255,0.188);
+}
+details summary:hover {
+  background-color: rgba(166,166,166,0.188);
+}
+details[open] > summary {
+  background-color: rgba(166,166,166,0.188);
+}
+@-moz-keyframes fade {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+@-webkit-keyframes fade {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+@-o-keyframes fade {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}

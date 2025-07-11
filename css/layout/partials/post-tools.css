@@ -1,0 +1,30 @@
+.post-tools-container .article-tools-list li {
+  cursor: pointer;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+  background: var(--background-color);
+  color: var(--default-text-color);
+}
+.post-tools-container .article-tools-list li i {
+  color: var(--default-text-color);
+}
+.post-tools-container .article-tools-list li:hover {
+  background: var(--primary-color);
+  color: var(--background-color);
+}
+.post-tools-container .article-tools-list li:hover i {
+  color: var(--background-color);
+}
+.post-tools-container .article-tools-list li:last-child {
+  margin-bottom: 0;
+}
+.post-tools-container .article-tools-list li.page-aside-toggle {
+  display: none;
+redefine-tablet()
+}

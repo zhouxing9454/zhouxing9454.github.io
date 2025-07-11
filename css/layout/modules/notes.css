@@ -1,0 +1,195 @@
+.note-large {
+  box-shadow: var(--redefine-box-shadow-flat);
+  border-radius: $redefine-border-radius-small;
+  margin-bottom: 2rem;
+}
+.note-large .notel-title {
+  background-color: rgba(166,166,166,0.251);
+}
+.note-large .notel-content {
+  border-radius: 0 0 5px 5px;
+  padding: 15px;
+  background-color: var(--background-color);
+  line-height: 2rem;
+}
+.note-large p {
+  margin: 0;
+}
+.note-large.gray,
+.note-large.default {
+  border-left: solid 4px #a6a6a6;
+}
+.note-large.gray .notel-title,
+.note-large.default .notel-title {
+  background-color: rgba(166,166,166,0.251);
+}
+.note-large.green,
+.note-large.success {
+  border-left: solid 4px #00c58e;
+}
+.note-large.green .notel-title,
+.note-large.success .notel-title {
+  background-color: rgba(0,197,142,0.251);
+}
+.note-large.yellow,
+.note-large.warning {
+  border-left: solid 4px #ffd43b;
+}
+.note-large.yellow .notel-title,
+.note-large.warning .notel-title {
+  background-color: rgba(255,212,59,0.251);
+}
+.note-large.red,
+.note-large.danger {
+  border-left: solid 4px #f85676;
+}
+.note-large.red .notel-title,
+.note-large.danger .notel-title {
+  background-color: rgba(248,86,118,0.251);
+}
+.note-large.purple,
+.note-large.primary {
+  border-left: solid 4px #a763ff;
+}
+.note-large.purple .notel-title,
+.note-large.primary .notel-title {
+  background-color: rgba(167,99,255,0.251);
+}
+.note-large.orange {
+  border-left: solid 4px #ffa940;
+}
+.note-large.orange .notel-title {
+  background-color: rgba(255,169,64,0.251);
+}
+.note-large.blue,
+.note-large.info {
+  border-left: solid 4px #2fd6f0;
+}
+.note-large.blue .notel-title,
+.note-large.info .notel-title {
+  background-color: rgba(47,214,240,0.251);
+}
+.note {
+  box-shadow: var(--redefine-box-shadow-flat);
+  background-color: var(--background-color);
+  border-left: solid 4px #a6a6a6;
+}
+.note p {
+  display: inline-block;
+  margin: 0;
+  max-width: 100%;
+}
+.note-icon {
+  font-size: 1rem;
+  padding-right: 10px;
+  display: inline-block;
+}
+.icon-padding {
+  padding-left: 15px !important;
+}
+.note.default {
+  border-left: solid 4px #a6a6a6;
+}
+.note.default .note.icon {
+  color: #a6a6a6;
+}
+.note.success {
+  background-color: rgba(0,197,142,0.063);
+  border-left: solid 4px #00c58e;
+}
+.note.success .note.icon {
+  color: #00c58e;
+}
+.note.warning {
+  background-color: rgba(255,212,59,0.063);
+}
+border-left solid 4px #FFD43B .note.icon {
+  color: #ffd43b;
+}
+.note.danger {
+  background-color: rgba(248,86,118,0.063);
+  border-left: solid 4px #f85676;
+}
+.note.danger .note.icon {
+  color: #f85676;
+}
+.note.primary {
+  background-color: rgba(167,99,255,0.063);
+  border-left: solid 4px #a763ff;
+}
+.note.primary .note.icon {
+  color: #a763ff;
+}
+.note.orange {
+  background-color: rgba(255,169,64,0.063);
+  border-left: solid 4px #ffa940;
+}
+.note.orange .note.icon {
+  color: #ffa940;
+}
+.note.info {
+  background-color: rgba(47,214,240,0.063);
+  border-left: solid 4px #2fd6f0;
+}
+.note.info .note.icon {
+  color: #2fd6f0;
+}
+.note.blue {
+  background-color: rgba(47,214,240,0.063);
+  border-left: solid 4px #2fd6f0;
+}
+.note.blue .note.icon {
+  color: #2fd6f0;
+}
+.note.gray {
+  border-left: solid 4px #a6a6a6;
+}
+.note.gray .note.icon {
+  color: #a6a6a6;
+}
+.note.yellow {
+  background-color: rgba(255,212,59,0.063);
+  border-left: solid 4px #ffd43b;
+}
+.note.yellow .note.icon {
+  color: #ffd43b;
+}
+.note.red {
+  background-color: rgba(248,86,118,0.063);
+  border-left: solid 4px #f85676;
+}
+.note.red .note.icon {
+  color: #f85676;
+}
+.note.question,
+.note.purple {
+  background-color: rgba(167,99,255,0.063);
+  border-left: solid 4px #a763ff;
+}
+.note.question .note.icon,
+.note.purple .note.icon {
+  color: #a763ff;
+}
+.note.red {
+  background-color: rgba(248,86,118,0.063);
+  border-left: solid 4px #ff0739;
+}
+.note.red .note.icon {
+  color: #ff0739;
+}
+.note.pink {
+  background-color: rgba(228,75,141,0.063);
+  border-left: solid 4px #e44b8d;
+}
+.note.pink .note.icon {
+  color: #e44b8d;
+}
+.note.green,
+.note.tip {
+  background-color: rgba(71,218,85,0.063);
+  border-left: solid 4px #47da55;
+}
+.note.green .note.icon,
+.note.tip .note.icon {
+  color: #47da55;
+}

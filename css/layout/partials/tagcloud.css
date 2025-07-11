@@ -1,0 +1,106 @@
+.tagcloud-header {
+  margin: 6px 0 12px 0;
+  font-size: 3.2rem;
+  padding: 0;
+  line-height: 1;
+  font-weight: bold;
+  color: var(--second-text-color);
+}
+.tagcloud-content {
+  text-align: justify;
+}
+.tagcloud-content:hover .tag-list a {
+  filter: blur(0px) !important;
+  transition: filter 0.3s ease;
+}
+.tagcloud-content .tag-list[data-show-value] a::after {
+  content: attr(data-weight);
+  font-size: 1.5rem;
+  background-color: var(--third-background-color);
+  padding: 4px 8px;
+  min-width: 35px;
+  margin-left: 10px;
+  border-radius: $redefine-border-radius-small;
+  color: var(--third-text-color);
+  transition: background-color 0.2s ease;
+}
+.tagcloud-content .tags-punctuation,
+.tagcloud-content .tag-list {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  line-height: 2.5rem;
+}
+.tagcloud-content .tags-punctuation li a,
+.tagcloud-content .tag-list li a {
+  font-size: 1.4rem;
+  opacity: var(--opacity);
+  padding: 0.9rem 1.4rem;
+  display: block;
+  position: relative;
+  flex: 1;
+  border-radius: $redefine-border-radius-large;
+  box-shadow: var(--redefine-box-shadow);
+  margin: 10px;
+  color: var(--default-text-color);
+  filter: blur(var(--blur));
+  transform: scaleX(1) scaleY(1);
+  background-color: var(--default-background-color);
+  transition: transform 0.2s ease, filter 0.3s ease, color 0.2s ease, background-color 0.2s ease;
+}
+.tagcloud-content .tags-punctuation li a[data-weight],
+.tagcloud-content .tag-list li a[data-weight] {
+  --blur: 0;
+}
+.tagcloud-content .tags-punctuation li a[data-weight='1'],
+.tagcloud-content .tag-list li a[data-weight='1'] {
+  --blur: 3px;
+}
+.tagcloud-content .tags-punctuation li a[data-weight='2'],
+.tagcloud-content .tag-list li a[data-weight='2'] {
+  --blur: 1.8px;
+}
+.tagcloud-content .tags-punctuation li a[data-weight='3'],
+.tagcloud-content .tag-list li a[data-weight='3'] {
+  --blur: 0.8px;
+}
+.tagcloud-content .tags-punctuation li a[data-weight='4'],
+.tagcloud-content .tag-list li a[data-weight='4'] {
+  --blur: 0.4px;
+}
+.tagcloud-content .tags-punctuation li a[data-weight='5'],
+.tagcloud-content .tag-list li a[data-weight='5'] {
+  --blur: 0;
+}
+.tagcloud-content .tags-punctuation li a .fa-hashtag,
+.tagcloud-content .tag-list li a .fa-hashtag {
+  margin-right: 5px;
+  opacity: 0.3;
+}
+.tagcloud-content .tags-punctuation li a:hover,
+.tagcloud-content .tag-list li a:hover {
+  transform: scaleX(1.05) scaleY(1.05);
+  box-shadow: var(--redefine-box-shadow-hover);
+  background-color: var(--primary-color);
+  color: var(--invert-text-color);
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+.tagcloud-content .tags-punctuation li a:hover .fa-hashtag,
+.tagcloud-content .tag-list li a:hover .fa-hashtag {
+  margin-right: 5px;
+  color: var(--invert-text-color);
+  opacity: 0.4;
+}
+.tagcloud-content .tags-punctuation li a:active,
+.tagcloud-content .tag-list li a:active {
+  transform: translateY(2px);
+  transition: transform 0.1s;
+}
+@media (prefers-reduced-motion) {
+  .tagcloud-content .tag-list * {
+    transition: none !important;
+  }
+}

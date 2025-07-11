@@ -1,0 +1,16 @@
+.progress-bar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: $z-index-9;
+}
+html.is-animating .scroll-progress-bar {
+  opacity: 0;
+  transition: opacity 0.1s ease-out;
+}
+.swup-progress-bar {
+  background: #12c2e9;
+  height: 2px;
+  background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
+}

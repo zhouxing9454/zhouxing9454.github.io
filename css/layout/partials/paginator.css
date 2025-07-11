@@ -1,0 +1,63 @@
+.paginator {
+  font-size: 1rem;
+  margin-top: 30px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+}
+.paginator a {
+  margin: 0 0.3rem;
+}
+.paginator a.active {
+  color: var(--background-color);
+  background: var(--primary-color);
+}
+.paginator a.prev {
+  float: left;
+redefine-mobile()
+}
+.paginator a.next {
+  float: right;
+redefine-mobile()
+}
+.paginator .space {
+  padding: 8px 10px;
+redefine-mobile()
+}
+.paginator a.page-number,
+.paginator span.page-number,
+.paginator a.prev,
+.paginator a.next {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: $redefine-border-radius-small;
+  padding: 8px 16px;
+  background: var(--background-color);
+}
+.paginator a.page-number:hover,
+.paginator span.page-number:hover,
+.paginator a.prev:hover,
+.paginator a.next:hover {
+  color: var(--background-color);
+  background: var(--primary-color);
+}
+.paginator a.page-number:active,
+.paginator span.page-number:active,
+.paginator a.prev:active,
+.paginator a.next:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+.paginator span.current {
+  color: var(--background-color);
+  background: var(--primary-color);
+}
+.paginator i.fa-regular {
+  color: var(--default-text-color);
+}
+.paginator .extend:hover i.fa-regular {
+  color: var(--background-color);
+}
