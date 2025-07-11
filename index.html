@@ -687,11 +687,11 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">23</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">23</div>
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
@@ -727,11 +727,11 @@
 </div>
                 <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">23</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">23</div>
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
@@ -871,7 +871,7 @@
                     
                         
                         <li>
-                            <a href="/categories/ai/">ai</a>&nbsp;
+                            <a href="/categories/gemini-cli/">gemini cli</a>&nbsp;
                         </li>
                     
                     
@@ -886,7 +886,7 @@
                     
                         <li>
                             
-                            <a href="/tags/ai/">ai</a>&nbsp;
+                            <a href="/tags/gemini-cli/">gemini cli</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -895,6 +895,213 @@
     </div>
 
     <a href="/2025/07/11/Gemini%20CLI%E6%95%99%E7%A8%8B/">阅读全文<span class="seo-reader-text">Gemini CLI教程</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/03/27/SQL%E7%9A%84Count%E5%87%BD%E6%95%B0%E4%BC%98%E5%8C%96/">
+                            SQL的Count函数优化
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            题记​	产品发现内部资源平台查询资源列表接口很慢，然后我开始排查问题，使用Jaeger（阿里云Golang Agent）查询发现select count(*)一行sql语句运行了300ms，然后EXPLAIN语句发现全表扫描，然后开始查资料优化count(*)的速度，最后写了这篇文章。
+什么是count()函数​	count()是一个聚合函数，函数的参数不仅可以是字段名，也可以是其他任意表达...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Thu Mar 27 2025 23:34:34 GMT+0800">
+                
+                    2025-03-27
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/MySQL/">MySQL</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/MySQL/">MySQL</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/03/27/SQL%E7%9A%84Count%E5%87%BD%E6%95%B0%E4%BC%98%E5%8C%96/">阅读全文<span class="seo-reader-text">SQL的Count函数优化</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2023/11/06/RDB%E8%AE%BE%E8%AE%A1%E8%A7%84%E7%BA%A6/">
+                            RDB设计规约
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            怎么才能很好的避免低级故障？以下规范在大型互联网公司经过了充分的验证，尤其适用于并发量大、数据量大的业务场景。
+在我们对数据库技术方案设计的时候，我们是否有自己的设计理念或者原则，还是更多的依据自己的直觉去设计，是否曾经懊悔线上发生过的一次低级故障，可能稍微注意点就可以避免，是否想过怎么才能很好的避免，下面规范的价值正是我们工作的检查清单，需要我们不断从错误中积累有效经验来指导未来的工作。以...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Mon Nov 06 2023 18:49:47 GMT+0800">
+                
+                    2023-11-06
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/MySQL/">MySQL</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/MySQL/">MySQL</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2023/11/06/RDB%E8%AE%BE%E8%AE%A1%E8%A7%84%E7%BA%A6/">阅读全文<span class="seo-reader-text">RDB设计规约</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/08/29/%E4%B8%8A%E7%8F%AD%E9%81%87%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%81%E9%97%AE%E9%A2%98/">
+                            数据库锁问题
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            题记​	今天在公司遇见了一个数据库锁问题，复盘一下。
+问题与原因​	测试环境下更新Spine接口：biz层使用ExecTx调用data层的一些函数用于数据库操作，其中更新文件时间戳的代码如下所示，其他都是使用c.db.DB(ctx)来实现数据库操作，这可能会出现更新文件时间戳操作使用的 gorm.DB 实例和其他的不同，导致事务不一致的问题。（我就遇见了执行到更新文件时间戳函数卡住的情况，锁...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Thu Aug 29 2024 23:07:50 GMT+0800">
+                
+                    2024-08-29
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/MySQL/">MySQL</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/MySQL/">MySQL</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2024/08/29/%E4%B8%8A%E7%8F%AD%E9%81%87%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%81%E9%97%AE%E9%A2%98/">阅读全文<span class="seo-reader-text">数据库锁问题</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1099,197 +1306,6 @@ channel如何优雅的关闭
     </div>
 
     <a href="/2025/05/07/%E4%B8%83%E7%8C%AB%E9%9D%A2%E7%BB%8F/">阅读全文<span class="seo-reader-text">七猫面经</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2024/12/16/%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%BE%E8%AE%A1%E4%B9%8B%E9%81%93/">
-                            后台服务架构高性能设计之道
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            本文主要是转载于腾讯技术工程微信公众号的文章，是一篇关于如何设计一个高性能&#x2F;高并发&#x2F;高可用&#x2F;高可靠&#x2F;可扩展的系统，大纲如下：
-
-原文链接：后台服务架构高性能设计之道
-
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Mon Dec 16 2024 22:49:42 GMT+0800">
-                
-                    2024-12-16
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2024/12/16/%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%BE%E8%AE%A1%E4%B9%8B%E9%81%93/">阅读全文<span class="seo-reader-text">后台服务架构高性能设计之道</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/03/27/SQL%E7%9A%84Count%E5%87%BD%E6%95%B0%E4%BC%98%E5%8C%96/">
-                            SQL的Count函数优化
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            题记​	产品发现内部资源平台查询资源列表接口很慢，然后我开始排查问题，使用Jaeger（阿里云Golang Agent）查询发现select count(*)一行sql语句运行了300ms，然后EXPLAIN语句发现全表扫描，然后开始查资料优化count(*)的速度，最后写了这篇文章。
-什么是count()函数​	count()是一个聚合函数，函数的参数不仅可以是字段名，也可以是其他任意表达...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Mar 27 2025 23:34:34 GMT+0800">
-                
-                    2025-03-27
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/03/27/SQL%E7%9A%84Count%E5%87%BD%E6%95%B0%E4%BC%98%E5%8C%96/">阅读全文<span class="seo-reader-text">SQL的Count函数优化</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2023/09/21/Golang%E5%85%AB%E8%82%A1%E6%96%87%E6%B1%87%E6%80%BB/">
-                            Golang八股文汇总
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            题记本文记录Golang语言面试的八股文。
-Go基础init和main函数相关特点init函数（没有输入参数、返回值）的主要作用：
-
-初始化不能采用初始化表达式初始化的变量。
-程序运行前的注册。
-实现sync.Once功能。
-其他
-
-init 顺序
-1、在同一个 package 中，可以多个文件中定义 init 方法
-2、在同一个 go 文件中，可以重复定义 init 方法
-3、在同一个 p...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Sep 21 2023 15:49:10 GMT+0800">
-                
-                    2023-09-21
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/Golang/">Golang</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/Golang/">Golang</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2023/09/21/Golang%E5%85%AB%E8%82%A1%E6%96%87%E6%B1%87%E6%80%BB/">阅读全文<span class="seo-reader-text">Golang八股文汇总</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
